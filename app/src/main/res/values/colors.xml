@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="accent">#e74c3c</color>
+    <color name="accent_dark">#c0392b</color>
+
+    <color name="red">#ffff0000</color>
+    <color name="emerald">#2ecc71</color>
+    <color name="black_overlay">#66000000</color>
+
+    <color name="text_color">#212121</color>
+    <color name="secondary_text_color">#727272</color>
+    <color name="hint_text_color">#B8B8B8</color>
+
+    <color name="flat_blue">#3498db</color>
+    <color name="flat_green">#5CBC6B</color>
+    <color name="flat_green_dark">#43A047</color>
+    <color name="flat_pink">#f67280</color>
+</resources>
