@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package org.wordcamp;
+package org.wordcamp.widgets;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -30,6 +31,9 @@ import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+
+//084c75
 
 public class SlidingTabLayout extends HorizontalScrollView {
     /**
@@ -45,8 +49,8 @@ public class SlidingTabLayout extends HorizontalScrollView {
 
     }
 
-    private static final int TITLE_OFFSET_DIPS = 24;
-    private static final int TAB_VIEW_PADDING_DIPS = 16;
+    private static final int TITLE_OFFSET_DIPS = 0;
+    private static final int TAB_VIEW_PADDING_DIPS = 12;
     private static final int TAB_VIEW_TEXT_SIZE_SP = 12;
 
     private int mTitleOffset;
@@ -149,6 +153,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
     protected TextView createDefaultTabView(Context context) {
         TextView textView = new TextView(context);
         textView.setGravity(Gravity.CENTER);
+        textView.setTextColor(Color.WHITE);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, TAB_VIEW_TEXT_SIZE_SP);
         textView.setTypeface(Typeface.DEFAULT_BOLD);
         textView.setLayoutParams(new LinearLayout.LayoutParams(

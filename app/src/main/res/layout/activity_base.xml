@@ -1,15 +1,17 @@
-<LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
-      android:id="@+id/toolbar"
-    android:layout_height="wrap_content"
-    android:layout_width="match_parent"
-    android:minHeight="?attr/actionBarSize"
-    android:background="?attr/colorPrimary" />
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:theme="@style/SlidingLayoutTab"
+        app:popupTheme="@style/SlidingLayoutTabPopUp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize" />
 
     <FrameLayout
         android:id="@+id/slider_fragment_frame"

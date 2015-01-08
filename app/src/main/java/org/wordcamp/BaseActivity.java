@@ -12,11 +12,15 @@ import android.view.MenuItem;
  */
 public class BaseActivity extends ActionBarActivity {
 
+    public Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+         toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        toolbar.setLogo(R.drawable.wp_icon);
+
         setSupportActionBar(toolbar);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
