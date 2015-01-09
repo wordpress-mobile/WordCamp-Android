@@ -1,12 +1,15 @@
 package org.wordcamp;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 
 import org.wordcamp.adapters.UpcomingWCAdapter;
 
@@ -18,7 +21,7 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment {
 
     private String mParam1;
     private String mParam2;
-    private RecyclerView rView;
+    private ObservableRecyclerView rView;
     private RecyclerView.LayoutManager mLayoutManager;
 
 
@@ -48,27 +51,14 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Activity parentActivity = getActivity();
         View v =  inflater.inflate(R.layout.fragment_upcoming_wc, container, false);
-        rView = (RecyclerView)v.findViewById(R.id.upcomingRecyclerView);
+        rView = (ObservableRecyclerView)v.findViewById(R.id.scroll);
         rView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
         rView.setLayoutManager(mLayoutManager);
 
-        rView.setOnScrollListener(new RecyclerView.OnScrollListener() {
 
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-
-                super.onScrolled(recyclerView, dx, dy);
-
-
-            }
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-        });
 
         String[] arr = {"aasdasd"," adasdadasd","rewdadsad","adsad ada","aasdasd"," adasdadasd","rewdadsad","adsad ada",
                 "aasdasd"," adasdadasd","rewdadsad","adsad ada","aasdasd"," adasdadasd","rewdadsad","adsad ada",
@@ -77,8 +67,12 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment {
         UpcomingWCAdapter adapter = new UpcomingWCAdapter(arr);
         rView.setAdapter(adapter);
 
-        TextView tv = (TextView)v.findViewById(R.id.up_title);
-        tv.setText(mParam1);
+        rView.setTouchInterceptionViewGroup((ViewGroup) parentActivity.findViewById(R.id.container));
+
+        if (parentActivity instanceof ObservableScrollViewCallbacks) {
+            rView.setScrollViewCallbacks((ObservableScrollViewCallbacks) parentActivity);
+        }
+
         return v;
     }
 
