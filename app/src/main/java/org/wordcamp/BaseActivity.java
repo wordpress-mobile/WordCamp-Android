@@ -148,6 +148,7 @@ public class BaseActivity extends ActionBarActivity implements ObservableScrollV
                     return true;
                 }
             }
+
             mScrolled = false;
             return false;
         }

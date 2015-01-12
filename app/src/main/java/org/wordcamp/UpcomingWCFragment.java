@@ -1,6 +1,7 @@
 package org.wordcamp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -68,10 +69,21 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment {
         rView.setAdapter(adapter);
 
         rView.setTouchInterceptionViewGroup((ViewGroup) parentActivity.findViewById(R.id.container));
+        rView.addOnItemTouchListener(
+                new RecyclerItemListener(getActivity(), new RecyclerItemListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        // do whatever
 
+                        Intent i = new Intent(getActivity(),WordCampDetailActivity.class);
+                        getActivity().startActivity(i);
+                    }
+                })
+        );
         if (parentActivity instanceof ObservableScrollViewCallbacks) {
             rView.setScrollViewCallbacks((ObservableScrollViewCallbacks) parentActivity);
         }
+
+
 
         return v;
     }
@@ -83,6 +95,5 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment {
     public void onDetach() {
         super.onDetach();
     }
-
 
 }
