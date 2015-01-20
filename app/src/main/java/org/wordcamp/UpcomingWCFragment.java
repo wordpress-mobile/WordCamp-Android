@@ -5,14 +5,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+import com.google.gson.Gson;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.wordcamp.adapters.UpcomingWCAdapter;
+import org.wordcamp.networking.WPAPIClient;
+import org.wordcamp.objects.WordCamps;
 
 
 public class UpcomingWCFragment extends android.support.v4.app.Fragment {
@@ -76,6 +84,7 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment {
 
                         Intent i = new Intent(getActivity(),WordCampDetailActivity.class);
                         getActivity().startActivity(i);
+
                     }
                 })
         );
@@ -83,7 +92,37 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment {
             rView.setScrollViewCallbacks((ObservableScrollViewCallbacks) parentActivity);
         }
 
+        WPAPIClient.getWordCampsList(new JsonHttpResponseHandler(){
 
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                super.onSuccess(statusCode, headers, response);
+                Log.e("json array","yo baby "+response.length());
+                for (int i = 0; i < response.length() ; i++){
+                    try {
+
+                        Gson gson  = new Gson();
+                        WordCamps wcs = gson.fromJson(response.getJSONObject(i).toString(), WordCamps.class);
+                        Log.e("wcs",wcs.getTitle());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+
+            @Override
+            protected Object parseResponse(byte[] responseBody) throws JSONException {
+                return super.parseResponse(responseBody);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                Log.e("failure",responseString);
+            }
+        });
 
         return v;
     }
