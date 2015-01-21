@@ -19,7 +19,7 @@ public class WPAPIClient {
         client.get(url, params, responseHandler);
     }
 
-    public static void getWordCampsList(JsonHttpResponseHandler responseHandler) {
+    public static void getWordCampsList(String date,JsonHttpResponseHandler responseHandler) {
         client.get(LOCAL, null, responseHandler);
     }
 

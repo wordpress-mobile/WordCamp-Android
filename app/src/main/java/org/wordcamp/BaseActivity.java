@@ -16,6 +16,9 @@
 
 package org.wordcamp;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -25,22 +28,37 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.github.ksoichiro.android.observablescrollview.ScrollUtils;
 import com.github.ksoichiro.android.observablescrollview.Scrollable;
 import com.github.ksoichiro.android.observablescrollview.TouchInterceptionFrameLayout;
+import com.google.gson.Gson;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.wordcamp.adapters.CacheFragmentStatePagerAdapter;
+import org.wordcamp.adapters.UpcomingWCAdapter;
+import org.wordcamp.networking.WPAPIClient;
+import org.wordcamp.objects.WordCamps;
 import org.wordcamp.widgets.SlidingTabLayout;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * SlidingTabLayout and SlidingTabStrip are from google/iosched:
@@ -60,9 +78,15 @@ public class BaseActivity extends ActionBarActivity implements ObservableScrollV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
+        fetchWCList();
+        setupUI();
+
+
+    }
+
+    private void setupUI() {
         ViewCompat.setElevation(findViewById(R.id.header), getResources().getDimension(R.dimen.toolbar_elevation));
         mToolbarView = findViewById(R.id.toolbar);
         mPagerAdapter = new WCPagerAdapter(getSupportFragmentManager());
@@ -81,6 +105,77 @@ public class BaseActivity extends ActionBarActivity implements ObservableScrollV
         mSlop = vc.getScaledTouchSlop();
         mInterceptionLayout = (TouchInterceptionFrameLayout) findViewById(R.id.container);
         mInterceptionLayout.setScrollInterceptionListener(mInterceptionListener);
+    }
+
+    private void fetchWCList() {
+
+        final SharedPreferences pref = getSharedPreferences("wc", Context.MODE_PRIVATE);
+        String date = pref.getString("date","0");
+        WPAPIClient.getWordCampsList(date, new JsonHttpResponseHandler() {
+
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                super.onSuccess(statusCode, headers, response);
+                Log.e("json array", "yo baby " + response.length());
+
+
+                SharedPreferences.Editor editor = pref.edit();
+                Date d = new Date();
+                editor.putString("date", d.toString());
+                editor.commit();
+
+
+                List<WordCamps> wordCampsList = new ArrayList<WordCamps>();
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+
+                        Gson gson = new Gson();
+                        WordCamps wcs = gson.fromJson(response.getJSONObject(i).toString(), WordCamps.class);
+                        wordCampsList.add(i,wcs);
+                        Log.e("wcs", wcs.getTitle());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+                if(getCurrentFragment() instanceof UpcomingWCFragment) {
+                    UpcomingWCFragment fragment = (UpcomingWCFragment)getCurrentFragment();
+                    ObservableRecyclerView rView = fragment.rView;
+
+                    UpcomingWCAdapter adapter = new UpcomingWCAdapter(wordCampsList);
+                    rView.setAdapter(adapter);
+
+                    rView.setTouchInterceptionViewGroup((ViewGroup) findViewById(R.id.container));
+                    rView.addOnItemTouchListener(
+                            new RecyclerItemListener(getApplicationContext(), new RecyclerItemListener.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(View view, int position) {
+                                    // do whatever
+
+                                    Intent i = new Intent(getApplicationContext(), WordCampDetailActivity.class);
+                                    startActivity(i);
+
+                                }
+                            })
+                    );
+                }
+
+            }
+
+            @Override
+            protected Object parseResponse(byte[] responseBody) throws JSONException {
+                return super.parseResponse(responseBody);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                Log.e("failure", responseString);
+            }
+        });
+
     }
 
     protected int getActionBarSize() {

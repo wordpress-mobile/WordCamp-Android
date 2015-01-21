@@ -1,26 +1,15 @@
 package org.wordcamp;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
-import com.google.gson.Gson;
-import com.loopj.android.http.JsonHttpResponseHandler;
-
-import org.apache.http.Header;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.wordcamp.adapters.UpcomingWCAdapter;
-import org.wordcamp.networking.WPAPIClient;
-import org.wordcamp.objects.WordCamps;
 
 
 public class UpcomingWCFragment extends android.support.v4.app.Fragment {
@@ -30,9 +19,8 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment {
 
     private String mParam1;
     private String mParam2;
-    private ObservableRecyclerView rView;
+    public ObservableRecyclerView rView;
     private RecyclerView.LayoutManager mLayoutManager;
-
 
     public static UpcomingWCFragment newInstance(String param1, String param2) {
         UpcomingWCFragment fragment = new UpcomingWCFragment();
@@ -69,60 +57,10 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment {
 
 
 
-        String[] arr = {"aasdasd"," adasdadasd","rewdadsad","adsad ada","aasdasd"," adasdadasd","rewdadsad","adsad ada",
-                "aasdasd"," adasdadasd","rewdadsad","adsad ada","aasdasd"," adasdadasd","rewdadsad","adsad ada",
-                "aasdasd"," adasdadasd","rewdadsad","adsad ada","aasdasd"," adasdadasd","rewdadsad","adsad ada"};
-
-        UpcomingWCAdapter adapter = new UpcomingWCAdapter(arr);
-        rView.setAdapter(adapter);
-
-        rView.setTouchInterceptionViewGroup((ViewGroup) parentActivity.findViewById(R.id.container));
-        rView.addOnItemTouchListener(
-                new RecyclerItemListener(getActivity(), new RecyclerItemListener.OnItemClickListener() {
-                    @Override public void onItemClick(View view, int position) {
-                        // do whatever
-
-                        Intent i = new Intent(getActivity(),WordCampDetailActivity.class);
-                        getActivity().startActivity(i);
-
-                    }
-                })
-        );
         if (parentActivity instanceof ObservableScrollViewCallbacks) {
             rView.setScrollViewCallbacks((ObservableScrollViewCallbacks) parentActivity);
         }
 
-        WPAPIClient.getWordCampsList(new JsonHttpResponseHandler(){
-
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                super.onSuccess(statusCode, headers, response);
-                Log.e("json array","yo baby "+response.length());
-                for (int i = 0; i < response.length() ; i++){
-                    try {
-
-                        Gson gson  = new Gson();
-                        WordCamps wcs = gson.fromJson(response.getJSONObject(i).toString(), WordCamps.class);
-                        Log.e("wcs",wcs.getTitle());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            }
-
-            @Override
-            protected Object parseResponse(byte[] responseBody) throws JSONException {
-                return super.parseResponse(responseBody);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                Log.e("failure",responseString);
-            }
-        });
 
         return v;
     }

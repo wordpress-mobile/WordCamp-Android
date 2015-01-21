@@ -1,13 +1,17 @@
 package org.wordcamp.adapters;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.wordcamp.R;
+import org.wordcamp.objects.WordCamps;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by aagam on 8/1/15.
@@ -16,57 +20,55 @@ public class UpcomingWCAdapter extends RecyclerView.Adapter<UpcomingWCAdapter.Vi
 
 
 
-    String[] items;
-    public UpcomingWCAdapter(String[] arr) {
-        items=arr;
+    public List<WordCamps> wordCamps;
+
+    public UpcomingWCAdapter(List<WordCamps> arr) {
+        wordCamps=arr;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.upcoming_wc_card, parent, false);
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("ee","ee");
-            }
-        });
-        return new ViewHolder(v,this);
+        return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.mTextView.setText("Card "+position);
+        WordCamps wc = wordCamps.get(position);
+        holder.title.setText(wc.getTitle());
+        if(wc.getFoo().getStartDateYYYYMmDd().size()>0 && !wc.getFoo().getStartDateYYYYMmDd().get(0).equals("")
+                && !wc.getFoo().getEndDateYYYYMmDd().get(0).equals("")){
+
+
+            Date d = new Date(Long.parseLong(wc.getFoo().getStartDateYYYYMmDd().get(0)) * 1000);
+            Date d1 = new Date(Long.parseLong(wc.getFoo().getEndDateYYYYMmDd().get(0)) * 1000);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd");
+            SimpleDateFormat sdf1 = new SimpleDateFormat("dd, yyyy");
+
+            holder.date.setText(sdf.format(d)+" - "+sdf1.format(d1));}
+        else
+            holder.date.setText("Coming soon");
 
     }
 
     @Override
     public int getItemCount() {
-        return items.length;
+        return wordCamps.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView mTextView;
+        public TextView title,date;
         private UpcomingWCAdapter upcomingWCAdapter;
-        public ViewHolder(View v, UpcomingWCAdapter adapter) {
+        public ViewHolder(View v) {
             super(v);
-            v.setOnClickListener(this);
-          /*  Button b = (Button)v.findViewById(R.id.openItem);
-            b.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.e("Clicked", "View");
-                }
-            });*/
-            mTextView = (TextView)v.findViewById(R.id.up_wc_dates);
-            upcomingWCAdapter=adapter;
+            title = (TextView)v.findViewById(R.id.up_wc_title);
+            date = (TextView)v.findViewById(R.id.up_wc_dates);
+
         }
 
-        @Override
-        public void onClick(View v) {
-            Log.e("Clicked", "View");
-        }
     }
 
-    }
+}
