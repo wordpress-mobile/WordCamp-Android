@@ -56,6 +56,8 @@ import org.wordcamp.networking.WPAPIClient;
 import org.wordcamp.objects.WordCamps;
 import org.wordcamp.widgets.SlidingTabLayout;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -74,16 +76,15 @@ public class BaseActivity extends ActionBarActivity implements ObservableScrollV
     private boolean mScrolled;
     private ScrollState mLastScrollState;
 
+    public List<WordCamps> wordCampsList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-
         fetchWCList();
         setupUI();
-
-
     }
 
     private void setupUI() {
@@ -110,38 +111,59 @@ public class BaseActivity extends ActionBarActivity implements ObservableScrollV
     private void fetchWCList() {
 
         final SharedPreferences pref = getSharedPreferences("wc", Context.MODE_PRIVATE);
-        String date = pref.getString("date","0");
-        WPAPIClient.getWordCampsList(date, new JsonHttpResponseHandler() {
-
+        final String lastdate = pref.getString("date","0");
+        WPAPIClient.getWordCampsList(lastdate, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
-                Log.e("json array", "yo baby " + response.length());
-
-
                 SharedPreferences.Editor editor = pref.edit();
-                Date d = new Date();
-                editor.putString("date", d.toString());
-                editor.commit();
 
-
-                List<WordCamps> wordCampsList = new ArrayList<WordCamps>();
+                wordCampsList = new ArrayList<WordCamps>();
+                int count=0;
                 for (int i = 0; i < response.length(); i++) {
                     try {
 
                         Gson gson = new Gson();
                         WordCamps wcs = gson.fromJson(response.getJSONObject(i).toString(), WordCamps.class);
-                        wordCampsList.add(i,wcs);
+                        SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
+                        Date d = sdf.parse(wcs.getModifiedGmt());
+
+                        if(!lastdate.equals("0")) {
+                            Date oldDate = sdf.parse(lastdate);
+
+                            boolean chc = d.after(oldDate);
+
+                            if (d.after(oldDate)){
+                                wordCampsList.add(i, wcs);
+                                count++;
+                            }
+                            else
+                                break; //ignore older WCs as it is already scanned
+                        }
+                        else{
+                            wordCampsList.add(i, wcs);
+                            count++;
+                        }
+
+                        if(i==0){
+                            //Set last scan date of WC List by saving the later WC's modified GMT date
+                            editor.putString("date",wcs.getModifiedGmt());
+                            editor.commit();
+                        }
                         Log.e("wcs", wcs.getTitle());
                     } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (ParseException e) {
                         e.printStackTrace();
                     }
                 }
 
 
-                if(getCurrentFragment() instanceof UpcomingWCFragment) {
-                    UpcomingWCFragment fragment = (UpcomingWCFragment)getCurrentFragment();
+                Fragment currFrag = getCurrentFragment();
+                if(currFrag instanceof UpcomingWCFragment) {
+                    UpcomingWCFragment fragment = (UpcomingWCFragment)currFrag;
                     ObservableRecyclerView rView = fragment.rView;
 
                     UpcomingWCAdapter adapter = new UpcomingWCAdapter(wordCampsList);
@@ -154,7 +176,9 @@ public class BaseActivity extends ActionBarActivity implements ObservableScrollV
                                 public void onItemClick(View view, int position) {
                                     // do whatever
 
+
                                     Intent i = new Intent(getApplicationContext(), WordCampDetailActivity.class);
+                                    i.putExtra("wc",wordCampsList.get(position));
                                     startActivity(i);
 
                                 }

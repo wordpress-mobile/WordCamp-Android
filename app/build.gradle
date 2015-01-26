@@ -29,6 +29,4 @@ dependencies {
     compile 'com.github.ksoichiro:android-observablescrollview:1.4.0'
     compile 'com.loopj.android:android-async-http:1.4.5'
     compile 'com.google.code.gson:gson:2.3.1'
-
-
 }

@@ -27,9 +27,16 @@
 
     </style>
 
+    <style name="HeaderBar">
+        <item name="android:background">?colorPrimary</item>
+        <item name="elevation">@dimen/headerbar_elevation</item>
+    </style>
+
     <style name="SlidingLayoutTabPopUp" parent="AppTheme">
         <item name="android:textColorPrimary">#fff</item>
         <item name="actionMenuTextColor">#fff</item>
         <item name="android:background">@color/flat_blue_dark</item>
     </style>
+
+    <dimen name="headerbar_elevation">4dp</dimen>
 </resources>

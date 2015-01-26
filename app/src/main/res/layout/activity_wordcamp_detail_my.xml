@@ -1,80 +1,101 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@null" >
-    <!-- Background photo -->
-    <LinearLayout android:id="@+id/wc_photo_container"
-        android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <FrameLayout
+        android:background="#fff"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/wc_photo"
-            android:src="@drawable/wclondon"
+        <org.wordcamp.widgets.MaterialScrollView
+            android:id="@+id/scroll_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
-    </LinearLayout>
+            android:overScrollMode="never"
+            android:layout_height="fill_parent" >
 
-    <include layout="@layout/toolbar" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
 
+                    <ImageView
+                        android:id="@+id/wc_photo"
+                        android:src="@drawable/wclondon"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY" />
 
-    <org.wordcamp.widgets.ObservableScrollView
-        android:layout_below="@+id/wc_photo_container"
-        android:id="@+id/scroll_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:overScrollMode="never"
-        android:fillViewport="true"
-        android:background="@color/hint_text_color">
+                <LinearLayout
+                    android:background="#fff"
+                    android:id="@+id/details_container"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-        <LinearLayout android:id="@+id/details_container"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="48dp"
-            android:clipToPadding="false">
-            <TextView android:layout_width="match_parent"
-                android:id="@+id/session_speakers_header"
-                android:clickable="true"
-                android:focusable="true"
-                android:textSize="20sp"
-                android:textColor="@color/flat_green_dark"
-                android:textStyle="bold"
-                android:layout_height="wrap_content"
-                android:text="Location"
-                android:layout_marginLeft="72dp" />
-            <TextView android:id="@+id/wc_location"
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:id="@+id/wc_loc_header"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:textSize="20sp"
+                        android:textColor="@color/flat_green_dark"
+                        android:layout_height="wrap_content"
+                        android:text="Location"
+                        android:layout_marginLeft="72dp" />
+
+                    <TextView android:id="@+id/wc_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="72dp"
+                        android:layout_marginBottom="16dp"
+                        android:textSize="15sp"
+                        android:text="London Metropolitan University\n166-220 Holloway Rd, London N7 8DB,\nUnited Kingdom"
+                        />
+                    <TextView android:layout_width="match_parent"
+                        android:id="@+id/wc_about_header"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:textSize="20sp"
+                        android:layout_height="wrap_content"
+                        android:text="About:"
+                        android:textColor="@color/flat_blue_dark"
+                        android:layout_marginLeft="72dp" />
+
+                    <TextView android:id="@+id/wc_about"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="72dp"
+                        android:layout_marginBottom="16dp"
+                        android:textSize="15sp"
+                        android:text="@string/lorem"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+        </org.wordcamp.widgets.MaterialScrollView>
+
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="72dp"
-                android:layout_marginBottom="16dp"
-                android:textSize="15sp"
-                android:text="London Metropolitan University\n166-220 Holloway Rd, London N7 8DB,\nUnited Kingdom"
-                />
-            <TextView android:layout_width="match_parent"
-                android:id="@+id/wc_about_header"
-                android:clickable="true"
-                android:focusable="true"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_height="wrap_content"
-                android:text="About:"
-                android:textColor="@color/flat_blue_dark"
-                android:layout_marginLeft="72dp" />
-
-            <TextView android:id="@+id/wc_about"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="72dp"
-                android:layout_marginBottom="16dp"
-                android:textSize="15sp"
-                android:text="@string/lorem"
-                />
+                android:background="?attr/colorPrimary"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
         </LinearLayout>
+    </FrameLayout>
 
-
-    </org.wordcamp.widgets.ObservableScrollView>
-</RelativeLayout>
+    <fragment
+        android:id="@+id/fragment_drawer"
+        android:name="org.wordcamp.NavDrawerFragment"
+        android:layout_width="@dimen/drawer_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="left|start" />
+</android.support.v4.widget.DrawerLayout>

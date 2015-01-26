@@ -1,16 +1,44 @@
 
 package org.wordcamp.objects;
 
-import java.util.HashMap;
-import java.util.Map;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 
 
+public class Links implements Serializable {
 
-public class Links {
-
+    @Expose
+    private String author;
+    @Expose
     private String self;
-    private String archives;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    @Expose
+    private String collection;
+    @Expose
+    private String replies;
+    @SerializedName("version-history")
+    @Expose
+    private String versionHistory;
+
+    /**
+     * 
+     * @return
+     *     The author
+     */
+    public String getAuthor() {
+        return author;
+    }
+
+    /**
+     * 
+     * @param author
+     *     The author
+     */
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
     /**
      * 
@@ -33,27 +61,55 @@ public class Links {
     /**
      * 
      * @return
-     *     The archives
+     *     The collection
      */
-    public String getArchives() {
-        return archives;
+    public String getCollection() {
+        return collection;
     }
 
     /**
      * 
-     * @param archives
-     *     The archives
+     * @param collection
+     *     The collection
      */
-    public void setArchives(String archives) {
-        this.archives = archives;
+    public void setCollection(String collection) {
+        this.collection = collection;
     }
 
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
+    /**
+     * 
+     * @return
+     *     The replies
+     */
+    public String getReplies() {
+        return replies;
     }
 
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+    /**
+     * 
+     * @param replies
+     *     The replies
+     */
+    public void setReplies(String replies) {
+        this.replies = replies;
+    }
+
+    /**
+     * 
+     * @return
+     *     The versionHistory
+     */
+    public String getVersionHistory() {
+        return versionHistory;
+    }
+
+    /**
+     * 
+     * @param versionHistory
+     *     The version-history
+     */
+    public void setVersionHistory(String versionHistory) {
+        this.versionHistory = versionHistory;
     }
 
 }

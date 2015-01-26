@@ -16,4 +16,5 @@
     <color name="flat_green">#5CBC6B</color>
     <color name="flat_green_dark">#43A047</color>
     <color name="flat_pink">#f67280</color>
+    <color name="dividers">#DBDBDB</color>
 </resources>
