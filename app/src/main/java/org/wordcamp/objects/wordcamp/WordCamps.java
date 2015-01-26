@@ -1,5 +1,5 @@
 
-package org.wordcamp.objects;
+package org.wordcamp.objects.wordcamp;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
