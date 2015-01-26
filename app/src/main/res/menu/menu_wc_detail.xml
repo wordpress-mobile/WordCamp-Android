@@ -1,6 +1,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context=".BaseActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_attending" android:title="@string/item_attending"
+        android:icon="@drawable/ic_stars_white_36dp"
+        app:showAsAction="always" />
+    <item android:id="@+id/item_menu_sponsor" android:title="@string/item_sponsor"
+        android:orderInCategory="50" app:showAsAction="never" />
+    <item android:id="@+id/item_menu_organiser" android:title="@string/item_organisers"
+        android:orderInCategory="51" app:showAsAction="never" />
+    <item android:id="@+id/item_menu_contact" android:title="@string/item_contact"
+        android:orderInCategory="52" app:showAsAction="never" />
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+        android:orderInCategory="53" app:showAsAction="never" />
 </menu>

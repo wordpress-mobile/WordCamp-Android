@@ -19,7 +19,6 @@ package org.wordcamp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,7 +28,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -53,7 +51,8 @@ import org.json.JSONException;
 import org.wordcamp.adapters.CacheFragmentStatePagerAdapter;
 import org.wordcamp.adapters.UpcomingWCAdapter;
 import org.wordcamp.networking.WPAPIClient;
-import org.wordcamp.objects.WordCamps;
+import org.wordcamp.objects.wordcamp.WordCamps;
+import org.wordcamp.utils.ImageUtils;
 import org.wordcamp.widgets.SlidingTabLayout;
 
 import java.text.ParseException;
@@ -62,10 +61,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * SlidingTabLayout and SlidingTabStrip are from google/iosched:
- * https://github.com/google/iosched
- */
 public class BaseActivity extends ActionBarActivity implements ObservableScrollViewCallbacks {
 
     private View mToolbarView;
@@ -94,7 +89,7 @@ public class BaseActivity extends ActionBarActivity implements ObservableScrollV
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(mPagerAdapter);
         final int tabHeight = getResources().getDimensionPixelSize(R.dimen.tab_height);
-        findViewById(R.id.pager_wrapper).setPadding(0, getActionBarSize() + tabHeight, 0, 0);
+        findViewById(R.id.pager_wrapper).setPadding(0, ImageUtils.getActionBarSize(this) + tabHeight, 0, 0);
 
         SlidingTabLayout slidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
         slidingTabLayout.setCustomTabView(R.layout.tab_view, android.R.id.text1);
@@ -200,16 +195,6 @@ public class BaseActivity extends ActionBarActivity implements ObservableScrollV
             }
         });
 
-    }
-
-    protected int getActionBarSize() {
-        TypedValue typedValue = new TypedValue();
-        int[] textSizeAttr = new int[]{R.attr.actionBarSize};
-        int indexOfAttrTextSize = 0;
-        TypedArray a = obtainStyledAttributes(typedValue.data, textSizeAttr);
-        int actionBarSize = a.getDimensionPixelSize(indexOfAttrTextSize, -1);
-        a.recycle();
-        return actionBarSize;
     }
 
     protected int getScreenHeight() {

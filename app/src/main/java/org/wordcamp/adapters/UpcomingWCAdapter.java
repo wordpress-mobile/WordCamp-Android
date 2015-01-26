@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.wordcamp.R;
-import org.wordcamp.objects.WordCamps;
+import org.wordcamp.objects.wordcamp.WordCamps;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

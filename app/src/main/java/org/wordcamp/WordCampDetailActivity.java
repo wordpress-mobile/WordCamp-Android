@@ -73,15 +73,8 @@ public class WordCampDetailActivity extends ActionBarActivity {
 
         mToolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mActionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar,
-                R.string.app_name, R.string.app_name);
-        mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
-
 //        mToolbar.setTitle(wc.getTitle());
         mToolbar.setSubtitle("March 20-22, 2015");
-
-
         wcpic = (ImageView)findViewById(R.id.wc_photo);
 
         /*Bitmap bp = BitmapFactory.decodeResource(getResources(), R.drawable.wclondon);

@@ -1,6 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<org.wordcamp.widgets.MaterialScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#fff"
+    android:overScrollMode="never"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <LinearLayout
 
-</LinearLayout>
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/wc_image_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/wclondon"
+                android:layout_width="fill_parent"
+                android:scaleType="fitXY"
+                android:layout_height="fill_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:padding="4dp"
+            android:background="#fff"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/wc_loc_header"
+                android:clickable="true"
+                android:focusable="true"
+                android:textSize="20sp"
+                android:textColor="@color/flat_green_dark"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                />
+
+            <TextView android:id="@+id/wc_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:textSize="15sp"
+                android:text="London Metropolitan University\n166-220 Holloway Rd, London N7 8DB,\nUnited Kingdom"
+                />
+            <TextView android:layout_width="match_parent"
+                android:id="@+id/wc_about_header"
+                android:clickable="true"
+                android:focusable="true"
+                android:textSize="20sp"
+                android:layout_height="wrap_content"
+                android:text="About:"
+                android:textColor="@color/flat_blue_dark"
+                />
+
+            <TextView android:id="@+id/wc_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:textSize="15sp"
+                android:text="@string/lorem"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</org.wordcamp.widgets.MaterialScrollView>

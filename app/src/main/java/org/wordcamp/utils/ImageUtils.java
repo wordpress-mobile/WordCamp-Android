@@ -2,10 +2,13 @@ package org.wordcamp.utils;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Point;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.WindowManager;
+
+import org.wordcamp.R;
 
 /**
  * Created by aagam on 23/1/15.
@@ -33,5 +36,15 @@ public class ImageUtils {
     public static int dpToPx(Context ctx, int dp){
         Resources r = ctx.getResources();
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
+    }
+
+    public static int getActionBarSize(Context ctx) {
+        TypedValue typedValue = new TypedValue();
+        int[] textSizeAttr = new int[]{R.attr.actionBarSize};
+        int indexOfAttrTextSize = 0;
+        TypedArray a = ctx.obtainStyledAttributes(typedValue.data, textSizeAttr);
+        int actionBarSize = a.getDimensionPixelSize(indexOfAttrTextSize, -1);
+        a.recycle();
+        return actionBarSize;
     }
 }
