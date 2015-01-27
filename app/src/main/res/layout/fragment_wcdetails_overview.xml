@@ -23,6 +23,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/centerLayoutDetail"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:padding="4dp"

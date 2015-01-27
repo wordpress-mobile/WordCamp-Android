@@ -116,10 +116,11 @@ public class BaseActivity extends ActionBarActivity implements ObservableScrollV
 
                 wordCampsList = new ArrayList<WordCamps>();
                 int count=0;
+                Gson gson = new Gson();
                 for (int i = 0; i < response.length(); i++) {
                     try {
 
-                        Gson gson = new Gson();
+
                         WordCamps wcs = gson.fromJson(response.getJSONObject(i).toString(), WordCamps.class);
                         SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 

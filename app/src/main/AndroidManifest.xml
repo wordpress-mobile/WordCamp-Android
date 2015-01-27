@@ -18,6 +18,26 @@
             android:configChanges="screenSize|orientation"
             android:name=".NewWordCampDetail"
             android:label="@string/app_name" >
+
+        </activity>
+
+        <activity
+            android:configChanges="screenSize|orientation"
+            android:name=".db.DBTester"
+            android:label="@string/app_name" >
+
+        </activity>
+        <activity
+            android:configChanges="screenSize|orientation"
+            android:name=".objects.SpeakerTester"
+            android:label="@string/app_name" >
+
+        </activity>
+
+        <activity
+            android:configChanges="screenSize|orientation"
+            android:name=".objects.SessionTester"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
