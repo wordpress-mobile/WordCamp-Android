@@ -9,11 +9,21 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class WCSQLiteHelper extends SQLiteOpenHelper {
 
-    private static final String DB_NAME = "wordcamp.db";
+    private static final String DB_NAME = "wordcamp.central";
     private static final int DB_VERSION = 1;
     public static final String TABLE_WC = "wordcamp";
-    private static final String DB_CREATE = "create table wordcamp ( wcid integer primary key," +
-            " data text); ";
+    private static final String DB_CREATE_WORDCAMP = "create table wordcamp ( wcid integer primary key," +
+            " title text, from text, to text,lastscannedgmt text, gsonobject text); ";
+
+    public static final String DB_CREATE_SPEAKER = "create table speaker ( wcid integer, name text, " +
+            "speaker_id int, speaker_bio text, postid int, featuredimage text, lastscannedgmt text," +
+            " gsonobject text, PRIMARY KEY ( wcid, postid) ); ";
+
+    public static final String DB_CREATE_SESSION = "create table session ( wcid integer, title text, " +
+            "time int, postid int, location text, category text, " +
+            "lastscannedgmt text, gsonobject text, PRIMARY KEY ( wcid, postid) ); ";
+
+
 
     public WCSQLiteHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -21,7 +31,9 @@ public class WCSQLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(DB_CREATE);
+        db.execSQL(DB_CREATE_WORDCAMP);
+        db.execSQL(DB_CREATE_SPEAKER);
+        db.execSQL(DB_CREATE_SESSION);
     }
 
     @Override
