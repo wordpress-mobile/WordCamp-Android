@@ -17,7 +17,6 @@
 package org.wordcamp;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,13 +27,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
-import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.github.ksoichiro.android.observablescrollview.ScrollUtils;
@@ -47,15 +47,15 @@ import com.nineoldandroids.view.ViewHelper;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.wordcamp.adapters.CacheFragmentStatePagerAdapter;
-import org.wordcamp.adapters.UpcomingWCAdapter;
+import org.wordcamp.db.DBCommunicator;
 import org.wordcamp.networking.WPAPIClient;
+import org.wordcamp.objects.WordCampDB;
 import org.wordcamp.objects.wordcamp.WordCamps;
 import org.wordcamp.utils.ImageUtils;
+import org.wordcamp.utils.WordCampUtils;
 import org.wordcamp.widgets.SlidingTabLayout;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -70,19 +70,26 @@ public class BaseActivity extends ActionBarActivity implements ObservableScrollV
     private int mSlop;
     private boolean mScrolled;
     private ScrollState mLastScrollState;
+    public String lastscanned;
 
-    public List<WordCamps> wordCampsList;
+    public DBCommunicator communicator;
+
+    public List<WordCampDB> wordCampsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-        fetchWCList();
+        //fetchWCList();
         setupUI();
     }
 
     private void setupUI() {
+        communicator = new DBCommunicator(this);
+        communicator.start();
+        wordCampsList = communicator.getAllWc();
+
         ViewCompat.setElevation(findViewById(R.id.header), getResources().getDimension(R.dimen.toolbar_elevation));
         mToolbarView = findViewById(R.id.toolbar);
         mPagerAdapter = new WCPagerAdapter(getSupportFragmentManager());
@@ -103,6 +110,23 @@ public class BaseActivity extends ActionBarActivity implements ObservableScrollV
         mInterceptionLayout.setScrollInterceptionListener(mInterceptionListener);
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==R.id.action_refresh){
+
+            fetchWCList();
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_base_act,menu);
+        return true;
+    }
+
+
     private void fetchWCList() {
 
         final SharedPreferences pref = getSharedPreferences("wc", Context.MODE_PRIVATE);
@@ -114,88 +138,51 @@ public class BaseActivity extends ActionBarActivity implements ObservableScrollV
                 super.onSuccess(statusCode, headers, response);
                 SharedPreferences.Editor editor = pref.edit();
 
-                wordCampsList = new ArrayList<WordCamps>();
+                wordCampsList = new ArrayList<>();
                 int count=0;
                 Gson gson = new Gson();
                 for (int i = 0; i < response.length(); i++) {
                     try {
-
-
                         WordCamps wcs = gson.fromJson(response.getJSONObject(i).toString(), WordCamps.class);
+                        if(i==0){
+                            //Set last scan date of WC List by saving the later WC's modified GMT date
+                            editor.putString("date",wcs.getModifiedGmt());
+                            lastscanned = wcs.getModifiedGmt();
+                            editor.commit();
+                        }
                         SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-
                         Date d = sdf.parse(wcs.getModifiedGmt());
-
-                        if(!lastdate.equals("0")) {
+                        if(!lastdate.equals("0") && WordCampUtils.hasStartEndDate(wcs)) {
                             Date oldDate = sdf.parse(lastdate);
-
                             boolean chc = d.after(oldDate);
-
                             if (d.after(oldDate)){
-                                wordCampsList.add(i, wcs);
-                                count++;
+                                WordCampDB wordCampDB = new WordCampDB(wcs,lastscanned);
+                                wordCampsList.add(wordCampDB);
                             }
                             else
                                 break; //ignore older WCs as it is already scanned
                         }
-                        else{
-                            wordCampsList.add(i, wcs);
-                            count++;
+                        else if(lastdate.equals("0") && WordCampUtils.hasStartEndDate(wcs)){
+                            WordCampDB wordCampDB = new WordCampDB(wcs,lastscanned);
+                            wordCampsList.add(wordCampDB);
                         }
-
-                        if(i==0){
-                            //Set last scan date of WC List by saving the later WC's modified GMT date
-                            editor.putString("date",wcs.getModifiedGmt());
-                            editor.commit();
-                        }
-                        Log.e("wcs", wcs.getTitle());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (ParseException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-
-
-                Fragment currFrag = getCurrentFragment();
-                if(currFrag instanceof UpcomingWCFragment) {
-                    UpcomingWCFragment fragment = (UpcomingWCFragment)currFrag;
-                    ObservableRecyclerView rView = fragment.rView;
-
-                    UpcomingWCAdapter adapter = new UpcomingWCAdapter(wordCampsList);
-                    rView.setAdapter(adapter);
-
-                    rView.setTouchInterceptionViewGroup((ViewGroup) findViewById(R.id.container));
-                    rView.addOnItemTouchListener(
-                            new RecyclerItemListener(getApplicationContext(), new RecyclerItemListener.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(View view, int position) {
-                                    // do whatever
-
-
-                                    Intent i = new Intent(getApplicationContext(), WordCampDetailActivity.class);
-                                    i.putExtra("wc",wordCampsList.get(position));
-                                    startActivity(i);
-
-                                }
-                            })
-                    );
-                }
-
-            }
-
-            @Override
-            protected Object parseResponse(byte[] responseBody) throws JSONException {
-                return super.parseResponse(responseBody);
+                communicator.addAllNewWC(wordCampsList);
+                UpcomingWCFragment upcomingFragment = getUpcomingFragment();
+                wordCampsList = communicator.getAllWc();
+                upcomingFragment.updateList(wordCampsList);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
+                Toast.makeText(getApplicationContext(),"Some error took place",Toast.LENGTH_SHORT).show();
                 Log.e("failure", responseString);
             }
         });
-
     }
 
     protected int getScreenHeight() {
@@ -314,6 +301,10 @@ public class BaseActivity extends ActionBarActivity implements ObservableScrollV
 
     private Fragment getCurrentFragment() {
         return mPagerAdapter.getItemAt(mPager.getCurrentItem());
+    }
+
+    private UpcomingWCFragment getUpcomingFragment(){
+        return (UpcomingWCFragment) mPagerAdapter.getItemAt(0);
     }
 
     private boolean toolbarIsShown() {

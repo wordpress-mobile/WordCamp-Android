@@ -8,9 +8,12 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import org.wordcamp.adapters.WCDetailAdapter;
+import org.wordcamp.objects.WordCampDB;
 import org.wordcamp.utils.ImageUtils;
+import org.wordcamp.utils.WordCampUtils;
 import org.wordcamp.widgets.SlidingTabLayout;
 
 /**
@@ -21,10 +24,13 @@ public class NewWordCampDetail extends ActionBarActivity {
     public WCDetailAdapter adapter;
     public Toolbar toolbar;
     public ViewPager mPager;
+    public WordCampDB wcdb;
+    public TextView location,about;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        wcdb = (WordCampDB)getIntent().getSerializableExtra("wc");
         setContentView(R.layout.activity_wc_detail_new);
         initGUI();
     }
@@ -44,11 +50,10 @@ public class NewWordCampDetail extends ActionBarActivity {
         slidingTabLayout.setDistributeEvenly(true);
         slidingTabLayout.setViewPager(mPager);
 
-        toolbar.setTitle("WordCamp London");
-        toolbar.setSubtitle("March 20-22, 2015");
+        toolbar.setTitle(wcdb.getWc_title());
+        toolbar.setSubtitle(WordCampUtils.getProperDate(wcdb));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
     }
 
     @Override

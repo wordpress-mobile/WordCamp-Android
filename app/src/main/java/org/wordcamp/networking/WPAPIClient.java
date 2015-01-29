@@ -15,6 +15,8 @@ public class WPAPIClient {
 
     private static final String QUERY_PARAM_SPEAKERS = "/wp-json/posts?type=wcb_speaker";
 
+    private static final String QUERY_PARAM_WC = "central.wordcamp.dev/wp-json/posts?type=wordcamp&filter[order]=DESC&filter[orderby]=modified";
+
     private static final String QUERY_PARAM_SCHEDULE = "/wp-json/posts?type=wcb_session";
 
     private static final String QUERY_PARAM_SESSION = "2014.seattle.wordcamp.dev/wp-json/posts?filter[posts_per_page]=58&type=wcb_session";
@@ -22,7 +24,11 @@ public class WPAPIClient {
     private static AsyncHttpClient client = new AsyncHttpClient();
 
     public static void getWordCampsList(String date,JsonHttpResponseHandler responseHandler) {
-        client.get(LOCAL, null, responseHandler);
+
+        //There is no query yet to get WCs after modified date in WP-API, so not using date param currently
+        RequestParams params1 = new RequestParams();
+        params1.add("url",QUERY_PARAM_WC);
+        client.get(LOCAL, params1, responseHandler);
     }
 
     public static void getWordCampSpeakers(String wordcampURL,JsonHttpResponseHandler responseHandler) {

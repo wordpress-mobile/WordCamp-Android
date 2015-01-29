@@ -39,19 +39,33 @@ public class DBCommunicator {
         ContentValues contentValues = new ContentValues();
         contentValues.put("wcid",wc.getID());
         contentValues.put("title",wc.getTitle());
-
-        if(wc.getFoo().getStartDateYYYYMmDd().size()>0 && !wc.getFoo().getStartDateYYYYMmDd().get(0).equals("")
-                && wc.getFoo().getEndDateYYYYMmDd().size()>0 && !wc.getFoo().getEndDateYYYYMmDd().get(0).equals("")) {
-
-            contentValues.put("from",wc.getFoo().getStartDateYYYYMmDd().get(0));
-            contentValues.put("to",wc.getFoo().getEndDateYYYYMmDd().get(0));
-        }
-
+        contentValues.put("fromdate",wc.getFoo().getStartDateYYYYMmDd().get(0));
+        contentValues.put("todate",wc.getFoo().getEndDateYYYYMmDd().get(0));
         contentValues.put("gsonobject", gson.toJson(wc));
 
         return db.insert(WCSQLiteHelper.TABLE_WC,null,contentValues);
     }
 
+    public void addAllNewWC(List<WordCampDB> wcList){
+        for (int i = 0; i < wcList.size(); i++) {
+            WordCampDB wc = wcList.get(i);
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("wcid",wc.getWc_id());
+            contentValues.put("title",wc.getWc_title());
+            contentValues.put("fromdate",wc.getWc_start_date());
+            contentValues.put("todate",wc.getWc_end_date());
+            contentValues.put("gsonobject", wc.getGson_object());
+            contentValues.put("url", wc.getUrl());
+            long id = db.insert(WCSQLiteHelper.TABLE_WC,null,contentValues);
+
+            if(id==-1){
+                //update it
+                contentValues.remove("wcid");
+                db.update("wordcamp", contentValues, " wcid = ?",
+                        new String[] { String.valueOf(wc.getWc_id()) });
+            }
+        }
+    }
 
     public long addSpeaker(Speakers sk, int wcid){
         ContentValues contentValues = new ContentValues();
@@ -90,7 +104,7 @@ public class DBCommunicator {
 
 
     private static final String DB_CREATE_WORDCAMP = "create table wordcamp ( wcid integer primary key," +
-            " title text, from text, to text,lastscannedgmt text, gsonobject text); ";
+            " title text, from text, to text,lastscannedgmt text, gsonobject text, url text); ";
 
     public WordCampDB getWC(int id){
 
@@ -103,8 +117,9 @@ public class DBCommunicator {
             String to = cursor.getString(3);
             String lastscanned = cursor.getString(4);
             String data = cursor.getString(5);
+            String url = cursor.getString(6);
             cursor.close();
-            return new WordCampDB(id,title,from,to,lastscanned,data);
+            return new WordCampDB(id,title,from,to,lastscanned,data,url);
         }
         else{
             return null;
@@ -113,7 +128,7 @@ public class DBCommunicator {
     }
 
     public List<WordCampDB> getAllWc(){
-        Cursor cursor=db.rawQuery("SELECT * FROM wordcamp", null);
+        Cursor cursor=db.rawQuery("SELECT * FROM wordcamp ", null);
 
         if(cursor!=null){
             List<WordCampDB> wordCampDBList = new ArrayList<>();
@@ -126,7 +141,8 @@ public class DBCommunicator {
                     String to = cursor.getString(3);
                     String lastscanned = cursor.getString(4);
                     String data = cursor.getString(5);
-                    wordCampDBList.add(new WordCampDB(id,title,from,to,lastscanned,data));
+                    String url = cursor.getString(6);
+                    wordCampDBList.add(new WordCampDB(id,title,from,to,lastscanned,data,url));
                 } while (cursor.moveToNext());
             }
             cursor.close();
@@ -149,9 +165,18 @@ public class DBCommunicator {
 
         if(cursor!=null){
             cursor.moveToFirst();
+            int wcid = cursor.getInt(0);
+            String name = cursor.getString(1);
+            int speakerid = cursor.getInt(2);
+            String speakerbio = cursor.getString(3);
+            int postid = cursor.getInt(4);
+            String featuredimg = cursor.getString(5);
+            String lastscan = cursor.getString(6);
+            String gsonobject = cursor.getString(7);
 
+            cursor.close();
+            return new SpeakerDB(wcid,name,speakerid,postid,speakerbio,featuredimg,lastscan,gsonobject);
         }
-
         return null;
     }
 

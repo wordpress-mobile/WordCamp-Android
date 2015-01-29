@@ -43,9 +43,12 @@ public class SessionTester extends ActionBarActivity {
                         try {
                             Session session = gson.fromJson(array.getJSONObject(i).toString(), Session.class);
                             String name = session.getTitle();
-                            SessionDB db = new SessionDB(session, 11, session.getFoo().getWcptSessionTime().get(0));
+                            SessionDB db = new SessionDB(session.getID(),session.getID(),
+                                    session.getTitle(),1,"",session.getTerms().getWcbTrack().get(0).getName(),
+                                    session.getFoo().getWcptSessionType().get(0),array.getJSONObject(i).toString());
+
                             sessionDBList.add(i, db);
-                            Log.e("Session " + i, db.getSession().getTitle());
+                            Log.e("Session " + i, db.getTitle());
                         }
                         catch(Exception e){
                             e.printStackTrace();
@@ -56,14 +59,14 @@ public class SessionTester extends ActionBarActivity {
                     Collections.sort(sessionDBList, new Comparator<SessionDB>() {
                         @Override
                         public int compare(SessionDB lhs, SessionDB rhs) {
-                            int lhstime = Integer.parseInt(lhs.getUnix_time());
-                            int rhstime = Integer.parseInt(rhs.getUnix_time());
+                            int lhstime = lhs.getTime();
+                            int rhstime = rhs.getTime();
                             return lhstime - rhstime;
                         }
                     });
 
                     for (int i = 0; i < sessionDBList.size(); i++) {
-                        Log.e("Session " + i, sessionDBList.get(i).getSession().getTitle());
+                        Log.e("Session " + i, sessionDBList.get(i).getTitle());
                     }
             }
         });

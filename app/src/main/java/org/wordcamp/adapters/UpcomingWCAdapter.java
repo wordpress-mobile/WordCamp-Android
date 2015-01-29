@@ -7,10 +7,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.wordcamp.R;
-import org.wordcamp.objects.wordcamp.WordCamps;
+import org.wordcamp.objects.WordCampDB;
+import org.wordcamp.utils.WordCampUtils;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,11 +17,9 @@ import java.util.List;
  */
 public class UpcomingWCAdapter extends RecyclerView.Adapter<UpcomingWCAdapter.ViewHolder> {
 
+    public List<WordCampDB> wordCamps;
 
-
-    public List<WordCamps> wordCamps;
-
-    public UpcomingWCAdapter(List<WordCamps> arr) {
+    public UpcomingWCAdapter(List<WordCampDB> arr) {
         wordCamps=arr;
     }
 
@@ -35,40 +32,27 @@ public class UpcomingWCAdapter extends RecyclerView.Adapter<UpcomingWCAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        WordCamps wc = wordCamps.get(position);
-        holder.title.setText(wc.getTitle());
-        if(wc.getFoo().getStartDateYYYYMmDd().size()>0 && !wc.getFoo().getStartDateYYYYMmDd().get(0).equals("")
-                && !wc.getFoo().getEndDateYYYYMmDd().get(0).equals("")){
-
-
-            Date d = new Date(Long.parseLong(wc.getFoo().getStartDateYYYYMmDd().get(0)) * 1000);
-            Date d1 = new Date(Long.parseLong(wc.getFoo().getEndDateYYYYMmDd().get(0)) * 1000);
-
-            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd");
-            SimpleDateFormat sdf1 = new SimpleDateFormat("dd, yyyy");
-
-            holder.date.setText(sdf.format(d)+" - "+sdf1.format(d1));}
-        else
-            holder.date.setText("Coming soon");
-
+        WordCampDB wc = wordCamps.get(position);
+        holder.title.setText(wc.getWc_title());
+        holder.date.setText(WordCampUtils.getProperDate(wc));
     }
+
 
     @Override
     public int getItemCount() {
         return wordCamps.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
-        public TextView title,date;
-        private UpcomingWCAdapter upcomingWCAdapter;
-        public ViewHolder(View v) {
-            super(v);
-            title = (TextView)v.findViewById(R.id.up_wc_title);
-            date = (TextView)v.findViewById(R.id.up_wc_dates);
-
-        }
+public static class ViewHolder extends RecyclerView.ViewHolder {
+    // each data item is just a string in this case
+    public TextView title,date;
+    public ViewHolder(View v) {
+        super(v);
+        title = (TextView)v.findViewById(R.id.up_wc_title);
+        date = (TextView)v.findViewById(R.id.up_wc_dates);
 
     }
+
+}
 
 }

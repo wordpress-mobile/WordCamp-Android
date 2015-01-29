@@ -1,6 +1,7 @@
 package org.wordcamp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,13 @@ import android.view.ViewGroup;
 
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+
+import org.wordcamp.adapters.UpcomingWCAdapter;
+import org.wordcamp.objects.WordCampDB;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 
 public class UpcomingWCFragment extends android.support.v4.app.Fragment {
@@ -21,6 +29,7 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment {
     private String mParam2;
     public ObservableRecyclerView rView;
     private RecyclerView.LayoutManager mLayoutManager;
+    public List<WordCampDB> wordCampDBs;
 
     public static UpcomingWCFragment newInstance(String param1, String param2) {
         UpcomingWCFragment fragment = new UpcomingWCFragment();
@@ -42,6 +51,16 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        wordCampDBs = ((BaseActivity)getActivity()).wordCampsList;
+        Collections.sort(wordCampDBs, new Comparator<WordCampDB>() {
+            @Override
+            public int compare(WordCampDB lhs, WordCampDB rhs) {
+                int lhstime = Integer.parseInt(lhs.getWc_start_date());
+                int rhstime = Integer.parseInt(rhs.getWc_start_date());
+                return lhstime - rhstime;
+            }
+        });
+
     }
 
     @Override
@@ -56,11 +75,27 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment {
         rView.setLayoutManager(mLayoutManager);
 
 
+        UpcomingWCAdapter adapter = new UpcomingWCAdapter(wordCampDBs);
+        rView.setAdapter(adapter);
+        rView.scrollVerticallyToPosition(3);
+
+//        rView.setTouchInterceptionViewGroup((ViewGroup) findViewById(R.id.container));
+        rView.addOnItemTouchListener(
+                new RecyclerItemListener(getActivity(), new RecyclerItemListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        // do whatever
+                        Intent i = new Intent(getActivity(), NewWordCampDetail.class);
+                        i.putExtra("wc",wordCampDBs.get(position));
+                        startActivity(i);
+
+                    }
+                })
+        );
 
         if (parentActivity instanceof ObservableScrollViewCallbacks) {
             rView.setScrollViewCallbacks((ObservableScrollViewCallbacks) parentActivity);
         }
-
 
         return v;
     }
@@ -73,4 +108,18 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment {
         super.onDetach();
     }
 
+    public void updateList(List<WordCampDB> wordCampsList) {
+        wordCampDBs = wordCampsList;
+        Collections.sort(wordCampDBs, new Comparator<WordCampDB>() {
+            @Override
+            public int compare(WordCampDB lhs, WordCampDB rhs) {
+                int lhstime = Integer.parseInt(lhs.getWc_start_date());
+                int rhstime = Integer.parseInt(rhs.getWc_start_date());
+                return lhstime - rhstime;
+            }
+        });
+
+        UpcomingWCAdapter adapter = new UpcomingWCAdapter(wordCampDBs);
+        rView.setAdapter(adapter);
+    }
 }

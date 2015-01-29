@@ -40,7 +40,7 @@ public class WCDetailAdapter extends CacheFragmentStatePagerAdapter {
             case 1:
                 return "Schedule";
             default:
-                return "Attendees";
+                return "Speakers";
         }
     }
 }

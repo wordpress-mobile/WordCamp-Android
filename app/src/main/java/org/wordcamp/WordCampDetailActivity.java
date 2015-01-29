@@ -7,13 +7,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
+import org.wordcamp.objects.WordCampDB;
+import org.wordcamp.objects.wordcamp.WordCamps;
 import org.wordcamp.utils.ImageUtils;
+import org.wordcamp.utils.WordCampUtils;
 
 /**
  * Created by aagam on 12/1/15.
@@ -24,17 +30,18 @@ public class WordCampDetailActivity extends ActionBarActivity {
     private Toolbar mToolbar;
     private View mHeader;
     private ImageView wcpic;
-//    private WordCamps wc;
+    private WordCampDB wc;
     public TextView loc,about;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mActionBarDrawerToggle;
     private int mNavDrawerSize;
+    public WordCamps wholeWC;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        wc = (WordCamps)getIntent().getSerializableExtra("wc");
+        wc = (WordCampDB)getIntent().getSerializableExtra("wc");
         setContentView(R.layout.activity_wordcamp_detail_my);
         initGUI();
         setCoverImageAspect();
@@ -70,11 +77,13 @@ public class WordCampDetailActivity extends ActionBarActivity {
 
     private void initGUI() {
 
+        Gson gson = new Gson();
+        wholeWC = gson.fromJson(wc.getGson_object(),WordCamps.class);
 
         mToolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-//        mToolbar.setTitle(wc.getTitle());
-        mToolbar.setSubtitle("March 20-22, 2015");
+        mToolbar.setTitle(wc.getWc_title());
+        mToolbar.setSubtitle(WordCampUtils.getProperDate(wc));
         wcpic = (ImageView)findViewById(R.id.wc_photo);
 
         /*Bitmap bp = BitmapFactory.decodeResource(getResources(), R.drawable.wclondon);
@@ -86,8 +95,10 @@ public class WordCampDetailActivity extends ActionBarActivity {
 
         loc = (TextView)findViewById(R.id.wc_location);
         about = (TextView)findViewById(R.id.wc_about);
-//        loc.setText(wc.getFoo().getLocation().get(0));
-//        about.setText(Html.fromHtml(wc.getContent()));
+        loc.setText(wholeWC.getFoo().getLocation().get(0));
+
+
+        about.setText(Html.fromHtml(wholeWC.getContent()));
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
