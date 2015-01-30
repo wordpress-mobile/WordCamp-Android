@@ -52,15 +52,17 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         wordCampDBs = ((BaseActivity)getActivity()).wordCampsList;
-        Collections.sort(wordCampDBs, new Comparator<WordCampDB>() {
-            @Override
-            public int compare(WordCampDB lhs, WordCampDB rhs) {
-                int lhstime = Integer.parseInt(lhs.getWc_start_date());
-                int rhstime = Integer.parseInt(rhs.getWc_start_date());
-                return lhstime - rhstime;
-            }
-        });
 
+        if(wordCampDBs!=null) {
+            Collections.sort(wordCampDBs, new Comparator<WordCampDB>() {
+                @Override
+                public int compare(WordCampDB lhs, WordCampDB rhs) {
+                    int lhstime = Integer.parseInt(lhs.getWc_start_date());
+                    int rhstime = Integer.parseInt(rhs.getWc_start_date());
+                    return lhstime - rhstime;
+                }
+            });
+        }
     }
 
     @Override
@@ -85,7 +87,7 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment {
                     @Override
                     public void onItemClick(View view, int position) {
                         // do whatever
-                        Intent i = new Intent(getActivity(), NewWordCampDetail.class);
+                        Intent i = new Intent(getActivity(), WordCampDetailActivity.class);
                         i.putExtra("wc",wordCampDBs.get(position));
                         startActivity(i);
 

@@ -13,13 +13,15 @@ public class WPAPIClient {
 
     private static final String LOCAL = "http://192.168.0.102/myVagrant/index.php";
 
-    private static final String QUERY_PARAM_SPEAKERS = "/wp-json/posts?type=wcb_speaker";
+    private static final String QUERY_PARAM_SPEAKERS = "/wp-json/posts?type=wcb_speaker&filter[posts_per_page]=100";
 
-    private static final String QUERY_PARAM_WC = "central.wordcamp.dev/wp-json/posts?type=wordcamp&filter[order]=DESC&filter[orderby]=modified";
+    private static final String QUERY_PARAM_WC = "central.wordcamp.dev/wp-json/posts?type=wordcamp&filter[order]=DESC&filter[orderby]=modified&filter[posts_per_page]=100";
 
-    private static final String QUERY_PARAM_SCHEDULE = "/wp-json/posts?type=wcb_session";
+    private static final String QUERY_PARAM_SCHEDULE = "/wp-json/posts?type=wcb_session&filter[order]=DESC&filter[orderby]=modified&filter[posts_per_page]=100";
 
-    private static final String QUERY_PARAM_SESSION = "2014.seattle.wordcamp.dev/wp-json/posts?filter[posts_per_page]=58&type=wcb_session";
+    private static final String QUERY_PARAM_SINGLEWC = "http://central.wordcamp.dev/wp-json/posts/";
+
+    //private static final String QUERY_PARAM_SESSION = "2014.seattle.wordcamp.dev/wp-json/posts?filter[posts_per_page]=58&type=wcb_session";
 
     private static AsyncHttpClient client = new AsyncHttpClient();
 
@@ -32,18 +34,26 @@ public class WPAPIClient {
     }
 
     public static void getWordCampSpeakers(String wordcampURL,JsonHttpResponseHandler responseHandler) {
-        client.get(wordcampURL+QUERY_PARAM_SPEAKERS, null, responseHandler);
+        RequestParams params = new RequestParams();
+        params.add("url",wordcampURL+QUERY_PARAM_SPEAKERS);
+        client.get(LOCAL, params, responseHandler);
     }
 
     public static void getWordCampSchedule(String wordcampURL,JsonHttpResponseHandler responseHandler) {
         client.get(wordcampURL+QUERY_PARAM_SCHEDULE, null, responseHandler);
     }
 
-    public static void getSession(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
-        RequestParams params1 = new RequestParams();
-        params1.add("url",QUERY_PARAM_SESSION);
-
-        client.get(LOCAL, params1, responseHandler);
-
+    public static void getSession(String url, AsyncHttpResponseHandler responseHandler) {
+        RequestParams params = new RequestParams();
+        params.add("url",url+QUERY_PARAM_SCHEDULE);
+        client.get(LOCAL, params, responseHandler);
     }
+
+    public static void getSingleWC(int wcid ,AsyncHttpResponseHandler responseHandler){
+        RequestParams params = new RequestParams();
+        params.add("url",QUERY_PARAM_SINGLEWC+""+wcid);
+        client.get(LOCAL,params,responseHandler);
+    }
+
+
 }

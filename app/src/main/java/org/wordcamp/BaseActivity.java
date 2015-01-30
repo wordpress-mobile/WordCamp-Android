@@ -127,6 +127,25 @@ public class BaseActivity extends ActionBarActivity implements ObservableScrollV
     }
 
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(communicator!=null)
+            communicator.close();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(communicator==null){
+            communicator = new DBCommunicator(this);
+        }
+        else{
+            communicator.start();
+        }
+    }
+
     private void fetchWCList() {
 
         final SharedPreferences pref = getSharedPreferences("wc", Context.MODE_PRIVATE);

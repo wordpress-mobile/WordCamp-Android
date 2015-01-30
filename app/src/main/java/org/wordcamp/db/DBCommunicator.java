@@ -67,6 +67,20 @@ public class DBCommunicator {
         }
     }
 
+    public void updateWC(WordCamps wc){
+        ContentValues contentValues = new ContentValues();
+//        contentValues.put("wcid",wc.getID());
+        contentValues.put("title",wc.getTitle());
+        contentValues.put("fromdate",wc.getFoo().getStartDateYYYYMmDd().get(0));
+        contentValues.put("todate",wc.getFoo().getEndDateYYYYMmDd().get(0));
+        contentValues.put("gsonobject", gson.toJson(wc,WordCamps.class));
+        if(wc.getFoo().getURL().size()>0)
+            contentValues.put("url", wc.getFoo().getURL().get(0));
+
+        db.update("wordcamp", contentValues, " wcid = ?",
+                new String[] { String.valueOf(wc.getID()) });
+    }
+
     public long addSpeaker(Speakers sk, int wcid){
         ContentValues contentValues = new ContentValues();
         contentValues.put("wcid",wcid);
@@ -80,7 +94,14 @@ public class DBCommunicator {
         contentValues.put("postid", sk.getID());
         contentValues.put("gsonobject", gson.toJson(sk));
 
-        return db.insert("speaker",null,contentValues);
+        long id =  db.insert("speaker",null,contentValues);
+
+        if(id==-1){
+            id = db.update("speaker", contentValues, " wcid = ? AND postid = ?",
+                    new String[] { String.valueOf(wcid), String.valueOf(sk.getID())  });
+        }
+
+        return id;
     }
 
 

@@ -20,7 +20,7 @@
         </activity>
         <activity
             android:configChanges="screenSize|orientation"
-            android:name=".NewWordCampDetail"
+            android:name=".WordCampDetailActivity"
             android:label="@string/app_name" >
 
         </activity>
@@ -44,6 +44,14 @@
             android:label="@string/app_name" >
 
         </activity>
+
+        <activity
+            android:configChanges="screenSize|orientation"
+            android:name=".Test"
+            android:label="@string/app_name" >
+
+        </activity>
+
     </application>
 
 </manifest>
