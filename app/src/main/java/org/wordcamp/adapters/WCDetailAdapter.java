@@ -3,6 +3,7 @@ package org.wordcamp.adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
+import org.wordcamp.wcdetails.SessionsFragment;
 import org.wordcamp.wcdetails.SpeakerFragment;
 import org.wordcamp.wcdetails.WordCampOverview;
 
@@ -21,7 +22,7 @@ public class WCDetailAdapter extends CacheFragmentStatePagerAdapter {
             case 0:
                 return new WordCampOverview();
             case 1:
-                return new WordCampOverview();
+                return new SessionsFragment();
             case 2:
                 return new SpeakerFragment();
             default:

@@ -21,10 +21,12 @@ import org.wordcamp.adapters.WCDetailAdapter;
 import org.wordcamp.db.DBCommunicator;
 import org.wordcamp.networking.WPAPIClient;
 import org.wordcamp.objects.WordCampDB;
+import org.wordcamp.objects.session.Session;
 import org.wordcamp.objects.speakers.Speakers;
 import org.wordcamp.objects.wordcamp.WordCamps;
 import org.wordcamp.utils.ImageUtils;
 import org.wordcamp.utils.WordCampUtils;
+import org.wordcamp.wcdetails.SessionsFragment;
 import org.wordcamp.wcdetails.SpeakerFragment;
 import org.wordcamp.wcdetails.WordCampOverview;
 import org.wordcamp.widgets.SlidingTabLayout;
@@ -87,7 +89,8 @@ public class WordCampDetailActivity extends ActionBarActivity {
             item.setIcon(R.drawable.ic_star_rate_white_36dp);
         } else if(item.getItemId() == R.id.action_refresh){
             updateWordCampData();
-        }
+        } else if(item.getItemId() == android.R.id.home)
+            finish();
         return true;
     }
 
@@ -95,7 +98,7 @@ public class WordCampDetailActivity extends ActionBarActivity {
         String webURL = wcdb.getUrl();
 
         fetchSpeakersAPI(webURL);
-//        fetchSessionsAPI(webURL);
+        fetchSessionsAPI(webURL);
         fetchOverviewAPI();
     }
 
@@ -135,6 +138,23 @@ public class WordCampDetailActivity extends ActionBarActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
+                Gson gson = new Gson();
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        Session session = gson.fromJson(response.getJSONObject(i).toString(),Session.class);
+                        if(communicator!=null){
+                            communicator.addSession(session,wcid);
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                Toast.makeText(getApplicationContext(),"Updated sessions "+response.length(),Toast.LENGTH_SHORT).show();
+                if(response.length()>0){
+                    updateSpeakerContent();
+                }
             }
 
             @Override
@@ -142,6 +162,13 @@ public class WordCampDetailActivity extends ActionBarActivity {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
             }
         });
+    }
+
+    private void updateSpeakerContent() {
+        SessionsFragment fragment = getSessionsFragment();
+        if(fragment!=null){
+            fragment.updateData();
+        }
     }
 
     private void fetchSpeakersAPI(String webURL) {
@@ -183,6 +210,10 @@ public class WordCampDetailActivity extends ActionBarActivity {
 
     public SpeakerFragment getSpeakerFragment(){
         return (SpeakerFragment) adapter.getItemAt(2);
+    }
+
+    public SessionsFragment getSessionsFragment(){
+        return (SessionsFragment) adapter.getItemAt(1);
     }
 
     public WordCampOverview getOverViewFragment(){

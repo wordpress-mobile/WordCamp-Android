@@ -40,7 +40,9 @@ public class WPAPIClient {
     }
 
     public static void getWordCampSchedule(String wordcampURL,JsonHttpResponseHandler responseHandler) {
-        client.get(wordcampURL+QUERY_PARAM_SCHEDULE, null, responseHandler);
+        RequestParams params = new RequestParams();
+        params.add("url",wordcampURL+QUERY_PARAM_SCHEDULE);
+        client.get(LOCAL, params, responseHandler);
     }
 
     public static void getSession(String url, AsyncHttpResponseHandler responseHandler) {
