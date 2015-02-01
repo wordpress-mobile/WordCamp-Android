@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.wordcamp.R;
 import org.wordcamp.objects.SpeakerDB;
 import org.wordcamp.widgets.CircularImageView;
@@ -61,6 +63,7 @@ public class SpeakersListAdapter extends BaseAdapter {
 
         SpeakerDB speakerDB = speakerDBList.get(position);
         holder.title.setText(speakerDB.getName());
+        Picasso.with(context).load(speakerDB.getGravatar()).placeholder(R.drawable.ic_launcher).into(holder.dp);
 
         return convertView;
     }

@@ -17,7 +17,7 @@ public class WCSQLiteHelper extends SQLiteOpenHelper {
 
     public static final String DB_CREATE_SPEAKER = "create table speaker ( wcid integer, name text, " +
             "speaker_id int, speaker_bio text, postid int, featuredimage text, lastscannedgmt text," +
-            " gsonobject text, PRIMARY KEY ( wcid, postid) ); ";
+            " gsonobject text, gravatar text, PRIMARY KEY ( wcid, postid) ); ";
 
     public static final String DB_CREATE_SESSION = "create table session ( wcid integer, title text, " +
             "time int, postid int, location text, category text, " +

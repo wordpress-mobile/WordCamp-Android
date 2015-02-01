@@ -13,8 +13,11 @@ public class SpeakerDB {
     public String featured_image;
     public String last_scanned_gmt;
     public String gson_object;
+    public String gravatar;
 
-    public SpeakerDB(int wc_id, String name, int speaker_id, int post_id, String info, String featured_image, String last_scanned_gmt, String gson_object) {
+    public SpeakerDB(int wc_id, String name, int speaker_id, int post_id,
+                     String info, String featured_image,
+                     String last_scanned_gmt, String gson_object, String gravatar) {
         this.wc_id = wc_id;
         this.name = name;
         this.speaker_id = speaker_id;
@@ -23,6 +26,15 @@ public class SpeakerDB {
         this.featured_image = featured_image;
         this.last_scanned_gmt = last_scanned_gmt;
         this.gson_object = gson_object;
+        this.gravatar = gravatar;
+    }
+
+    public String getGravatar() {
+        return gravatar;
+    }
+
+    public void setGravatar(String gravatar) {
+        this.gravatar = gravatar;
     }
 
     public int getWc_id() {

@@ -13,6 +13,7 @@ import org.wordcamp.objects.WordCampDB;
 import org.wordcamp.objects.session.Session;
 import org.wordcamp.objects.speakers.Speakers;
 import org.wordcamp.objects.wordcamp.WordCamps;
+import org.wordcamp.utils.WordCampUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,8 +98,15 @@ public class DBCommunicator {
         contentValues.put("speaker_bio", sk.getContent());
         contentValues.put("postid", sk.getID());
         contentValues.put("gsonobject", gson.toJson(sk));
+        if(sk.getFoo().getSpeakerEmail().size()>0 && !sk.getFoo().getSpeakerEmail().get(0).equals("")){
+            String grav =sk.getFoo().getSpeakerEmail().get(0);
+            String mdf = WordCampUtils.md5(grav);
+            contentValues.put("gravatar","http://www.gravatar.com/avatar/"+ mdf);
+        }
+
 
         long id =  db.insert("speaker",null,contentValues);
+
 
         if(id==-1){
             id = db.update("speaker", contentValues, " wcid = ? AND postid = ?",
@@ -200,9 +208,10 @@ public class DBCommunicator {
             String featuredimg = cursor.getString(5);
             String lastscan = cursor.getString(6);
             String gsonobject = cursor.getString(7);
+            String gravatar  = cursor.getString(8);
 
             cursor.close();
-            return new SpeakerDB(wcid,name,speakerid,postid,speakerbio,featuredimg,lastscan,gsonobject);
+            return new SpeakerDB(wcid,name,speakerid,postid,speakerbio,featuredimg,lastscan,gsonobject,gravatar);
         }
         return null;
     }
@@ -227,8 +236,8 @@ public class DBCommunicator {
                     String featuredimg = cursor.getString(5);
                     String lastscan = cursor.getString(6);
                     String gsonobject = cursor.getString(7);
-
-                    speakerDBList.add(new SpeakerDB(wcid,name,speakerid,postid,speakerbio,featuredimg,lastscan,gsonobject));
+                    String gravatar  = cursor.getString(8);
+                    speakerDBList.add(new SpeakerDB(wcid,name,speakerid,postid,speakerbio,featuredimg,lastscan,gsonobject,gravatar));
                 } while (cursor.moveToNext());
             }
             cursor.close();
@@ -238,9 +247,6 @@ public class DBCommunicator {
         return null;
 
     }
-
-
-
 
     public SessionDB getSession(int id){
         Cursor cursor=db.rawQuery("SELECT * FROM session WHERE postid="+id, null);
@@ -260,9 +266,6 @@ public class DBCommunicator {
 
         return null;
     }
-
-    public static final String DB_CREATE_SESSION = "create table session ( wcid integer, title text, " +
-            "time int, postid int, location text, category text, lastscannedgmt text, gsonobject text); ";
 
     public List<SessionDB> getAllSession(int wcid) {
         Cursor cursor = db.rawQuery("SELECT * FROM session WHERE wcid=" + wcid, null);
