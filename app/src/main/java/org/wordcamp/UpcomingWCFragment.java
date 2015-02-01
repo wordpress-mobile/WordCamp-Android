@@ -77,7 +77,7 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment {
         rView.setLayoutManager(mLayoutManager);
 
 
-        UpcomingWCAdapter adapter = new UpcomingWCAdapter(wordCampDBs);
+        UpcomingWCAdapter adapter = new UpcomingWCAdapter(wordCampDBs,getActivity());
         rView.setAdapter(adapter);
         rView.scrollVerticallyToPosition(3);
 
@@ -121,7 +121,7 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment {
             }
         });
 
-        UpcomingWCAdapter adapter = new UpcomingWCAdapter(wordCampDBs);
+        UpcomingWCAdapter adapter = new UpcomingWCAdapter(wordCampDBs,getActivity());
         rView.setAdapter(adapter);
     }
 }

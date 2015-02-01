@@ -1,10 +1,14 @@
 package org.wordcamp.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import org.wordcamp.R;
 import org.wordcamp.objects.WordCampDB;
@@ -19,8 +23,10 @@ public class UpcomingWCAdapter extends RecyclerView.Adapter<UpcomingWCAdapter.Vi
 
     public List<WordCampDB> wordCamps;
 
-    public UpcomingWCAdapter(List<WordCampDB> arr) {
+    public Context ctx;
+    public UpcomingWCAdapter(List<WordCampDB> arr, Context context) {
         wordCamps=arr;
+        ctx=context;
     }
 
     @Override
@@ -35,6 +41,8 @@ public class UpcomingWCAdapter extends RecyclerView.Adapter<UpcomingWCAdapter.Vi
         WordCampDB wc = wordCamps.get(position);
         holder.title.setText(wc.getWc_title());
         holder.date.setText(WordCampUtils.getProperDate(wc));
+        if(wc.featureImageUrl!=null && !wc.featureImageUrl.equals(""))
+            Picasso.with(ctx).load(wc.featureImageUrl).into(holder.icon);
     }
 
 
@@ -43,16 +51,18 @@ public class UpcomingWCAdapter extends RecyclerView.Adapter<UpcomingWCAdapter.Vi
         return wordCamps.size();
     }
 
-public static class ViewHolder extends RecyclerView.ViewHolder {
-    // each data item is just a string in this case
-    public TextView title,date;
-    public ViewHolder(View v) {
-        super(v);
-        title = (TextView)v.findViewById(R.id.up_wc_title);
-        date = (TextView)v.findViewById(R.id.up_wc_dates);
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        // each data item is just a string in this case
+        public TextView title,date;
+        public ImageView icon;
+        public ViewHolder(View v) {
+            super(v);
+            title = (TextView)v.findViewById(R.id.up_wc_title);
+            date = (TextView)v.findViewById(R.id.up_wc_dates);
+            icon = (ImageView)v.findViewById(R.id.wcIcon);
+
+        }
 
     }
-
-}
 
 }

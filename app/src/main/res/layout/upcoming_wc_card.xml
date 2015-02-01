@@ -24,14 +24,14 @@
 
                 <ImageView
                     android:src="@drawable/wp_icon"
-                    android:id="@+id/up_image_icon"
+                    android:id="@+id/wcIcon"
                     android:layout_centerVertical="true"
                     android:layout_width="60dp"
                     android:layout_height="60dp" />
                 <TextView
                     android:textSize="20sp"
                     android:id="@+id/up_wc_title"
-                    android:layout_toRightOf="@+id/up_image_icon"
+                    android:layout_toRightOf="@+id/wcIcon"
                     android:layout_width="match_parent"
                     android:text="WordCamp London"
                     android:layout_marginLeft="10dp"
@@ -39,7 +39,7 @@
                 <TextView
                     android:id="@+id/up_wc_dates"
                     android:textSize="15sp"
-                    android:layout_toRightOf="@+id/up_image_icon"
+                    android:layout_toRightOf="@+id/wcIcon"
                     android:layout_below="@+id/up_wc_title"
                     android:text="Jan 5- Jan 9"
                     android:layout_marginLeft="10dp"
