@@ -16,6 +16,8 @@ import org.wordcamp.objects.wordcamp.WordCamps;
 import org.wordcamp.utils.WordCampUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -289,6 +291,13 @@ public class DBCommunicator {
                 } while (cursor.moveToNext());
 
                 cursor.close();
+
+                Collections.sort(sessionDBList,new Comparator<SessionDB>() {
+                    @Override
+                    public int compare(SessionDB lhs, SessionDB rhs) {
+                        return lhs.getTime()-rhs.getTime();
+                    }
+                });
                 return sessionDBList;
 
             }

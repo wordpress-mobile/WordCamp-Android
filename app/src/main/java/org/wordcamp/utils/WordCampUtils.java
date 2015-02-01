@@ -6,7 +6,9 @@ import org.wordcamp.objects.wordcamp.WordCamps;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Created by aagam on 29/1/15.
@@ -51,5 +53,21 @@ public class WordCampUtils {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static String formatProperTime(int time) {
+        Date d = new Date((long)time*1000);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(d);
+        int minutes = 5*(Math.round(calendar.get(Calendar.MINUTE)/5));
+        if(minutes==60){
+            minutes=0;
+            calendar.set(Calendar.HOUR,(calendar.get(Calendar.HOUR)+1));
+        }
+        calendar.set(Calendar.MINUTE,minutes);
+        d = calendar.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd HH:mm");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+        return sdf.format(d);
     }
 }

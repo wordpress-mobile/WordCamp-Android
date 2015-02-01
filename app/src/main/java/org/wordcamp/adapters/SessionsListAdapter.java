@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import org.wordcamp.R;
 import org.wordcamp.objects.SessionDB;
+import org.wordcamp.utils.WordCampUtils;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,13 +34,12 @@ public class SessionsListAdapter extends RecyclerView.Adapter<SessionsListAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.title.setText(Html.fromHtml(list.get(position).getTitle()));
-        Date d = new Date(list.get(position).getTime());
-        holder.abstractView.setText(d.toString());
+        holder.abstractView.setText(WordCampUtils.formatProperTime(list.get(position).getTime()));
     }
 
     @Override
     public int getItemCount() {
-        return 30;
+        return list.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
