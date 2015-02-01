@@ -15,15 +15,15 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="56dp">
+            android:layout_height="60dp">
 
             <org.wordcamp.widgets.CircularImageView
                 android:src="@drawable/wp_icon"
                 android:id="@+id/speaker_dp"
                 android:layout_marginLeft="16dp"
                 android:layout_gravity="center_vertical"
-                android:layout_width="48dp"
-                android:layout_height="48dp" />
+                android:layout_width="60dp"
+                android:layout_height="60dp" />
 
             <TextView
                 android:fontFamily="sans-serif"
