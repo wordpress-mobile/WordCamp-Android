@@ -6,7 +6,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
-public class Author {
+public class Author_ {
 
     @Expose
     private int ID;
@@ -33,7 +33,7 @@ public class Author {
     @Expose
     private String registered;
     @Expose
-    private Meta meta;
+    private Meta__ meta;
 
     /**
      * 
@@ -238,7 +238,7 @@ public class Author {
      * @return
      *     The meta
      */
-    public Meta getMeta() {
+    public Meta__ getMeta() {
         return meta;
     }
 
@@ -247,7 +247,7 @@ public class Author {
      * @param meta
      *     The meta
      */
-    public void setMeta(Meta meta) {
+    public void setMeta(Meta__ meta) {
         this.meta = meta;
     }
 

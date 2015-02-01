@@ -56,6 +56,7 @@ public class DBCommunicator {
             contentValues.put("todate",wc.getWc_end_date());
             contentValues.put("gsonobject", wc.getGson_object());
             contentValues.put("url", wc.getUrl());
+            contentValues.put("featuredImageUrl", wc.getFeatureImageUrl());
             long id = db.insert(WCSQLiteHelper.TABLE_WC,null,contentValues);
 
             if(id==-1){
@@ -77,6 +78,9 @@ public class DBCommunicator {
         if(wc.getFoo().getURL().size()>0)
             contentValues.put("url", wc.getFoo().getURL().get(0));
 
+        if(wc.getFeaturedImage()!=null){
+            contentValues.put("featuredImageUrl", wc.getFeaturedImage().getSource());
+        }
         db.update("wordcamp", contentValues, " wcid = ?",
                 new String[] { String.valueOf(wc.getID()) });
     }
@@ -139,8 +143,9 @@ public class DBCommunicator {
             String lastscanned = cursor.getString(4);
             String data = cursor.getString(5);
             String url = cursor.getString(6);
+            String featureImageUrl = cursor.getString(7);
             cursor.close();
-            return new WordCampDB(id,title,from,to,lastscanned,data,url);
+            return new WordCampDB(id,title,from,to,lastscanned,data,url,featureImageUrl);
         }
         else{
             return null;
@@ -163,7 +168,8 @@ public class DBCommunicator {
                     String lastscanned = cursor.getString(4);
                     String data = cursor.getString(5);
                     String url = cursor.getString(6);
-                    wordCampDBList.add(new WordCampDB(id,title,from,to,lastscanned,data,url));
+                    String featuredImage = cursor.getString(7);
+                    wordCampDBList.add(new WordCampDB(id,title,from,to,lastscanned,data,url,featuredImage));
                 } while (cursor.moveToNext());
             }
             cursor.close();

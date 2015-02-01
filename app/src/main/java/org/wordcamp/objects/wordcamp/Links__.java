@@ -5,7 +5,7 @@ package org.wordcamp.objects.wordcamp;
 import com.google.gson.annotations.Expose;
 
 
-public class Links {
+public class Links__ {
 
     @Expose
     private String self;

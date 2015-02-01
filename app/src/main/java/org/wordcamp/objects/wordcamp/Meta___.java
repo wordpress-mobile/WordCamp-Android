@@ -5,17 +5,17 @@ package org.wordcamp.objects.wordcamp;
 import com.google.gson.annotations.Expose;
 
 
-public class Meta {
+public class Meta___ {
 
     @Expose
-    private Links links;
+    private Links___ links;
 
     /**
      * 
      * @return
      *     The links
      */
-    public Links getLinks() {
+    public Links___ getLinks() {
         return links;
     }
 
@@ -24,7 +24,7 @@ public class Meta {
      * @param links
      *     The links
      */
-    public void setLinks(Links links) {
+    public void setLinks(Links___ links) {
         this.links = links;
     }
 

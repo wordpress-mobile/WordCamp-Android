@@ -4,10 +4,8 @@ package org.wordcamp.objects.wordcamp;
 
 import com.google.gson.annotations.Expose;
 
-import java.io.Serializable;
 
-
-public class Meta_ implements Serializable {
+public class Meta_ {
 
     @Expose
     private Links_ links;

@@ -6,7 +6,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
-public class Links_ {
+public class Links___ {
 
     @Expose
     private String self;
@@ -19,6 +19,8 @@ public class Links_ {
     @SerializedName("version-history")
     @Expose
     private String versionHistory;
+    @Expose
+    private String up;
 
     /**
      * 
@@ -108,6 +110,24 @@ public class Links_ {
      */
     public void setVersionHistory(String versionHistory) {
         this.versionHistory = versionHistory;
+    }
+
+    /**
+     * 
+     * @return
+     *     The up
+     */
+    public String getUp() {
+        return up;
+    }
+
+    /**
+     * 
+     * @param up
+     *     The up
+     */
+    public void setUp(String up) {
+        this.up = up;
     }
 
 }

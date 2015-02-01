@@ -18,9 +18,11 @@ public class WordCampDB implements Serializable {
     public String last_scanned_gmt;
     public String gson_object;
     public String url;
+    public String featureImageUrl;
     public Gson gson;
 
-    public WordCampDB(int wc_id, String wc_title, String wc_start_date, String wc_end_date, String last_scanned_gmt, String gson_object, String url) {
+    public WordCampDB(int wc_id, String wc_title, String wc_start_date, String wc_end_date,
+                      String last_scanned_gmt, String gson_object, String url, String featureImageUrl) {
         this.wc_id = wc_id;
         this.wc_title = wc_title;
         this.wc_start_date = wc_start_date;
@@ -28,6 +30,7 @@ public class WordCampDB implements Serializable {
         this.last_scanned_gmt = last_scanned_gmt;
         this.gson_object = gson_object;
         this.url = url;
+        this.featureImageUrl = featureImageUrl;
     }
 
     public WordCampDB(WordCamps wcs,String lastscan) {
@@ -39,7 +42,20 @@ public class WordCampDB implements Serializable {
         this.last_scanned_gmt = lastscan;
         this.gson_object = gson.toJson(wcs);
         if(wcs.getFoo().getURL().size()>0 && !wcs.getFoo().getURL().get(0).equals(""))
-        this.url = wcs.getFoo().getURL().get(0);
+        {
+            this.url = wcs.getFoo().getURL().get(0);
+        }
+        if(wcs.getFeaturedImage() != null){
+            this.featureImageUrl = wcs.getFeaturedImage().getSource();
+        }
+    }
+
+    public String getFeatureImageUrl() {
+        return featureImageUrl;
+    }
+
+    public void setFeatureImageUrl(String featureImageUrl) {
+        this.featureImageUrl = featureImageUrl;
     }
 
     public String getUrl() {

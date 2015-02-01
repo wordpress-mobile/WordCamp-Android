@@ -110,13 +110,18 @@ public class WordCampDetailActivity extends ActionBarActivity {
                 Gson g = new Gson();
                 WordCamps wc = g.fromJson(response.toString(),WordCamps.class);
                 communicator.updateWC(wc);
+
+                WordCampOverview overview = getOverViewFragment();
+                if (overview != null) {
+                    overview.updateData(wc);
+                }
             }
 
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
-                //Don't know why response is received here >_<
+                //Don't know why response is received here sometimes
 
                 if(errorResponse!=null) {
                     Gson g = new Gson();

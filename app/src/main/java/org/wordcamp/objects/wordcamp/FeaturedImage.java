@@ -1,14 +1,14 @@
 
 package org.wordcamp.objects.wordcamp;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-public class WordCamps {
+
+public class FeaturedImage {
 
     @Expose
     private int ID;
@@ -19,11 +19,11 @@ public class WordCamps {
     @Expose
     private String type;
     @Expose
-    private Author author;
+    private Author_ author;
     @Expose
     private String content;
     @Expose
-    private Object parent;
+    private int parent;
     @Expose
     private String link;
     @Expose
@@ -37,7 +37,7 @@ public class WordCamps {
     @Expose
     private String guid;
     @Expose
-    private String excerpt;
+    private Object excerpt;
     @SerializedName("menu_order")
     @Expose
     private int menuOrder;
@@ -56,14 +56,19 @@ public class WordCamps {
     @Expose
     private String modifiedGmt;
     @Expose
-    private Meta_ meta;
+    private Meta___ meta;
     @Expose
-    private Foo foo;
-    @SerializedName("featured_image")
-    @Expose
-    public FeaturedImage featuredImage;
+    private Foo_ foo;
     @Expose
     private List<Object> terms = new ArrayList<Object>();
+    @Expose
+    private String source;
+    @SerializedName("is_image")
+    @Expose
+    private boolean isImage;
+    @SerializedName("attachment_meta")
+    @Expose
+    private AttachmentMeta attachmentMeta;
 
     /**
      * 
@@ -142,7 +147,7 @@ public class WordCamps {
      * @return
      *     The author
      */
-    public Author getAuthor() {
+    public Author_ getAuthor() {
         return author;
     }
 
@@ -151,7 +156,7 @@ public class WordCamps {
      * @param author
      *     The author
      */
-    public void setAuthor(Author author) {
+    public void setAuthor(Author_ author) {
         this.author = author;
     }
 
@@ -178,7 +183,7 @@ public class WordCamps {
      * @return
      *     The parent
      */
-    public Object getParent() {
+    public int getParent() {
         return parent;
     }
 
@@ -187,7 +192,7 @@ public class WordCamps {
      * @param parent
      *     The parent
      */
-    public void setParent(Object parent) {
+    public void setParent(int parent) {
         this.parent = parent;
     }
 
@@ -304,7 +309,7 @@ public class WordCamps {
      * @return
      *     The excerpt
      */
-    public String getExcerpt() {
+    public Object getExcerpt() {
         return excerpt;
     }
 
@@ -313,7 +318,7 @@ public class WordCamps {
      * @param excerpt
      *     The excerpt
      */
-    public void setExcerpt(String excerpt) {
+    public void setExcerpt(Object excerpt) {
         this.excerpt = excerpt;
     }
 
@@ -430,7 +435,7 @@ public class WordCamps {
      * @return
      *     The meta
      */
-    public Meta_ getMeta() {
+    public Meta___ getMeta() {
         return meta;
     }
 
@@ -439,7 +444,7 @@ public class WordCamps {
      * @param meta
      *     The meta
      */
-    public void setMeta(Meta_ meta) {
+    public void setMeta(Meta___ meta) {
         this.meta = meta;
     }
 
@@ -448,7 +453,7 @@ public class WordCamps {
      * @return
      *     The foo
      */
-    public Foo getFoo() {
+    public Foo_ getFoo() {
         return foo;
     }
 
@@ -457,26 +462,8 @@ public class WordCamps {
      * @param foo
      *     The foo
      */
-    public void setFoo(Foo foo) {
+    public void setFoo(Foo_ foo) {
         this.foo = foo;
-    }
-
-    /**
-     * 
-     * @return
-     *     The featuredImage
-     */
-    public FeaturedImage getFeaturedImage() {
-        return featuredImage;
-    }
-
-    /**
-     * 
-     * @param featuredImage
-     *     The featured_image
-     */
-    public void setFeaturedImage(FeaturedImage featuredImage) {
-        this.featuredImage = featuredImage;
     }
 
     /**
@@ -495,6 +482,60 @@ public class WordCamps {
      */
     public void setTerms(List<Object> terms) {
         this.terms = terms;
+    }
+
+    /**
+     * 
+     * @return
+     *     The source
+     */
+    public String getSource() {
+        return source;
+    }
+
+    /**
+     * 
+     * @param source
+     *     The source
+     */
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    /**
+     * 
+     * @return
+     *     The isImage
+     */
+    public boolean isIsImage() {
+        return isImage;
+    }
+
+    /**
+     * 
+     * @param isImage
+     *     The is_image
+     */
+    public void setIsImage(boolean isImage) {
+        this.isImage = isImage;
+    }
+
+    /**
+     * 
+     * @return
+     *     The attachmentMeta
+     */
+    public AttachmentMeta getAttachmentMeta() {
+        return attachmentMeta;
+    }
+
+    /**
+     * 
+     * @param attachmentMeta
+     *     The attachment_meta
+     */
+    public void setAttachmentMeta(AttachmentMeta attachmentMeta) {
+        this.attachmentMeta = attachmentMeta;
     }
 
 }
