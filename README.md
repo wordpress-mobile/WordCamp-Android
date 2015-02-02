@@ -1,5 +1,5 @@
 # WordCamp-Android
--------------------
+
 ### Server setup
 Download wordpress-meta-environment which has the copy of WordCamp Central which we will be using for testing purpose.
 
