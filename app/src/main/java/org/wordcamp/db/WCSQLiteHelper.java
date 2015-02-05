@@ -13,7 +13,8 @@ public class WCSQLiteHelper extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;
     public static final String TABLE_WC = "wordcamp";
     private static final String DB_CREATE_WORDCAMP = "create table wordcamp ( wcid integer primary key," +
-            " title text, fromdate text, todate text, lastscannedgmt text, gsonobject text, url text, featuredImageUrl text); ";
+            " title text, fromdate text, todate text, lastscannedgmt text, gsonobject text, url text," +
+            " featuredImageUrl text, mywc INTEGER DEFAULT 0); ";
 
     public static final String DB_CREATE_SPEAKER = "create table speaker ( wcid integer, name text, " +
             "speaker_id int, speaker_bio text, postid int, featuredimage text, lastscannedgmt text," +

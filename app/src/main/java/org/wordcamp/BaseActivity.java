@@ -51,7 +51,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class BaseActivity extends ActionBarActivity {
+public class BaseActivity extends ActionBarActivity implements UpcomingWCFragment.upcomingFragListener {
 
     private View mToolbarView;
     private ViewPager mPager;
@@ -122,9 +122,12 @@ public class BaseActivity extends ActionBarActivity {
 
         if(communicator==null){
             communicator = new DBCommunicator(this);
+            communicator.start();
+            refreshData();
         }
         else{
             communicator.start();
+            refreshData();
         }
     }
 
@@ -172,9 +175,7 @@ public class BaseActivity extends ActionBarActivity {
                     }
                 }
                 communicator.addAllNewWC(wordCampsList);
-                UpcomingWCFragment upcomingFragment = getUpcomingFragment();
-                wordCampsList = communicator.getAllWc();
-                upcomingFragment.updateList(wordCampsList);
+                refreshData();
             }
 
             @Override
@@ -186,10 +187,29 @@ public class BaseActivity extends ActionBarActivity {
         });
     }
 
+    private void refreshData() {
+        UpcomingWCFragment upcomingFragment = getUpcomingFragment();
+        MyWCFragment myWCFragment = getMyWCFragment();
+        wordCampsList = communicator.getAllWc();
+        if(upcomingFragment!=null)
+            upcomingFragment.updateList(wordCampsList);
+
+        if(myWCFragment!=null)
+            myWCFragment.updateList(wordCampsList);
+    }
+
     private UpcomingWCFragment getUpcomingFragment(){
         return (UpcomingWCFragment) mPagerAdapter.getItemAt(0);
     }
 
+    private MyWCFragment getMyWCFragment(){
+        return (MyWCFragment) mPagerAdapter.getItemAt(1);
+    }
+
+    @Override
+    public void onNewMyWCAdded(WordCampDB wordCampDB) {
+        getMyWCFragment().addWC(wordCampDB);
+    }
 
     private static class WCPagerAdapter extends CacheFragmentStatePagerAdapter {
 

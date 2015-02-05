@@ -73,7 +73,7 @@ public class WordCampOverview extends Fragment {
                 url = wcs.getFoo().getURL().get(0);
             }
             wc = new WordCampDB(wcs.getID(),wcs.getTitle(),wcs.getFoo().getStartDateYYYYMmDd().get(0),
-                    wcs.getFoo().getEndDateYYYYMmDd().get(0),"",gson.toJson(wcs),url,"");
+                    wcs.getFoo().getEndDateYYYYMmDd().get(0),"",gson.toJson(wcs),url,"",wc.isMyWC);
         }
 
 

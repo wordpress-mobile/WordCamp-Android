@@ -1,24 +1,33 @@
 package org.wordcamp;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import org.wordcamp.adapters.MyWCListAdapter;
+import org.wordcamp.db.DBCommunicator;
+import org.wordcamp.objects.WordCampDB;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class MyWCFragment extends android.support.v4.app.Fragment {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
+    public ListView myWCLists;
+    public List<WordCampDB> wordCampDBs;
+    public List<WordCampDB> myWordCampDBs;
+    public DBCommunicator communicator;
+    public MyWCListAdapter adapter;
+    public List<Integer> deleteItems = new ArrayList<>();
 
     public static MyWCFragment newInstance(String param1, String param2) {
         MyWCFragment fragment = new MyWCFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -29,20 +38,100 @@ public class MyWCFragment extends android.support.v4.app.Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+        communicator = ((BaseActivity)getActivity()).communicator;
+        wordCampDBs = ((BaseActivity)getActivity()).wordCampsList;
+        if(wordCampDBs!=null) {
+            sortAndModifyMyWC();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        deleteItems = new ArrayList<>();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View v =  inflater.inflate(R.layout.fragment_my_wc, container, false);
-        TextView tv = (TextView)v.findViewById(R.id.my_title);
-        tv.setText(mParam1);
+        Activity parentActivity = getActivity();
+        View v =  inflater.inflate(R.layout.fragment_upcoming_wc, container, false);
+        myWCLists = (ListView)v.findViewById(R.id.scroll);
+        adapter = new MyWCListAdapter(myWordCampDBs,parentActivity);
+        myWCLists.setAdapter(adapter);
+
+        myWCLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                if(!deleteItems.contains(position)){
+                    Intent i = new Intent(getActivity(), WordCampDetailActivity.class);
+                    i.putExtra("wc", wordCampDBs.get(position));
+                    startActivity(i);
+                } else{
+                    MyWCListAdapter.ViewHolder holder = (MyWCListAdapter.ViewHolder)view.getTag();
+                    deleteItems.remove(Integer.valueOf(position));
+                    holder.delete.setVisibility(View.GONE);
+
+                }
+            }
+        });
+
+        myWCLists.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                adapter.notifyDataSetChanged();
+                MyWCListAdapter.ViewHolder holder = (MyWCListAdapter.ViewHolder)view.getTag();
+                holder.delete.setVisibility(View.VISIBLE);
+
+                if(!deleteItems.contains(position)){
+                    deleteItems.add(position);
+                }
+                return true;
+            }
+        });
+
         return v;
     }
 
+    public void updateList(List<WordCampDB> wordCampsList) {
+        wordCampDBs = wordCampsList;
+        sortAndModifyMyWC();
+        adapter = new MyWCListAdapter(myWordCampDBs,getActivity());
+        myWCLists.setAdapter(adapter);
+    }
+
+    public void sortAndModifyMyWC(){
+        myWordCampDBs = new ArrayList<>();
+        for (int i = 0; i < wordCampDBs.size(); i++) {
+            if(wordCampDBs.get(i).isMyWC){
+                myWordCampDBs.add(wordCampDBs.get(i));
+            }
+        }
+        sort();
+    }
+
+    public void sort(){
+        Collections.sort(myWordCampDBs, new Comparator<WordCampDB>() {
+            @Override
+            public int compare(WordCampDB lhs, WordCampDB rhs) {
+                int lhstime = Integer.parseInt(lhs.getWc_start_date());
+                int rhstime = Integer.parseInt(rhs.getWc_start_date());
+                return lhstime - rhstime;
+            }
+        });
+    }
+
+    public void addWC(WordCampDB wordCampDB) {
+        myWordCampDBs.add(wordCampDB);
+        sort();
+        adapter = new MyWCListAdapter(myWordCampDBs,getActivity());
+        myWCLists.setAdapter(adapter);
+    }
+
+    public void removeWC(WordCampDB wordCampDB){
+        myWordCampDBs.remove(wordCampDB);
+        adapter = new MyWCListAdapter(myWordCampDBs,getActivity());
+        myWCLists.setAdapter(adapter);
+    }
 }

@@ -88,6 +88,13 @@ public class DBCommunicator {
                 new String[] { String.valueOf(wc.getID()) });
     }
 
+    public int addToMyWC(int wcid){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("mywc",1);
+        return db.update("wordcamp", contentValues, " wcid = ?",
+                new String[] { String.valueOf(wcid) });
+    }
+
     public long addSpeaker(Speakers sk, int wcid){
         ContentValues contentValues = new ContentValues();
         contentValues.put("wcid",wcid);
@@ -154,8 +161,9 @@ public class DBCommunicator {
             String data = cursor.getString(5);
             String url = cursor.getString(6);
             String featureImageUrl = cursor.getString(7);
+            int isMyWc = cursor.getInt(8);
             cursor.close();
-            return new WordCampDB(id,title,from,to,lastscanned,data,url,featureImageUrl);
+            return new WordCampDB(id,title,from,to,lastscanned,data,url,featureImageUrl,isMyWc!=0);
         }
         else{
             return null;
@@ -179,7 +187,9 @@ public class DBCommunicator {
                     String data = cursor.getString(5);
                     String url = cursor.getString(6);
                     String featuredImage = cursor.getString(7);
-                    wordCampDBList.add(new WordCampDB(id,title,from,to,lastscanned,data,url,featuredImage));
+                    int isMyWC = cursor.getInt(8);
+                    wordCampDBList.add(new WordCampDB(id,title,from,to,lastscanned,
+                            data,url,featuredImage, isMyWC!=0));
                 } while (cursor.moveToNext());
             }
             cursor.close();

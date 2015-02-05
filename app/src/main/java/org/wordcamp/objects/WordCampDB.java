@@ -20,9 +20,11 @@ public class WordCampDB implements Serializable {
     public String url;
     public String featureImageUrl;
     public Gson gson;
+    public boolean isMyWC=false;
 
     public WordCampDB(int wc_id, String wc_title, String wc_start_date, String wc_end_date,
-                      String last_scanned_gmt, String gson_object, String url, String featureImageUrl) {
+                      String last_scanned_gmt, String gson_object,
+                      String url, String featureImageUrl, boolean isMyWC) {
         this.wc_id = wc_id;
         this.wc_title = wc_title;
         this.wc_start_date = wc_start_date;
@@ -31,6 +33,7 @@ public class WordCampDB implements Serializable {
         this.gson_object = gson_object;
         this.url = url;
         this.featureImageUrl = featureImageUrl;
+        this.isMyWC = isMyWC;
     }
 
     public WordCampDB(WordCamps wcs,String lastscan) {

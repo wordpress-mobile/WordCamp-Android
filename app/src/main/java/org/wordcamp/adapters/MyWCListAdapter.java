@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Created by aagam on 5/2/15.
  */
-public class UpcomingWCListAdapter extends BaseAdapter {
+public class MyWCListAdapter extends BaseAdapter {
 
     public List<WordCampDB> wordCamps;
 
@@ -28,12 +28,9 @@ public class UpcomingWCListAdapter extends BaseAdapter {
 
     public LayoutInflater inflater;
 
-    private WCListener listener;
-
-    public UpcomingWCListAdapter(List<WordCampDB> arr, Context context, WCListener listener) {
+    public MyWCListAdapter(List<WordCampDB> arr, Context context) {
         wordCamps=arr;
         ctx=context;
-        this.listener = listener;
         inflater = LayoutInflater.from(ctx);
     }
 
@@ -54,10 +51,10 @@ public class UpcomingWCListAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View view, ViewGroup parent) {
-        final ViewHolder holder;
+        ViewHolder holder;
 
         if (view == null) {
-            view = inflater.inflate(R.layout.upcoming_wc_card, parent, false);
+            view = inflater.inflate(R.layout.my_wc_card, parent, false);
             holder = new ViewHolder(view);
             view.setTag(holder);
         } else {
@@ -67,38 +64,27 @@ public class UpcomingWCListAdapter extends BaseAdapter {
         final WordCampDB wc = wordCamps.get(position);
         holder.title.setText(wc.getWc_title());
         holder.date.setText(WordCampUtils.getProperDate(wc));
-        if(wc.isMyWC) {
-            Picasso.with(ctx).load(R.drawable.ic_bookmark_grey600_24dp).into(holder.bookmark);
-            holder.bookmark.setEnabled(false);
-        } else {
-            holder.bookmark.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(ctx, "Added " + listener.addToMyWC(wc.getWc_id(), position), Toast.LENGTH_SHORT).show();
-                    Picasso.with(ctx).load(R.drawable.ic_bookmark_grey600_24dp).into(holder.bookmark);
-                    wc.isMyWC = true;
-                    wordCamps.set(position, wc);
-                }
-            });
-        }
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ctx,"Delete ?",Toast.LENGTH_SHORT).show();
+            }
+        });
         if(wc.featureImageUrl!=null && !wc.featureImageUrl.equals(""))
-            Picasso.with(ctx).load(wc.featureImageUrl).into(holder.icon);
+            Picasso.with(ctx).load(wc.featureImageUrl).error(R.drawable.ic_refresh_white_36dp).into(holder.icon);
+
 
         return view;
     }
 
     public static class ViewHolder{
         public TextView title,date;
-        public ImageView icon,bookmark;
+        public ImageView icon,delete;
         public ViewHolder(View v) {
             title = (TextView)v.findViewById(R.id.up_wc_title);
             date = (TextView)v.findViewById(R.id.up_wc_dates);
             icon = (ImageView)v.findViewById(R.id.wcIcon);
-            bookmark = (ImageView)v.findViewById(R.id.bookmark);
+            delete = (ImageView)v.findViewById(R.id.wcDelete);
         }
-    }
-
-    public interface WCListener{
-        public int addToMyWC(int wcid,int position);
     }
 }

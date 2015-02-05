@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import org.wordcamp.adapters.UpcomingWCListAdapter;
+import org.wordcamp.db.DBCommunicator;
 import org.wordcamp.objects.WordCampDB;
 
 import java.util.Collections;
@@ -17,22 +18,14 @@ import java.util.Comparator;
 import java.util.List;
 
 
-public class UpcomingWCFragment extends android.support.v4.app.Fragment {
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
+public class UpcomingWCFragment extends android.support.v4.app.Fragment implements UpcomingWCListAdapter.WCListener{
     public ListView upWCLists;
     public List<WordCampDB> wordCampDBs;
+    public DBCommunicator communicator;
+    public upcomingFragListener listener;
 
     public static UpcomingWCFragment newInstance(String param1, String param2) {
         UpcomingWCFragment fragment = new UpcomingWCFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -41,12 +34,21 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment {
     }
 
     @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        try {
+            listener = (BaseActivity) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement upcomingFragListener");
+        }
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        communicator = ((BaseActivity)getActivity()).communicator;
         wordCampDBs = ((BaseActivity)getActivity()).wordCampsList;
         if(wordCampDBs!=null) {
            sortWC();
@@ -60,7 +62,7 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment {
         View v =  inflater.inflate(R.layout.fragment_upcoming_wc, container, false);
         upWCLists = (ListView)v.findViewById(R.id.scroll);
 
-        UpcomingWCListAdapter adapter = new UpcomingWCListAdapter(wordCampDBs,parentActivity);
+        UpcomingWCListAdapter adapter = new UpcomingWCListAdapter(wordCampDBs,parentActivity,this);
         upWCLists.setAdapter(adapter);
 
         upWCLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -74,8 +76,6 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment {
 
         return v;
     }
-
-
 
     public void sortWC(){
         Collections.sort(wordCampDBs, new Comparator<WordCampDB>() {
@@ -96,7 +96,18 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment {
     public void updateList(List<WordCampDB> wordCampsList) {
         wordCampDBs = wordCampsList;
         sortWC();
-        UpcomingWCListAdapter adapter = new UpcomingWCListAdapter(wordCampDBs,getActivity());
+        UpcomingWCListAdapter adapter = new UpcomingWCListAdapter(wordCampDBs,getActivity(),this);
         upWCLists.setAdapter(adapter);
+    }
+
+    @Override
+    public int addToMyWC(int wcid,int position) {
+        int retId =  communicator.addToMyWC(wcid);
+        listener.onNewMyWCAdded(wordCampDBs.get(position));
+        return retId;
+    }
+
+    public interface upcomingFragListener{
+        public void onNewMyWCAdded(WordCampDB wordCampDB);
     }
 }
