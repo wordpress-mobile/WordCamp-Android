@@ -61,7 +61,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class BaseActivity extends ActionBarActivity implements ObservableScrollViewCallbacks {
+public class BaseActivityNew extends ActionBarActivity implements ObservableScrollViewCallbacks {
 
     private View mToolbarView;
     private TouchInterceptionFrameLayout mInterceptionLayout;

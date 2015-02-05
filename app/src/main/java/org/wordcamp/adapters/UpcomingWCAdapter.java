@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -41,6 +42,13 @@ public class UpcomingWCAdapter extends RecyclerView.Adapter<UpcomingWCAdapter.Vi
         WordCampDB wc = wordCamps.get(position);
         holder.title.setText(wc.getWc_title());
         holder.date.setText(WordCampUtils.getProperDate(wc));
+        holder.bookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ctx, "Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         if(wc.featureImageUrl!=null && !wc.featureImageUrl.equals(""))
             Picasso.with(ctx).load(wc.featureImageUrl).into(holder.icon);
     }
@@ -53,13 +61,13 @@ public class UpcomingWCAdapter extends RecyclerView.Adapter<UpcomingWCAdapter.Vi
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView title,date;
-        public ImageView icon;
+        public ImageView icon,bookmark;
         public ViewHolder(View v) {
             super(v);
             title = (TextView)v.findViewById(R.id.up_wc_title);
             date = (TextView)v.findViewById(R.id.up_wc_dates);
             icon = (ImageView)v.findViewById(R.id.wcIcon);
-
+            bookmark = (ImageView)v.findViewById(R.id.bookmark);
         }
 
     }
