@@ -1,10 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/action_attending" android:title="@string/item_attending"
-        android:icon="@drawable/ic_stars_white_36dp"
+        android:icon="@drawable/ic_star_outline_white_36dp"
         app:showAsAction="always" />
     <item android:id="@+id/action_refresh" android:title="Refresh"
-        android:icon="@drawable/abc_ic_menu_copy_mtrl_am_alpha"
+        android:icon="@drawable/ic_refresh_white_36dp"
         app:showAsAction="always" />
     <item android:id="@+id/item_menu_sponsor" android:title="@string/item_sponsor"
         android:orderInCategory="50" app:showAsAction="never" />

@@ -3,16 +3,13 @@ package org.wordcamp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
-import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
-import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
-
-import org.wordcamp.adapters.UpcomingWCAdapter;
+import org.wordcamp.adapters.UpcomingWCListAdapter;
 import org.wordcamp.objects.WordCampDB;
 
 import java.util.Collections;
@@ -27,8 +24,7 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment {
 
     private String mParam1;
     private String mParam2;
-    public ObservableRecyclerView rView;
-    private RecyclerView.LayoutManager mLayoutManager;
+    public ListView upWCLists;
     public List<WordCampDB> wordCampDBs;
 
     public static UpcomingWCFragment newInstance(String param1, String param2) {
@@ -60,35 +56,21 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         Activity parentActivity = getActivity();
         View v =  inflater.inflate(R.layout.fragment_upcoming_wc, container, false);
-        rView = (ObservableRecyclerView)v.findViewById(R.id.scroll);
-        rView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        rView.setLayoutManager(mLayoutManager);
+        upWCLists = (ListView)v.findViewById(R.id.scroll);
 
+        UpcomingWCListAdapter adapter = new UpcomingWCListAdapter(wordCampDBs,parentActivity);
+        upWCLists.setAdapter(adapter);
 
-        UpcomingWCAdapter adapter = new UpcomingWCAdapter(wordCampDBs,getActivity());
-        rView.setAdapter(adapter);
-        rView.scrollVerticallyToPosition(3);
-
-        rView.addOnItemTouchListener(
-                new RecyclerItemListener(getActivity(), new RecyclerItemListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        // do whatever
-                        Intent i = new Intent(getActivity(), WordCampDetailActivity.class);
-                        i.putExtra("wc",wordCampDBs.get(position));
-                        startActivity(i);
-
-                    }
-                })
-        );
-
-        if (parentActivity instanceof ObservableScrollViewCallbacks) {
-            rView.setScrollViewCallbacks((ObservableScrollViewCallbacks) parentActivity);
-        }
+        upWCLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(getActivity(), WordCampDetailActivity.class);
+                i.putExtra("wc", wordCampDBs.get(position));
+                startActivity(i);
+            }
+        });
 
         return v;
     }
@@ -114,7 +96,7 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment {
     public void updateList(List<WordCampDB> wordCampsList) {
         wordCampDBs = wordCampsList;
         sortWC();
-        UpcomingWCAdapter adapter = new UpcomingWCAdapter(wordCampDBs,getActivity());
-        rView.setAdapter(adapter);
+        UpcomingWCListAdapter adapter = new UpcomingWCListAdapter(wordCampDBs,getActivity());
+        upWCLists.setAdapter(adapter);
     }
 }

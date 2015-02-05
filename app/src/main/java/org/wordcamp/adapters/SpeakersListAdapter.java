@@ -63,7 +63,7 @@ public class SpeakersListAdapter extends BaseAdapter {
 
         SpeakerDB speakerDB = speakerDBList.get(position);
         holder.title.setText(speakerDB.getName());
-        Picasso.with(context).load(speakerDB.getGravatar()).placeholder(R.drawable.ic_launcher).into(holder.dp);
+        Picasso.with(context).load(speakerDB.getGravatar()).placeholder(R.drawable.ic_account_circle_grey600).into(holder.dp);
 
         return convertView;
     }

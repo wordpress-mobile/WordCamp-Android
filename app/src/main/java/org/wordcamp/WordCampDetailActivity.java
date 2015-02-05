@@ -51,7 +51,9 @@ public class WordCampDetailActivity extends ActionBarActivity {
         setContentView(R.layout.activity_wordcamp_detail);
         communicator = new DBCommunicator(this);
         communicator.start();
+        long UIstart = System.currentTimeMillis();
         initGUI();
+
     }
 
     @Override
@@ -66,6 +68,7 @@ public class WordCampDetailActivity extends ActionBarActivity {
         adapter = new WCDetailAdapter(getSupportFragmentManager());
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(adapter);
+        mPager.setOffscreenPageLimit(0);
         final int tabHeight = getResources().getDimensionPixelSize(R.dimen.tab_height);
         findViewById(R.id.pager_wrapper).setPadding(0, ImageUtils.getActionBarSize(this) + tabHeight, 0, 0);
 
@@ -86,7 +89,7 @@ public class WordCampDetailActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()==R.id.action_attending){
 
-            item.setIcon(R.drawable.ic_star_rate_white_36dp);
+            item.setIcon(R.drawable.ic_star_white_36dp);
         } else if(item.getItemId() == R.id.action_refresh){
             updateWordCampData();
         } else if(item.getItemId() == android.R.id.home)
