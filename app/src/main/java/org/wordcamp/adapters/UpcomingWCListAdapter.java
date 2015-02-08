@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -74,9 +73,10 @@ public class UpcomingWCListAdapter extends BaseAdapter {
             holder.bookmark.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(ctx, "Added " + listener.addToMyWC(wc.getWc_id(), position), Toast.LENGTH_SHORT).show();
+                    listener.addToMyWC(wc.getWc_id(), position);
                     Picasso.with(ctx).load(R.drawable.ic_bookmark_grey600_24dp).into(holder.bookmark);
                     wc.isMyWC = true;
+                    holder.bookmark.setEnabled(false);
                     wordCamps.set(position, wc);
                 }
             });

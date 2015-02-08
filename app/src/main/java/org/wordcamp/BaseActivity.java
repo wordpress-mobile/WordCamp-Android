@@ -123,11 +123,11 @@ public class BaseActivity extends ActionBarActivity implements UpcomingWCFragmen
         if(communicator==null){
             communicator = new DBCommunicator(this);
             communicator.start();
-            refreshData();
+            refreshAllFragmentsData();
         }
         else{
             communicator.start();
-            refreshData();
+            refreshAllFragmentsData();
         }
     }
 
@@ -175,7 +175,7 @@ public class BaseActivity extends ActionBarActivity implements UpcomingWCFragmen
                     }
                 }
                 communicator.addAllNewWC(wordCampsList);
-                refreshData();
+                refreshAllFragmentsData();
             }
 
             @Override
@@ -187,7 +187,7 @@ public class BaseActivity extends ActionBarActivity implements UpcomingWCFragmen
         });
     }
 
-    private void refreshData() {
+    private void refreshAllFragmentsData() {
         UpcomingWCFragment upcomingFragment = getUpcomingFragment();
         MyWCFragment myWCFragment = getMyWCFragment();
         wordCampsList = communicator.getAllWc();
@@ -196,6 +196,13 @@ public class BaseActivity extends ActionBarActivity implements UpcomingWCFragmen
 
         if(myWCFragment!=null)
             myWCFragment.updateList(wordCampsList);
+    }
+
+    public void refreshUpcomingFrag() {
+        UpcomingWCFragment upcomingFragment = getUpcomingFragment();
+        wordCampsList = communicator.getAllWc();
+        if(upcomingFragment!=null)
+            upcomingFragment.updateList(wordCampsList);
     }
 
     private UpcomingWCFragment getUpcomingFragment(){

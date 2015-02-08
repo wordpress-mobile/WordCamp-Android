@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -26,12 +25,16 @@ public class MyWCListAdapter extends BaseAdapter {
 
     public Context ctx;
 
+    public OnDeleteListener listener;
+
     public LayoutInflater inflater;
 
-    public MyWCListAdapter(List<WordCampDB> arr, Context context) {
+    public MyWCListAdapter(List<WordCampDB> arr, Context context, OnDeleteListener listener) {
         wordCamps=arr;
         ctx=context;
         inflater = LayoutInflater.from(ctx);
+        this.listener = listener;
+
     }
 
     @Override
@@ -67,7 +70,7 @@ public class MyWCListAdapter extends BaseAdapter {
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ctx,"Delete ?",Toast.LENGTH_SHORT).show();
+                listener.removeWC();
             }
         });
         if(wc.featureImageUrl!=null && !wc.featureImageUrl.equals(""))
@@ -86,5 +89,9 @@ public class MyWCListAdapter extends BaseAdapter {
             icon = (ImageView)v.findViewById(R.id.wcIcon);
             delete = (ImageView)v.findViewById(R.id.wcDelete);
         }
+    }
+
+    public interface OnDeleteListener{
+        public void removeWC();
     }
 }

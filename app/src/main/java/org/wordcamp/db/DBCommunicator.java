@@ -95,6 +95,21 @@ public class DBCommunicator {
                 new String[] { String.valueOf(wcid) });
     }
 
+    public void removeFromMyWC(List<Integer> removedWCIDs){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("mywc",0);
+        for (int i = 0; i < removedWCIDs.size(); i++) {
+            db.update("wordcamp", contentValues, " wcid = ?",
+                    new String[] { String.valueOf(removedWCIDs.get(i)) });
+        }
+    }
+
+    public void removeFromMyWCSingle(int wcid) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("mywc",0);
+            db.update("wordcamp", contentValues, " wcid = ?",
+                    new String[] { String.valueOf(wcid) });
+    }
     public long addSpeaker(Speakers sk, int wcid){
         ContentValues contentValues = new ContentValues();
         contentValues.put("wcid",wcid);

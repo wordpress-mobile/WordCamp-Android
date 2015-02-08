@@ -88,9 +88,16 @@ public class WordCampDetailActivity extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()==R.id.action_attending){
-            int recv = communicator.addToMyWC(wcid);
-            item.setIcon(R.drawable.ic_star_white_36dp);
-            item.setEnabled(false);
+
+            if(!wcdb.isMyWC){
+                int recv = communicator.addToMyWC(wcid);
+                item.setIcon(R.drawable.ic_star_white_36dp);
+                wcdb.isMyWC=true;
+            } else{
+                communicator.removeFromMyWCSingle(wcid);
+                item.setIcon(R.drawable.ic_star_outline_white_36dp);
+                wcdb.isMyWC=false;
+            }
         } else if(item.getItemId() == R.id.action_refresh){
             updateWordCampData();
         } else if(item.getItemId() == android.R.id.home)
@@ -231,11 +238,10 @@ public class WordCampDetailActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-         getMenuInflater().inflate(R.menu.menu_wc_detail,menu);
+        getMenuInflater().inflate(R.menu.menu_wc_detail,menu);
         if(wcdb.isMyWC){
             MenuItem attending = menu.findItem(R.id.action_attending);
             attending.setIcon(R.drawable.ic_star_white_36dp);
-            attending.setEnabled(false);
         }
         return true;
     }

@@ -55,7 +55,7 @@
                     android:layout_alignParentRight="true"
                     android:src="@drawable/ic_bookmark_outline_grey600_24dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="fill_parent" />
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 </LinearLayout>

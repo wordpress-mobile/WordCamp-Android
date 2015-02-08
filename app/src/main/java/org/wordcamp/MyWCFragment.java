@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class MyWCFragment extends android.support.v4.app.Fragment {
+public class MyWCFragment extends android.support.v4.app.Fragment implements MyWCListAdapter.OnDeleteListener {
     public ListView myWCLists;
     public List<WordCampDB> wordCampDBs;
     public List<WordCampDB> myWordCampDBs;
@@ -57,7 +57,7 @@ public class MyWCFragment extends android.support.v4.app.Fragment {
         Activity parentActivity = getActivity();
         View v =  inflater.inflate(R.layout.fragment_upcoming_wc, container, false);
         myWCLists = (ListView)v.findViewById(R.id.scroll);
-        adapter = new MyWCListAdapter(myWordCampDBs,parentActivity);
+        adapter = new MyWCListAdapter(myWordCampDBs,parentActivity,this);
         myWCLists.setAdapter(adapter);
 
         myWCLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -97,7 +97,7 @@ public class MyWCFragment extends android.support.v4.app.Fragment {
     public void updateList(List<WordCampDB> wordCampsList) {
         wordCampDBs = wordCampsList;
         sortAndModifyMyWC();
-        adapter = new MyWCListAdapter(myWordCampDBs,getActivity());
+        adapter = new MyWCListAdapter(myWordCampDBs,getActivity(),this);
         myWCLists.setAdapter(adapter);
     }
 
@@ -125,13 +125,24 @@ public class MyWCFragment extends android.support.v4.app.Fragment {
     public void addWC(WordCampDB wordCampDB) {
         myWordCampDBs.add(wordCampDB);
         sort();
-        adapter = new MyWCListAdapter(myWordCampDBs,getActivity());
+        adapter = new MyWCListAdapter(myWordCampDBs,getActivity(),this);
         myWCLists.setAdapter(adapter);
     }
 
-    public void removeWC(WordCampDB wordCampDB){
-        myWordCampDBs.remove(wordCampDB);
-        adapter = new MyWCListAdapter(myWordCampDBs,getActivity());
+    @Override
+    public void removeWC() {
+        List<Integer> removedWCIDs = new ArrayList<>();
+        Collections.sort(deleteItems);
+        for (int i = deleteItems.size()-1; i >=0; i--) {
+            removedWCIDs.add(myWordCampDBs.get(deleteItems.get(i)).getWc_id());
+            myWordCampDBs.remove((int)deleteItems.get(i));
+        }
+        deleteItems = new ArrayList<>();
+        communicator.removeFromMyWC(removedWCIDs);
+        adapter = new MyWCListAdapter(myWordCampDBs,getActivity(),this);
         myWCLists.setAdapter(adapter);
+        ((BaseActivity)getActivity()).refreshUpcomingFrag();
+
     }
+
 }
