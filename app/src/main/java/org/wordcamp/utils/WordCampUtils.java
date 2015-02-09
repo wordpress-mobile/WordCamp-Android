@@ -66,8 +66,23 @@ public class WordCampUtils {
         }
         calendar.set(Calendar.MINUTE,minutes);
         d = calendar.getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, HH:mm");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
         return sdf.format(d);
+    }
+
+    public static int formatProperTimeHash(int time) {
+        Date d = new Date((long)time*1000);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(d);
+        int minutes = 5*(Math.round(calendar.get(Calendar.MINUTE)/5));
+        if(minutes==60){
+            minutes=0;
+            calendar.set(Calendar.HOUR,(calendar.get(Calendar.HOUR)+1));
+        }
+        calendar.set(Calendar.MINUTE,minutes);
+        d = calendar.getTime();
+
+        return d.hashCode();
     }
 }

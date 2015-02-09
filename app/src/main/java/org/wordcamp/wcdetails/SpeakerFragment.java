@@ -48,7 +48,6 @@ public class SpeakerFragment extends Fragment {
         Collections.sort(speakerDBList, new Comparator<SpeakerDB>() {
             @Override
             public int compare(SpeakerDB lhs, SpeakerDB rhs) {
-
                 return lhs.getName().compareTo(rhs.getName());
             }
         });
@@ -59,9 +58,6 @@ public class SpeakerFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_wcdetails_speaker,container,false);
         lv = (ListView)v.findViewById(R.id.speaker_list);
         lv.setAdapter(adapter);
-
-
-
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

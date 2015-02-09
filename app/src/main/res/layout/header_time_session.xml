@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="#B0BEC5"
+    android:paddingLeft="16dp"
+    android:layout_height="48dp">
+<TextView
+    android:layout_centerVertical="true"
+    android:textSize="14sp"
+    android:textColor="#000"
+    android:id="@+id/headerListTitle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+</RelativeLayout>
