@@ -163,7 +163,9 @@ public class BaseActivity extends ActionBarActivity implements UpcomingWCFragmen
                     }
                 }
                 communicator.addAllNewWC(wordCampsList);
+
                 refreshAllFragmentsData();
+                stopRefresh();
             }
 
             @Override
