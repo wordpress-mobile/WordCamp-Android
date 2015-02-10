@@ -2,7 +2,9 @@ package org.wordcamp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,7 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
     public DBCommunicator communicator;
     public MyWCListAdapter adapter;
     public List<Integer> deleteItems = new ArrayList<>();
+    private SwipeRefreshLayout refreshLayout;
 
     public static MyWCFragment newInstance(String param1, String param2) {
         MyWCFragment fragment = new MyWCFragment();
@@ -60,6 +63,16 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
         adapter = new MyWCListAdapter(myWordCampDBs,parentActivity,this);
         myWCLists.setAdapter(adapter);
 
+        refreshLayout = (SwipeRefreshLayout)v.findViewById(R.id.swipe_refresh_layout);
+        refreshLayout.setColorSchemeColors(Color.parseColor("#3F51B5"),
+                Color.parseColor("#FF4081"),Color.parseColor("#9C27B0"));
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                ((BaseActivity)getActivity()).onRefreshStart();
+            }
+        });
+
         myWCLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -92,6 +105,10 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
         });
 
         return v;
+    }
+
+    public void stopRefresh(){
+        refreshLayout.setRefreshing(false);
     }
 
     public void updateList(List<WordCampDB> wordCampsList) {

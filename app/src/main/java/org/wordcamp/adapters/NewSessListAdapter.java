@@ -9,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.wordcamp.R;
 import org.wordcamp.objects.SessionDB;
 import org.wordcamp.utils.WordCampUtils;
@@ -51,7 +53,7 @@ public class NewSessListAdapter extends BaseAdapter implements StickyListHeaders
         holder.favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.favorite.setImageResource(R.drawable.ic_favorite_outline_black_24dp);
+                Picasso.with(ctx).load(R.drawable.ic_favorite_outline_black_24dp).into(holder.favorite);
             }
         });
         return convertView;

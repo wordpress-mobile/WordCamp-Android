@@ -2,7 +2,9 @@ package org.wordcamp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,7 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
     public List<WordCampDB> wordCampDBs;
     public DBCommunicator communicator;
     public upcomingFragListener listener;
+    public SwipeRefreshLayout refreshLayout;
 
     public static UpcomingWCFragment newInstance(String param1, String param2) {
         UpcomingWCFragment fragment = new UpcomingWCFragment();
@@ -61,6 +64,15 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
         Activity parentActivity = getActivity();
         View v =  inflater.inflate(R.layout.fragment_upcoming_wc, container, false);
         upWCLists = (ListView)v.findViewById(R.id.scroll);
+        refreshLayout = (SwipeRefreshLayout)v.findViewById(R.id.swipe_refresh_layout);
+        refreshLayout.setColorSchemeColors(Color.parseColor("#3F51B5"),
+                Color.parseColor("#FF4081"),Color.parseColor("#9C27B0"));
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                listener.onRefreshStart();
+            }
+        });
 
         UpcomingWCListAdapter adapter = new UpcomingWCListAdapter(wordCampDBs,parentActivity,this);
         upWCLists.setAdapter(adapter);
@@ -107,7 +119,12 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
         return retId;
     }
 
+    public void stopRefresh(){
+        refreshLayout.setRefreshing(false);
+    }
+
     public interface upcomingFragListener{
         public void onNewMyWCAdded(WordCampDB wordCampDB);
+        public void onRefreshStart();
     }
 }
