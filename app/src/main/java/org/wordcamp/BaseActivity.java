@@ -28,7 +28,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -91,10 +90,6 @@ public class BaseActivity extends ActionBarActivity implements UpcomingWCFragmen
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==R.id.action_refresh){
-
-            fetchWCList();
-        }
         return true;
     }
 

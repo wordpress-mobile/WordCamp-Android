@@ -59,7 +59,7 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
         holder.favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Do not refres the whole list, just update in DB & the item
+                //Do not refresh the whole list, just update in DB & the item
 
                 if(db.isMySession){
                     db.isMySession = false;
