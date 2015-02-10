@@ -95,6 +95,19 @@ public class DBCommunicator {
                 new String[] { String.valueOf(wcid) });
     }
 
+    public int addToMySession(SessionDB sdb){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("mysession",1);
+        return db.update("session", contentValues, " wcid = ? AND postid = ?",
+                new String[] { String.valueOf(sdb.getWc_id()), String.valueOf(sdb.getPost_id()) });
+    }
+
+    public void removeFromMySession(SessionDB sdb){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("mysession",0);
+        db.update("session", contentValues, " wcid = ? AND postid = ?",
+                new String[] { String.valueOf(sdb.getWc_id()), String.valueOf(sdb.getPost_id()) });
+    }
     public void removeFromMyWC(List<Integer> removedWCIDs){
         ContentValues contentValues = new ContentValues();
         contentValues.put("mywc",0);
@@ -107,8 +120,8 @@ public class DBCommunicator {
     public void removeFromMyWCSingle(int wcid) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("mywc",0);
-            db.update("wordcamp", contentValues, " wcid = ?",
-                    new String[] { String.valueOf(wcid) });
+        db.update("wordcamp", contentValues, " wcid = ?",
+                new String[] { String.valueOf(wcid) });
     }
     public long addSpeaker(Speakers sk, int wcid){
         ContentValues contentValues = new ContentValues();
@@ -287,8 +300,8 @@ public class DBCommunicator {
             String category = cursor.getString(5);
             String lastscan = cursor.getString(6);
             String gson = cursor.getString(7);
-
-            return new SessionDB(wcid,id,title,time,lastscan,location,category,gson);
+            boolean isMySession = cursor.getInt(8) == 1;
+            return new SessionDB(wcid,id,title,time,lastscan,location,category,gson,isMySession);
         }
 
         return null;
@@ -310,9 +323,9 @@ public class DBCommunicator {
                     String location = cursor.getString(4);
                     String lastscan = cursor.getString(6);
                     String gsonobject = cursor.getString(7);
-
+                    boolean isMySession = cursor.getInt(8) == 1;
                     sessionDBList.add(new SessionDB(wcid, postid, title, starttime, lastscan,
-                            location, category, gsonobject));
+                            location, category, gsonobject,isMySession));
                 } while (cursor.moveToNext());
 
                 cursor.close();
@@ -330,9 +343,6 @@ public class DBCommunicator {
         }
         return null;
     }
-
-
-
 
     public void start(){
         db = helper.getWritableDatabase();

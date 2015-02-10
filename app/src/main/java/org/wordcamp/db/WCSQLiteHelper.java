@@ -22,7 +22,7 @@ public class WCSQLiteHelper extends SQLiteOpenHelper {
 
     public static final String DB_CREATE_SESSION = "create table session ( wcid integer, title text, " +
             "time int, postid int, location text, category text, " +
-            "lastscannedgmt text, gsonobject text, PRIMARY KEY ( wcid, postid) ); ";
+            "lastscannedgmt text, gsonobject text, mysession INTEGER DEFAULT 0, PRIMARY KEY ( wcid, postid) ); ";
 
 
 

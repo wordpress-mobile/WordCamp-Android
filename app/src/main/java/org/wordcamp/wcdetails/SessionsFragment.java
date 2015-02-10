@@ -10,7 +10,8 @@ import android.view.ViewGroup;
 
 import org.wordcamp.R;
 import org.wordcamp.WordCampDetailActivity;
-import org.wordcamp.adapters.NewSessListAdapter;
+import org.wordcamp.adapters.SessionsListAdapter;
+import org.wordcamp.db.DBCommunicator;
 import org.wordcamp.objects.SessionDB;
 
 import java.util.List;
@@ -20,18 +21,21 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 /**
  * Created by aagam on 31/1/15.
  */
-public class SessionsFragment extends Fragment {
+public class SessionsFragment extends Fragment implements SessionsListAdapter.OnAddToMySessionListener{
 
     private GridLayoutManager mLayoutManager;
     private StickyListHeadersListView sessionList;
-    private NewSessListAdapter sessionsListAdapter;
+    private SessionsListAdapter sessionsListAdapter;
     private List<SessionDB> sessionDBList;
+    public DBCommunicator communicator;
     private int wcid;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         wcid = ((WordCampDetailActivity)getActivity()).wcid;
-        sessionDBList = ((WordCampDetailActivity)getActivity()).communicator.getAllSession(wcid);
+        communicator = ((WordCampDetailActivity)getActivity()).communicator;
+        sessionDBList = communicator.getAllSession(wcid);
+
     }
 
     @Override
@@ -39,7 +43,7 @@ public class SessionsFragment extends Fragment {
         View v = inflater.inflate(R.layout.fargment_sessions_list_new,container,false);
         sessionList = (StickyListHeadersListView)v.findViewById(R.id.sessionList);
         if(sessionDBList!=null)
-            sessionsListAdapter = new NewSessListAdapter(getActivity(),sessionDBList);
+            sessionsListAdapter = new SessionsListAdapter(getActivity(),sessionDBList,this);
 
 
         sessionList.setAdapter(sessionsListAdapter);
@@ -48,7 +52,17 @@ public class SessionsFragment extends Fragment {
 
     public void updateData(){
         sessionDBList = ((WordCampDetailActivity)getActivity()).communicator.getAllSession(wcid);
-        sessionsListAdapter = new NewSessListAdapter(getActivity(),sessionDBList);
+        sessionsListAdapter = new SessionsListAdapter(getActivity(),sessionDBList,this);
         sessionList.setAdapter(sessionsListAdapter);
+    }
+
+    @Override
+    public void addMySession(SessionDB db) {
+        communicator.addToMySession(db);
+    }
+
+    @Override
+    public void removeMySession(SessionDB db) {
+        communicator.removeFromMySession(db);
     }
 }

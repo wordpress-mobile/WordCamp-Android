@@ -13,8 +13,10 @@ public class SessionDB {
     public String location;
     public String category;
     public String gson_object;
+    public boolean isMySession;
 
-    public SessionDB(int wc_id, int post_id, String title, int time, String last_scanned_gmt, String location, String category, String gson_object) {
+    public SessionDB(int wc_id, int post_id, String title, int time, String last_scanned_gmt,
+                     String location, String category, String gson_object, boolean isMySession) {
         this.wc_id = wc_id;
         this.post_id = post_id;
         this.title = title;
@@ -23,6 +25,7 @@ public class SessionDB {
         this.location = location;
         this.category = category;
         this.gson_object = gson_object;
+        this.isMySession = isMySession;
     }
 
     public int getWc_id() {

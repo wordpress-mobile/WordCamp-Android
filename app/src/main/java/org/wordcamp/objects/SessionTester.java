@@ -45,7 +45,7 @@ public class SessionTester extends ActionBarActivity {
                             String name = session.getTitle();
                             SessionDB db = new SessionDB(session.getID(),session.getID(),
                                     session.getTitle(),1,"",session.getTerms().getWcbTrack().get(0).getName(),
-                                    session.getFoo().getWcptSessionType().get(0),array.getJSONObject(i).toString());
+                                    session.getFoo().getWcptSessionType().get(0),array.getJSONObject(i).toString(),false);
 
                             sessionDBList.add(i, db);
                             Log.e("Session " + i, db.getTitle());
