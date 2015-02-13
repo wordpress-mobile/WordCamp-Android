@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent">
+    <LinearLayout
+        android:id="@+id/layout_toolbar"
+        android:orientation="vertical"
+        android:background="?attr/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            app:theme="@style/SlidingLayoutTab"
+            app:popupTheme="@style/SlidingLayoutTabPopUp"/>
+
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="72dp"
+            android:layout_marginRight="16dp"
+            android:text="Introdcution to WordPress"
+            android:id="@+id/wc_detail_title"
+            android:maxLines="4"
+            android:ellipsize="end"
+            android:textSize="18sp"
+            android:lineSpacingMultiplier="1.1"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
+            android:textColor="#deffffff" />
+
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="72dp"
+            android:layout_marginRight="16dp"
+            android:text="28th Jan, 08:00 AM in Room"
+            android:id="@+id/wc_detail_date"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textSize="16sp"
+            android:textColor="#8affffff" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_below="@+id/layout_toolbar"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <ListView
+            android:headerDividersEnabled="false"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            android:id="@+id/session_list_speakers"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,5 +1,6 @@
 package org.wordcamp.wcdetails;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import org.wordcamp.R;
 import org.wordcamp.WordCampDetailActivity;
@@ -45,6 +47,14 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
         if(sessionDBList!=null)
             sessionsListAdapter = new SessionsListAdapter(getActivity(),sessionDBList,this);
 
+        sessionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent detail = new Intent(getActivity(),SessionDetailsActivity.class);
+                detail.putExtra("session",sessionDBList.get(position));
+                getActivity().startActivity(detail);
+            }
+        });
 
         sessionList.setAdapter(sessionsListAdapter);
         return v;

@@ -90,6 +90,11 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
     }
 
     @Override
+    public boolean isEnabled(int position) {
+        return !list.get(position).category.equals("custom");
+    }
+
+    @Override
     public long getHeaderId(int i) {
         return (long) WordCampUtils.formatProperTimeHash(list.get(i).getTime());
     }

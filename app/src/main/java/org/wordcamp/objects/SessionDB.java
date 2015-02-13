@@ -1,9 +1,11 @@
 package org.wordcamp.objects;
 
+import java.io.Serializable;
+
 /**
  * Created by aagam on 28/1/15.
  */
-public class SessionDB {
+public class SessionDB implements Serializable {
 
     public int wc_id;
     public int post_id;

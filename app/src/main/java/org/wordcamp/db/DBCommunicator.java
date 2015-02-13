@@ -163,13 +163,21 @@ public class DBCommunicator {
             contentValues.put("time", ss.getFoo().getWcptSessionTime().get(0));
 
         contentValues.put("postid", ss.getID());
-        if(ss.getTerms().getWcbTrack().size()>0)
+        if(ss.getTerms().getWcbTrack().size()==1)
             contentValues.put("location", ss.getTerms().getWcbTrack().get(0).getName());
 
         contentValues.put("category", ss.getFoo().getWcptSessionType().get(0));
         contentValues.put("gsonobject", gson.toJson(ss));
 
-        return db.insert("session",null,contentValues);
+        long id = db.insert("session",null,contentValues);
+
+        if(id==-1){
+            contentValues.remove("wcid");
+            contentValues.remove("postid");
+            id = db.update("session", contentValues, " wcid = ? AND postid = ?",
+                    new String[] { String.valueOf(wcid), String.valueOf(ss.getID())  });
+        }
+        return id;
     }
 
 
