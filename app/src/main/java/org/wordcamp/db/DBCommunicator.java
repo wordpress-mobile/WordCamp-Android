@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -108,6 +109,7 @@ public class DBCommunicator {
         db.update("session", contentValues, " wcid = ? AND postid = ?",
                 new String[] { String.valueOf(sdb.getWc_id()), String.valueOf(sdb.getPost_id()) });
     }
+
     public void removeFromMyWC(List<Integer> removedWCIDs){
         ContentValues contentValues = new ContentValues();
         contentValues.put("mywc",0);
@@ -123,17 +125,14 @@ public class DBCommunicator {
         db.update("wordcamp", contentValues, " wcid = ?",
                 new String[] { String.valueOf(wcid) });
     }
+
     public long addSpeaker(Speakers sk, int wcid){
         ContentValues contentValues = new ContentValues();
         contentValues.put("wcid",wcid);
         contentValues.put("name", sk.getTitle());
-
-        if(sk.getFoo().getPtUserId().size()>0 && !sk.getFoo().getPtUserId().get(0).equals("")){
-            contentValues.put("speaker_id",sk.getFoo().getPtUserId().get(0));
-        }
-
         contentValues.put("speaker_bio", sk.getContent());
         contentValues.put("postid", sk.getID());
+        contentValues.put("speaker_id", sk.getID());
         contentValues.put("gsonobject", gson.toJson(sk));
         if(sk.getFoo().getSpeakerEmail().size()>0 && !sk.getFoo().getSpeakerEmail().get(0).equals("")){
             String grav =sk.getFoo().getSpeakerEmail().get(0);
@@ -177,7 +176,29 @@ public class DBCommunicator {
             id = db.update("session", contentValues, " wcid = ? AND postid = ?",
                     new String[] { String.valueOf(wcid), String.valueOf(ss.getID())  });
         }
+
+        if(ss.getFoo().getWcptSpeakerId().size()>0)
+            mapSessionToSpeaker(wcid,ss.getID(),ss.getFoo().getWcptSpeakerId());
+
         return id;
+    }
+
+    private void mapSessionToSpeaker(int wcid, int sessionid, List<String> speakerIDs) {
+
+        for (int i = 0; i < speakerIDs.size(); i++) {
+
+            if(!speakerIDs.get(i).isEmpty()) {
+                ContentValues values = new ContentValues();
+                values.put("wcid", wcid);
+                values.put("sessionid", sessionid);
+                values.put("speakerid", Integer.parseInt(speakerIDs.get(i)));
+
+                    long id = db.insertWithOnConflict("speakersessions", null, values, SQLiteDatabase.CONFLICT_REPLACE);
+
+                Log.e("insert"," "+id);
+            }
+        }
+
     }
 
 
@@ -259,7 +280,7 @@ public class DBCommunicator {
             String gravatar  = cursor.getString(8);
 
             cursor.close();
-            return new SpeakerDB(wcid,name,speakerid,postid,speakerbio,featuredimg,lastscan,gsonobject,gravatar);
+            return new SpeakerDB(wcid,name,postid,speakerbio,featuredimg,lastscan,gsonobject,gravatar);
         }
         return null;
     }
@@ -285,7 +306,7 @@ public class DBCommunicator {
                     String lastscan = cursor.getString(6);
                     String gsonobject = cursor.getString(7);
                     String gravatar  = cursor.getString(8);
-                    speakerDBList.add(new SpeakerDB(wcid,name,speakerid,postid,speakerbio,featuredimg,lastscan,gsonobject,gravatar));
+                    speakerDBList.add(new SpeakerDB(wcid,name,postid,speakerbio,featuredimg,lastscan,gsonobject,gravatar));
                 } while (cursor.moveToNext());
             }
             cursor.close();
@@ -296,7 +317,7 @@ public class DBCommunicator {
 
     }
 
-    public SessionDB getSession(int id){
+    public void getSession(int id){
         Cursor cursor=db.rawQuery("SELECT * FROM session WHERE postid="+id, null);
 
         if(cursor!=null){
@@ -309,10 +330,12 @@ public class DBCommunicator {
             String lastscan = cursor.getString(6);
             String gson = cursor.getString(7);
             boolean isMySession = cursor.getInt(8) == 1;
-            return new SessionDB(wcid,id,title,time,lastscan,location,category,gson,isMySession);
+
+            Log.e("session "+title,""+id);
+//            return new SessionDB(wcid,id,title,time,lastscan,location,category,gson,isMySession);
         }
 
-        return null;
+
     }
 
     public List<SessionDB> getAllSession(int wcid) {
@@ -361,4 +384,36 @@ public class DBCommunicator {
     }
 
 
+    public List<String> getSpeakerSession(int wc_id, int speaker_id) {
+        Cursor cursor = db.rawQuery("SELECT title FROM speakersessions JOIN session" +
+                " ON session.postid = speakersessions.sessionid AND session.wcid="+wc_id+" " +
+                "WHERE speakersessions.wcid=" + wc_id+" AND speakersessions.speakerid="+speaker_id, null);
+
+        if (cursor != null && cursor.getCount()>0) {
+            List<String> sessionTitle = new ArrayList<>();
+            if (cursor.moveToFirst()) {
+                do {
+                    sessionTitle.add(cursor.getString(0));
+                } while (cursor.moveToNext());
+                cursor.close();
+                return sessionTitle;
+            }
+        }
+        return null;
+    }
+
+    public void checkMapping(){
+        Cursor cursor = db.rawQuery("SELECT * FROM speakersessions",null);
+        if (cursor != null && cursor.getCount()>0) {
+            List<String> sessionTitle = new ArrayList<>();
+            if (cursor.moveToFirst()) {
+                do {
+                    Log.e("wcid",""+cursor.getInt(0));
+                    Log.e("speakerid",""+cursor.getInt(1));
+                    Log.e("sessionid",""+cursor.getInt(2));
+                } while (cursor.moveToNext());
+                cursor.close();
+            }
+        }
+    }
 }

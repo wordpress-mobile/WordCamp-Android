@@ -24,6 +24,9 @@ public class WCSQLiteHelper extends SQLiteOpenHelper {
             "time int, postid int, location text, category text, " +
             "lastscannedgmt text, gsonobject text, mysession INTEGER DEFAULT 0, PRIMARY KEY ( wcid, postid) ); ";
 
+    public static final String DB_CREATE_SPEAKER_SESSION = "create table speakersessions ( wcid integer," +
+            "speakerid integer, sessionid integer, PRIMARY KEY (wcid, speakerid, sessionid) ); ";
+
 
 
     public WCSQLiteHelper(Context context) {
@@ -35,6 +38,7 @@ public class WCSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(DB_CREATE_WORDCAMP);
         db.execSQL(DB_CREATE_SPEAKER);
         db.execSQL(DB_CREATE_SESSION);
+        db.execSQL(DB_CREATE_SPEAKER_SESSION);
     }
 
     @Override
