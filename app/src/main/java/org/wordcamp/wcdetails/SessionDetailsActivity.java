@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -55,8 +56,6 @@ public class SessionDetailsActivity extends ActionBarActivity {
 
         View headerView = LayoutInflater.from(this).inflate(R.layout.item_header_session,null);
 
-
-
         title = (TextView)findViewById(R.id.wc_detail_title);
         time = (TextView)findViewById(R.id.wc_detail_date);
         info = (TextView)headerView.findViewById(R.id.wc_detail_abstract);
@@ -85,5 +84,15 @@ public class SessionDetailsActivity extends ActionBarActivity {
             sb.append(speakerList.get(speakerList.size()-1));
         else
             sb.deleteCharAt();*/
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

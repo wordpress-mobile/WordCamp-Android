@@ -1,27 +1,27 @@
 package org.wordcamp.objects;
 
+import java.io.Serializable;
+
 /**
  * Created by aagam on 28/1/15.
  */
-public class SpeakerDB {
+public class SpeakerDB implements Serializable {
 
     public int wc_id;
     public String name;
     public int speaker_id;
-    public int post_id;
     public String info;
     public String featured_image;
     public String last_scanned_gmt;
     public String gson_object;
     public String gravatar;
 
-    public SpeakerDB(int wc_id, String name, int speaker_id, int post_id,
+    public SpeakerDB(int wc_id, String name, int speaker_id,
                      String info, String featured_image,
                      String last_scanned_gmt, String gson_object, String gravatar) {
         this.wc_id = wc_id;
         this.name = name;
         this.speaker_id = speaker_id;
-        this.post_id = post_id;
         this.info = info;
         this.featured_image = featured_image;
         this.last_scanned_gmt = last_scanned_gmt;
@@ -59,14 +59,6 @@ public class SpeakerDB {
 
     public void setSpeaker_id(int speaker_id) {
         this.speaker_id = speaker_id;
-    }
-
-    public int getPost_id() {
-        return post_id;
-    }
-
-    public void setPost_id(int post_id) {
-        this.post_id = post_id;
     }
 
     public String getInfo() {

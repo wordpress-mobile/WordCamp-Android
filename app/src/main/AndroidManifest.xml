@@ -28,6 +28,10 @@
         <activity
             android:configChanges="screenSize|orientation"
             android:name=".wcdetails.SessionDetailsActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:configChanges="screenSize|orientation"
+            android:name=".wcdetails.SpeakerDetailsActivity"
             android:label="@string/app_name" >
 
         </activity>

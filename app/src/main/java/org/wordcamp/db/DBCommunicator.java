@@ -19,6 +19,7 @@ import org.wordcamp.utils.WordCampUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -193,7 +194,7 @@ public class DBCommunicator {
                 values.put("sessionid", sessionid);
                 values.put("speakerid", Integer.parseInt(speakerIDs.get(i)));
 
-                    long id = db.insertWithOnConflict("speakersessions", null, values, SQLiteDatabase.CONFLICT_REPLACE);
+                long id = db.insertWithOnConflict("speakersessions", null, values, SQLiteDatabase.CONFLICT_REPLACE);
 
                 Log.e("insert"," "+id);
             }
@@ -317,8 +318,8 @@ public class DBCommunicator {
 
     }
 
-    public void getSession(int id){
-        Cursor cursor=db.rawQuery("SELECT * FROM session WHERE postid="+id, null);
+    public SessionDB getSession(int wc_id, int id){
+        Cursor cursor=db.rawQuery("SELECT * FROM session WHERE wcid="+wc_id+" AND postid="+id, null);
 
         if(cursor!=null){
             cursor.moveToFirst();
@@ -331,11 +332,11 @@ public class DBCommunicator {
             String gson = cursor.getString(7);
             boolean isMySession = cursor.getInt(8) == 1;
 
-            Log.e("session "+title,""+id);
-//            return new SessionDB(wcid,id,title,time,lastscan,location,category,gson,isMySession);
+            return new SessionDB(wcid,id,title,time,lastscan,location,category,gson,isMySession);
         }
 
 
+        return null;
     }
 
     public List<SessionDB> getAllSession(int wcid) {
@@ -380,23 +381,30 @@ public class DBCommunicator {
     }
 
     public void close(){
-        db.close();
+        if(db.isOpen())
+            db.close();
+    }
+
+    public void restart(){
+        if(db.isOpen())
+            db.close();
+        start();
     }
 
 
-    public List<String> getSpeakerSession(int wc_id, int speaker_id) {
-        Cursor cursor = db.rawQuery("SELECT title FROM speakersessions JOIN session" +
+    public HashMap<String,Integer> getSpeakerSession(int wc_id, int speaker_id) {
+        Cursor cursor = db.rawQuery("SELECT title, postid FROM speakersessions JOIN session" +
                 " ON session.postid = speakersessions.sessionid AND session.wcid="+wc_id+" " +
                 "WHERE speakersessions.wcid=" + wc_id+" AND speakersessions.speakerid="+speaker_id, null);
 
         if (cursor != null && cursor.getCount()>0) {
-            List<String> sessionTitle = new ArrayList<>();
+            HashMap<String,Integer> map = new HashMap<>();
             if (cursor.moveToFirst()) {
                 do {
-                    sessionTitle.add(cursor.getString(0));
+                    map.put(cursor.getString(0),cursor.getInt(1));
                 } while (cursor.moveToNext());
                 cursor.close();
-                return sessionTitle;
+                return map;
             }
         }
         return null;

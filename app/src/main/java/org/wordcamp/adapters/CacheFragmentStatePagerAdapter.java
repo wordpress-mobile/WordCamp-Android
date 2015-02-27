@@ -47,22 +47,6 @@ public abstract class CacheFragmentStatePagerAdapter extends FragmentStatePagerA
     }
 
     @Override
-    public Parcelable saveState() {
-        Parcelable p = super.saveState();
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(STATE_SUPER_STATE, p);
-
-        bundle.putInt(STATE_PAGES, mPages.size());
-        if (0 < mPages.size()) {
-            for (int i = 0; i < mPages.size(); i++) {
-                Fragment f = mPages.get(i);
-                mFm.putFragment(bundle, createCacheKey(i), f);
-            }
-        }
-        return bundle;
-    }
-
-    @Override
     public void restoreState(Parcelable state, ClassLoader loader) {
         Bundle bundle = (Bundle) state;
         int pages = bundle.getInt(STATE_PAGES);
