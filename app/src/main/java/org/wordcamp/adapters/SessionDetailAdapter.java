@@ -14,13 +14,13 @@ import java.util.List;
 /**
  * Created by aagam on 12/2/15.
  */
-public class SessionDetailSpeakerAdapter extends BaseAdapter {
+public class SessionDetailAdapter extends BaseAdapter {
 
     public Context mContext;
     public List<String> speakers;
     public LayoutInflater inflater;
 
-    public SessionDetailSpeakerAdapter(Context ctx, List<String> names){
+    public SessionDetailAdapter(Context ctx, List<String> names){
         mContext = ctx;
         speakers = names;
         inflater = LayoutInflater.from(ctx);

@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 
 import org.wordcamp.R;
-import org.wordcamp.adapters.SessionDetailSpeakerAdapter;
+import org.wordcamp.adapters.SpeakerDetailAdapter;
 import org.wordcamp.db.DBCommunicator;
 import org.wordcamp.objects.SessionDB;
 import org.wordcamp.objects.SpeakerDB;
@@ -69,7 +69,7 @@ public class SpeakerDetailsActivity extends ActionBarActivity {
         lv = (ListView)findViewById(R.id.session_list_speakers);
         lv.addHeaderView(headerView,null,false);
         final List<String> names = new ArrayList<>(titleSession.keySet());
-        lv.setAdapter(new SessionDetailSpeakerAdapter(getApplicationContext(),names));
+        lv.setAdapter(new SpeakerDetailAdapter(getApplicationContext(),names));
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
