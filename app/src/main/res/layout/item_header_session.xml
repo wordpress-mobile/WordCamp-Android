@@ -5,7 +5,7 @@
     <TextView
         android:id="@+id/wc_detail_abstract"
         android:textSize="14sp"
-        android:textColor="#000"
+        android:textColor="#ff515151"
         android:layout_marginTop="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
