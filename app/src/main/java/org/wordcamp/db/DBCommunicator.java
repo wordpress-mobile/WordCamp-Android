@@ -261,12 +261,13 @@ public class DBCommunicator {
 
     /**
      * Get the speaker by the post-id
+     * @param wc_id
      * @param id
      * @return  Speaker's info
      */
-    public SpeakerDB getSpeaker(int id){
+    public SpeakerDB getSpeaker(int wc_id,int id){
 
-        Cursor cursor=db.rawQuery("SELECT * FROM speaker WHERE postid="+id, null);
+        Cursor cursor=db.rawQuery("SELECT * FROM speaker WHERE postid="+id+" AND wcid="+wc_id, null);
 
         if(cursor!=null){
             cursor.moveToFirst();
@@ -410,18 +411,21 @@ public class DBCommunicator {
         return null;
     }
 
-    public void checkMapping(){
-        Cursor cursor = db.rawQuery("SELECT * FROM speakersessions",null);
+    public HashMap<String, Integer> getSpeakersForSession(int wcid,int session_id){
+        Cursor cursor = db.rawQuery("SELECT name, speakerid FROM speakersessions JOIN speaker" +
+                " ON speaker.speaker_id = speakersessions.speakerid AND speaker.wcid="+wcid+" " +
+                "WHERE speakersessions.wcid=" + wcid+" AND speakersessions.sessionid="+session_id, null);
+
         if (cursor != null && cursor.getCount()>0) {
-            List<String> sessionTitle = new ArrayList<>();
+            HashMap<String,Integer> map = new HashMap<>();
             if (cursor.moveToFirst()) {
                 do {
-                    Log.e("wcid",""+cursor.getInt(0));
-                    Log.e("speakerid",""+cursor.getInt(1));
-                    Log.e("sessionid",""+cursor.getInt(2));
+                    map.put(cursor.getString(0),cursor.getInt(1));
                 } while (cursor.moveToNext());
                 cursor.close();
+                return map;
             }
         }
+        return null;
     }
 }
