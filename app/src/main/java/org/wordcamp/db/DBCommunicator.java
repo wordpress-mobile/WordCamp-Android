@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 
+import org.wordcamp.objects.MiniSpeaker;
 import org.wordcamp.objects.SessionDB;
 import org.wordcamp.objects.SpeakerDB;
 import org.wordcamp.objects.WordCampDB;
@@ -411,16 +412,17 @@ public class DBCommunicator {
         return null;
     }
 
-    public HashMap<String, Integer> getSpeakersForSession(int wcid,int session_id){
-        Cursor cursor = db.rawQuery("SELECT name, speakerid FROM speakersessions JOIN speaker" +
+    public HashMap<String, MiniSpeaker> getSpeakersForSession(int wcid,int session_id){
+        Cursor cursor = db.rawQuery("SELECT name, speakerid, gravatar FROM speakersessions JOIN speaker" +
                 " ON speaker.speaker_id = speakersessions.speakerid AND speaker.wcid="+wcid+" " +
                 "WHERE speakersessions.wcid=" + wcid+" AND speakersessions.sessionid="+session_id, null);
 
         if (cursor != null && cursor.getCount()>0) {
-            HashMap<String,Integer> map = new HashMap<>();
+            HashMap<String,MiniSpeaker> map = new HashMap<>();
             if (cursor.moveToFirst()) {
                 do {
-                    map.put(cursor.getString(0),cursor.getInt(1));
+                    map.put(cursor.getString(0),new MiniSpeaker(cursor.getString(0),cursor.getString(2)
+                            ,cursor.getInt(1)));
                 } while (cursor.moveToNext());
                 cursor.close();
                 return map;

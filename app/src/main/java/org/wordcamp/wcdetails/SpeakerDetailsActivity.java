@@ -1,6 +1,12 @@
 package org.wordcamp.wcdetails;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -8,11 +14,14 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import org.wordcamp.R;
 import org.wordcamp.adapters.SpeakerDetailAdapter;
@@ -24,6 +33,7 @@ import org.wordcamp.objects.speakers.Speakers;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Created by aagam on 26/2/15.
@@ -39,6 +49,14 @@ public class SpeakerDetailsActivity extends ActionBarActivity {
     public HashMap<String, Integer> titleSession;
     public TextView info;
     public ListView lv;
+    private Animator mCurrentAnimator;
+    public ImageView dp,zoomImageView;
+    private AtomicBoolean visible = new AtomicBoolean(false);
+    private float startScale;
+    private View container;
+    private int mShortAnimationDuration;
+    private Rect startBounds;
+    private Rect finalBounds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,15 +75,39 @@ public class SpeakerDetailsActivity extends ActionBarActivity {
     }
 
     private void initGUI() {
+
+        mShortAnimationDuration = getResources().getInteger(
+                android.R.integer.config_shortAnimTime);
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         toolbar.setTitle(speakerDB.getName());
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
 
+
+        // Load the high-resolution "zoomed-in" image.
+        zoomImageView = (ImageView) findViewById(
+                R.id.zoomProfilePic);
+
+        Picasso.with(this).load(speakerDB.getGravatar()+"?s=400")
+                .placeholder(R.drawable.ic_account_circle_grey600).into(zoomImageView);
+
+
         View headerView = LayoutInflater.from(this).inflate(R.layout.item_header_speaker,null);
         info = (TextView)headerView.findViewById(R.id.speaker_detail);
         info.setText(Html.fromHtml(speakerDB.getInfo()));
+
+        dp = (ImageView) headerView.findViewById(R.id.speaker_dp);
+
+        dp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zoomImageFromThumb(v);
+            }
+        });
+        Picasso.with(this).load(speakerDB.getGravatar())
+                .placeholder(R.drawable.ic_account_circle_grey600).into(dp);
+
         lv = (ListView)findViewById(R.id.session_list_speakers);
         lv.addHeaderView(headerView,null,false);
         final List<String> names = new ArrayList<>(titleSession.keySet());
@@ -79,6 +121,50 @@ public class SpeakerDetailsActivity extends ActionBarActivity {
                 Intent intent = new Intent(getApplicationContext(),SessionDetailsActivity.class);
                 intent.putExtra("session",sessionDB);
                 startActivity(intent);
+            }
+        });
+
+        zoomImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mCurrentAnimator != null) {
+                    mCurrentAnimator.cancel();
+                }
+
+                AnimatorSet set = new AnimatorSet();
+
+                set.play(ObjectAnimator
+                        .ofFloat(container, "x", startBounds.left))
+                        .with(ObjectAnimator
+                                .ofFloat(container,
+                                        "y", startBounds.top))
+                        .with(ObjectAnimator
+                                .ofFloat(container,
+                                        "scaleX", startScale))
+                        .with(ObjectAnimator
+                                .ofFloat(container,
+                                        "scaleY", startScale));
+                set.setDuration(mShortAnimationDuration);
+                set.setInterpolator(new DecelerateInterpolator());
+                set.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        dp.setAlpha(1f);
+                        container.setVisibility(View.GONE);
+                        mCurrentAnimator = null;
+                    }
+
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+                        dp.setAlpha(1f);
+                        container.setVisibility(View.GONE);
+                        mCurrentAnimator = null;
+                    }
+                });
+                set.start();
+                mCurrentAnimator = set;
+                visible.set(false);
             }
         });
     }
@@ -116,5 +202,83 @@ public class SpeakerDetailsActivity extends ActionBarActivity {
         super.onDestroy();
         if(communicator!=null)
             communicator.close();
+    }
+
+    /**
+     * Here zoom of the layout is done instead of the image.
+     * After zoomed, when the image is clicked then it will zoom out
+     * The edit button will help to select new image
+     */
+    public void zoomImageFromThumb(final View thumbView) {
+
+        // set the visible atomic boolean to true
+        // so the recentChatActivity can know
+        visible.set(true);
+
+        if (mCurrentAnimator != null) {
+            mCurrentAnimator.cancel();
+        }
+
+        container = findViewById(R.id.layout_zoom);
+        startBounds = new Rect();
+        finalBounds = new Rect();
+        Point globalOffset = new Point();
+
+        View mThumbView = thumbView;
+        mThumbView.getGlobalVisibleRect(startBounds);
+        findViewById(R.id.mainLayout)
+                .getGlobalVisibleRect(finalBounds, globalOffset);
+        startBounds.offset(-globalOffset.x, -globalOffset.y);
+        finalBounds.offset(-globalOffset.x, -globalOffset.y);
+
+        if ((float) finalBounds.width() / finalBounds.height()
+                > (float) startBounds.width() / startBounds.height()) {
+            // Extend start bounds horizontally
+            startScale = (float) startBounds.height() / finalBounds.height();
+            float startWidth = startScale * finalBounds.width();
+            float deltaWidth = (startWidth - startBounds.width()) / 2;
+            startBounds.left -= deltaWidth;
+            startBounds.right += deltaWidth;
+        } else {
+            // Extend start bounds vertically
+            startScale = (float) startBounds.width() / finalBounds.width();
+            float startHeight = startScale * finalBounds.height();
+            float deltaHeight = (startHeight - startBounds.height()) / 2;
+            startBounds.top -= deltaHeight;
+            startBounds.bottom += deltaHeight;
+        }
+
+        // Hide the thumbnail and show the zoomed-in view.
+        mThumbView.setAlpha(0f);
+        container.setVisibility(View.VISIBLE);
+
+        container.setPivotX(0f);
+        container.setPivotY(0f);
+
+        final AnimatorSet set = new AnimatorSet();
+        set.play(ObjectAnimator.ofFloat(container, "x",
+                startBounds.left, finalBounds.left))
+                .with(ObjectAnimator.ofFloat(container, "y",
+                        startBounds.top, finalBounds.top))
+                .with(ObjectAnimator.ofFloat(container, "scaleX",
+                        startScale, 1f))
+                .with(ObjectAnimator.ofFloat(container,
+                        "scaleY", startScale, 1f));
+        set.setDuration(mShortAnimationDuration);
+        set.setInterpolator(new DecelerateInterpolator());
+        set.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mCurrentAnimator = null;
+            }
+
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                mCurrentAnimator = null;
+            }
+        });
+        set.start();
+        mCurrentAnimator = set;
     }
 }

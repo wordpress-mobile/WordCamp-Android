@@ -2,12 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/speaker_detail"
-        android:textSize="14sp"
-        android:textColor="#ff515151"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <org.wordcamp.widgets.CircularImageView
+            android:src="@drawable/wp_icon"
+            android:id="@+id/speaker_dp"
+            android:layout_marginLeft="16dp"
+            android:layout_centerVertical="true"
+            android:layout_width="60dp"
+            android:layout_height="60dp" />
+        <TextView
+            android:layout_marginLeft="16dp"
+            android:id="@+id/speaker_detail"
+            android:textSize="14sp"
+            android:textColor="#ff515151"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
     <ImageView
         android:layout_marginTop="8dp"
         android:layout_marginRight="16dp"

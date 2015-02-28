@@ -5,9 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.wordcamp.R;
+import org.wordcamp.objects.MiniSpeaker;
 
 import java.util.List;
 
@@ -17,12 +21,12 @@ import java.util.List;
 public class SessionDetailAdapter extends BaseAdapter {
 
     public Context mContext;
-    public List<String> speakers;
+    public List<MiniSpeaker> speakers;
     public LayoutInflater inflater;
 
-    public SessionDetailAdapter(Context ctx, List<String> names){
+    public SessionDetailAdapter(Context ctx, List<MiniSpeaker> speakerList){
         mContext = ctx;
-        speakers = names;
+        speakers = speakerList;
         inflater = LayoutInflater.from(ctx);
     }
 
@@ -45,12 +49,16 @@ public class SessionDetailAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         TextView title;
+        ImageView dp;
         if(convertView==null){
             convertView = inflater.inflate(R.layout.item_session_detail_speaker,parent,false);
         }
 
         title = (TextView)convertView.findViewById(R.id.item_session_speaker);
-        title.setText(speakers.get(position));
+        dp = (ImageView)convertView.findViewById(R.id.speaker_dp);
+        title.setText(speakers.get(position).name);
+        Picasso.with(mContext).load(speakers.get(position).dp).
+                placeholder(R.drawable.ic_account_circle_grey600).into(dp);
 
         return convertView;
     }

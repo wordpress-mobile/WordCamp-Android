@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import com.google.gson.Gson;
 import org.wordcamp.R;
 import org.wordcamp.adapters.SessionDetailAdapter;
 import org.wordcamp.db.DBCommunicator;
+import org.wordcamp.objects.MiniSpeaker;
 import org.wordcamp.objects.SessionDB;
 import org.wordcamp.objects.SpeakerDB;
 import org.wordcamp.objects.session.Session;
@@ -25,7 +27,6 @@ import org.wordcamp.utils.WordCampUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by aagam on 12/2/15.
@@ -37,7 +38,7 @@ public class SessionDetailsActivity extends ActionBarActivity {
     public Toolbar toolbar;
     public Session session;
     public Gson gson;
-    public List<String> speakerList;
+    public ArrayList<MiniSpeaker> speakerList;
     public ListView speakersListView;
     public DBCommunicator communicator;
     @Override
@@ -67,7 +68,6 @@ public class SessionDetailsActivity extends ActionBarActivity {
         info = (TextView)headerView.findViewById(R.id.wc_detail_abstract);
         title.setText(Html.fromHtml(session.getTitle()));
         info.setText(Html.fromHtml(session.getContent()));
-
         if(session.getTerms().getWcbTrack().size()==1){
             time.setText(WordCampUtils.formatProperTime(sessionDB.getTime())+" in "
                     +session.getTerms().getWcbTrack().get(0).getName());
@@ -75,9 +75,8 @@ public class SessionDetailsActivity extends ActionBarActivity {
             time.setText(WordCampUtils.formatProperTime(sessionDB.getTime()));
         }
 
-        final HashMap<String,Integer> names = communicator.getSpeakersForSession(sessionDB.getWc_id(),sessionDB.getPost_id());
-        speakerList = new ArrayList<>(names.keySet());
-
+        final HashMap<String,MiniSpeaker> names = communicator.getSpeakersForSession(sessionDB.getWc_id(),sessionDB.getPost_id());
+        speakerList = new ArrayList<>(names.values());
         speakersListView = (ListView)findViewById(R.id.session_list_speakers);
         speakersListView.addHeaderView(headerView,null,false);
 
@@ -88,7 +87,7 @@ public class SessionDetailsActivity extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 position--;
 
-                SpeakerDB speakerDB = communicator.getSpeaker(sessionDB.getWc_id(), names.get(speakerList.get(position)));
+                SpeakerDB speakerDB = communicator.getSpeaker(sessionDB.getWc_id(), speakerList.get(position).id);
                 Intent intent = new Intent(getApplicationContext(),SpeakerDetailsActivity.class);
                 intent.putExtra("speaker",speakerDB);
                 startActivity(intent);
