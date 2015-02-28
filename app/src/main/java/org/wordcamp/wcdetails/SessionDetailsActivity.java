@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -96,10 +97,33 @@ public class SessionDetailsActivity extends ActionBarActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_session_detail,menu);
+        if(sessionDB.isMySession){
+            MenuItem attending = menu.findItem(R.id.action_favorite);
+            attending.setIcon(R.drawable.ic_favorite_white_36dp);
+        }
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                return true;
+            case R.id.action_favorite:
+                if(sessionDB.isMySession){
+                    item.setIcon(R.drawable.ic_favorite_outline_white_36dp);
+                    sessionDB.isMySession=false;
+                    communicator.removeFromMySession(sessionDB);
+                }
+                else{
+                    item.setIcon(R.drawable.ic_favorite_white_36dp);
+                    sessionDB.isMySession=true;
+                    communicator.addToMySession(sessionDB);
+                }
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

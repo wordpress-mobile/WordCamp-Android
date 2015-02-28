@@ -17,5 +17,6 @@
     <string name="item_organisers">Organisers</string>
     <string name="item_contact">Contact</string>
     <string name="action_refresh">Refresh</string>
+    <string name="favorite">favorite</string>
 
 </resources>

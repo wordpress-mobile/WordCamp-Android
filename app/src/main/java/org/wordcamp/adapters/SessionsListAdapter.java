@@ -54,6 +54,8 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
 
         if(db.isMySession){
             Picasso.with(ctx).load(R.drawable.ic_favorite_black_24dp).into(holder.favorite);
+        } else{
+            Picasso.with(ctx).load(R.drawable.ic_favorite_outline_black_24dp).into(holder.favorite);
         }
 
         holder.favorite.setOnClickListener(new View.OnClickListener() {

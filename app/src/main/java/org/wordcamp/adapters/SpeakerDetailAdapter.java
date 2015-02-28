@@ -1,6 +1,7 @@
 package org.wordcamp.adapters;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +51,7 @@ public class SpeakerDetailAdapter extends BaseAdapter {
         }
 
         title = (TextView)convertView.findViewById(R.id.item_session);
-        title.setText(session.get(position));
+        title.setText(Html.fromHtml(session.get(position)));
 
         return convertView;
     }

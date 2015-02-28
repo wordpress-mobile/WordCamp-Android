@@ -169,7 +169,7 @@ public class WordCampDetailActivity extends ActionBarActivity {
 
                 Toast.makeText(getApplicationContext(),"Updated sessions "+response.length(),Toast.LENGTH_SHORT).show();
                 if(response.length()>0){
-                    updateSpeakerContent();
+                    updateSessionContent();
                 }
             }
 
@@ -180,7 +180,7 @@ public class WordCampDetailActivity extends ActionBarActivity {
         });
     }
 
-    private void updateSpeakerContent() {
+    private void updateSessionContent() {
         SessionsFragment fragment = getSessionsFragment();
         if(fragment!=null){
             fragment.updateData();
@@ -244,5 +244,24 @@ public class WordCampDetailActivity extends ActionBarActivity {
             attending.setIcon(R.drawable.ic_star_white_36dp);
         }
         return true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(communicator ==null){
+            communicator = new DBCommunicator(this);
+        } else{
+            communicator.restart();
+            updateSessionContent();
+        }
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(communicator!=null)
+            communicator.close();
     }
 }
