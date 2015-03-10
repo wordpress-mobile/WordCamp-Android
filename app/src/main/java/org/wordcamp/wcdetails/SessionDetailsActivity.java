@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -19,6 +18,7 @@ import com.google.gson.Gson;
 import org.wordcamp.R;
 import org.wordcamp.adapters.SessionDetailAdapter;
 import org.wordcamp.db.DBCommunicator;
+import org.wordcamp.notifs.FavoriteSession;
 import org.wordcamp.objects.MiniSpeaker;
 import org.wordcamp.objects.SessionDB;
 import org.wordcamp.objects.SpeakerDB;
@@ -41,11 +41,14 @@ public class SessionDetailsActivity extends ActionBarActivity {
     public ArrayList<MiniSpeaker> speakerList;
     public ListView speakersListView;
     public DBCommunicator communicator;
+    public FavoriteSession fav;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sessionDB = (SessionDB) getIntent().getSerializableExtra("session");
         setContentView(R.layout.activity_session_detail);
+        fav = new FavoriteSession(this);
         communicator = new DBCommunicator(this);
         communicator.start();
         initGUI();
@@ -115,11 +118,13 @@ public class SessionDetailsActivity extends ActionBarActivity {
                 if(sessionDB.isMySession){
                     item.setIcon(R.drawable.ic_favorite_outline_white_36dp);
                     sessionDB.isMySession=false;
+                    fav.unFavoriteSession(sessionDB);
                     communicator.removeFromMySession(sessionDB);
                 }
                 else{
                     item.setIcon(R.drawable.ic_favorite_white_36dp);
                     sessionDB.isMySession=true;
+                    fav.favoriteSession(sessionDB);
                     communicator.addToMySession(sessionDB);
                 }
                 return true;

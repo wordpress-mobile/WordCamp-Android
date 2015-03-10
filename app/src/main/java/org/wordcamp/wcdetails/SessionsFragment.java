@@ -14,6 +14,7 @@ import org.wordcamp.R;
 import org.wordcamp.WordCampDetailActivity;
 import org.wordcamp.adapters.SessionsListAdapter;
 import org.wordcamp.db.DBCommunicator;
+import org.wordcamp.notifs.FavoriteSession;
 import org.wordcamp.objects.SessionDB;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
     private SessionsListAdapter sessionsListAdapter;
     private List<SessionDB> sessionDBList;
     public DBCommunicator communicator;
+    public FavoriteSession favoriteSession;
     private int wcid;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,7 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
         wcid = ((WordCampDetailActivity)getActivity()).wcid;
         communicator = ((WordCampDetailActivity)getActivity()).communicator;
         sessionDBList = communicator.getAllSession(wcid);
-
+        favoriteSession = new FavoriteSession(getActivity());
     }
 
     @Override
@@ -68,11 +70,13 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
 
     @Override
     public void addMySession(SessionDB db) {
+        favoriteSession.favoriteSession(db);
         communicator.addToMySession(db);
     }
 
     @Override
     public void removeMySession(SessionDB db) {
+        favoriteSession.unFavoriteSession(db);
         communicator.removeFromMySession(db);
     }
 }

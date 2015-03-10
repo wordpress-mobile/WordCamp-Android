@@ -51,9 +51,7 @@ public class WordCampDetailActivity extends ActionBarActivity {
         setContentView(R.layout.activity_wordcamp_detail);
         communicator = new DBCommunicator(this);
         communicator.start();
-        long UIstart = System.currentTimeMillis();
         initGUI();
-
     }
 
     @Override
