@@ -3,6 +3,8 @@
 ### Server setup
 Download wordpress-meta-environment which has the copy of WordCamp Central which we will be using for testing purpose.
 
+Install WP-API plugin in the Central WordCamp website.
+
 As local Vagrant can't be accessed from phones create a local server with the following script.
 
 ``` php
