@@ -78,24 +78,26 @@ public class SessionDetailsActivity extends ActionBarActivity {
             time.setText(WordCampUtils.formatProperTime(sessionDB.getTime()));
         }
 
-        final HashMap<String,MiniSpeaker> names = communicator.getSpeakersForSession(sessionDB.getWc_id(),sessionDB.getPost_id());
-        speakerList = new ArrayList<>(names.values());
         speakersListView = (ListView)findViewById(R.id.session_list_speakers);
         speakersListView.addHeaderView(headerView,null,false);
 
+        final HashMap<String,MiniSpeaker> names = communicator.getSpeakersForSession(sessionDB.getWc_id(),sessionDB.getPost_id());
 
-        speakersListView.setAdapter(new SessionDetailAdapter(getApplicationContext(),speakerList));
-        speakersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                position--;
+        if(names!=null){
+            speakerList = new ArrayList<>(names.values());
+            speakersListView.setAdapter(new SessionDetailAdapter(getApplicationContext(),speakerList));
+            speakersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    position--;
 
-                SpeakerDB speakerDB = communicator.getSpeaker(sessionDB.getWc_id(), speakerList.get(position).id);
-                Intent intent = new Intent(getApplicationContext(),SpeakerDetailsActivity.class);
-                intent.putExtra("speaker",speakerDB);
-                startActivity(intent);
-            }
-        });
+                    SpeakerDB speakerDB = communicator.getSpeaker(sessionDB.getWc_id(), speakerList.get(position).id);
+                    Intent intent = new Intent(getApplicationContext(),SpeakerDetailsActivity.class);
+                    intent.putExtra("speaker",speakerDB);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override

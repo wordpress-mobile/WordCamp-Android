@@ -11,7 +11,7 @@ import com.loopj.android.http.RequestParams;
 public class WPAPIClient {
     private static final String BASE_URL = "http://central.wordcamp.dev/wp-json/";
 
-    private static final String LOCAL = "http://192.168.0.103/myVagrant/index.php";
+    private static final String LOCAL = "http://wordcampcentralbeta.ngrok.com/myVagrant/index.php";
 
     private static final String QUERY_PARAM_SPEAKERS = "/wp-json/posts?type=wcb_speaker&filter[posts_per_page]=100";
 

@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="#fff"
     android:layout_height="72dp">
     <LinearLayout
         android:orientation="vertical"
         android:paddingLeft="16dp"
         android:layout_marginRight="56dp"
         android:layout_centerVertical="true"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content">
         <TextView
             android:textSize="16sp"
             android:maxLines="1"
+            android:text="Title"
             android:ellipsize="end"
             android:textColor="#000"
             android:id="@+id/titleSession"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
         <TextView
             android:textSize="14sp"
             android:textStyle="italic"
+            android:text="Location"
             android:id="@+id/locationSession"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -29,13 +32,13 @@
             android:id="@+id/speakersSession"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        </LinearLayout>
+    </LinearLayout>
     <ImageView
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_margin="16dp"
+        android:src="@drawable/heart"
         android:id="@+id/favorite"
-        android:src="@drawable/ic_favorite_outline_black_24dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </RelativeLayout>

@@ -18,7 +18,6 @@ package org.wordcamp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -82,7 +81,7 @@ public class BaseActivity extends ActionBarActivity implements UpcomingWCFragmen
 
         SlidingTabLayout slidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
         slidingTabLayout.setCustomTabView(R.layout.tab_view, android.R.id.text1);
-        slidingTabLayout.setSelectedIndicatorColors(Color.parseColor("#0F85D1"));
+        slidingTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.accent));
         slidingTabLayout.setDistributeEvenly(true);
         slidingTabLayout.setViewPager(mPager);
     }

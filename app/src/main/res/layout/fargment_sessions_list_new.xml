@@ -6,6 +6,8 @@
     <se.emilsjolander.stickylistheaders.StickyListHeadersListView
         android:overScrollMode="never"
         android:id="@+id/sessionList"
+        android:divider="@drawable/divider"
+        android:dividerHeight="1dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

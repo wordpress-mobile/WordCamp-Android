@@ -2,6 +2,7 @@ package org.wordcamp.adapters;
 
 import android.content.Context;
 import android.text.Html;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,13 +50,13 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
         final SessionDB db  = list.get(position);
 
         holder.title.setText(Html.fromHtml(list.get(position).getTitle()));
-        holder.speakers.setText("Aagam Shah");
+
         holder.location.setText(db.getLocation());
 
         if(db.isMySession){
-            Picasso.with(ctx).load(R.drawable.ic_favorite_black_24dp).into(holder.favorite);
+            Picasso.with(ctx).load(R.drawable.heart).into(holder.favorite);
         } else{
-            Picasso.with(ctx).load(R.drawable.ic_favorite_outline_black_24dp).into(holder.favorite);
+            Picasso.with(ctx).load(R.drawable.heart_outline).into(holder.favorite);
         }
 
         holder.favorite.setOnClickListener(new View.OnClickListener() {
@@ -67,15 +68,26 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
                     db.isMySession = false;
                     list.set(position,db);
                     listener.removeMySession(db);
-                    Picasso.with(ctx).load(R.drawable.ic_favorite_outline_black_24dp).into(holder.favorite);
+                    Picasso.with(ctx).load(R.drawable.heart_outline).into(holder.favorite);
                 } else{
                     db.isMySession = true;
                     list.set(position,db);
                     listener.addMySession(db);
-                    Picasso.with(ctx).load(R.drawable.ic_favorite_black_24dp).into(holder.favorite);
+                    Picasso.with(ctx).load(R.drawable.heart).into(holder.favorite);
                 }
             }
         });
+
+        if(list.get(position).category.equals("custom")){
+            holder.favorite.setVisibility(View.INVISIBLE);
+            if(db.getLocation()==null || db.getLocation().isEmpty())
+                holder.title.setGravity(Gravity.CENTER);
+            else
+                holder.title.setGravity(Gravity.LEFT);
+        } else{
+            holder.favorite.setVisibility(View.VISIBLE);
+            holder.title.setGravity(Gravity.LEFT);
+        }
         return convertView;
     }
 

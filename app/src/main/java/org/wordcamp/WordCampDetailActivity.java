@@ -1,13 +1,14 @@
 package org.wordcamp;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -30,6 +31,8 @@ import org.wordcamp.wcdetails.SessionsFragment;
 import org.wordcamp.wcdetails.SpeakerFragment;
 import org.wordcamp.wcdetails.WordCampOverview;
 import org.wordcamp.widgets.SlidingTabLayout;
+
+import java.lang.reflect.Field;
 
 /**
  * Created by aagam on 26/1/15.
@@ -63,6 +66,7 @@ public class WordCampDetailActivity extends ActionBarActivity {
     private void initGUI() {
         ViewCompat.setElevation(findViewById(R.id.header), getResources().getDimension(R.dimen.toolbar_elevation));
         toolbar = (Toolbar)findViewById(R.id.toolbar);
+
         adapter = new WCDetailAdapter(getSupportFragmentManager());
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(adapter);
@@ -72,15 +76,30 @@ public class WordCampDetailActivity extends ActionBarActivity {
 
         SlidingTabLayout slidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
         slidingTabLayout.setCustomTabView(R.layout.tab_view, android.R.id.text1);
-        slidingTabLayout.setSelectedIndicatorColors(Color.parseColor("#0F85D1"));
+        //pink e91e63 orange ef6c00
+        slidingTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.accent));
         slidingTabLayout.setDistributeEvenly(true);
         slidingTabLayout.setViewPager(mPager);
 
         toolbar.setTitle(wcdb.getWc_title());
+        setToolBarEllisize();
         toolbar.setSubtitle(WordCampUtils.getProperDate(wcdb));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+    }
+
+    private void setToolBarEllisize() {
+        TextView titleTextView = null;
+
+        try {
+            Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
+            f.setAccessible(true);
+            titleTextView = (TextView) f.get(toolbar);
+            titleTextView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

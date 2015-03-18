@@ -38,6 +38,8 @@
                     android:textColor="#ff575757"
                     android:id="@+id/up_wc_title"
                     android:layout_width="match_parent"
+                    android:layout_marginRight="34dp"
+                    android:maxLines="2"
                     android:text="WordCamp London"
                     android:layout_height="match_parent" />
                 <TextView

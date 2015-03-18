@@ -89,9 +89,8 @@ public class SpeakerDetailsActivity extends ActionBarActivity {
         zoomImageView = (ImageView) findViewById(
                 R.id.zoomProfilePic);
 
-        Picasso.with(this).load(speakerDB.getGravatar()+"?s=400")
+        Picasso.with(this).load(speakerDB.getGravatar())
                 .placeholder(R.drawable.ic_account_circle_grey600).into(zoomImageView);
-
 
         View headerView = LayoutInflater.from(this).inflate(R.layout.item_header_speaker,null);
         info = (TextView)headerView.findViewById(R.id.speaker_detail);
@@ -110,19 +109,22 @@ public class SpeakerDetailsActivity extends ActionBarActivity {
 
         lv = (ListView)findViewById(R.id.session_list_speakers);
         lv.addHeaderView(headerView,null,false);
-        final List<String> names = new ArrayList<>(titleSession.keySet());
-        lv.setAdapter(new SpeakerDetailAdapter(getApplicationContext(),names));
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
-                //As we have 1 header view so the counter starts from 1
-                i--;
-                SessionDB sessionDB = communicator.getSession(speakerDB.getWc_id(),titleSession.get(names.get(i)));
-                Intent intent = new Intent(getApplicationContext(),SessionDetailsActivity.class);
-                intent.putExtra("session",sessionDB);
-                startActivity(intent);
-            }
-        });
+
+        if(titleSession!=null) {
+             final List<String> names = new ArrayList<>(titleSession.keySet());
+            lv.setAdapter(new SpeakerDetailAdapter(getApplicationContext(), names));
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
+                    //As we have 1 header view so the counter starts from 1
+                    i--;
+                    SessionDB sessionDB = communicator.getSession(speakerDB.getWc_id(), titleSession.get(names.get(i)));
+                    Intent intent = new Intent(getApplicationContext(), SessionDetailsActivity.class);
+                    intent.putExtra("session", sessionDB);
+                    startActivity(intent);
+                }
+            });
+        }
 
         zoomImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -218,6 +220,8 @@ public class SpeakerDetailsActivity extends ActionBarActivity {
         if (mCurrentAnimator != null) {
             mCurrentAnimator.cancel();
         }
+
+        Picasso.with(this).load(speakerDB.getGravatar()+"?s=400").noPlaceholder().into(zoomImageView);
 
         container = findViewById(R.id.layout_zoom);
         startBounds = new Rect();

@@ -1,5 +1,4 @@
 package org.wordcamp.wcdetails;
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,26 +9,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
-
 import org.wordcamp.R;
 import org.wordcamp.WordCampDetailActivity;
 import org.wordcamp.objects.WordCampDB;
 import org.wordcamp.objects.wordcamp.WordCamps;
 import org.wordcamp.utils.ImageUtils;
-
 /**
  * Created by aagam on 26/1/15.
  */
 public class WordCampOverview extends Fragment {
-
     public WordCampDB wc;
     public WordCamps wholeWC;
     public TextView location,about;
     public ImageView wcFeaturedImage;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +31,6 @@ public class WordCampOverview extends Fragment {
         Gson gson = new Gson();
         wholeWC = gson.fromJson(wc.getGson_object(),WordCamps.class);
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_wcdetails_overview,container,false);
@@ -47,8 +40,9 @@ public class WordCampOverview extends Fragment {
             Picasso.with(getActivity()).load("http://central.wordcamp.org/files/2014/12/Norway.png").placeholder(R.drawable.wcparis).into(wcFeaturedImage);
         }
         location = (TextView)v.findViewById(R.id.wc_location);
-        location.setText(wholeWC.getFoo().getVenueName().toString()
-                +"\n"+wholeWC.getFoo().getPhysicalAddress().toString());
+
+        setLocationText();
+
         about = (TextView)v.findViewById(R.id.wc_about);
         about.setText(Html.fromHtml(wholeWC.getContent()));
         int height = ImageUtils.getAspectRatio(getActivity());
@@ -58,10 +52,32 @@ public class WordCampOverview extends Fragment {
         return v;
     }
 
+    private void setLocationText() {
+
+        int size =  wholeWC.getFoo().getVenueName().size();
+
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < size; i++) {
+            sb.append(wholeWC.getFoo().getVenueName().get(i));
+            sb.append("\n");
+        }
+
+        size =  wholeWC.getFoo().getPhysicalAddress().size();
+
+        for (int i = 0; i <size; i++) {
+            sb.append(wholeWC.getFoo().getPhysicalAddress().get(i));
+            if(i != size-1)
+                sb.append("\n");
+        }
+
+        location.setText(sb.toString());
+
+    }
+
     public void updateData(WordCamps wcs){
         wholeWC = wcs;
-
-        //If WC featured image is null, then when passed to WordCampDb, it cant access it.
+//If WC featured image is null, then when passed to WordCampDb, it cant access it.
         if(wcs.getFeaturedImage()!=null)
             wc = new WordCampDB(wcs,"");
         else
@@ -75,10 +91,7 @@ public class WordCampOverview extends Fragment {
             wc = new WordCampDB(wcs.getID(),wcs.getTitle(),wcs.getFoo().getStartDateYYYYMmDd().get(0),
                     wcs.getFoo().getEndDateYYYYMmDd().get(0),"",gson.toJson(wcs),url,"",wc.isMyWC);
         }
-
-
-        location.setText(wholeWC.getFoo().getVenueName().toString()
-                +"\n"+wholeWC.getFoo().getPhysicalAddress().toString());
+        setLocationText();
         about.setText(Html.fromHtml(wholeWC.getContent()));
         if(!wc.featureImageUrl.equals("")){
             Picasso.with(getActivity()).load(wc.getFeatureImageUrl()).placeholder(R.drawable.wclondon).into(wcFeaturedImage);

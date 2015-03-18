@@ -58,6 +58,7 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
             }
         });
 
+        sessionList.getWrappedList().setHeaderDividersEnabled(true);
         sessionList.setAdapter(sessionsListAdapter);
         return v;
     }
