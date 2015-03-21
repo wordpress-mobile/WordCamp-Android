@@ -83,7 +83,7 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
 
                 if(!deleteItems.contains(position)){
                     Intent i = new Intent(getActivity(), WordCampDetailActivity.class);
-                    i.putExtra("wc", wordCampDBs.get(position));
+                    i.putExtra("wc", myWordCampDBs.get(position));
                     startActivity(i);
                 } else{
                     MyWCListAdapter.ViewHolder holder = (MyWCListAdapter.ViewHolder)view.getTag();
