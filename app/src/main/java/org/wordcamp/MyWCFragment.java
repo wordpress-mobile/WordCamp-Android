@@ -11,9 +11,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+import com.parse.ParsePush;
+
 import org.wordcamp.adapters.MyWCListAdapter;
 import org.wordcamp.db.DBCommunicator;
 import org.wordcamp.objects.WordCampDB;
+import org.wordcamp.objects.wordcamp.WordCamps;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -148,11 +152,17 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
 
     @Override
     public void removeWC() {
+        Gson gson = new Gson();
         List<Integer> removedWCIDs = new ArrayList<>();
         Collections.sort(deleteItems);
         for (int i = deleteItems.size()-1; i >=0; i--) {
-            removedWCIDs.add(myWordCampDBs.get(deleteItems.get(i)).getWc_id());
+            WordCampDB db = myWordCampDBs.get(deleteItems.get(i));
+            WordCamps wcs = gson.fromJson(db.getGson_object(),WordCamps.class);
+            removedWCIDs.add(db.getWc_id());
             myWordCampDBs.remove((int)deleteItems.get(i));
+            if(wcs.getFoo().getTwitter()!=null && wcs.getFoo().getTwitter().size()>0){
+                ParsePush.unsubscribeInBackground(wcs.getFoo().getTwitter().get(0));
+            }
         }
         deleteItems = new ArrayList<>();
         communicator.removeFromMyWC(removedWCIDs);

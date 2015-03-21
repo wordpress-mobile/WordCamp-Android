@@ -11,9 +11,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+import com.parse.ParsePush;
+
 import org.wordcamp.adapters.UpcomingWCListAdapter;
 import org.wordcamp.db.DBCommunicator;
 import org.wordcamp.objects.WordCampDB;
+import org.wordcamp.objects.wordcamp.WordCamps;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -115,7 +119,15 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
     @Override
     public int addToMyWC(int wcid,int position) {
         int retId =  communicator.addToMyWC(wcid);
-        listener.onNewMyWCAdded(wordCampDBs.get(position));
+
+        WordCampDB wordCampDB =wordCampDBs.get(position);
+        listener.onNewMyWCAdded(wordCampDB);
+        Gson g = new Gson();
+        WordCamps wcs = g.fromJson(wordCampDB.getGson_object(),WordCamps.class);
+
+        if(wcs.getFoo().getTwitter()!=null && wcs.getFoo().getTwitter().size()>0){
+            ParsePush.subscribeInBackground(wcs.getFoo().getTwitter().get(0));
+        }
         return retId;
     }
 
