@@ -5,23 +5,22 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.wordcamp.BuildConfig;
+
 /**
  * Created by aagam on 14/1/15.
  */
 public class WPAPIClient {
-    private static final String BASE_URL = "http://central.wordcamp.dev/wp-json/";
 
-    private static final String LOCAL = "http://wordcampcentralbeta.ngrok.com/myVagrant/index.php";
+    private static final String LOCAL = BuildConfig.URL_LOCAL;
 
     private static final String QUERY_PARAM_SPEAKERS = "/wp-json/posts?type=wcb_speaker&filter[posts_per_page]=100";
 
-    private static final String QUERY_PARAM_WC = "central.wordcamp.dev/wp-json/posts?type=wordcamp&filter[order]=DESC&filter[orderby]=modified&filter[posts_per_page]=100";
+    private static final String QUERY_PARAM_WC = BuildConfig.URL_BETA;
 
     private static final String QUERY_PARAM_SCHEDULE = "/wp-json/posts?type=wcb_session&filter[order]=DESC&filter[orderby]=modified&filter[posts_per_page]=100";
 
-    private static final String QUERY_PARAM_SINGLEWC = "http://central.wordcamp.dev/wp-json/posts/";
-
-    //private static final String QUERY_PARAM_SESSION = "2014.seattle.wordcamp.dev/wp-json/posts?filter[posts_per_page]=58&type=wcb_session";
+    private static final String QUERY_PARAM_SINGLEWC = BuildConfig.URL_SINGLEWC;
 
     private static AsyncHttpClient client = new AsyncHttpClient();
 

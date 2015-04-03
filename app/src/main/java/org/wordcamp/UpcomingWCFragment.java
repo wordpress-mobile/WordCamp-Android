@@ -77,7 +77,6 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
                 listener.onRefreshStart();
             }
         });
-
         UpcomingWCListAdapter adapter = new UpcomingWCListAdapter(wordCampDBs,parentActivity,this);
         upWCLists.setAdapter(adapter);
 
@@ -90,6 +89,10 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
             }
         });
 
+        if(wordCampDBs.size()==0){
+            refreshLayout.setRefreshing(true);
+            listener.onRefreshStart();
+        }
         return v;
     }
 

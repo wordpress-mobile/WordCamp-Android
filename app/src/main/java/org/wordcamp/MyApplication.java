@@ -20,17 +20,17 @@ public class MyApplication extends Application {
         super.onCreate();
 
         ParseCrashReporting.enable(this);
-        Parse.initialize(this, "123",
-                "456");
+        Parse.initialize(this, BuildConfig.PARSE_APPKEY,
+                BuildConfig.PARSE_TOKEN);
 
 
         ParsePush.subscribeInBackground("pro", new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 if (e == null) {
-                    Log.e("com.parse.push", "successfully subscribed to the broadcast channel.");
+                    Log.e("push", "successfully subscribed to the broadcast channel.");
                 } else {
-                    Log.e("com.parse.push", "failed to subscribe for push", e);
+                    Log.e("push", "failed to subscribe for push", e);
                 }
             }
         });

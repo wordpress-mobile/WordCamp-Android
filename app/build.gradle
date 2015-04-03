@@ -11,10 +11,24 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    productFlavors {
+        local {
+            applicationId "org.wordcamp.local"
+        }
+        beta {
+            applicationId "org.wordcamp.beta"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            debuggable true
         }
     }
 }
@@ -28,4 +42,13 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.squareup.picasso:picasso:2.4.0'
     compile 'se.emilsjolander:stickylistheaders:2.5.2'
+}
+
+android.buildTypes.all { buildType ->
+    project.properties.any { property ->
+        if (property.key.toLowerCase().startsWith("wc.")) {
+            buildType.buildConfigField "String", property.key.replace("wc.", "").replace(".", "_").toUpperCase(),
+                    "\"${property.value}\""
+        }
+    }
 }
