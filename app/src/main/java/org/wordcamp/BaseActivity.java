@@ -170,7 +170,22 @@ public class BaseActivity extends ActionBarActivity implements UpcomingWCFragmen
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
-                Toast.makeText(getApplicationContext(), "Some error took place", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Error: ", Toast.LENGTH_SHORT).show();
+                stopRefresh();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                Toast.makeText(getApplicationContext(), "Error: " + errorResponse.toString()
+                        , Toast.LENGTH_SHORT).show();
+                stopRefresh();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                Toast.makeText(getApplicationContext(), "Error: " + responseString, Toast.LENGTH_SHORT).show();
                 stopRefresh();
             }
         });
