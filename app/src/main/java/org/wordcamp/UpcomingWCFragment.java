@@ -90,8 +90,13 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
         });
 
         if(wordCampDBs.size()==0){
-            refreshLayout.setRefreshing(true);
-            listener.onRefreshStart();
+            refreshLayout.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    refreshLayout.setRefreshing(true);
+                    listener.onRefreshStart();
+                }
+            },2000);
         }
         return v;
     }
