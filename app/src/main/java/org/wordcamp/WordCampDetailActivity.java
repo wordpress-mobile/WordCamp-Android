@@ -1,5 +1,7 @@
 package org.wordcamp;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
@@ -97,29 +99,46 @@ public class WordCampDetailActivity extends ActionBarActivity {
             f.setAccessible(true);
             titleTextView = (TextView) f.get(toolbar);
             titleTextView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==R.id.action_attending){
 
-            if(!wcdb.isMyWC){
-                int recv = communicator.addToMyWC(wcid);
-                item.setIcon(R.drawable.ic_star_white_36dp);
-                wcdb.isMyWC=true;
-            } else{
-                communicator.removeFromMyWCSingle(wcid);
-                item.setIcon(R.drawable.ic_star_outline_white_36dp);
-                wcdb.isMyWC=false;
-            }
-        } else if(item.getItemId() == R.id.action_refresh){
-            updateWordCampData();
-        } else if(item.getItemId() == android.R.id.home)
-            finish();
+        switch (item.getItemId()){
+            case R.id.action_attending:
+                if(!wcdb.isMyWC){
+                    int recv = communicator.addToMyWC(wcid);
+                    item.setIcon(R.drawable.ic_star_white_36dp);
+                    wcdb.isMyWC=true;
+                } else{
+                    communicator.removeFromMyWCSingle(wcid);
+                    item.setIcon(R.drawable.ic_star_outline_white_36dp);
+                    wcdb.isMyWC=false;
+                }
+                break;
+            case R.id.action_refresh:
+                updateWordCampData();
+                break;
+            case android.R.id.home:
+                finish();
+                break;
+            case R.id.item_menu_website:
+                startWebIntent();
+                break;
+        }
+
         return true;
+    }
+
+    private void startWebIntent() {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(wcdb.getUrl()));
+        browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(browserIntent);
     }
 
     private void updateWordCampData() {
