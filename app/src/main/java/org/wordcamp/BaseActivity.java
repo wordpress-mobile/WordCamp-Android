@@ -232,6 +232,11 @@ public class BaseActivity extends ActionBarActivity implements UpcomingWCFragmen
         fetchWCList();
     }
 
+    @Override
+    public void onMyWCRemoved(WordCampDB wordCampDB) {
+        getMyWCFragment().removeSingleMYWC(wordCampDB);
+    }
+
     private static class WCPagerAdapter extends CacheFragmentStatePagerAdapter {
 
         public WCPagerAdapter(FragmentManager fm) {

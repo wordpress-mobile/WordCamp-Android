@@ -172,4 +172,14 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
 
     }
 
+    public void removeSingleMYWC(WordCampDB wordCampDB){
+        wordCampDBs = communicator.getAllWc();
+        if(wordCampDBs!=null) {
+            sortAndModifyMyWC();
+        }
+        adapter = new MyWCListAdapter(myWordCampDBs,getActivity(),this);
+        myWCLists.setAdapter(adapter);
+
+    }
+
 }

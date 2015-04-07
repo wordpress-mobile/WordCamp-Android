@@ -30,6 +30,7 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
     public DBCommunicator communicator;
     public upcomingFragListener listener;
     public SwipeRefreshLayout refreshLayout;
+    public Gson g;
 
     public static UpcomingWCFragment newInstance(String param1, String param2) {
         UpcomingWCFragment fragment = new UpcomingWCFragment();
@@ -54,6 +55,7 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        g = new Gson();
         super.onCreate(savedInstanceState);
         communicator = ((BaseActivity)getActivity()).communicator;
         wordCampDBs = ((BaseActivity)getActivity()).wordCampsList;
@@ -130,13 +132,22 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
 
         WordCampDB wordCampDB =wordCampDBs.get(position);
         listener.onNewMyWCAdded(wordCampDB);
-        Gson g = new Gson();
+
         WordCamps wcs = g.fromJson(wordCampDB.getGson_object(),WordCamps.class);
 
         if(wcs.getFoo().getTwitter()!=null && wcs.getFoo().getTwitter().size()>0){
             ParsePush.subscribeInBackground(wcs.getFoo().getTwitter().get(0));
         }
         return retId;
+    }
+
+    @Override
+    public void removeMyWC(int wcid, int position) {
+        communicator.removeFromMyWCSingle(wcid);
+
+        WordCampDB wordCampDB =wordCampDBs.get(position);
+        listener.onMyWCRemoved(wordCampDB);
+
     }
 
     public void stopRefresh(){
@@ -146,5 +157,6 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
     public interface upcomingFragListener{
         public void onNewMyWCAdded(WordCampDB wordCampDB);
         public void onRefreshStart();
+        public void onMyWCRemoved(WordCampDB wordCampDB);
     }
 }

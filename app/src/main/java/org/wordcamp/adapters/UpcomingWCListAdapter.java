@@ -73,11 +73,17 @@ public class UpcomingWCListAdapter extends BaseAdapter {
             holder.bookmark.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(!wc.isMyWC) {
                     listener.addToMyWC(wc.getWc_id(), position);
                     Picasso.with(ctx).load(R.drawable.ic_bookmark_grey600_24dp).into(holder.bookmark);
                     wc.isMyWC = true;
-                    holder.bookmark.setEnabled(false);
                     wordCamps.set(position, wc);
+                    } else {
+                        listener.removeMyWC(wc.getWc_id(),position);
+                        Picasso.with(ctx).load(R.drawable.ic_bookmark_outline_grey600_24dp).into(holder.bookmark);
+                        wc.isMyWC = false;
+                        wordCamps.set(position, wc);
+                    }
                 }
             });
         }
@@ -100,5 +106,6 @@ public class UpcomingWCListAdapter extends BaseAdapter {
 
     public interface WCListener{
         public int addToMyWC(int wcid,int position);
+        public void removeMyWC(int wcid,int position);
     }
 }
