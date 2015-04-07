@@ -78,7 +78,7 @@ public class WordCampDetailActivity extends ActionBarActivity {
 
         SlidingTabLayout slidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
         slidingTabLayout.setCustomTabView(R.layout.tab_view, android.R.id.text1);
-        //pink e91e63 orange ef6c00
+
         slidingTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.accent));
         slidingTabLayout.setDistributeEvenly(true);
         slidingTabLayout.setViewPager(mPager);
