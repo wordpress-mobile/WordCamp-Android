@@ -24,7 +24,6 @@ import java.util.List;
  */
 public class SpeakerFragment extends Fragment {
 
-
     public ListView lv;
     public SpeakersListAdapter adapter;
     public List<SpeakerDB> speakerDBList;
@@ -57,20 +56,6 @@ public class SpeakerFragment extends Fragment {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                /*LayoutInflater dInflater = getActivity().getLayoutInflater();
-                View dialog = dInflater.inflate(R.layout.speaker_deatils, null);
-                TextView name = (TextView)dialog.findViewById(R.id.speaker_details_name);
-                TextView info = (TextView)dialog.findViewById(R.id.speaker_details_info);
-                ImageView dp = (ImageView)dialog.findViewById(R.id.speaker_details_dp);
-                Picasso.with(getActivity()).load(speakerDBList.get(position).getGravatar()).into(dp);
-                name.setText(speakerDBList.get(position).getName());
-                info.setText(Html.fromHtml(speakerDBList.get(position).getInfo()));
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setView(dialog);
-                builder.create();
-                builder.show();*/
-
                 Intent t = new Intent(getActivity(),SpeakerDetailsActivity.class);
                 t.putExtra("speaker",speakerDBList.get(position));
                 getActivity().startActivity(t);

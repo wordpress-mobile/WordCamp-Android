@@ -157,11 +157,10 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
         Collections.sort(deleteItems);
         for (int i = deleteItems.size()-1; i >=0; i--) {
             WordCampDB db = myWordCampDBs.get(deleteItems.get(i));
-            WordCamps wcs = gson.fromJson(db.getGson_object(),WordCamps.class);
             removedWCIDs.add(db.getWc_id());
             myWordCampDBs.remove((int)deleteItems.get(i));
-            if(wcs.getFoo().getTwitter()!=null && wcs.getFoo().getTwitter().size()>0){
-                ParsePush.unsubscribeInBackground(wcs.getFoo().getTwitter().get(0));
+            if(!db.getTwitter().isEmpty()){
+                ParsePush.unsubscribeInBackground(db.getTwitter().replace("#", ""));
             }
         }
         deleteItems = new ArrayList<>();
@@ -179,7 +178,6 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
         }
         adapter = new MyWCListAdapter(myWordCampDBs,getActivity(),this);
         myWCLists.setAdapter(adapter);
-
     }
 
 }

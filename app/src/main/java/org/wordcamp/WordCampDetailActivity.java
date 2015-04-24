@@ -145,8 +145,8 @@ public class WordCampDetailActivity extends ActionBarActivity {
         String webURL = wcdb.getUrl();
 
         fetchSpeakersAPI(webURL);
-        fetchSessionsAPI(webURL);
-        fetchOverviewAPI();
+//        fetchSessionsAPI(webURL);
+//        fetchOverviewAPI();
     }
 
     private void fetchOverviewAPI() {

@@ -24,12 +24,17 @@ public class WordCampDB implements Serializable {
     public String url;
     public String twitter;
     public String featureImageUrl;
+    public String address;
+    public String venue;
+    public String about;
+    public String location;
     public Gson gson;
-    public boolean isMyWC=false;
+    public boolean isMyWC = false;
 
     public WordCampDB(int wc_id, String wc_title, String wc_start_date, String wc_end_date,
                       String last_scanned_gmt, String gson_object,
-                      String url, String featureImageUrl, boolean isMyWC, String twitter) {
+                      String url, String featureImageUrl, boolean isMyWC,
+                      String twitter, String address, String venue, String location, String about) {
         this.wc_id = wc_id;
         this.wc_title = wc_title;
         this.wc_start_date = wc_start_date;
@@ -40,9 +45,13 @@ public class WordCampDB implements Serializable {
         this.featureImageUrl = featureImageUrl;
         this.isMyWC = isMyWC;
         this.twitter = twitter;
+        this.address = address;
+        this.venue = venue;
+        this.location = location;
+        this.about = about;
     }
 
-    public WordCampDB(WordCamps wcs,String lastscan) {
+    public WordCampDB(WordCamps wcs, String lastscan) {
         gson = new Gson();
         this.wc_id = wcs.getID();
         this.wc_title = wcs.getTitle();
@@ -50,11 +59,10 @@ public class WordCampDB implements Serializable {
         this.wc_end_date = wcs.getFoo().getEndDateYYYYMmDd().get(0);
         this.last_scanned_gmt = lastscan;
         this.gson_object = gson.toJson(wcs);
-        if(wcs.getFoo().getURL().size()>0 && !wcs.getFoo().getURL().get(0).equals(""))
-        {
+        if (wcs.getFoo().getURL().size() > 0 && !wcs.getFoo().getURL().get(0).equals("")) {
             this.url = wcs.getFoo().getURL().get(0);
         }
-        if(wcs.getFeaturedImage() != null){
+        if (wcs.getFeaturedImage() != null) {
             this.featureImageUrl = wcs.getFeaturedImage().getSource();
         }
     }
@@ -66,11 +74,15 @@ public class WordCampDB implements Serializable {
         this.last_scanned_gmt = lastscanned;
         this.gson_object = gson.toJson(wcs);
 
-        HashMap<String,String> urlAndTwitterAndDate = WordCampUtils.getTwitterAndUrl(wcs);
+        HashMap<String, String> urlAndTwitterAndDate = WordCampUtils.getTwitterAndUrl(wcs);
         this.wc_start_date = urlAndTwitterAndDate.get("Start Date (YYYY-mm-dd)");
         this.wc_end_date = urlAndTwitterAndDate.get("End Date (YYYY-mm-dd)");
         this.url = urlAndTwitterAndDate.get("URL");
         this.twitter = urlAndTwitterAndDate.get("WordCamp Hashtag");
+        this.address = urlAndTwitterAndDate.get("Physical Address");
+        this.venue = urlAndTwitterAndDate.get("Venue Name");
+        this.location = urlAndTwitterAndDate.get("Location");
+        this.about = wcs.getContent();
     }
 
     public String getFeatureImageUrl() {
@@ -136,11 +148,44 @@ public class WordCampDB implements Serializable {
     public void setGson_object(String gson_object) {
         this.gson_object = gson_object;
     }
+
     public String getTwitter() {
         return twitter;
     }
 
     public void setTwitter(String twitter) {
         this.twitter = twitter;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getVenue() {
+        return venue;
+    }
+
+    public void setVenue(String venue) {
+        this.venue = venue;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
     }
 }

@@ -133,10 +133,8 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
         WordCampDB wordCampDB =wordCampDBs.get(position);
         listener.onNewMyWCAdded(wordCampDB);
 
-        WordCamps wcs = g.fromJson(wordCampDB.getGson_object(),WordCamps.class);
-
-        if(wcs.getFoo().getTwitter()!=null && wcs.getFoo().getTwitter().size()>0){
-            ParsePush.subscribeInBackground(wcs.getFoo().getTwitter().get(0));
+        if(!wordCampDB.getTwitter().isEmpty()){
+            ParsePush.subscribeInBackground(wordCampDB.getTwitter().replace("#",""));
         }
         return retId;
     }
@@ -146,6 +144,9 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
         communicator.removeFromMyWCSingle(wcid);
 
         WordCampDB wordCampDB =wordCampDBs.get(position);
+        if(!wordCampDB.getTwitter().isEmpty()){
+            ParsePush.unsubscribeInBackground(wordCampDB.getTwitter().replace("#",""));
+        }
         listener.onMyWCRemoved(wordCampDB);
 
     }

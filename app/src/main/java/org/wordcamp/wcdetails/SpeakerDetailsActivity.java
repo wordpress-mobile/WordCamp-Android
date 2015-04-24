@@ -104,11 +104,12 @@ public class SpeakerDetailsActivity extends ActionBarActivity {
                 zoomImageFromThumb(v);
             }
         });
-        Picasso.with(this).load(speakerDB.getGravatar())
-                .placeholder(R.drawable.ic_account_circle_grey600).into(dp);
+//        Picasso.with(this).load(speakerDB.getGravatar())
+//                .placeholder(R.drawable.ic_account_circle_grey600).into(dp);
 
         lv = (ListView)findViewById(R.id.session_list_speakers);
         lv.addHeaderView(headerView,null,false);
+//        lv.setEmptyView(headerView);
 
         if(titleSession!=null) {
              final List<String> names = new ArrayList<>(titleSession.keySet());
@@ -124,6 +125,9 @@ public class SpeakerDetailsActivity extends ActionBarActivity {
                     startActivity(intent);
                 }
             });
+        } else{
+            final List<String> names = new ArrayList<>();
+            lv.setAdapter(new SpeakerDetailAdapter(getApplicationContext(), names));
         }
 
         zoomImageView.setOnClickListener(new View.OnClickListener() {

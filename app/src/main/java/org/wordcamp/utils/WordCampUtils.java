@@ -2,12 +2,17 @@ package org.wordcamp.utils;
 
 import org.wordcamp.objects.WordCampDB;
 import org.wordcamp.objects.wordcamp.WordCamps;
+import org.wordcamp.objects.wordcampnew.PostMetum;
+import org.wordcamp.objects.wordcampnew.WordCampNew;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.TimeZone;
 
 /**
@@ -29,6 +34,15 @@ public class WordCampUtils {
         SimpleDateFormat sdf1 = new SimpleDateFormat("dd, yyyy");
 
         return sdf.format(d)+" - "+sdf1.format(d1);
+    }
+
+    public static String getProperFormatDate(String s){
+
+        Date d1 = new Date(Long.parseLong(s) * 1000);
+
+        SimpleDateFormat sdf1 = new SimpleDateFormat("dd, MMM yyyy");
+
+        return sdf1.format(d1);
     }
 
     public static final String md5(final String s) {
@@ -84,5 +98,18 @@ public class WordCampUtils {
         d = calendar.getTime();
 
         return d.hashCode();
+    }
+
+
+    public static HashMap<String,String> getTwitterAndUrl(WordCampNew wcn){
+        List<PostMetum> meta = wcn.getPostMeta();
+
+        HashMap<String,String> map = new HashMap<>();
+        for (int i = 0; i < meta.size(); i++) {
+            PostMetum metum = meta.get(i);
+            map.put(metum.getKey(),metum.getValue());
+        }
+
+        return map;
     }
 }

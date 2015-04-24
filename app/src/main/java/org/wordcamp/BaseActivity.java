@@ -40,6 +40,7 @@ import org.wordcamp.db.DBCommunicator;
 import org.wordcamp.networking.WPAPIClient;
 import org.wordcamp.objects.WordCampDB;
 import org.wordcamp.objects.wordcamp.WordCamps;
+import org.wordcamp.objects.wordcampnew.WordCampNew;
 import org.wordcamp.utils.ImageUtils;
 import org.wordcamp.utils.WordCampUtils;
 import org.wordcamp.widgets.SlidingTabLayout;
@@ -48,6 +49,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class BaseActivity extends ActionBarActivity implements UpcomingWCFragment.upcomingFragListener {
 
@@ -94,7 +96,7 @@ public class BaseActivity extends ActionBarActivity implements UpcomingWCFragmen
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_base_act,menu);
+        getMenuInflater().inflate(R.menu.menu_base_act, menu);
         return true;
     }
 
@@ -102,7 +104,7 @@ public class BaseActivity extends ActionBarActivity implements UpcomingWCFragmen
     @Override
     protected void onPause() {
         super.onPause();
-        if(communicator!=null)
+        if (communicator != null)
             communicator.close();
     }
 
@@ -110,12 +112,11 @@ public class BaseActivity extends ActionBarActivity implements UpcomingWCFragmen
     protected void onResume() {
         super.onResume();
 
-        if(communicator==null){
+        if (communicator == null) {
             communicator = new DBCommunicator(this);
             communicator.start();
             refreshAllFragmentsData();
-        }
-        else{
+        } else {
             communicator.start();
             refreshAllFragmentsData();
         }
@@ -124,7 +125,7 @@ public class BaseActivity extends ActionBarActivity implements UpcomingWCFragmen
     private void fetchWCList() {
 
         final SharedPreferences pref = getSharedPreferences("wc", Context.MODE_PRIVATE);
-        final String lastdate = pref.getString("date","0");
+        final String lastdate = pref.getString("date", "0");
         WPAPIClient.getWordCampsList(lastdate, new JsonHttpResponseHandler() {
 
             @Override
@@ -136,16 +137,16 @@ public class BaseActivity extends ActionBarActivity implements UpcomingWCFragmen
                 Gson gson = new Gson();
                 for (int i = 0; i < response.length(); i++) {
                     try {
-                        WordCamps wcs = gson.fromJson(response.getJSONObject(i).toString(), WordCamps.class);
+                        WordCampNew wcs = gson.fromJson(response.getJSONObject(i).toString(), WordCampNew.class);
                         if (i == 0) {
                             //Set last scan date of WC List by saving the later WC's modified GMT date
                             editor.putString("date", wcs.getModifiedGmt());
                             lastscanned = wcs.getModifiedGmt();
                             editor.apply();
                         }
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
                         Date d = sdf.parse(wcs.getModifiedGmt());
-                        if (!lastdate.equals("0") && WordCampUtils.hasStartEndDate(wcs)) {
+                        /*if (!lastdate.equals("0") && WordCampUtils.hasStartEndDate(wcs)) {
                             Date oldDate = sdf.parse(lastdate);
                             boolean chc = d.after(oldDate);
                             if (d.after(oldDate)) {
@@ -156,7 +157,12 @@ public class BaseActivity extends ActionBarActivity implements UpcomingWCFragmen
                         } else if (lastdate.equals("0") && WordCampUtils.hasStartEndDate(wcs)) {
                             WordCampDB wordCampDB = new WordCampDB(wcs, lastscanned);
                             wordCampsList.add(wordCampDB);
-                        }
+                        }*/
+
+                        WordCampDB wordCampDB = new WordCampDB(wcs, lastscanned);
+                        if (!wordCampDB.wc_end_date.isEmpty())
+                            wordCampsList.add(wordCampDB);
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -200,25 +206,25 @@ public class BaseActivity extends ActionBarActivity implements UpcomingWCFragmen
         UpcomingWCFragment upcomingFragment = getUpcomingFragment();
         MyWCFragment myWCFragment = getMyWCFragment();
         wordCampsList = communicator.getAllWc();
-        if(upcomingFragment!=null)
+        if (upcomingFragment != null)
             upcomingFragment.updateList(wordCampsList);
 
-        if(myWCFragment!=null)
+        if (myWCFragment != null)
             myWCFragment.updateList(wordCampsList);
     }
 
     public void refreshUpcomingFrag() {
         UpcomingWCFragment upcomingFragment = getUpcomingFragment();
         wordCampsList = communicator.getAllWc();
-        if(upcomingFragment!=null)
+        if (upcomingFragment != null)
             upcomingFragment.updateList(wordCampsList);
     }
 
-    private UpcomingWCFragment getUpcomingFragment(){
+    private UpcomingWCFragment getUpcomingFragment() {
         return (UpcomingWCFragment) mPagerAdapter.getItemAt(0);
     }
 
-    private MyWCFragment getMyWCFragment(){
+    private MyWCFragment getMyWCFragment() {
         return (MyWCFragment) mPagerAdapter.getItemAt(1);
     }
 
@@ -245,15 +251,15 @@ public class BaseActivity extends ActionBarActivity implements UpcomingWCFragmen
 
         @Override
         protected Fragment createItem(int position) {
-            switch (position){
+            switch (position) {
                 case 0:
-                    return UpcomingWCFragment.newInstance("Upcoming","");
+                    return UpcomingWCFragment.newInstance("Upcoming", "");
                 case 1:
-                    return MyWCFragment.newInstance("MY","");
+                    return MyWCFragment.newInstance("MY", "");
                 case 2:
-                    return UpcomingWCFragment.newInstance("Past","");
+                    return UpcomingWCFragment.newInstance("Past", "");
                 default:
-                    return UpcomingWCFragment.newInstance("","");
+                    return UpcomingWCFragment.newInstance("", "");
             }
         }
 
@@ -264,7 +270,7 @@ public class BaseActivity extends ActionBarActivity implements UpcomingWCFragmen
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position){
+            switch (position) {
                 case 0:
                     return "Upcoming";
                 case 1:

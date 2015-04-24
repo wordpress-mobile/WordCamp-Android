@@ -65,6 +65,7 @@ public class UpcomingWCListAdapter extends BaseAdapter {
 
         final WordCampDB wc = wordCamps.get(position);
         holder.title.setText(wc.getWc_title());
+//        holder.date.setText(WordCampUtils.getProperFormatDate(wc.getWc_start_date()));
         holder.date.setText(WordCampUtils.getProperDate(wc));
         if(wc.isMyWC) {
             Picasso.with(ctx).load(R.drawable.ic_bookmark_grey600_24dp).into(holder.bookmark);
