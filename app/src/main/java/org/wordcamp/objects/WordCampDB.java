@@ -3,8 +3,12 @@ package org.wordcamp.objects;
 import com.google.gson.Gson;
 
 import org.wordcamp.objects.wordcamp.WordCamps;
+import org.wordcamp.objects.wordcampnew.WordCampNew;
+import org.wordcamp.utils.WordCampUtils;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by aagam on 28/1/15.
@@ -18,13 +22,14 @@ public class WordCampDB implements Serializable {
     public String last_scanned_gmt;
     public String gson_object;
     public String url;
+    public String twitter;
     public String featureImageUrl;
     public Gson gson;
     public boolean isMyWC=false;
 
     public WordCampDB(int wc_id, String wc_title, String wc_start_date, String wc_end_date,
                       String last_scanned_gmt, String gson_object,
-                      String url, String featureImageUrl, boolean isMyWC) {
+                      String url, String featureImageUrl, boolean isMyWC, String twitter) {
         this.wc_id = wc_id;
         this.wc_title = wc_title;
         this.wc_start_date = wc_start_date;
@@ -34,6 +39,7 @@ public class WordCampDB implements Serializable {
         this.url = url;
         this.featureImageUrl = featureImageUrl;
         this.isMyWC = isMyWC;
+        this.twitter = twitter;
     }
 
     public WordCampDB(WordCamps wcs,String lastscan) {
@@ -51,6 +57,20 @@ public class WordCampDB implements Serializable {
         if(wcs.getFeaturedImage() != null){
             this.featureImageUrl = wcs.getFeaturedImage().getSource();
         }
+    }
+
+    public WordCampDB(WordCampNew wcs, String lastscanned) {
+        gson = new Gson();
+        this.wc_id = wcs.getID();
+        this.wc_title = wcs.getTitle();
+        this.last_scanned_gmt = lastscanned;
+        this.gson_object = gson.toJson(wcs);
+
+        HashMap<String,String> urlAndTwitterAndDate = WordCampUtils.getTwitterAndUrl(wcs);
+        this.wc_start_date = urlAndTwitterAndDate.get("Start Date (YYYY-mm-dd)");
+        this.wc_end_date = urlAndTwitterAndDate.get("End Date (YYYY-mm-dd)");
+        this.url = urlAndTwitterAndDate.get("URL");
+        this.twitter = urlAndTwitterAndDate.get("WordCamp Hashtag");
     }
 
     public String getFeatureImageUrl() {
@@ -115,5 +135,12 @@ public class WordCampDB implements Serializable {
 
     public void setGson_object(String gson_object) {
         this.gson_object = gson_object;
+    }
+    public String getTwitter() {
+        return twitter;
+    }
+
+    public void setTwitter(String twitter) {
+        this.twitter = twitter;
     }
 }
