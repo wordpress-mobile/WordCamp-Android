@@ -35,7 +35,6 @@ public class SpeakerFragment extends Fragment {
         wcid = ((WordCampDetailActivity)getActivity()).wcid;
         speakerDBList = ((WordCampDetailActivity)getActivity()).communicator.getAllSpeakers(wcid);
         sortList();
-        adapter = new SpeakersListAdapter(getActivity(),speakerDBList);
     }
 
     private void sortList() {
@@ -51,13 +50,14 @@ public class SpeakerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_wcdetails_speaker,container,false);
         lv = (ListView)v.findViewById(R.id.speaker_list);
+        lv.setEmptyView(v.findViewById(R.id.empty_view));
+        adapter = new SpeakersListAdapter(getActivity(),speakerDBList);
         lv.setAdapter(adapter);
-
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent t = new Intent(getActivity(),SpeakerDetailsActivity.class);
-                t.putExtra("speaker",speakerDBList.get(position));
+                Intent t = new Intent(getActivity(), SpeakerDetailsActivity.class);
+                t.putExtra("speaker", speakerDBList.get(position));
                 getActivity().startActivity(t);
             }
         });

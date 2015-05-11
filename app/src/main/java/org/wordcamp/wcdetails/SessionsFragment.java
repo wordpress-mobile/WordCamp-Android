@@ -60,14 +60,11 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
                 startRefreshSession();
             }
         });
-
         sessionList = (StickyListHeadersListView) v.findViewById(R.id.sessionList);
-        View v1 =v.findViewById(android.R.id.empty);
-
-
+        sessionList.setEmptyView(v.findViewById(R.id.empty_view));
         if (sessionDBList != null) {
             if (sessionDBList.size() == 0) {
-                startRefreshSession();
+               // startRefreshSession();
             }
             sessionsListAdapter = new SessionsListAdapter(getActivity(), sessionDBList, this);
         }
@@ -83,7 +80,6 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
 
         sessionList.getWrappedList().setHeaderDividersEnabled(true);
         sessionList.setAdapter(sessionsListAdapter);
-        sessionList.setEmptyView(v1);
         return v;
     }
 
