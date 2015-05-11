@@ -22,7 +22,8 @@ public class WPAPIClient {
 
     private static final String QUERY_PARAM_SINGLEWC = BuildConfig.URL_SINGLEWC;
 
-    private static AsyncHttpClient client = new AsyncHttpClient();
+    //This config of client accepts all SSL connections
+    private static AsyncHttpClient client = new AsyncHttpClient(true, 80, 443);
 
     public static void getWordCampsList(String date, JsonHttpResponseHandler responseHandler) {
         client.get(QUERY_PARAM_WC, responseHandler);
@@ -32,6 +33,7 @@ public class WPAPIClient {
         if (!wordcampURL.endsWith("/")) {
             wordcampURL = wordcampURL + "/";
         }
+        client.setEnableRedirects(true, true, true);
         client.get(wordcampURL + QUERY_PARAM_SPEAKERS, responseHandler);
     }
 
@@ -39,18 +41,22 @@ public class WPAPIClient {
         if (!wordcampURL.endsWith("/")) {
             wordcampURL = wordcampURL + "/";
         }
+        client.setEnableRedirects(true, true, true);
         client.get(wordcampURL + QUERY_PARAM_SCHEDULE, responseHandler);
     }
+
 
     public static void getSession(String url, AsyncHttpResponseHandler responseHandler) {
         RequestParams params = new RequestParams();
         params.add("url", url + QUERY_PARAM_SCHEDULE);
+        client.setEnableRedirects(true, true, true);
         client.get(LOCAL, params, responseHandler);
     }
 
     public static void getSingleWC(int wcid, AsyncHttpResponseHandler responseHandler) {
         RequestParams params = new RequestParams();
         params.add("url", QUERY_PARAM_SINGLEWC + "" + wcid);
+        client.setEnableRedirects(true, true, true);
         client.get(LOCAL, params, responseHandler);
     }
 

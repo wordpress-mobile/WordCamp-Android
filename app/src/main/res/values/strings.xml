@@ -21,5 +21,7 @@
     <string name="webversion">Web version</string>
     <string name="feedback">Feedback</string>
     <string name="refresh">Refresh</string>
+    <string name="speaker_to_be_announced">Speakers yet to be announced</string>
+    <string name="schedule_to_be_announced">Schedule to be announced</string>
 
 </resources>

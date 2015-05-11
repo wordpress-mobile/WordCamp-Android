@@ -64,7 +64,7 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
         sessionList.setEmptyView(v.findViewById(R.id.empty_view));
         if (sessionDBList != null) {
             if (sessionDBList.size() == 0) {
-               // startRefreshSession();
+                startRefreshSession();
             }
             sessionsListAdapter = new SessionsListAdapter(getActivity(), sessionDBList, this);
         }
