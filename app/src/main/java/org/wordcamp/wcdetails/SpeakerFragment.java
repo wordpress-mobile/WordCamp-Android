@@ -1,9 +1,13 @@
 package org.wordcamp.wcdetails;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +32,8 @@ public class SpeakerFragment extends Fragment {
     public SpeakersListAdapter adapter;
     public List<SpeakerDB> speakerDBList;
     public int wcid;
+    private SwipeRefreshLayout refreshLayout;
+    private SpeakerFragmentListener listener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,9 +55,25 @@ public class SpeakerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_wcdetails_speaker,container,false);
+        refreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
+        refreshLayout.setColorSchemeColors(Color.parseColor("#3F51B5"),
+                Color.parseColor("#FF4081"), Color.parseColor("#9C27B0"));
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                startRefreshSession();
+            }
+        });
+
         lv = (ListView)v.findViewById(R.id.speaker_list);
         lv.setEmptyView(v.findViewById(R.id.empty_view));
         adapter = new SpeakersListAdapter(getActivity(),speakerDBList);
+
+        if(speakerDBList.size()==0){
+            startRefreshSession();
+        }
+
+        printAllSpeakers();
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -64,10 +86,46 @@ public class SpeakerFragment extends Fragment {
         return v;
     }
 
+    private void printAllSpeakers() {
+        for (int i = 0; i < speakerDBList.size(); i++) {
+            Log.e("speaker "+i+1,speakerDBList.get(i).getName());
+        }
+    }
+
+    public void startRefreshSession() {
+        refreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                refreshLayout.setRefreshing(true);
+                listener.startRefreshSpeakers();
+            }
+        });
+    }
+
+    public void stopRefreshSpeaker() {
+        refreshLayout.setRefreshing(false);
+    }
+
     public void updateSpeakers(List<SpeakerDB> newSpeakerDBList){
         speakerDBList = newSpeakerDBList;
         sortList();
         adapter = new SpeakersListAdapter(getActivity(),speakerDBList);
         lv.setAdapter(adapter);
+    }
+
+    public interface SpeakerFragmentListener {
+        void startRefreshSpeakers();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        try {
+            listener = (WordCampDetailActivity) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement SessionFragmentListener");
+        }
     }
 }

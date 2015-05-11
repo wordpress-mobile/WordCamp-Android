@@ -50,15 +50,15 @@ public class SpeakersListAdapter extends BaseAdapter {
 
         ViewHolder holder;
 
-        if(convertView==null){
-            convertView = inflater.inflate(R.layout.item_speaker,null);
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.item_speaker, null);
             holder = new ViewHolder();
-            holder.title = (TextView)convertView.findViewById(R.id.speaker_title);
-            holder.dp = (CircularImageView)convertView.findViewById(R.id.speaker_dp);
+            holder.title = (TextView) convertView.findViewById(R.id.speaker_title);
+            holder.dp = (CircularImageView) convertView.findViewById(R.id.speaker_dp);
 
             convertView.setTag(holder);
-        } else{
-             holder = (ViewHolder)convertView.getTag();
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
 
         SpeakerDB speakerDB = speakerDBList.get(position);

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -94,6 +95,8 @@ public class SpeakerDetailsActivity extends ActionBarActivity {
 
         View headerView = LayoutInflater.from(this).inflate(R.layout.item_header_speaker,null);
         info = (TextView)headerView.findViewById(R.id.speaker_detail);
+        info.setClickable(true);
+        info.setMovementMethod(LinkMovementMethod.getInstance());
         info.setText(Html.fromHtml(speakerDB.getInfo()));
 
         dp = (ImageView) headerView.findViewById(R.id.speaker_dp);
@@ -104,8 +107,8 @@ public class SpeakerDetailsActivity extends ActionBarActivity {
                 zoomImageFromThumb(v);
             }
         });
-//        Picasso.with(this).load(speakerDB.getGravatar())
-//                .placeholder(R.drawable.ic_account_circle_grey600).into(dp);
+        Picasso.with(this).load(speakerDB.getGravatar())
+                .placeholder(R.drawable.ic_account_circle_grey600).into(dp);
 
         lv = (ListView)findViewById(R.id.session_list_speakers);
         lv.addHeaderView(headerView,null,false);

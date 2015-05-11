@@ -26,7 +26,7 @@ import org.wordcamp.db.DBCommunicator;
 import org.wordcamp.networking.WPAPIClient;
 import org.wordcamp.objects.WordCampDB;
 import org.wordcamp.objects.session.Session;
-import org.wordcamp.objects.speakers.Speakers;
+import org.wordcamp.objects.speakersnew.SpeakerNew;
 import org.wordcamp.objects.wordcamp.WordCamps;
 import org.wordcamp.utils.ImageUtils;
 import org.wordcamp.utils.WordCampUtils;
@@ -40,7 +40,8 @@ import java.lang.reflect.Field;
 /**
  * Created by aagam on 26/1/15.
  */
-public class WordCampDetailActivity extends AppCompatActivity implements SessionsFragment.SessionFragmentListener {
+public class WordCampDetailActivity extends AppCompatActivity implements SessionsFragment.SessionFragmentListener,
+        SpeakerFragment.SpeakerFragmentListener {
 
     public WCDetailAdapter adapter;
     public Toolbar toolbar;
@@ -239,6 +240,13 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
         }
     }
 
+    private void stopRefreshSpeaker() {
+        SpeakerFragment fragment = getSpeakerFragment();
+        if (fragment != null) {
+            fragment.stopRefreshSpeaker();
+        }
+    }
+
     private void updateSessionContent() {
         SessionsFragment fragment = getSessionsFragment();
         if (fragment != null) {
@@ -262,6 +270,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
+                stopRefreshSpeaker();
             }
         });
     }
@@ -269,8 +278,8 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
     public void addUpdateSpeakers(JSONArray array) throws JSONException {
         Gson gson = new Gson();
         for (int i = 0; i < array.length(); i++) {
-            Speakers sk = gson.fromJson(array.getJSONObject(i).toString(), Speakers.class);
-            communicator.addSpeaker(sk, wcid);
+            SpeakerNew skn = gson.fromJson(array.getJSONObject(i).toString(), SpeakerNew.class);
+            communicator.addSpeaker(skn, wcid);
         }
 
         if (array.length() > 0) {
@@ -280,6 +289,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
             }
         }
         Toast.makeText(getApplicationContext(), "Updated speakers", Toast.LENGTH_SHORT).show();
+        stopRefreshSpeaker();
 
     }
 
@@ -326,7 +336,16 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
 
     @Override
     public void startRefreshSessions() {
+        //Even we are refreshing sessions,
+        // we will fetch Speakers as we get Sessions from there
+
         String webURL = wcdb.getUrl();
-        fetchSessionsAPI(webURL);
+        fetchSpeakersAPI(webURL);
+    }
+
+    @Override
+    public void startRefreshSpeakers() {
+        String webURL = wcdb.getUrl();
+        fetchSpeakersAPI(webURL);
     }
 }

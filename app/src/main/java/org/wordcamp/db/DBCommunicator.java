@@ -14,6 +14,7 @@ import org.wordcamp.objects.SpeakerDB;
 import org.wordcamp.objects.WordCampDB;
 import org.wordcamp.objects.session.Session;
 import org.wordcamp.objects.speakers.Speakers;
+import org.wordcamp.objects.speakersnew.SpeakerNew;
 import org.wordcamp.objects.wordcamp.WordCamps;
 import org.wordcamp.utils.WordCampUtils;
 
@@ -125,7 +126,7 @@ public class DBCommunicator {
                 new String[]{String.valueOf(wcid)});
     }
 
-    public long addSpeaker(Speakers sk, int wcid) {
+    public long addSpeaker(SpeakerNew sk, int wcid) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("wcid", wcid);
         contentValues.put("name", sk.getTitle());
@@ -133,15 +134,9 @@ public class DBCommunicator {
         contentValues.put("postid", sk.getID());
         contentValues.put("speaker_id", sk.getID());
         contentValues.put("gsonobject", gson.toJson(sk));
-       /* if (sk.getFoo().getSpeakerEmail().size() > 0 && !sk.getFoo().getSpeakerEmail().get(0).equals("")) {
-            String grav = sk.getFoo().getSpeakerEmail().get(0);
-            String mdf = WordCampUtils.md5(grav);
-            contentValues.put("gravatar", "http://www.gravatar.com/avatar/" + mdf);
-        }*/
-
+        contentValues.put("gravatar", sk.getAvatar().equals("") ? "null" : sk.getAvatar());
 
         long id = db.insert("speaker", null, contentValues);
-
 
         if (id == -1) {
             id = db.update("speaker", contentValues, " wcid = ? AND postid = ?",
@@ -261,7 +256,7 @@ public class DBCommunicator {
 
 
                     wordCampDBList.add(new WordCampDB(id, title, from, to, lastscanned,
-                            data, url, featuredImage, isMyWC != 0, twitter, address, venue, location,about));
+                            data, url, featuredImage, isMyWC != 0, twitter, address, venue, location, about));
                 } while (cursor.moveToNext());
             }
             cursor.close();

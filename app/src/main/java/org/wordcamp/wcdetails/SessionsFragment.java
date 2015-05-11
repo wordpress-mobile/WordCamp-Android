@@ -57,17 +57,15 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                startRefreshSession();
+               // startRefreshSession();
             }
         });
         sessionList = (StickyListHeadersListView) v.findViewById(R.id.sessionList);
         sessionList.setEmptyView(v.findViewById(R.id.empty_view));
-        if (sessionDBList != null) {
-            if (sessionDBList.size() == 0) {
-                startRefreshSession();
-            }
-            sessionsListAdapter = new SessionsListAdapter(getActivity(), sessionDBList, this);
+        if (sessionDBList.size() == 0) {
+            // startRefreshSession();
         }
+        sessionsListAdapter = new SessionsListAdapter(getActivity(), sessionDBList, this);
 
         sessionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
