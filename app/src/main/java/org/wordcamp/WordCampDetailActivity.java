@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -39,7 +40,7 @@ import java.lang.reflect.Field;
 /**
  * Created by aagam on 26/1/15.
  */
-public class WordCampDetailActivity extends ActionBarActivity {
+public class WordCampDetailActivity extends AppCompatActivity implements SessionsFragment.SessionFragmentListener {
 
     public WCDetailAdapter adapter;
     public Toolbar toolbar;
@@ -51,7 +52,7 @@ public class WordCampDetailActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        wcdb = (WordCampDB)getIntent().getSerializableExtra("wc");
+        wcdb = (WordCampDB) getIntent().getSerializableExtra("wc");
         wcid = wcdb.getWc_id();
         setContentView(R.layout.activity_wordcamp_detail);
         communicator = new DBCommunicator(this);
@@ -67,7 +68,7 @@ public class WordCampDetailActivity extends ActionBarActivity {
 
     private void initGUI() {
         ViewCompat.setElevation(findViewById(R.id.header), getResources().getDimension(R.dimen.toolbar_elevation));
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         adapter = new WCDetailAdapter(getSupportFragmentManager());
         mPager = (ViewPager) findViewById(R.id.pager);
@@ -109,16 +110,16 @@ public class WordCampDetailActivity extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_attending:
-                if(!wcdb.isMyWC){
+                if (!wcdb.isMyWC) {
                     int recv = communicator.addToMyWC(wcid);
                     item.setIcon(R.drawable.ic_star_white_36dp);
-                    wcdb.isMyWC=true;
-                } else{
+                    wcdb.isMyWC = true;
+                } else {
                     communicator.removeFromMyWCSingle(wcid);
                     item.setIcon(R.drawable.ic_star_outline_white_36dp);
-                    wcdb.isMyWC=false;
+                    wcdb.isMyWC = false;
                 }
                 break;
             case R.id.action_refresh:
@@ -145,17 +146,18 @@ public class WordCampDetailActivity extends ActionBarActivity {
         String webURL = wcdb.getUrl();
 
         fetchSpeakersAPI(webURL);
+        getSessionsFragment().startRefreshSession();
 //        fetchSessionsAPI(webURL);
 //        fetchOverviewAPI();
     }
 
     private void fetchOverviewAPI() {
-        WPAPIClient.getSingleWC(wcid,new JsonHttpResponseHandler(){
+        WPAPIClient.getSingleWC(wcid, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 Gson g = new Gson();
-                WordCamps wc = g.fromJson(response.toString(),WordCamps.class);
+                WordCamps wc = g.fromJson(response.toString(), WordCamps.class);
                 communicator.updateWC(wc);
 
                 WordCampOverview overview = getOverViewFragment();
@@ -170,7 +172,7 @@ public class WordCampDetailActivity extends ActionBarActivity {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
                 //Don't know why response is received here sometimes
 
-                if(errorResponse!=null) {
+                if (errorResponse != null) {
                     Gson g = new Gson();
                     WordCamps wc = g.fromJson(errorResponse.toString(), WordCamps.class);
                     communicator.updateWC(wc);
@@ -180,22 +182,22 @@ public class WordCampDetailActivity extends ActionBarActivity {
                         overview.updateData(wc);
                     }
                 }
-                Toast.makeText(getApplicationContext(),"Updated overview",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Updated overview", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void fetchSessionsAPI(String webURL) {
-        WPAPIClient.getWordCampSchedule(webURL, new JsonHttpResponseHandler(){
+        WPAPIClient.getWordCampSchedule(webURL, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
                 Gson gson = new Gson();
                 for (int i = 0; i < response.length(); i++) {
                     try {
-                        Session session = gson.fromJson(response.getJSONObject(i).toString(),Session.class);
-                        if(communicator!=null){
-                            communicator.addSession(session,wcid);
+                        Session session = gson.fromJson(response.getJSONObject(i).toString(), Session.class);
+                        if (communicator != null) {
+                            communicator.addSession(session, wcid);
                         }
 
                     } catch (JSONException e) {
@@ -203,8 +205,9 @@ public class WordCampDetailActivity extends ActionBarActivity {
                     }
                 }
 
-                Toast.makeText(getApplicationContext(),"Updated sessions "+response.length(),Toast.LENGTH_SHORT).show();
-                if(response.length()>0){
+                Toast.makeText(getApplicationContext(), "Updated sessions " + response.length(), Toast.LENGTH_SHORT).show();
+                stopRefreshSession();
+                if (response.length() > 0) {
                     updateSessionContent();
                 }
             }
@@ -212,13 +215,33 @@ public class WordCampDetailActivity extends ActionBarActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
+                stopRefreshSession();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                stopRefreshSession();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                stopRefreshSession();
             }
         });
     }
 
+    private void stopRefreshSession() {
+        SessionsFragment fragment = getSessionsFragment();
+        if (fragment != null) {
+            fragment.stopRefreshSession();
+        }
+    }
+
     private void updateSessionContent() {
         SessionsFragment fragment = getSessionsFragment();
-        if(fragment!=null){
+        if (fragment != null) {
             fragment.updateData();
         }
     }
@@ -246,36 +269,36 @@ public class WordCampDetailActivity extends ActionBarActivity {
     public void addUpdateSpeakers(JSONArray array) throws JSONException {
         Gson gson = new Gson();
         for (int i = 0; i < array.length(); i++) {
-            Speakers sk = gson.fromJson(array.getJSONObject(i).toString(),Speakers.class);
-            communicator.addSpeaker(sk,wcid);
+            Speakers sk = gson.fromJson(array.getJSONObject(i).toString(), Speakers.class);
+            communicator.addSpeaker(sk, wcid);
         }
 
-        if(array.length()>0){
+        if (array.length() > 0) {
             SpeakerFragment fragment = getSpeakerFragment();
-            if(fragment!=null){
+            if (fragment != null) {
                 fragment.updateSpeakers(communicator.getAllSpeakers(wcid));
             }
         }
-        Toast.makeText(getApplicationContext(),"Updated speakers",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Updated speakers", Toast.LENGTH_SHORT).show();
 
     }
 
-    public SpeakerFragment getSpeakerFragment(){
+    public SpeakerFragment getSpeakerFragment() {
         return (SpeakerFragment) adapter.getItemAt(2);
     }
 
-    public SessionsFragment getSessionsFragment(){
+    public SessionsFragment getSessionsFragment() {
         return (SessionsFragment) adapter.getItemAt(1);
     }
 
-    public WordCampOverview getOverViewFragment(){
+    public WordCampOverview getOverViewFragment() {
         return (WordCampOverview) adapter.getItemAt(0);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_wc_detail,menu);
-        if(wcdb.isMyWC){
+        getMenuInflater().inflate(R.menu.menu_wc_detail, menu);
+        if (wcdb.isMyWC) {
             MenuItem attending = menu.findItem(R.id.action_attending);
             attending.setIcon(R.drawable.ic_star_white_36dp);
         }
@@ -285,9 +308,9 @@ public class WordCampDetailActivity extends ActionBarActivity {
     @Override
     public void onResume() {
         super.onResume();
-        if(communicator ==null){
+        if (communicator == null) {
             communicator = new DBCommunicator(this);
-        } else{
+        } else {
             communicator.restart();
             updateSessionContent();
         }
@@ -297,7 +320,13 @@ public class WordCampDetailActivity extends ActionBarActivity {
     @Override
     public void onPause() {
         super.onPause();
-        if(communicator!=null)
+        if (communicator != null)
             communicator.close();
+    }
+
+    @Override
+    public void startRefreshSessions() {
+        String webURL = wcdb.getUrl();
+        fetchSessionsAPI(webURL);
     }
 }

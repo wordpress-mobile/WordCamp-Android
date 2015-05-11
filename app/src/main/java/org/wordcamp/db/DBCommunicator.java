@@ -356,9 +356,8 @@ public class DBCommunicator {
 
     public List<SessionDB> getAllSession(int wcid) {
         Cursor cursor = db.rawQuery("SELECT * FROM session WHERE wcid=" + wcid, null);
-
+        List<SessionDB> sessionDBList = new ArrayList<>();
         if (cursor != null) {
-            List<SessionDB> sessionDBList = new ArrayList<>();
 
             if (cursor.moveToFirst()) {
                 do {
@@ -388,7 +387,7 @@ public class DBCommunicator {
             }
 
         }
-        return null;
+        return sessionDBList;
     }
 
     public void start() {
