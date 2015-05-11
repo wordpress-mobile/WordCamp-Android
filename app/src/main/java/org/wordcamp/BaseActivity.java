@@ -23,7 +23,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -51,7 +51,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class BaseActivity extends ActionBarActivity implements UpcomingWCFragment.upcomingFragListener {
+public class BaseActivity extends AppCompatActivity implements UpcomingWCFragment.upcomingFragListener {
 
     private ViewPager mPager;
     private WCPagerAdapter mPagerAdapter;
@@ -91,6 +91,14 @@ public class BaseActivity extends ActionBarActivity implements UpcomingWCFragmen
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_refresh:
+                getUpcomingFragment().startRefresh();
+                break;
+            default:
+                break;
+        }
+
         return true;
     }
 

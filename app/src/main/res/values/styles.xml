@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
         <!-- EditText and all other controls color -->
         <item name="colorControlNormal">#eeeeee</item>
@@ -10,6 +10,7 @@
 
         <item name="colorPrimary">@color/flat_blue</item>
         <item name="colorPrimaryDark">@color/flat_blue</item>
+        <item name="colorAccent">@color/accent</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="windowActionModeOverlay">true</item>

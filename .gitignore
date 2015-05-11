@@ -27,6 +27,8 @@ local.properties
 
 gradle.properties
 
+fabric.properties
+
 # IDEA/Android Studio project files, because
 # the project can be imported from settings.gradle
 .idea

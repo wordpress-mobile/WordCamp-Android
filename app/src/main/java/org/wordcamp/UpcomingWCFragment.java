@@ -17,14 +17,14 @@ import com.parse.ParsePush;
 import org.wordcamp.adapters.UpcomingWCListAdapter;
 import org.wordcamp.db.DBCommunicator;
 import org.wordcamp.objects.WordCampDB;
-import org.wordcamp.objects.wordcamp.WordCamps;
+import org.wordcamp.utils.WordCampUtils;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 
-public class UpcomingWCFragment extends android.support.v4.app.Fragment implements UpcomingWCListAdapter.WCListener{
+public class UpcomingWCFragment extends android.support.v4.app.Fragment implements UpcomingWCListAdapter.WCListener {
     public ListView upWCLists;
     public List<WordCampDB> wordCampDBs;
     public DBCommunicator communicator;
@@ -57,10 +57,10 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
     public void onCreate(Bundle savedInstanceState) {
         g = new Gson();
         super.onCreate(savedInstanceState);
-        communicator = ((BaseActivity)getActivity()).communicator;
-        wordCampDBs = ((BaseActivity)getActivity()).wordCampsList;
-        if(wordCampDBs!=null) {
-           sortWC();
+        communicator = ((BaseActivity) getActivity()).communicator;
+        wordCampDBs = ((BaseActivity) getActivity()).wordCampsList;
+        if (wordCampDBs != null) {
+            sortWC();
         }
     }
 
@@ -68,20 +68,20 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Activity parentActivity = getActivity();
-        View v =  inflater.inflate(R.layout.fragment_upcoming_wc, container, false);
-        upWCLists = (ListView)v.findViewById(R.id.scroll);
-        refreshLayout = (SwipeRefreshLayout)v.findViewById(R.id.swipe_refresh_layout);
+        View v = inflater.inflate(R.layout.fragment_upcoming_wc, container, false);
+        upWCLists = (ListView) v.findViewById(R.id.scroll);
+        refreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
         refreshLayout.setColorSchemeColors(Color.parseColor("#3F51B5"),
-                Color.parseColor("#FF4081"),Color.parseColor("#9C27B0"));
+                Color.parseColor("#FF4081"), Color.parseColor("#9C27B0"));
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 listener.onRefreshStart();
             }
         });
-        UpcomingWCListAdapter adapter = new UpcomingWCListAdapter(wordCampDBs,parentActivity,this);
+        UpcomingWCListAdapter adapter = new UpcomingWCListAdapter(wordCampDBs, parentActivity, this);
         upWCLists.setAdapter(adapter);
-
+        setProperListPosition();
         upWCLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -91,19 +91,23 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
             }
         });
 
-        if(wordCampDBs.size()==0){
-            refreshLayout.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    refreshLayout.setRefreshing(true);
-                    listener.onRefreshStart();
-                }
-            },2000);
+        if (wordCampDBs.size() == 0) {
+            startRefresh();
         }
         return v;
     }
 
-    public void sortWC(){
+    public void startRefresh() {
+        refreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                refreshLayout.setRefreshing(true);
+                listener.onRefreshStart();
+            }
+        });
+    }
+
+    public void sortWC() {
         Collections.sort(wordCampDBs, new Comparator<WordCampDB>() {
             @Override
             public int compare(WordCampDB lhs, WordCampDB rhs) {
@@ -122,19 +126,32 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
     public void updateList(List<WordCampDB> wordCampsList) {
         wordCampDBs = wordCampsList;
         sortWC();
-        UpcomingWCListAdapter adapter = new UpcomingWCListAdapter(wordCampDBs,getActivity(),this);
+        UpcomingWCListAdapter adapter = new UpcomingWCListAdapter(wordCampDBs, getActivity(), this);
         upWCLists.setAdapter(adapter);
+        setProperListPosition();
+    }
+
+    private void setProperListPosition() {
+        upWCLists.post(new Runnable() {
+            @Override
+            public void run() {
+                int pos = WordCampUtils.findFirstUpcomingFrag(wordCampDBs);
+                if (pos > -1) {
+                    upWCLists.setSelection(pos);
+                }
+            }
+        });
     }
 
     @Override
-    public int addToMyWC(int wcid,int position) {
-        int retId =  communicator.addToMyWC(wcid);
+    public int addToMyWC(int wcid, int position) {
+        int retId = communicator.addToMyWC(wcid);
 
-        WordCampDB wordCampDB =wordCampDBs.get(position);
+        WordCampDB wordCampDB = wordCampDBs.get(position);
         listener.onNewMyWCAdded(wordCampDB);
 
-        if(!wordCampDB.getTwitter().isEmpty()){
-            ParsePush.subscribeInBackground(wordCampDB.getTwitter().replace("#",""));
+        if (!wordCampDB.getTwitter().isEmpty()) {
+            ParsePush.subscribeInBackground(wordCampDB.getTwitter().replace("#", ""));
         }
         return retId;
     }
@@ -143,21 +160,23 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
     public void removeMyWC(int wcid, int position) {
         communicator.removeFromMyWCSingle(wcid);
 
-        WordCampDB wordCampDB =wordCampDBs.get(position);
-        if(!wordCampDB.getTwitter().isEmpty()){
-            ParsePush.unsubscribeInBackground(wordCampDB.getTwitter().replace("#",""));
+        WordCampDB wordCampDB = wordCampDBs.get(position);
+        if (!wordCampDB.getTwitter().isEmpty()) {
+            ParsePush.unsubscribeInBackground(wordCampDB.getTwitter().replace("#", ""));
         }
         listener.onMyWCRemoved(wordCampDB);
 
     }
 
-    public void stopRefresh(){
+    public void stopRefresh() {
         refreshLayout.setRefreshing(false);
     }
 
-    public interface upcomingFragListener{
+    public interface upcomingFragListener {
         public void onNewMyWCAdded(WordCampDB wordCampDB);
+
         public void onRefreshStart();
+
         public void onMyWCRemoved(WordCampDB wordCampDB);
     }
 }
