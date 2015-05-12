@@ -71,6 +71,7 @@ public class UpcomingWCListAdapter extends BaseAdapter {
             Picasso.with(ctx).load(R.drawable.ic_bookmark_grey600_24dp).into(holder.bookmark);
             holder.bookmark.setEnabled(false);
         } else {
+            Picasso.with(ctx).load(R.drawable.ic_bookmark_outline_grey600_24dp).into(holder.bookmark);
             holder.bookmark.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
