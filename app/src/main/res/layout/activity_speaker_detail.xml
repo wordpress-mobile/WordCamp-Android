@@ -37,15 +37,16 @@
     <RelativeLayout
         android:id="@+id/layout_zoom"
         android:visibility="gone"
+        android:layout_centerVertical="true"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
         <org.wordcamp.widgets.CircularImageView
             android:id="@+id/zoomProfilePic"
             android:clickable="true"
-            android:background="#fff"
             android:layout_marginTop="?attr/actionBarSize"
             android:padding="?attr/actionBarSize"
+            android:background="#a0ffffff"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"/>
     </RelativeLayout>

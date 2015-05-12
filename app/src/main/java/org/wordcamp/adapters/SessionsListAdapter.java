@@ -49,7 +49,7 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
 
         final SessionDB db = list.get(position);
 
-        holder.title.setText(Html.fromHtml(list.get(position).getTitle()));
+        holder.title.setText(Html.fromHtml(db.getTitle()));
 
         if (db.getLocation() == null || db.getLocation().isEmpty()) {
             holder.location.setVisibility(View.GONE);
