@@ -74,7 +74,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
         adapter = new WCDetailAdapter(getSupportFragmentManager());
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(adapter);
-        mPager.setOffscreenPageLimit(0);
+        mPager.setOffscreenPageLimit(2);
         final int tabHeight = getResources().getDimensionPixelSize(R.dimen.tab_height);
         findViewById(R.id.pager_wrapper).setPadding(0, ImageUtils.getActionBarSize(this) + tabHeight, 0, 0);
 
@@ -196,7 +196,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
                 Gson gson = new Gson();
                 for (int i = 0; i < response.length(); i++) {
                     try {
-                        Session session = gson.fromJson(response.getJSONObject(i).toString(), Session.class);
+                        org.wordcamp.objects.speakersnew.Session session = gson.fromJson(response.getJSONObject(i).toString(), org.wordcamp.objects.speakersnew.Session.class);
                         if (communicator != null) {
                             communicator.addSession(session, wcid);
                         }
@@ -206,7 +206,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
                     }
                 }
 
-                Toast.makeText(getApplicationContext(), "Updated sessions " + response.length(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Updated sessions "/* + response.length()*/, Toast.LENGTH_SHORT).show();
                 stopRefreshSession();
                 if (response.length() > 0) {
                     updateSessionContent();
@@ -245,6 +245,8 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
         if (fragment != null) {
             fragment.stopRefreshSpeaker();
         }
+
+        updateSessionContent();
     }
 
     private void updateSessionContent() {
@@ -264,12 +266,23 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
+                stopRefreshSpeaker();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                stopRefreshSpeaker();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
                 stopRefreshSpeaker();
             }
         });
@@ -290,7 +303,6 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
         }
         Toast.makeText(getApplicationContext(), "Updated speakers", Toast.LENGTH_SHORT).show();
         stopRefreshSpeaker();
-
     }
 
     public SpeakerFragment getSpeakerFragment() {
@@ -339,13 +351,16 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
         //Even we are refreshing sessions,
         // we will fetch Speakers as we get Sessions from there
 
-        String webURL = wcdb.getUrl();
-        fetchSpeakersAPI(webURL);
+        if(getSpeakerFragment()!=null){
+            getSpeakerFragment().startRefreshSession();
+        }
     }
 
     @Override
     public void startRefreshSpeakers() {
         String webURL = wcdb.getUrl();
+        fetchSessionsAPI(webURL);
         fetchSpeakersAPI(webURL);
+        getSessionsFragment().startRefreshingBar();
     }
 }

@@ -191,34 +191,38 @@ public class DBCommunicator {
     }
 
 
-    public long addSession(Session ss, int wcid) {
+    public long addSession(org.wordcamp.objects.speakersnew.Session ss, int wcid) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("wcid", wcid);
         contentValues.put("title", ss.getTitle());
+        HashMap<String, String> map = WordCampUtils.getTimeAndTypeSession(ss);
 
-        if (ss.getFoo().getWcptSessionTime().size() > 0 && !ss.getFoo().getWcptSessionTime().get(0).equals(""))
-            contentValues.put("time", ss.getFoo().getWcptSessionTime().get(0));
+        //Currently we are adding the sessions which are not getting fetched by Speakers API
 
-        contentValues.put("postid", ss.getID());
-        if (ss.getTerms().getWcbTrack().size() == 1)
-            contentValues.put("location", ss.getTerms().getWcbTrack().get(0).getName());
+        if (!map.get("_wcpt_session_type").equals("session")) {
 
-        contentValues.put("category", ss.getFoo().getWcptSessionType().get(0));
-        contentValues.put("gsonobject", gson.toJson(ss));
+            contentValues.put("time", map.get("_wcpt_session_time"));
 
-        long id = db.insert("session", null, contentValues);
+            contentValues.put("postid", ss.getID());
+            if (ss.getTerms().getWcbTrack().size() == 1)
+                contentValues.put("location", ss.getTerms().getWcbTrack().get(0).getName());
 
-        if (id == -1) {
-            contentValues.remove("wcid");
-            contentValues.remove("postid");
-            id = db.update("session", contentValues, " wcid = ? AND postid = ?",
-                    new String[]{String.valueOf(wcid), String.valueOf(ss.getID())});
+            contentValues.put("category", map.get("_wcpt_session_type"));
+            contentValues.put("gsonobject", gson.toJson(ss));
+
+            long id = db.insert("session", null, contentValues);
+
+            if (id == -1) {
+                contentValues.remove("wcid");
+                contentValues.remove("postid");
+                id = db.update("session", contentValues, " wcid = ? AND postid = ?",
+                        new String[]{String.valueOf(wcid), String.valueOf(ss.getID())});
+            }
+
+            return id;
+        } else {
+            return -1;
         }
-
-        if (ss.getFoo().getWcptSpeakerId().size() > 0)
-            mapSessionToSpeaker(wcid, ss.getID(), ss.getFoo().getWcptSpeakerId());
-
-        return id;
     }
 
     private void mapSessionToSpeaker(int wcid, int sessionid, List<String> speakerIDs) {

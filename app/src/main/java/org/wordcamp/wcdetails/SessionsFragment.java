@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,6 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
  */
 public class SessionsFragment extends Fragment implements SessionsListAdapter.OnAddToMySessionListener {
 
-    private GridLayoutManager mLayoutManager;
     private StickyListHeadersListView sessionList;
     private SessionsListAdapter sessionsListAdapter;
     private List<SessionDB> sessionDBList;
@@ -57,13 +55,13 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-               // startRefreshSession();
+               stopRefreshSession();
             }
         });
         sessionList = (StickyListHeadersListView) v.findViewById(R.id.sessionList);
         sessionList.setEmptyView(v.findViewById(R.id.empty_view));
         if (sessionDBList.size() == 0) {
-            // startRefreshSession();
+             startRefreshSession();
         }
         sessionsListAdapter = new SessionsListAdapter(getActivity(), sessionDBList, this);
 
@@ -91,6 +89,15 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
         });
     }
 
+    public void startRefreshingBar(){
+        refreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                refreshLayout.setRefreshing(true);
+            }
+        });
+    }
+
     public void stopRefreshSession() {
         refreshLayout.setRefreshing(false);
     }
@@ -99,6 +106,7 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
         sessionDBList = ((WordCampDetailActivity) getActivity()).communicator.getAllSession(wcid);
         sessionsListAdapter = new SessionsListAdapter(getActivity(), sessionDBList, this);
         sessionList.setAdapter(sessionsListAdapter);
+        stopRefreshSession();
     }
 
     @Override
