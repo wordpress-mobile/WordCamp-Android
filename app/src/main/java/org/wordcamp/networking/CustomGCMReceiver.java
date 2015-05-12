@@ -1,5 +1,6 @@
 package org.wordcamp.networking;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -11,6 +12,7 @@ import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.wordcamp.BaseActivity;
 import org.wordcamp.R;
 
 import java.util.Random;
@@ -26,36 +28,49 @@ public class CustomGCMReceiver extends BroadcastReceiver {
         //if json sent from server is {"action":"org.wordcamp.UPDATES","type":"feedback","title":"WC Custom",
         // "descr":"Please give your feedback","link":"http://www.google.com"}
 
-        Log.e("customgcm","received");
+        Log.e("customgcm", "received");
         try {
             JSONObject json = new JSONObject(intent.getExtras().getString("com.parse.Data"));
-            String type = json.getString("type");
-            String title = json.getString("title");
-            String descr = json.getString("descr");
-            String link = json.getString("link");
 
-            showNotif(context,title,descr,link);
+
+            if (json.has("alert")) {
+                String descr = json.getString("alert");
+                String title = "WordCamp Central";
+                Intent appIntent = new Intent(context, BaseActivity.class);
+
+                showNotif(context, title, descr, appIntent);
+            } else {
+
+                String type = json.getString("type");
+                String title = json.getString("title");
+                String descr = json.getString("descr");
+                String link = json.getString("link");
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                showNotif(context, title, descr, browserIntent);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
     }
 
-    public void showNotif(Context context,String title,String descr,String link){
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+    public void showNotif(Context context, String title, String descr, Intent notifIntent) {
+
         PendingIntent resultPendingIntent =
                 PendingIntent.getActivity(
                         context,
                         0,
-                        browserIntent,
+                        notifIntent,
                         0
                 );
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.ic_launcher)
+                        .setSmallIcon(R.drawable.wp_icon)
                         .setContentTitle(title)
                         .setContentText(descr)
+                        .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
                         .setContentIntent(resultPendingIntent);
+
 
         NotificationManager mNotifyMgr =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
