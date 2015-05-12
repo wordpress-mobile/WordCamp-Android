@@ -13,7 +13,6 @@ import org.wordcamp.objects.SessionDB;
 import org.wordcamp.objects.SpeakerDB;
 import org.wordcamp.objects.WordCampDB;
 import org.wordcamp.objects.session.Session;
-import org.wordcamp.objects.speakers.Speakers;
 import org.wordcamp.objects.speakersnew.SpeakerNew;
 import org.wordcamp.objects.wordcamp.WordCamps;
 import org.wordcamp.utils.WordCampUtils;
@@ -143,7 +142,52 @@ public class DBCommunicator {
                     new String[]{String.valueOf(wcid), String.valueOf(sk.getID())});
         }
 
+        if (sk.getSessions().size() > 0)
+            addSessionFromSpeaker(sk.getSessions(), sk.getID(), wcid);
+
         return id;
+    }
+
+    private void addSessionFromSpeaker(List<org.wordcamp.objects.speakersnew.Session> sessions, int spid, int wcid) {
+        for (int i = 0; i < sessions.size(); i++) {
+            org.wordcamp.objects.speakersnew.Session ss = sessions.get(i);
+
+            HashMap<String, String> map = WordCampUtils.getTimeAndTypeSession(ss);
+
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("wcid", wcid);
+            contentValues.put("title", ss.getTitle());
+
+            contentValues.put("time", map.get("_wcpt_session_time"));
+
+            contentValues.put("postid", ss.getID());
+            if (ss.getTerms().getWcbTrack().size() == 1)
+                contentValues.put("location", ss.getTerms().getWcbTrack().get(0).getName());
+
+            contentValues.put("category", map.get("_wcpt_session_type"));
+            contentValues.put("gsonobject", gson.toJson(ss));
+
+            long id = db.insert("session", null, contentValues);
+
+            if (id == -1) {
+                contentValues.remove("wcid");
+                contentValues.remove("postid");
+                id = db.update("session", contentValues, " wcid = ? AND postid = ?",
+                        new String[]{String.valueOf(wcid), String.valueOf(ss.getID())});
+            }
+            mapSessionToSingleSpeaker(wcid, ss.getID(), spid);
+        }
+    }
+
+    private void mapSessionToSingleSpeaker(int wcid, int sid, int spid) {
+        ContentValues values = new ContentValues();
+        values.put("wcid", wcid);
+        values.put("sessionid", sid);
+        values.put("speakerid", spid);
+
+        long id = db.insertWithOnConflict("speakersessions", null, values, SQLiteDatabase.CONFLICT_REPLACE);
+
+        Log.e("insert", " " + id);
     }
 
 

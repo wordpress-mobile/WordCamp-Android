@@ -23,6 +23,7 @@
             android:textSize="14sp"
             android:textStyle="italic"
             android:text="Location"
+            android:textColor="@color/secondary_text_color"
             android:id="@+id/locationSession"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

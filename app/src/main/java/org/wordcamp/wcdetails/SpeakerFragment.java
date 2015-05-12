@@ -73,7 +73,6 @@ public class SpeakerFragment extends Fragment {
             startRefreshSession();
         }
 
-        printAllSpeakers();
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -84,12 +83,6 @@ public class SpeakerFragment extends Fragment {
             }
         });
         return v;
-    }
-
-    private void printAllSpeakers() {
-        for (int i = 0; i < speakerDBList.size(); i++) {
-            Log.e("speaker "+i+1,speakerDBList.get(i).getName());
-        }
     }
 
     public void startRefreshSession() {

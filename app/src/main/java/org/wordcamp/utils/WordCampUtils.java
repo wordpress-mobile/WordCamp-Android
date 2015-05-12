@@ -1,6 +1,7 @@
 package org.wordcamp.utils;
 
 import org.wordcamp.objects.WordCampDB;
+import org.wordcamp.objects.speakersnew.Session;
 import org.wordcamp.objects.wordcamp.WordCamps;
 import org.wordcamp.objects.wordcampnew.PostMetum;
 import org.wordcamp.objects.wordcampnew.WordCampNew;
@@ -8,7 +9,6 @@ import org.wordcamp.objects.wordcampnew.WordCampNew;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -128,4 +128,18 @@ public class WordCampUtils {
 
         return map;
     }
+
+    public static HashMap<String, String> getTimeAndTypeSession(Session ss) {
+        List<org.wordcamp.objects.speakersnew.PostMetum> meta = ss.getPostMeta();
+
+        HashMap<String, String> map = new HashMap<>();
+        for (int i = 0; i < meta.size(); i++) {
+            org.wordcamp.objects.speakersnew.PostMetum metum = meta.get(i);
+            map.put(metum.getKey(), metum.getValue());
+        }
+
+        return map;
+    }
+
+
 }

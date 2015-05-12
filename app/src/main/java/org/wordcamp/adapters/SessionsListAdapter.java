@@ -29,7 +29,7 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
     public LayoutInflater inflater;
     public OnAddToMySessionListener listener;
 
-    public SessionsListAdapter(Context ctx, List<SessionDB> dbList, OnAddToMySessionListener listener){
+    public SessionsListAdapter(Context ctx, List<SessionDB> dbList, OnAddToMySessionListener listener) {
         this.ctx = ctx;
         this.listener = listener;
         this.list = dbList;
@@ -39,23 +39,28 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
-        if(convertView==null){
-            convertView = inflater.inflate(R.layout.item_session_new,parent,false);
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.item_session_new, parent, false);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
-        } else{
-            holder = (ViewHolder)convertView.getTag();
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
 
-        final SessionDB db  = list.get(position);
+        final SessionDB db = list.get(position);
 
         holder.title.setText(Html.fromHtml(list.get(position).getTitle()));
 
-        holder.location.setText(db.getLocation());
+        if (db.getLocation() == null || db.getLocation().isEmpty()) {
+            holder.location.setVisibility(View.GONE);
+        } else {
+            holder.location.setVisibility(View.VISIBLE);
+            holder.location.setText(Html.fromHtml(db.getLocation()));
+        }
 
-        if(db.isMySession){
+        if (db.isMySession) {
             Picasso.with(ctx).load(R.drawable.heart).into(holder.favorite);
-        } else{
+        } else {
             Picasso.with(ctx).load(R.drawable.heart_outline).into(holder.favorite);
         }
 
@@ -64,29 +69,32 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
             public void onClick(View v) {
                 //Do not refresh the whole list, just update in DB & the item
 
-                if(db.isMySession){
+                if (db.isMySession) {
                     db.isMySession = false;
-                    list.set(position,db);
+                    list.set(position, db);
                     listener.removeMySession(db);
                     Picasso.with(ctx).load(R.drawable.heart_outline).into(holder.favorite);
-                } else{
+                } else {
                     db.isMySession = true;
-                    list.set(position,db);
+                    list.set(position, db);
                     listener.addMySession(db);
                     Picasso.with(ctx).load(R.drawable.heart).into(holder.favorite);
                 }
             }
         });
 
-        if(list.get(position).category.equals("custom")){
+        if (list.get(position).category.equals("custom")) {
             holder.favorite.setVisibility(View.INVISIBLE);
-            if(db.getLocation()==null || db.getLocation().isEmpty())
+            if (db.getLocation() == null || db.getLocation().isEmpty())
                 holder.title.setGravity(Gravity.CENTER);
             else
                 holder.title.setGravity(Gravity.LEFT);
-        } else{
+        } else {
             holder.favorite.setVisibility(View.VISIBLE);
-            holder.title.setGravity(Gravity.LEFT);
+            if (db.getLocation() == null || db.getLocation().isEmpty())
+                holder.title.setGravity(Gravity.CENTER_VERTICAL);
+            else
+                holder.title.setGravity(Gravity.LEFT);
         }
         return convertView;
     }
@@ -94,7 +102,7 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
     @Override
     public View getHeaderView(int i, View view, ViewGroup viewGroup) {
 
-        if(view ==null){
+        if (view == null) {
             view = inflater.inflate(R.layout.header_time_session, viewGroup, false);
         }
 
@@ -128,10 +136,11 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
         return position;
     }
 
-    public static class ViewHolder{
-        public TextView title,location,speakers;
+    public static class ViewHolder {
+        public TextView title, location, speakers;
         public ImageView favorite;
-        public ViewHolder(View v){
+
+        public ViewHolder(View v) {
             title = (TextView) v.findViewById(R.id.titleSession);
             location = (TextView) v.findViewById(R.id.locationSession);
             speakers = (TextView) v.findViewById(R.id.speakersSession);
@@ -140,7 +149,7 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
         }
     }
 
-    public interface OnAddToMySessionListener{
+    public interface OnAddToMySessionListener {
         public void addMySession(SessionDB db);
         public void removeMySession(SessionDB db);
     }

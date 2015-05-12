@@ -38,10 +38,10 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile 'com.android.support:recyclerview-v7:21.0.3'
     compile 'com.android.support:cardview-v7:21.0.3'
-    compile 'com.loopj.android:android-async-http:1.4.5'
+    compile 'com.loopj.android:android-async-http:1.4.7'
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.squareup.picasso:picasso:2.4.0'
-    compile 'se.emilsjolander:stickylistheaders:2.5.2'
+    compile 'se.emilsjolander:stickylistheaders:2.6.0'
 }
 
 android.buildTypes.all { buildType ->
