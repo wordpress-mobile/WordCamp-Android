@@ -133,7 +133,8 @@ public class DBCommunicator {
         contentValues.put("postid", sk.getID());
         contentValues.put("speaker_id", sk.getID());
         contentValues.put("gsonobject", gson.toJson(sk));
-        contentValues.put("gravatar", sk.getAvatar().equals("") ? "null" : sk.getAvatar());
+        contentValues.put("gravatar",
+                sk.getAvatar().equals("") ? "null" : sk.getAvatar().substring(0, sk.getAvatar().length() - 5));
 
         long id = db.insert("speaker", null, contentValues);
 
