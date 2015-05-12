@@ -13,16 +13,14 @@
         <TextView
             android:textSize="16sp"
             android:maxLines="1"
-            android:text="Title"
             android:ellipsize="end"
-            android:textColor="#000"
+            android:textColor="@color/text_color"
             android:id="@+id/titleSession"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
         <TextView
             android:textSize="14sp"
             android:textStyle="italic"
-            android:text="Location"
             android:textColor="@color/secondary_text_color"
             android:id="@+id/locationSession"
             android:layout_width="wrap_content"
@@ -37,7 +35,6 @@
     <ImageView
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/heart"
         android:padding="15dp"
         android:id="@+id/favorite"
         android:layout_width="wrap_content"

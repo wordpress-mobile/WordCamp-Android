@@ -1,5 +1,7 @@
 package org.wordcamp.networking;
 
+import android.content.Context;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -25,39 +27,43 @@ public class WPAPIClient {
     //This config of client accepts all SSL connections
     private static AsyncHttpClient client = new AsyncHttpClient(true, 80, 443);
 
-    public static void getWordCampsList(String date, JsonHttpResponseHandler responseHandler) {
-        client.get(QUERY_PARAM_WC, responseHandler);
+    public static void getWordCampsList(Context ctx, String date, JsonHttpResponseHandler responseHandler) {
+        client.get(ctx, QUERY_PARAM_WC, responseHandler);
     }
 
-    public static void getWordCampSpeakers(String wordcampURL, JsonHttpResponseHandler responseHandler) {
+    public static void getWordCampSpeakers(Context ctx, String wordcampURL, JsonHttpResponseHandler responseHandler) {
         if (!wordcampURL.endsWith("/")) {
             wordcampURL = wordcampURL + "/";
         }
         client.setEnableRedirects(true, true, true);
-        client.get(wordcampURL + QUERY_PARAM_SPEAKERS, responseHandler);
+        client.get(ctx, wordcampURL + QUERY_PARAM_SPEAKERS, responseHandler);
     }
 
-    public static void getWordCampSchedule(String wordcampURL, JsonHttpResponseHandler responseHandler) {
+    public static void getWordCampSchedule(Context ctx, String wordcampURL, JsonHttpResponseHandler responseHandler) {
         if (!wordcampURL.endsWith("/")) {
             wordcampURL = wordcampURL + "/";
         }
         client.setEnableRedirects(true, true, true);
-        client.get(wordcampURL + QUERY_PARAM_SCHEDULE, responseHandler);
+        client.get(ctx, wordcampURL + QUERY_PARAM_SCHEDULE, responseHandler);
     }
 
 
-    public static void getSession(String url, AsyncHttpResponseHandler responseHandler) {
+    public static void getSession(Context ctx, String url, AsyncHttpResponseHandler responseHandler) {
         RequestParams params = new RequestParams();
         params.add("url", url + QUERY_PARAM_SCHEDULE);
         client.setEnableRedirects(true, true, true);
-        client.get(LOCAL, params, responseHandler);
+        client.get(ctx, LOCAL, params, responseHandler);
     }
 
-    public static void getSingleWC(int wcid, AsyncHttpResponseHandler responseHandler) {
+    public static void getSingleWC(Context ctx, int wcid, AsyncHttpResponseHandler responseHandler) {
         RequestParams params = new RequestParams();
         params.add("url", QUERY_PARAM_SINGLEWC + "" + wcid);
         client.setEnableRedirects(true, true, true);
-        client.get(LOCAL, params, responseHandler);
+        client.get(ctx, LOCAL, params, responseHandler);
+    }
+
+    public static void cancelAllRequests(Context ctx) {
+        client.cancelRequests(ctx, true);
     }
 
 

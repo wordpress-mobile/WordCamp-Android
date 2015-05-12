@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amulyakhare.textdrawable.TextDrawable;
 import com.squareup.picasso.Picasso;
 
 import org.wordcamp.R;
@@ -29,11 +30,15 @@ public class UpcomingWCListAdapter extends BaseAdapter {
 
     private WCListener listener;
 
+    private int color, color1;
+
     public UpcomingWCListAdapter(List<WordCampDB> arr, Context context, WCListener listener) {
-        wordCamps=arr;
-        ctx=context;
+        wordCamps = arr;
+        ctx = context;
         this.listener = listener;
         inflater = LayoutInflater.from(ctx);
+        color = ctx.getResources().getColor(R.color.flat_light_pink);
+        color1 = ctx.getResources().getColor(R.color.flat_light_blue);
     }
 
     @Override
@@ -67,7 +72,7 @@ public class UpcomingWCListAdapter extends BaseAdapter {
         holder.title.setText(wc.getWc_title());
 //        holder.date.setText(WordCampUtils.getProperFormatDate(wc.getWc_start_date()));
         holder.date.setText(WordCampUtils.getProperDate(wc));
-        if(wc.isMyWC) {
+        if (wc.isMyWC) {
             Picasso.with(ctx).load(R.drawable.ic_bookmark_grey600_24dp).into(holder.bookmark);
             holder.bookmark.setEnabled(false);
         } else {
@@ -75,13 +80,13 @@ public class UpcomingWCListAdapter extends BaseAdapter {
             holder.bookmark.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(!wc.isMyWC) {
-                    listener.addToMyWC(wc.getWc_id(), position);
-                    Picasso.with(ctx).load(R.drawable.ic_bookmark_grey600_24dp).into(holder.bookmark);
-                    wc.isMyWC = true;
-                    wordCamps.set(position, wc);
+                    if (!wc.isMyWC) {
+                        listener.addToMyWC(wc.getWc_id(), position);
+                        Picasso.with(ctx).load(R.drawable.ic_bookmark_grey600_24dp).into(holder.bookmark);
+                        wc.isMyWC = true;
+                        wordCamps.set(position, wc);
                     } else {
-                        listener.removeMyWC(wc.getWc_id(),position);
+                        listener.removeMyWC(wc.getWc_id(), position);
                         Picasso.with(ctx).load(R.drawable.ic_bookmark_outline_grey600_24dp).into(holder.bookmark);
                         wc.isMyWC = false;
                         wordCamps.set(position, wc);
@@ -89,25 +94,34 @@ public class UpcomingWCListAdapter extends BaseAdapter {
                 }
             });
         }
-        if(wc.featureImageUrl!=null && !wc.featureImageUrl.equals(""))
-            Picasso.with(ctx).load(wc.featureImageUrl).into(holder.icon);
+
+        //Currently featured image will always be null due to bug in API
+        /*if(wc.featureImageUrl!=null && !wc.featureImageUrl.equals(""))
+            Picasso.with(ctx).load(wc.featureImageUrl).into(holder.icon);*/
+
+        TextDrawable drawable = TextDrawable.builder()
+                .buildRound("" + wc.getWc_title().split(" ")[1].charAt(0), position % 2 == 0 ? color : color1);
+
+        holder.icon.setImageDrawable(drawable);
 
         return view;
     }
 
-    public static class ViewHolder{
-        public TextView title,date;
-        public ImageView icon,bookmark;
+    public static class ViewHolder {
+        public TextView title, date;
+        public ImageView icon, bookmark;
+
         public ViewHolder(View v) {
-            title = (TextView)v.findViewById(R.id.up_wc_title);
-            date = (TextView)v.findViewById(R.id.up_wc_dates);
-            icon = (ImageView)v.findViewById(R.id.wcIcon);
-            bookmark = (ImageView)v.findViewById(R.id.bookmark);
+            title = (TextView) v.findViewById(R.id.up_wc_title);
+            date = (TextView) v.findViewById(R.id.up_wc_dates);
+            icon = (ImageView) v.findViewById(R.id.wcIcon);
+            bookmark = (ImageView) v.findViewById(R.id.bookmark);
         }
     }
 
-    public interface WCListener{
-        public int addToMyWC(int wcid,int position);
-        public void removeMyWC(int wcid,int position);
+    public interface WCListener {
+        public int addToMyWC(int wcid, int position);
+
+        public void removeMyWC(int wcid, int position);
     }
 }

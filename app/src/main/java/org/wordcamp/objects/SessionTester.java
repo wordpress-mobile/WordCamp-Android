@@ -28,7 +28,7 @@ public class SessionTester extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test);
 
-        WPAPIClient.getSession("", new JsonHttpResponseHandler() {
+        WPAPIClient.getSession(this,"", new JsonHttpResponseHandler() {
 
 
             @Override

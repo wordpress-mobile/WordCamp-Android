@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -25,7 +24,6 @@ import org.wordcamp.adapters.WCDetailAdapter;
 import org.wordcamp.db.DBCommunicator;
 import org.wordcamp.networking.WPAPIClient;
 import org.wordcamp.objects.WordCampDB;
-import org.wordcamp.objects.session.Session;
 import org.wordcamp.objects.speakersnew.SpeakerNew;
 import org.wordcamp.objects.wordcamp.WordCamps;
 import org.wordcamp.utils.ImageUtils;
@@ -153,7 +151,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
     }
 
     private void fetchOverviewAPI() {
-        WPAPIClient.getSingleWC(wcid, new JsonHttpResponseHandler() {
+        WPAPIClient.getSingleWC(this, wcid, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
@@ -189,7 +187,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
     }
 
     private void fetchSessionsAPI(String webURL) {
-        WPAPIClient.getWordCampSchedule(webURL, new JsonHttpResponseHandler() {
+        WPAPIClient.getWordCampSchedule(this, webURL, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
@@ -257,7 +255,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
     }
 
     private void fetchSpeakersAPI(String webURL) {
-        WPAPIClient.getWordCampSpeakers(webURL, new JsonHttpResponseHandler() {
+        WPAPIClient.getWordCampSpeakers(this, webURL, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
@@ -342,8 +340,15 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
     @Override
     public void onPause() {
         super.onPause();
+        WPAPIClient.cancelAllRequests(this);
         if (communicator != null)
             communicator.close();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        WPAPIClient.cancelAllRequests(this);
     }
 
     @Override
@@ -351,7 +356,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
         //Even we are refreshing sessions,
         // we will fetch Speakers as we get Sessions from there
 
-        if(getSpeakerFragment()!=null){
+        if (getSpeakerFragment() != null) {
             getSpeakerFragment().startRefreshSession();
         }
     }

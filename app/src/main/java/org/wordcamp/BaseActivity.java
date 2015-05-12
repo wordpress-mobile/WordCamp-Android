@@ -91,7 +91,7 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_refresh:
                 getUpcomingFragment().startRefresh();
                 break;
@@ -112,6 +112,7 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
     @Override
     protected void onPause() {
         super.onPause();
+        WPAPIClient.cancelAllRequests(this);
         if (communicator != null)
             communicator.close();
     }
@@ -134,7 +135,7 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
 
         final SharedPreferences pref = getSharedPreferences("wc", Context.MODE_PRIVATE);
         final String lastdate = pref.getString("date", "0");
-        WPAPIClient.getWordCampsList(lastdate, new JsonHttpResponseHandler() {
+        WPAPIClient.getWordCampsList(this, lastdate, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {

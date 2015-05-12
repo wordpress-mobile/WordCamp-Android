@@ -22,6 +22,8 @@
                 <ImageView
                     android:src="@drawable/wp_icon"
                     android:id="@+id/wcIcon"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginLeft="12dp"
                     android:layout_centerVertical="true"
                     android:padding="4dp"
                     android:layout_width="56dp"
@@ -30,7 +32,8 @@
                     android:layout_centerVertical="true"
                     android:orientation="vertical"
                     android:layout_toRightOf="@+id/wcIcon"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginLeft="12dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                 <TextView
@@ -39,6 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_marginRight="34dp"
                     android:maxLines="2"
+                    android:textColor="@color/text_color"
                     android:text="WordCamp London"
                     android:layout_height="match_parent" />
                 <TextView

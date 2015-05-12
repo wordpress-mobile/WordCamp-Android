@@ -1,5 +1,11 @@
 apply plugin: 'com.android.application'
 
+repositories{
+    maven {
+        url 'http://dl.bintray.com/amulyakhare/maven'
+    }
+}
+
 android {
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
@@ -41,6 +47,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.squareup.picasso:picasso:2.4.0'
     compile 'se.emilsjolander:stickylistheaders:2.6.0'
+    compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
 }
 
 android.buildTypes.all { buildType ->
