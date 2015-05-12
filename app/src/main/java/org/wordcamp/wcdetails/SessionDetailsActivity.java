@@ -1,6 +1,7 @@
 package org.wordcamp.wcdetails;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,7 +23,6 @@ import org.wordcamp.notifs.FavoriteSession;
 import org.wordcamp.objects.MiniSpeaker;
 import org.wordcamp.objects.SessionDB;
 import org.wordcamp.objects.SpeakerDB;
-import org.wordcamp.objects.session.Session;
 import org.wordcamp.utils.WordCampUtils;
 
 import java.util.ArrayList;
@@ -34,9 +34,9 @@ import java.util.HashMap;
 public class SessionDetailsActivity extends ActionBarActivity {
 
     public SessionDB sessionDB;
-    public TextView title,info,speakers,time;
+    public TextView title, info, speakers, time;
     public Toolbar toolbar;
-    public Session session;
+    public org.wordcamp.objects.speakersnew.Session session;
     public Gson gson;
     public ArrayList<MiniSpeaker> speakerList;
     public ListView speakersListView;
@@ -56,44 +56,44 @@ public class SessionDetailsActivity extends ActionBarActivity {
 
     private void initGUI() {
         gson = new Gson();
-        session = gson.fromJson(sessionDB.getGson_object(),Session.class);
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        session = gson.fromJson(sessionDB.getGson_object(), org.wordcamp.objects.speakersnew.Session.class);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        View headerView = LayoutInflater.from(this).inflate(R.layout.item_header_session,null);
+        View headerView = LayoutInflater.from(this).inflate(R.layout.item_header_session, null);
 
-        title = (TextView)findViewById(R.id.wc_detail_title);
-        time = (TextView)findViewById(R.id.wc_detail_date);
-        info = (TextView)headerView.findViewById(R.id.wc_detail_abstract);
+        title = (TextView) findViewById(R.id.wc_detail_title);
+        time = (TextView) findViewById(R.id.wc_detail_date);
+        info = (TextView) headerView.findViewById(R.id.wc_detail_abstract);
         title.setText(Html.fromHtml(session.getTitle()));
         info.setText(Html.fromHtml(session.getContent()));
-        if(session.getTerms().getWcbTrack().size()==1){
-            time.setText(WordCampUtils.formatProperTime(sessionDB.getTime())+" in "
-                    +session.getTerms().getWcbTrack().get(0).getName());
-        } else{
+        if (session.getTerms().getWcbTrack().size() == 1) {
+            time.setText(WordCampUtils.formatProperTime(sessionDB.getTime()) + " in "
+                    + session.getTerms().getWcbTrack().get(0).getName());
+        } else {
             time.setText(WordCampUtils.formatProperTime(sessionDB.getTime()));
         }
 
-        speakersListView = (ListView)findViewById(R.id.session_list_speakers);
-        speakersListView.addHeaderView(headerView,null,false);
+        speakersListView = (ListView) findViewById(R.id.session_list_speakers);
+        speakersListView.addHeaderView(headerView, null, false);
 
-        final HashMap<String,MiniSpeaker> names = communicator.getSpeakersForSession(sessionDB.getWc_id(),sessionDB.getPost_id());
+        final HashMap<String, MiniSpeaker> names = communicator.getSpeakersForSession(sessionDB.getWc_id(), sessionDB.getPost_id());
 
-        if(names!=null){
+        if (names != null) {
             speakerList = new ArrayList<>(names.values());
-            speakersListView.setAdapter(new SessionDetailAdapter(getApplicationContext(),speakerList));
+            speakersListView.setAdapter(new SessionDetailAdapter(getApplicationContext(), speakerList));
             speakersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     position--;
 
                     SpeakerDB speakerDB = communicator.getSpeaker(sessionDB.getWc_id(), speakerList.get(position).id);
-                    Intent intent = new Intent(getApplicationContext(),SpeakerDetailsActivity.class);
-                    intent.putExtra("speaker",speakerDB);
+                    Intent intent = new Intent(getApplicationContext(), SpeakerDetailsActivity.class);
+                    intent.putExtra("speaker", speakerDB);
                     startActivity(intent);
                 }
             });
@@ -102,8 +102,8 @@ public class SessionDetailsActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_session_detail,menu);
-        if(sessionDB.isMySession){
+        getMenuInflater().inflate(R.menu.menu_session_detail, menu);
+        if (sessionDB.isMySession) {
             MenuItem attending = menu.findItem(R.id.action_favorite);
             attending.setIcon(R.drawable.ic_favorite_white_36dp);
         }
@@ -117,30 +117,37 @@ public class SessionDetailsActivity extends ActionBarActivity {
                 finish();
                 return true;
             case R.id.action_favorite:
-                if(sessionDB.isMySession){
+                if (sessionDB.isMySession) {
                     item.setIcon(R.drawable.ic_favorite_outline_white_36dp);
-                    sessionDB.isMySession=false;
+                    sessionDB.isMySession = false;
                     fav.unFavoriteSession(sessionDB);
                     communicator.removeFromMySession(sessionDB);
-                }
-                else{
+                } else {
                     item.setIcon(R.drawable.ic_favorite_white_36dp);
-                    sessionDB.isMySession=true;
+                    sessionDB.isMySession = true;
                     fav.favoriteSession(sessionDB);
                     communicator.addToMySession(sessionDB);
                 }
                 return true;
+            case R.id.item_menu_website:
+                startWebIntent();
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    private void startWebIntent() {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(session.getLink()));
+        browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(browserIntent);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
-        if(communicator ==null){
+        if (communicator == null) {
             communicator = new DBCommunicator(this);
-        } else{
+        } else {
             communicator.restart();
         }
 
@@ -149,14 +156,14 @@ public class SessionDetailsActivity extends ActionBarActivity {
     @Override
     public void onPause() {
         super.onPause();
-        if(communicator!=null)
+        if (communicator != null)
             communicator.close();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(communicator!=null)
+        if (communicator != null)
             communicator.close();
     }
 }

@@ -7,12 +7,14 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
@@ -30,6 +32,7 @@ import org.wordcamp.db.DBCommunicator;
 import org.wordcamp.objects.SessionDB;
 import org.wordcamp.objects.SpeakerDB;
 import org.wordcamp.objects.speakers.Speakers;
+import org.wordcamp.objects.speakersnew.SpeakerNew;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,14 +47,14 @@ public class SpeakerDetailsActivity extends ActionBarActivity {
     public Toolbar toolbar;
 
     public SpeakerDB speakerDB;
-    public Speakers speakers;
+    public SpeakerNew speaker;
     public Gson gson;
     public DBCommunicator communicator;
     public HashMap<String, Integer> titleSession;
     public TextView info;
     public ListView lv;
     private Animator mCurrentAnimator;
-    public ImageView dp,zoomImageView;
+    public ImageView dp, zoomImageView;
     private AtomicBoolean visible = new AtomicBoolean(false);
     private float startScale;
     private View container;
@@ -68,9 +71,9 @@ public class SpeakerDetailsActivity extends ActionBarActivity {
         gson = new Gson();
         communicator = new DBCommunicator(this);
         communicator.start();
-//        speakers = gson.fromJson(speakerDB.getGson_object(),Speakers.class);
+        speaker = gson.fromJson(speakerDB.getGson_object(), SpeakerNew.class);
 
-        titleSession = communicator.getSpeakerSession(speakerDB.getWc_id(),speakerDB.getSpeaker_id());
+        titleSession = communicator.getSpeakerSession(speakerDB.getWc_id(), speakerDB.getSpeaker_id());
 
         initGUI();
     }
@@ -79,7 +82,7 @@ public class SpeakerDetailsActivity extends ActionBarActivity {
 
         mShortAnimationDuration = getResources().getInteger(
                 android.R.integer.config_shortAnimTime);
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(speakerDB.getName());
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -93,8 +96,8 @@ public class SpeakerDetailsActivity extends ActionBarActivity {
         Picasso.with(this).load(speakerDB.getGravatar())
                 .placeholder(R.drawable.ic_account_circle_grey600).into(zoomImageView);
 
-        View headerView = LayoutInflater.from(this).inflate(R.layout.item_header_speaker,null);
-        info = (TextView)headerView.findViewById(R.id.speaker_detail);
+        View headerView = LayoutInflater.from(this).inflate(R.layout.item_header_speaker, null);
+        info = (TextView) headerView.findViewById(R.id.speaker_detail);
         info.setClickable(true);
         info.setMovementMethod(LinkMovementMethod.getInstance());
         info.setText(Html.fromHtml(speakerDB.getInfo()));
@@ -110,12 +113,12 @@ public class SpeakerDetailsActivity extends ActionBarActivity {
         Picasso.with(this).load(speakerDB.getGravatar())
                 .placeholder(R.drawable.ic_account_circle_grey600).into(dp);
 
-        lv = (ListView)findViewById(R.id.session_list_speakers);
-        lv.addHeaderView(headerView,null,false);
+        lv = (ListView) findViewById(R.id.session_list_speakers);
+        lv.addHeaderView(headerView, null, false);
 //        lv.setEmptyView(headerView);
 
-        if(titleSession!=null) {
-             final List<String> names = new ArrayList<>(titleSession.keySet());
+        if (titleSession != null) {
+            final List<String> names = new ArrayList<>(titleSession.keySet());
             lv.setAdapter(new SpeakerDetailAdapter(getApplicationContext(), names));
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -128,7 +131,7 @@ public class SpeakerDetailsActivity extends ActionBarActivity {
                     startActivity(intent);
                 }
             });
-        } else{
+        } else {
             final List<String> names = new ArrayList<>();
             lv.setAdapter(new SpeakerDetailAdapter(getApplicationContext(), names));
         }
@@ -179,21 +182,36 @@ public class SpeakerDetailsActivity extends ActionBarActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_wc_speaker, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                return true;
+            case R.id.item_menu_website:
+                startWebIntent();
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    private void startWebIntent() {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(speaker.getLink()));
+        browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(browserIntent);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
-        if(communicator ==null){
+        if (communicator == null) {
             communicator = new DBCommunicator(this);
-        } else{
+        } else {
             communicator.restart();
         }
 
@@ -202,14 +220,14 @@ public class SpeakerDetailsActivity extends ActionBarActivity {
     @Override
     public void onPause() {
         super.onPause();
-        if(communicator!=null)
+        if (communicator != null)
             communicator.close();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(communicator!=null)
+        if (communicator != null)
             communicator.close();
     }
 
@@ -228,7 +246,7 @@ public class SpeakerDetailsActivity extends ActionBarActivity {
             mCurrentAnimator.cancel();
         }
 
-        Picasso.with(this).load(speakerDB.getGravatar()+"?s=400").noPlaceholder().into(zoomImageView);
+        Picasso.with(this).load(speakerDB.getGravatar() + "?s=400").noPlaceholder().into(zoomImageView);
 
         container = findViewById(R.id.layout_zoom);
         startBounds = new Rect();
