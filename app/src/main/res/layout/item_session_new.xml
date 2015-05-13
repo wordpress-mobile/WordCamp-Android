@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:background="#fff"
+    android:id="@+id/item_session_container"
     android:layout_height="72dp">
     <LinearLayout
         android:orientation="vertical"

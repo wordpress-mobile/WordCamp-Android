@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -28,12 +29,15 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
     private Context ctx;
     private LayoutInflater inflater;
     private OnAddToMySessionListener listener;
+    private int singleLineSize, doubleLineSize;
 
     public SessionsListAdapter(Context ctx, List<SessionDB> dbList, OnAddToMySessionListener listener) {
         this.ctx = ctx;
         this.listener = listener;
         this.list = dbList;
         inflater = LayoutInflater.from(ctx);
+        singleLineSize = (int) ctx.getResources().getDimension(R.dimen.single_line_list_item);
+        doubleLineSize = (int) ctx.getResources().getDimension(R.dimen.double_line_list_item);
     }
 
     @Override
@@ -84,12 +88,14 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
         });
 
         if (list.get(position).category.equals("custom")) {
+            holder.container.getLayoutParams().height = singleLineSize;
             holder.favorite.setVisibility(View.INVISIBLE);
             if (db.getLocation() == null || db.getLocation().isEmpty())
                 holder.title.setGravity(Gravity.CENTER);
             else
                 holder.title.setGravity(Gravity.LEFT);
         } else {
+            holder.container.getLayoutParams().height = doubleLineSize;
             holder.favorite.setVisibility(View.VISIBLE);
             if (db.getLocation() == null || db.getLocation().isEmpty())
                 holder.title.setGravity(Gravity.CENTER_VERTICAL);
@@ -139,18 +145,20 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
     public static class ViewHolder {
         public TextView title, location, speakers;
         public ImageView favorite;
+        public RelativeLayout container;
 
         public ViewHolder(View v) {
             title = (TextView) v.findViewById(R.id.titleSession);
             location = (TextView) v.findViewById(R.id.locationSession);
             speakers = (TextView) v.findViewById(R.id.speakersSession);
             favorite = (ImageView) v.findViewById(R.id.favorite);
-
+            container = (RelativeLayout) v.findViewById(R.id.item_session_container);
         }
     }
 
     public interface OnAddToMySessionListener {
         void addMySession(SessionDB db);
+
         void removeMySession(SessionDB db);
     }
 

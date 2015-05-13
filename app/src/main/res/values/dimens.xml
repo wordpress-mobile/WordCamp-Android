@@ -3,4 +3,6 @@
     <dimen name="toolbar_elevation">4dp</dimen>
     <dimen name="list_elevation">8dp</dimen>
     <dimen name="nav_item_top_margin">8dp</dimen>
+    <dimen name="single_line_list_item">24dp</dimen>
+    <dimen name="double_line_list_item">72dp</dimen>
 </resources>
