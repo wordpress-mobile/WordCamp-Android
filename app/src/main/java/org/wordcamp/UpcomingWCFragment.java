@@ -31,6 +31,7 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
     public upcomingFragListener listener;
     public SwipeRefreshLayout refreshLayout;
     public Gson g;
+    public UpcomingWCListAdapter adapter;
 
     public static UpcomingWCFragment newInstance(String param1, String param2) {
         UpcomingWCFragment fragment = new UpcomingWCFragment();
@@ -79,14 +80,14 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
                 listener.onRefreshStart();
             }
         });
-        UpcomingWCListAdapter adapter = new UpcomingWCListAdapter(wordCampDBs, parentActivity, this);
+        adapter = new UpcomingWCListAdapter(wordCampDBs, parentActivity, this);
         upWCLists.setAdapter(adapter);
         setProperListPosition();
         upWCLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(getActivity(), WordCampDetailActivity.class);
-                i.putExtra("wc", wordCampDBs.get(position));
+                i.putExtra("wc", adapter.getItem(position));
                 startActivity(i);
             }
         });
@@ -126,7 +127,7 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
     public void updateList(List<WordCampDB> wordCampsList) {
         wordCampDBs = wordCampsList;
         sortWC();
-        UpcomingWCListAdapter adapter = new UpcomingWCListAdapter(wordCampDBs, getActivity(), this);
+        adapter = new UpcomingWCListAdapter(wordCampDBs, getActivity(), this);
         upWCLists.setAdapter(adapter);
         setProperListPosition();
     }

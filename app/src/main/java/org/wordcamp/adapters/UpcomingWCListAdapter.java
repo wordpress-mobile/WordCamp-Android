@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,14 +17,15 @@ import org.wordcamp.R;
 import org.wordcamp.objects.WordCampDB;
 import org.wordcamp.utils.WordCampUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by aagam on 5/2/15.
  */
-public class UpcomingWCListAdapter extends BaseAdapter {
+public class UpcomingWCListAdapter extends BaseAdapter implements Filterable {
 
-    public List<WordCampDB> wordCamps;
+    public List<WordCampDB> wordCamps, filteredWordCamps;
 
     public Context ctx;
 
@@ -32,6 +35,8 @@ public class UpcomingWCListAdapter extends BaseAdapter {
 
     private int color, color1;
 
+    private WordCampsFilter wordCampsFilter;
+
     public UpcomingWCListAdapter(List<WordCampDB> arr, Context context, WCListener listener) {
         wordCamps = arr;
         ctx = context;
@@ -39,16 +44,18 @@ public class UpcomingWCListAdapter extends BaseAdapter {
         inflater = LayoutInflater.from(ctx);
         color = ctx.getResources().getColor(R.color.flat_light_pink);
         color1 = ctx.getResources().getColor(R.color.flat_light_blue);
+        filteredWordCamps = wordCamps;
+        wordCampsFilter = new WordCampsFilter();
     }
 
     @Override
     public int getCount() {
-        return wordCamps.size();
+        return filteredWordCamps.size();
     }
 
     @Override
-    public Object getItem(int position) {
-        return wordCamps.get(position);
+    public WordCampDB getItem(int position) {
+        return filteredWordCamps.get(position);
     }
 
     @Override
@@ -68,7 +75,7 @@ public class UpcomingWCListAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
-        final WordCampDB wc = wordCamps.get(position);
+        final WordCampDB wc = filteredWordCamps.get(position);
         holder.title.setText(wc.getWc_title());
 //        holder.date.setText(WordCampUtils.getProperFormatDate(wc.getWc_start_date()));
         holder.date.setText(WordCampUtils.getProperDate(wc));
@@ -84,12 +91,12 @@ public class UpcomingWCListAdapter extends BaseAdapter {
                         listener.addToMyWC(wc.getWc_id(), position);
                         Picasso.with(ctx).load(R.drawable.ic_bookmark_grey600_24dp).into(holder.bookmark);
                         wc.isMyWC = true;
-                        wordCamps.set(position, wc);
+                        filteredWordCamps.set(position, wc);
                     } else {
                         listener.removeMyWC(wc.getWc_id(), position);
                         Picasso.with(ctx).load(R.drawable.ic_bookmark_outline_grey600_24dp).into(holder.bookmark);
                         wc.isMyWC = false;
-                        wordCamps.set(position, wc);
+                        filteredWordCamps.set(position, wc);
                     }
                 }
             });
@@ -105,6 +112,11 @@ public class UpcomingWCListAdapter extends BaseAdapter {
         holder.icon.setImageDrawable(drawable);
 
         return view;
+    }
+
+    @Override
+    public Filter getFilter() {
+        return wordCampsFilter;
     }
 
     public static class ViewHolder {
@@ -123,5 +135,32 @@ public class UpcomingWCListAdapter extends BaseAdapter {
         public int addToMyWC(int wcid, int position);
 
         public void removeMyWC(int wcid, int position);
+    }
+
+    private class WordCampsFilter extends Filter {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            final String filterString = constraint.toString().toLowerCase();
+            FilterResults results = new FilterResults();
+
+            List<WordCampDB> filteredList = new ArrayList<>();
+            int size = wordCamps.size();
+            for (int i = 0; i < size; ++i) {
+                WordCampDB wcdb = wordCamps.get(i);
+                if (wcdb.getWc_title().toLowerCase().contains(filterString)) {
+                    filteredList.add(wcdb);
+                }
+            }
+            results.values = filteredList;
+            results.count = filteredList.size();
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            filteredWordCamps = (ArrayList<WordCampDB>) results.values;
+            notifyDataSetChanged();
+        }
     }
 }

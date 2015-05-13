@@ -21,10 +21,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -51,7 +54,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class BaseActivity extends AppCompatActivity implements UpcomingWCFragment.upcomingFragListener {
+public class BaseActivity extends AppCompatActivity implements UpcomingWCFragment.upcomingFragListener, SearchView.OnQueryTextListener {
 
     private ViewPager mPager;
     private WCPagerAdapter mPagerAdapter;
@@ -105,6 +108,10 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_base_act, menu);
+        MenuItem searchItem = menu.findItem(R.id.search_wc);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(this);
+        searchView.setQueryHint(Html.fromHtml("<font color = #ffffff>" + getResources().getString(R.string.search_wc_hint) + "</font>"));
         return true;
     }
 
@@ -250,6 +257,17 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
     @Override
     public void onMyWCRemoved(WordCampDB wordCampDB) {
         getMyWCFragment().removeSingleMYWC(wordCampDB);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        getUpcomingFragment().adapter.getFilter().filter(newText);
+        return true;
     }
 
     private static class WCPagerAdapter extends CacheFragmentStatePagerAdapter {
