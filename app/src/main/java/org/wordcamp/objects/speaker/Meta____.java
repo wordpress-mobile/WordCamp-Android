@@ -1,21 +1,19 @@
 
-package org.wordcamp.objects.speakers;
-
+package org.wordcamp.objects.speaker;
 
 import com.google.gson.annotations.Expose;
 
-
-public class Meta_ {
+public class Meta____ {
 
     @Expose
-    private Links_ links;
+    private Links____ links;
 
     /**
      * 
      * @return
      *     The links
      */
-    public Links_ getLinks() {
+    public Links____ getLinks() {
         return links;
     }
 
@@ -24,7 +22,7 @@ public class Meta_ {
      * @param links
      *     The links
      */
-    public void setLinks(Links_ links) {
+    public void setLinks(Links____ links) {
         this.links = links;
     }
 

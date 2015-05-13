@@ -10,6 +10,7 @@ import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -31,8 +32,7 @@ import org.wordcamp.adapters.SpeakerDetailAdapter;
 import org.wordcamp.db.DBCommunicator;
 import org.wordcamp.objects.SessionDB;
 import org.wordcamp.objects.SpeakerDB;
-import org.wordcamp.objects.speakers.Speakers;
-import org.wordcamp.objects.speakersnew.SpeakerNew;
+import org.wordcamp.objects.speaker.SpeakerNew;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,7 +42,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * Created by aagam on 26/2/15.
  */
-public class SpeakerDetailsActivity extends ActionBarActivity {
+public class SpeakerDetailsActivity extends AppCompatActivity {
 
     public Toolbar toolbar;
 
@@ -60,7 +60,6 @@ public class SpeakerDetailsActivity extends ActionBarActivity {
     private View container;
     private int mShortAnimationDuration;
     private Rect startBounds;
-    private Rect finalBounds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -252,11 +251,10 @@ public class SpeakerDetailsActivity extends ActionBarActivity {
 
         container = findViewById(R.id.layout_zoom);
         startBounds = new Rect();
-        finalBounds = new Rect();
+        Rect finalBounds = new Rect();
         Point globalOffset = new Point();
 
-        View mThumbView = thumbView;
-        mThumbView.getGlobalVisibleRect(startBounds);
+        thumbView.getGlobalVisibleRect(startBounds);
         findViewById(R.id.mainLayout)
                 .getGlobalVisibleRect(finalBounds, globalOffset);
         startBounds.offset(-globalOffset.x, -globalOffset.y);
@@ -280,7 +278,7 @@ public class SpeakerDetailsActivity extends ActionBarActivity {
         }
 
         // Hide the thumbnail and show the zoomed-in view.
-        mThumbView.setAlpha(0f);
+        thumbView.setAlpha(0f);
         container.setVisibility(View.VISIBLE);
 
         container.setPivotX(0f);

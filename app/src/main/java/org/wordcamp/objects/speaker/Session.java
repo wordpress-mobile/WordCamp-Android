@@ -1,5 +1,5 @@
 
-package org.wordcamp.objects.speakersnew;
+package org.wordcamp.objects.speaker;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -25,15 +25,15 @@ import java.util.List;
  */
 public class MyWCListAdapter extends BaseAdapter implements Filterable {
 
-    public List<WordCampDB> wordCamps, filteredWCs;
+    private List<WordCampDB> wordCamps, filteredWCs;
 
-    public Context ctx;
+    private Context ctx;
 
-    public OnDeleteListener listener;
+    private OnDeleteListener listener;
 
     private WordCampsFilter wordCampsFilter;
 
-    public LayoutInflater inflater;
+    private LayoutInflater inflater;
 
     private int color, color1;
 
@@ -113,7 +113,7 @@ public class MyWCListAdapter extends BaseAdapter implements Filterable {
     }
 
     public interface OnDeleteListener {
-        public void removeWC();
+        void removeWC();
     }
 
     private class WordCampsFilter extends Filter {

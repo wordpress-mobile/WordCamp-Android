@@ -54,7 +54,7 @@ public class CustomGCMReceiver extends BroadcastReceiver {
 
     }
 
-    public void showNotif(Context context, String title, String descr, Intent notifIntent) {
+    private void showNotif(Context context, String title, String descr, Intent notifIntent) {
 
         PendingIntent resultPendingIntent =
                 PendingIntent.getActivity(

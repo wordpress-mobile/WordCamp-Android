@@ -36,7 +36,7 @@ public class MaterialScrollView extends ScrollView {
 		super(context);
 	}
 	
-	protected void init(Context context, AttributeSet attrs) {
+	private void init(Context context, AttributeSet attrs) {
 		TypedArray typeArray = context.obtainStyledAttributes(attrs, R.styleable.MaterialScroll);
 		this.parallaxFactor = typeArray.getFloat(R.styleable.MaterialScroll_parallax_factor, DEFAULT_PARALLAX_FACTOR);
 		this.innerParallaxFactor = typeArray.getFloat(R.styleable.MaterialScroll_inner_parallax_factor, DEFAULT_INNER_PARALLAX_FACTOR);

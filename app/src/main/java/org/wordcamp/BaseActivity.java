@@ -56,9 +56,8 @@ import java.util.Locale;
 
 public class BaseActivity extends AppCompatActivity implements UpcomingWCFragment.upcomingFragListener, SearchView.OnQueryTextListener {
 
-    private ViewPager mPager;
     private WCPagerAdapter mPagerAdapter;
-    public String lastscanned;
+    private String lastscanned;
 
     public DBCommunicator communicator;
 
@@ -79,7 +78,7 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
 
         ViewCompat.setElevation(findViewById(R.id.header), getResources().getDimension(R.dimen.toolbar_elevation));
         mPagerAdapter = new WCPagerAdapter(getSupportFragmentManager());
-        mPager = (ViewPager) findViewById(R.id.pager);
+        ViewPager mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(mPagerAdapter);
         final int tabHeight = getResources().getDimensionPixelSize(R.dimen.tab_height);
         findViewById(R.id.pager_wrapper).setPadding(0, ImageUtils.getActionBarSize(this) + tabHeight, 0, 0);
@@ -281,13 +280,13 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
         protected Fragment createItem(int position) {
             switch (position) {
                 case 0:
-                    return UpcomingWCFragment.newInstance("Upcoming", "");
+                    return UpcomingWCFragment.newInstance();
                 case 1:
-                    return MyWCFragment.newInstance("MY", "");
+                    return MyWCFragment.newInstance();
                 case 2:
-                    return UpcomingWCFragment.newInstance("Past", "");
+                    return UpcomingWCFragment.newInstance();
                 default:
-                    return UpcomingWCFragment.newInstance("", "");
+                    return UpcomingWCFragment.newInstance();
             }
         }
 

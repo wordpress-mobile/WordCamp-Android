@@ -15,7 +15,7 @@ import org.wordcamp.objects.SessionDB;
 public class FavoriteSession {
 
     private Context context;
-    public Gson gson;
+    private Gson gson;
 
     public FavoriteSession(Context context){
         this.context = context;

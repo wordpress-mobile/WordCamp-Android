@@ -21,6 +21,7 @@
                 android:src="@drawable/wp_icon"
                 android:id="@+id/speaker_dp"
                 android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_gravity="center_vertical"
                 android:layout_width="60dp"
                 android:layout_height="60dp" />
@@ -32,6 +33,7 @@
                 android:textColor="@color/text_color"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </android.support.v7.widget.CardView>

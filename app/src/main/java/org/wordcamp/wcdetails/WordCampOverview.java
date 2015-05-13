@@ -33,8 +33,6 @@ public class WordCampOverview extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         wc = ((WordCampDetailActivity) getActivity()).wcdb;
-        Gson gson = new Gson();
-//        wholeWC = gson.fromJson(wc.getGson_object(),WordCamps.class);
     }
 
     @Override
@@ -51,21 +49,13 @@ public class WordCampOverview extends Fragment {
 
         about = (TextView) v.findViewById(R.id.wc_about);
         about.setText(Html.fromHtml(wc.getAbout()));
-        int height = ImageUtils.getAspectRatio(getActivity());
-        v1.getLayoutParams().height = height;
-        View details = v.findViewById(R.id.centerLayoutDetail);
+        v1.getLayoutParams().height = ImageUtils.getAspectRatio(getActivity());
         ViewCompat.setElevation(v.findViewById(R.id.centerLayoutDetail), getResources().getDimension(R.dimen.list_elevation));
         return v;
     }
 
     private void setLocationText() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(wc.getLocation());
-        sb.append("\n");
-        sb.append(wc.getVenue());
-        sb.append("\n");
-        sb.append(wc.getAddress());
-        location.setText(sb.toString());
+        location.setText(wc.getLocation() + "\n" + wc.getVenue() + "\n" + wc.getAddress());
     }
 
     public void updateData(WordCamps wcs) {

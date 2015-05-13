@@ -7,14 +7,14 @@ import java.io.Serializable;
  */
 public class SessionDB implements Serializable {
 
-    public int wc_id;
-    public int post_id;
-    public String title;
-    public int time;
-    public String last_scanned_gmt;
-    public String location;
+    private int wc_id;
+    private int post_id;
+    private String title;
+    private int time;
+    private String last_scanned_gmt;
+    private String location;
     public String category;
-    public String gson_object;
+    private String gson_object;
     public boolean isMySession;
 
     public SessionDB(int wc_id, int post_id, String title, int time, String last_scanned_gmt,

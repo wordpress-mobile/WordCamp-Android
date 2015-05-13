@@ -31,8 +31,8 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
     private StickyListHeadersListView sessionList;
     private SessionsListAdapter sessionsListAdapter;
     private List<SessionDB> sessionDBList;
-    public DBCommunicator communicator;
-    public FavoriteSession favoriteSession;
+    private DBCommunicator communicator;
+    private FavoriteSession favoriteSession;
     private SessionFragmentListener listener;
     private int wcid;
     private SwipeRefreshLayout refreshLayout;

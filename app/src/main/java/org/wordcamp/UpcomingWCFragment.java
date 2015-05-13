@@ -33,9 +33,8 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
     public Gson g;
     public UpcomingWCListAdapter adapter;
 
-    public static UpcomingWCFragment newInstance(String param1, String param2) {
-        UpcomingWCFragment fragment = new UpcomingWCFragment();
-        return fragment;
+    public static UpcomingWCFragment newInstance() {
+        return new UpcomingWCFragment();
     }
 
     public UpcomingWCFragment() {
@@ -174,10 +173,10 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
     }
 
     public interface upcomingFragListener {
-        public void onNewMyWCAdded(WordCampDB wordCampDB);
+        void onNewMyWCAdded(WordCampDB wordCampDB);
 
-        public void onRefreshStart();
+        void onRefreshStart();
 
-        public void onMyWCRemoved(WordCampDB wordCampDB);
+        void onMyWCRemoved(WordCampDB wordCampDB);
     }
 }

@@ -2,6 +2,7 @@ package org.wordcamp.db;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import org.wordcamp.R;
@@ -10,7 +11,7 @@ import org.wordcamp.objects.WordCampDB;
 /**
  * Created by aagam on 27/1/15.
  */
-public class DBTester extends ActionBarActivity {
+public class DBTester extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

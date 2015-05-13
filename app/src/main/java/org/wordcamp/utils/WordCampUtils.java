@@ -1,7 +1,7 @@
 package org.wordcamp.utils;
 
 import org.wordcamp.objects.WordCampDB;
-import org.wordcamp.objects.speakersnew.Session;
+import org.wordcamp.objects.speaker.Session;
 import org.wordcamp.objects.wordcamp.WordCamps;
 import org.wordcamp.objects.wordcampnew.PostMetum;
 import org.wordcamp.objects.wordcampnew.WordCampNew;
@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -30,8 +31,8 @@ public class WordCampUtils {
         Date d = new Date(Long.parseLong(wdb.getWc_start_date()) * 1000);
         Date d1 = new Date(Long.parseLong(wdb.getWc_end_date()) * 1000);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd");
-        SimpleDateFormat sdf1 = new SimpleDateFormat("dd, yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd", Locale.getDefault());
+        SimpleDateFormat sdf1 = new SimpleDateFormat("dd, yyyy", Locale.getDefault());
 
         return sdf.format(d) + " - " + sdf1.format(d1);
     }
@@ -40,12 +41,12 @@ public class WordCampUtils {
 
         Date d1 = new Date(Long.parseLong(s) * 1000);
 
-        SimpleDateFormat sdf1 = new SimpleDateFormat("dd, MMM yyyy");
+        SimpleDateFormat sdf1 = new SimpleDateFormat("dd, MMM yyyy",Locale.getDefault());
 
         return sdf1.format(d1);
     }
 
-    public static final String md5(final String s) {
+    public static String md5(final String s) {
         final String MD5 = "MD5";
         try {
             // Create MD5 Hash
@@ -80,7 +81,7 @@ public class WordCampUtils {
         }
         calendar.set(Calendar.MINUTE, minutes);
         d = calendar.getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, HH:mm",Locale.getDefault());
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
         return sdf.format(d);
     }
@@ -130,11 +131,11 @@ public class WordCampUtils {
     }
 
     public static HashMap<String, String> getTimeAndTypeSession(Session ss) {
-        List<org.wordcamp.objects.speakersnew.PostMetum> meta = ss.getPostMeta();
+        List<org.wordcamp.objects.speaker.PostMetum> meta = ss.getPostMeta();
 
         HashMap<String, String> map = new HashMap<>();
         for (int i = 0; i < meta.size(); i++) {
-            org.wordcamp.objects.speakersnew.PostMetum metum = meta.get(i);
+            org.wordcamp.objects.speaker.PostMetum metum = meta.get(i);
             map.put(metum.getKey(), metum.getValue());
         }
 

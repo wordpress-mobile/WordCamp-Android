@@ -1,5 +1,5 @@
 
-package org.wordcamp.objects.speakersnew;
+package org.wordcamp.objects.speaker;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -24,10 +24,10 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
  * Created by aagam on 8/2/15.
  */
 public class SessionsListAdapter extends BaseAdapter implements StickyListHeadersAdapter {
-    public List<SessionDB> list;
-    public Context ctx;
-    public LayoutInflater inflater;
-    public OnAddToMySessionListener listener;
+    private List<SessionDB> list;
+    private Context ctx;
+    private LayoutInflater inflater;
+    private OnAddToMySessionListener listener;
 
     public SessionsListAdapter(Context ctx, List<SessionDB> dbList, OnAddToMySessionListener listener) {
         this.ctx = ctx;
@@ -150,8 +150,8 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
     }
 
     public interface OnAddToMySessionListener {
-        public void addMySession(SessionDB db);
-        public void removeMySession(SessionDB db);
+        void addMySession(SessionDB db);
+        void removeMySession(SessionDB db);
     }
 
 }

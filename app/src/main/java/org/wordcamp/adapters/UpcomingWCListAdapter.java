@@ -131,9 +131,9 @@ public class UpcomingWCListAdapter extends BaseAdapter implements Filterable {
     }
 
     public interface WCListener {
-        public int addToMyWC(int wcid, int position);
+        int addToMyWC(int wcid, int position);
 
-        public void removeMyWC(int wcid, int position);
+        void removeMyWC(int wcid, int position);
     }
 
     private class WordCampsFilter extends Filter {

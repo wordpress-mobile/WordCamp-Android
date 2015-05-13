@@ -18,13 +18,12 @@ public class ImageUtils {
     public static int getAspectRatio(Context ctx){
         WindowManager wm = (WindowManager) ctx.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
-        int width=0;
+        int width;
 
         if (android.os.Build.VERSION.SDK_INT >= 13){
             Point size = new Point();
             display.getSize(size);
             width = size.x;
-
         }
         else{
             width = display.getWidth();

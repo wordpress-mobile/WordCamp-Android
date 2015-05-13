@@ -3,6 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:background="#fff"
     android:paddingLeft="16dp"
+    android:paddingStart="16dp"
     android:layout_height="48dp">
     <TextView
         android:layout_centerVertical="true"

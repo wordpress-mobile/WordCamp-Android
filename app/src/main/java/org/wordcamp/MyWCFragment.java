@@ -25,17 +25,16 @@ import java.util.Comparator;
 import java.util.List;
 
 public class MyWCFragment extends android.support.v4.app.Fragment implements MyWCListAdapter.OnDeleteListener {
-    public ListView myWCLists;
-    public List<WordCampDB> wordCampDBs;
-    public List<WordCampDB> myWordCampDBs;
+    private ListView myWCLists;
+    private List<WordCampDB> wordCampDBs;
+    private List<WordCampDB> myWordCampDBs;
     public DBCommunicator communicator;
     public MyWCListAdapter adapter;
-    public List<Integer> deleteItems = new ArrayList<>();
+    private List<Integer> deleteItems = new ArrayList<>();
     private SwipeRefreshLayout refreshLayout;
 
-    public static MyWCFragment newInstance(String param1, String param2) {
-        MyWCFragment fragment = new MyWCFragment();
-        return fragment;
+    public static MyWCFragment newInstance() {
+        return new MyWCFragment();
     }
 
     public MyWCFragment() {
@@ -123,7 +122,7 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
         myWCLists.setAdapter(adapter);
     }
 
-    public void sortAndModifyMyWC() {
+    private void sortAndModifyMyWC() {
         myWordCampDBs = new ArrayList<>();
         for (int i = 0; i < wordCampDBs.size(); i++) {
             if (wordCampDBs.get(i).isMyWC) {
@@ -133,7 +132,7 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
         sort();
     }
 
-    public void sort() {
+    private void sort() {
         Collections.sort(myWordCampDBs, new Comparator<WordCampDB>() {
             @Override
             public int compare(WordCampDB lhs, WordCampDB rhs) {
@@ -153,7 +152,6 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
 
     @Override
     public void removeWC() {
-        Gson gson = new Gson();
         List<Integer> removedWCIDs = new ArrayList<>();
         Collections.sort(deleteItems);
         for (int i = deleteItems.size() - 1; i >= 0; i--) {

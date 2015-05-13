@@ -12,8 +12,7 @@ import org.wordcamp.objects.MiniSpeaker;
 import org.wordcamp.objects.SessionDB;
 import org.wordcamp.objects.SpeakerDB;
 import org.wordcamp.objects.WordCampDB;
-import org.wordcamp.objects.session.Session;
-import org.wordcamp.objects.speakersnew.SpeakerNew;
+import org.wordcamp.objects.speaker.SpeakerNew;
 import org.wordcamp.objects.wordcamp.WordCamps;
 import org.wordcamp.utils.WordCampUtils;
 
@@ -28,12 +27,12 @@ import java.util.List;
  */
 public class DBCommunicator {
 
-    public Context context;
-    public WCSQLiteHelper helper;
-    public SQLiteDatabase db;
+    private Context context;
+    private WCSQLiteHelper helper;
+    private SQLiteDatabase db;
 
 
-    public Gson gson;
+    private Gson gson;
 
     public DBCommunicator(Context ctx) {
         context = ctx;
@@ -53,12 +52,10 @@ public class DBCommunicator {
             contentValues.put("url", wc.getUrl());
             contentValues.put("twitter", wc.getTwitter());
             contentValues.put("featuredImageUrl", wc.getFeatureImageUrl());
-
             contentValues.put("venue", wc.getVenue());
             contentValues.put("location", wc.getLocation());
             contentValues.put("address", wc.getAddress());
             contentValues.put("about", wc.getAbout());
-
 
             long id = db.insert(WCSQLiteHelper.TABLE_WC, null, contentValues);
 
@@ -73,7 +70,6 @@ public class DBCommunicator {
 
     public void updateWC(WordCamps wc) {
         ContentValues contentValues = new ContentValues();
-//        contentValues.put("wcid",wc.getID());
         contentValues.put("title", wc.getTitle());
         contentValues.put("fromdate", wc.getFoo().getStartDateYYYYMmDd().get(0));
         contentValues.put("todate", wc.getFoo().getEndDateYYYYMmDd().get(0));
@@ -134,7 +130,7 @@ public class DBCommunicator {
         contentValues.put("speaker_id", sk.getID());
         contentValues.put("gsonobject", gson.toJson(sk));
         contentValues.put("gravatar", sk.getAvatar().equals("") ? "null" :
-                sk.getAvatar().substring(0, sk.getAvatar().length() - 5)+"?s=120");
+                sk.getAvatar().substring(0, sk.getAvatar().length() - 5) + "?s=120");
 
         long id = db.insert("speaker", null, contentValues);
 
@@ -149,9 +145,9 @@ public class DBCommunicator {
         return id;
     }
 
-    private void addSessionFromSpeaker(List<org.wordcamp.objects.speakersnew.Session> sessions, int spid, int wcid) {
+    private void addSessionFromSpeaker(List<org.wordcamp.objects.speaker.Session> sessions, int spid, int wcid) {
         for (int i = 0; i < sessions.size(); i++) {
-            org.wordcamp.objects.speakersnew.Session ss = sessions.get(i);
+            org.wordcamp.objects.speaker.Session ss = sessions.get(i);
 
             HashMap<String, String> map = WordCampUtils.getTimeAndTypeSession(ss);
 
@@ -192,7 +188,7 @@ public class DBCommunicator {
     }
 
 
-    public long addSession(org.wordcamp.objects.speakersnew.Session ss, int wcid) {
+    public long addSession(org.wordcamp.objects.speaker.Session ss, int wcid) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("wcid", wcid);
         contentValues.put("title", ss.getTitle());
@@ -224,24 +220,6 @@ public class DBCommunicator {
         } else {
             return -1;
         }
-    }
-
-    private void mapSessionToSpeaker(int wcid, int sessionid, List<String> speakerIDs) {
-
-        for (int i = 0; i < speakerIDs.size(); i++) {
-
-            if (!speakerIDs.get(i).isEmpty()) {
-                ContentValues values = new ContentValues();
-                values.put("wcid", wcid);
-                values.put("sessionid", sessionid);
-                values.put("speakerid", Integer.parseInt(speakerIDs.get(i)));
-
-                long id = db.insertWithOnConflict("speakersessions", null, values, SQLiteDatabase.CONFLICT_REPLACE);
-
-                Log.e("insert", " " + id);
-            }
-        }
-
     }
 
     public WordCampDB getWC(int id) {
@@ -297,13 +275,6 @@ public class DBCommunicator {
                     String location = cursor.getString(12);
                     String about = cursor.getString(13);
 
-
-
-                    /*contentValues.put("venue", wc.getVenue());
-                    contentValues.put("location", wc.getLocation());
-                    contentValues.put("address", wc.getAddress());*/
-
-
                     wordCampDBList.add(new WordCampDB(id, title, from, to, lastscanned,
                             data, url, featuredImage, isMyWC != 0, twitter, address, venue, location, about));
                 } while (cursor.moveToNext());
@@ -331,7 +302,6 @@ public class DBCommunicator {
             cursor.moveToFirst();
             int wcid = cursor.getInt(0);
             String name = cursor.getString(1);
-            int speakerid = cursor.getInt(2);
             String speakerbio = cursor.getString(3);
             int postid = cursor.getInt(4);
             String featuredimg = cursor.getString(5);
@@ -345,10 +315,6 @@ public class DBCommunicator {
         return null;
     }
 
-    public static final String DB_CREATE_SPEAKER = "create table speaker ( wcid integer, name text, " +
-            "speaker_id int, speaker_bio text, postid int, featuredimage text, lastscannedgmt text," +
-            " gsonobject text); ";
-
     public List<SpeakerDB> getAllSpeakers(int wcid) {
         Cursor cursor = db.rawQuery("SELECT * FROM speaker WHERE wcid=" + wcid, null);
 
@@ -359,7 +325,6 @@ public class DBCommunicator {
                 do {
 
                     String name = cursor.getString(1);
-                    int speakerid = cursor.getInt(2);
                     String speakerbio = cursor.getString(3);
                     int postid = cursor.getInt(4);
                     String featuredimg = cursor.getString(5);
@@ -391,10 +356,9 @@ public class DBCommunicator {
             String gson = cursor.getString(7);
             boolean isMySession = cursor.getInt(8) == 1;
 
+            cursor.close();
             return new SessionDB(wcid, id, title, time, lastscan, location, category, gson, isMySession);
         }
-
-
         return null;
     }
 
@@ -427,9 +391,7 @@ public class DBCommunicator {
                     }
                 });
                 return sessionDBList;
-
             }
-
         }
         return sessionDBList;
     }

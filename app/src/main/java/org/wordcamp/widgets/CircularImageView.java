@@ -13,7 +13,6 @@ import android.widget.ImageView;
 
 public class CircularImageView extends ImageView {
     private int canvasSize;
-    private Bitmap image;
     private Paint paint;
 
     public CircularImageView(final Context context) {
@@ -33,7 +32,7 @@ public class CircularImageView extends ImageView {
 
     @Override
     public void onDraw(Canvas canvas) {
-        image = drawableToBitmap(getDrawable());
+        Bitmap image = drawableToBitmap(getDrawable());
         if (image != null) {
 
             canvasSize = canvas.getWidth();
@@ -71,7 +70,7 @@ public class CircularImageView extends ImageView {
     }
 
     private int measureHeight(int measureSpecHeight) {
-        int result = 0;
+        int result;
         int specMode = MeasureSpec.getMode(measureSpecHeight);
         int specSize = MeasureSpec.getSize(measureSpecHeight);
 
@@ -86,7 +85,7 @@ public class CircularImageView extends ImageView {
         return (result + 2);
     }
 
-    public Bitmap drawableToBitmap(Drawable drawable) {
+    private Bitmap drawableToBitmap(Drawable drawable) {
         if (drawable == null) {
             return null;
         } else if (drawable instanceof BitmapDrawable) {

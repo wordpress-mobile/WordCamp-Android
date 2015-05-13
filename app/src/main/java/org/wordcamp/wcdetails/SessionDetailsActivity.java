@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -31,17 +32,17 @@ import java.util.HashMap;
 /**
  * Created by aagam on 12/2/15.
  */
-public class SessionDetailsActivity extends ActionBarActivity {
+public class SessionDetailsActivity extends AppCompatActivity {
 
-    public SessionDB sessionDB;
-    public TextView title, info, speakers, time;
-    public Toolbar toolbar;
-    public org.wordcamp.objects.speakersnew.Session session;
-    public Gson gson;
-    public ArrayList<MiniSpeaker> speakerList;
-    public ListView speakersListView;
-    public DBCommunicator communicator;
-    public FavoriteSession fav;
+    private SessionDB sessionDB;
+    private TextView title, info, speakers, time;
+    private Toolbar toolbar;
+    public org.wordcamp.objects.speaker.Session session;
+    private Gson gson;
+    private ArrayList<MiniSpeaker> speakerList;
+    private ListView speakersListView;
+    private DBCommunicator communicator;
+    private FavoriteSession fav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class SessionDetailsActivity extends ActionBarActivity {
 
     private void initGUI() {
         gson = new Gson();
-        session = gson.fromJson(sessionDB.getGson_object(), org.wordcamp.objects.speakersnew.Session.class);
+        session = gson.fromJson(sessionDB.getGson_object(), org.wordcamp.objects.speaker.Session.class);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);

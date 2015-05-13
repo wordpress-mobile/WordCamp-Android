@@ -24,7 +24,7 @@ import org.wordcamp.adapters.WCDetailAdapter;
 import org.wordcamp.db.DBCommunicator;
 import org.wordcamp.networking.WPAPIClient;
 import org.wordcamp.objects.WordCampDB;
-import org.wordcamp.objects.speakersnew.SpeakerNew;
+import org.wordcamp.objects.speaker.SpeakerNew;
 import org.wordcamp.objects.wordcamp.WordCamps;
 import org.wordcamp.utils.ImageUtils;
 import org.wordcamp.utils.WordCampUtils;
@@ -84,26 +84,10 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
         slidingTabLayout.setViewPager(mPager);
 
         toolbar.setTitle(wcdb.getWc_title());
-        setToolBarEllisize();
         toolbar.setSubtitle(WordCampUtils.getProperDate(wcdb));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-    }
-
-    private void setToolBarEllisize() {
-        TextView titleTextView = null;
-
-        try {
-            Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
-            f.setAccessible(true);
-            titleTextView = (TextView) f.get(toolbar);
-            titleTextView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -194,7 +178,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
                 Gson gson = new Gson();
                 for (int i = 0; i < response.length(); i++) {
                     try {
-                        org.wordcamp.objects.speakersnew.Session session = gson.fromJson(response.getJSONObject(i).toString(), org.wordcamp.objects.speakersnew.Session.class);
+                        org.wordcamp.objects.speaker.Session session = gson.fromJson(response.getJSONObject(i).toString(), org.wordcamp.objects.speaker.Session.class);
                         if (communicator != null) {
                             communicator.addSession(session, wcid);
                         }

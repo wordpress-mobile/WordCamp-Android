@@ -6,7 +6,9 @@
     <LinearLayout
         android:orientation="vertical"
         android:paddingLeft="16dp"
+        android:paddingStart="16dp"
         android:layout_marginRight="56dp"
+        android:layout_marginEnd="56dp"
         android:layout_centerVertical="true"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
@@ -34,6 +36,7 @@
     </LinearLayout>
     <ImageView
         android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:padding="15dp"
         android:id="@+id/favorite"
