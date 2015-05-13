@@ -25,7 +25,7 @@ import org.wordcamp.db.DBCommunicator;
 import org.wordcamp.networking.WPAPIClient;
 import org.wordcamp.objects.WordCampDB;
 import org.wordcamp.objects.speaker.SpeakerNew;
-import org.wordcamp.objects.wordcamp.WordCamps;
+import org.wordcamp.objects.wordcampnew.WordCampNew;
 import org.wordcamp.utils.ImageUtils;
 import org.wordcamp.utils.WordCampUtils;
 import org.wordcamp.wcdetails.SessionsFragment;
@@ -33,13 +33,11 @@ import org.wordcamp.wcdetails.SpeakerFragment;
 import org.wordcamp.wcdetails.WordCampOverview;
 import org.wordcamp.widgets.SlidingTabLayout;
 
-import java.lang.reflect.Field;
-
 /**
  * Created by aagam on 26/1/15.
  */
 public class WordCampDetailActivity extends AppCompatActivity implements SessionsFragment.SessionFragmentListener,
-        SpeakerFragment.SpeakerFragmentListener {
+        SpeakerFragment.SpeakerFragmentListener, WordCampOverview.WordCampOverviewListener {
 
     public WCDetailAdapter adapter;
     public Toolbar toolbar;
@@ -140,12 +138,15 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 Gson g = new Gson();
-                WordCamps wc = g.fromJson(response.toString(), WordCamps.class);
-                communicator.updateWC(wc);
+                WordCampNew wc = g.fromJson(response.toString(), WordCampNew.class);
+                WordCampDB wordCampDB = new WordCampDB(wc, "");
+                communicator.updateWC(wordCampDB);
 
                 WordCampOverview overview = getOverViewFragment();
                 if (overview != null) {
-                    overview.updateData(wc);
+                    overview.updateData(wordCampDB);
+                    Toast.makeText(getApplicationContext(), "Updated overview", Toast.LENGTH_SHORT).show();
+
                 }
             }
 
@@ -153,19 +154,28 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
-                //Don't know why response is received here sometimes
-
-                if (errorResponse != null) {
-                    Gson g = new Gson();
-                    WordCamps wc = g.fromJson(errorResponse.toString(), WordCamps.class);
-                    communicator.updateWC(wc);
-
-                    WordCampOverview overview = getOverViewFragment();
-                    if (overview != null) {
-                        overview.updateData(wc);
-                    }
+                WordCampOverview overview = getOverViewFragment();
+                if (overview != null) {
+                    overview.stopRefreshOverview();
                 }
-                Toast.makeText(getApplicationContext(), "Updated overview", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                WordCampOverview overview = getOverViewFragment();
+                if (overview != null) {
+                    overview.stopRefreshOverview();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                WordCampOverview overview = getOverViewFragment();
+                if (overview != null) {
+                    overview.stopRefreshOverview();
+                }
             }
         });
     }
@@ -351,5 +361,10 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
         fetchSessionsAPI(webURL);
         fetchSpeakersAPI(webURL);
         getSessionsFragment().startRefreshingBar();
+    }
+
+    @Override
+    public void refreshOverview() {
+        fetchOverviewAPI();
     }
 }

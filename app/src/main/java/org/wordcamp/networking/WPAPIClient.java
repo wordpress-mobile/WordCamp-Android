@@ -56,10 +56,8 @@ public class WPAPIClient {
     }
 
     public static void getSingleWC(Context ctx, int wcid, AsyncHttpResponseHandler responseHandler) {
-        RequestParams params = new RequestParams();
-        params.add("url", QUERY_PARAM_SINGLEWC + "" + wcid);
         client.setEnableRedirects(true, true, true);
-        client.get(ctx, LOCAL, params, responseHandler);
+        client.get(ctx, QUERY_PARAM_SINGLEWC+""+wcid, responseHandler);
     }
 
     public static void cancelAllRequests(Context ctx) {

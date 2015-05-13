@@ -13,7 +13,6 @@ import org.wordcamp.objects.SessionDB;
 import org.wordcamp.objects.SpeakerDB;
 import org.wordcamp.objects.WordCampDB;
 import org.wordcamp.objects.speaker.SpeakerNew;
-import org.wordcamp.objects.wordcamp.WordCamps;
 import org.wordcamp.utils.WordCampUtils;
 
 import java.util.ArrayList;
@@ -68,20 +67,23 @@ public class DBCommunicator {
         }
     }
 
-    public void updateWC(WordCamps wc) {
+    public void updateWC(WordCampDB wc) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put("title", wc.getTitle());
-        contentValues.put("fromdate", wc.getFoo().getStartDateYYYYMmDd().get(0));
-        contentValues.put("todate", wc.getFoo().getEndDateYYYYMmDd().get(0));
-        contentValues.put("gsonobject", gson.toJson(wc, WordCamps.class));
-        if (wc.getFoo().getURL().size() > 0)
-            contentValues.put("url", wc.getFoo().getURL().get(0));
 
-        if (wc.getFeaturedImage() != null) {
-            contentValues.put("featuredImageUrl", wc.getFeaturedImage().getSource());
-        }
+        contentValues.put("title", wc.getWc_title());
+        contentValues.put("fromdate", wc.getWc_start_date());
+        contentValues.put("todate", wc.getWc_end_date());
+        contentValues.put("gsonobject", wc.getGson_object());
+        contentValues.put("url", wc.getUrl());
+        contentValues.put("twitter", wc.getTwitter());
+        contentValues.put("featuredImageUrl", wc.getFeatureImageUrl());
+        contentValues.put("venue", wc.getVenue());
+        contentValues.put("location", wc.getLocation());
+        contentValues.put("address", wc.getAddress());
+        contentValues.put("about", wc.getAbout());
+
         db.update("wordcamp", contentValues, " wcid = ?",
-                new String[]{String.valueOf(wc.getID())});
+                new String[]{String.valueOf(wc.getWc_id())});
     }
 
     public int addToMyWC(int wcid) {
