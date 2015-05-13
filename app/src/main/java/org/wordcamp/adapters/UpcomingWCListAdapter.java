@@ -81,27 +81,26 @@ public class UpcomingWCListAdapter extends BaseAdapter implements Filterable {
         holder.date.setText(WordCampUtils.getProperDate(wc));
         if (wc.isMyWC) {
             Picasso.with(ctx).load(R.drawable.ic_bookmark_grey600_24dp).into(holder.bookmark);
-            holder.bookmark.setEnabled(false);
         } else {
             Picasso.with(ctx).load(R.drawable.ic_bookmark_outline_grey600_24dp).into(holder.bookmark);
-            holder.bookmark.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!wc.isMyWC) {
-                        listener.addToMyWC(wc.getWc_id(), position);
-                        Picasso.with(ctx).load(R.drawable.ic_bookmark_grey600_24dp).into(holder.bookmark);
-                        wc.isMyWC = true;
-                        filteredWordCamps.set(position, wc);
-                    } else {
-                        listener.removeMyWC(wc.getWc_id(), position);
-                        Picasso.with(ctx).load(R.drawable.ic_bookmark_outline_grey600_24dp).into(holder.bookmark);
-                        wc.isMyWC = false;
-                        filteredWordCamps.set(position, wc);
-                    }
-                }
-            });
         }
 
+        holder.bookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!wc.isMyWC) {
+                    listener.addToMyWC(wc.getWc_id(), position);
+                    Picasso.with(ctx).load(R.drawable.ic_bookmark_grey600_24dp).into(holder.bookmark);
+                    wc.isMyWC = true;
+                    filteredWordCamps.set(position, wc);
+                } else {
+                    listener.removeMyWC(wc.getWc_id(), position);
+                    Picasso.with(ctx).load(R.drawable.ic_bookmark_outline_grey600_24dp).into(holder.bookmark);
+                    wc.isMyWC = false;
+                    filteredWordCamps.set(position, wc);
+                }
+            }
+        });
         //Currently featured image will always be null due to bug in API
         /*if(wc.featureImageUrl!=null && !wc.featureImageUrl.equals(""))
             Picasso.with(ctx).load(wc.featureImageUrl).into(holder.icon);*/
