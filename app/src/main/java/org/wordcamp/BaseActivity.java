@@ -267,6 +267,7 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
     @Override
     public boolean onQueryTextChange(String newText) {
         getUpcomingFragment().adapter.getFilter().filter(newText);
+        getMyWCFragment().adapter.getFilter().filter(newText);
         return true;
     }
 

@@ -45,9 +45,9 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        communicator = ((BaseActivity)getActivity()).communicator;
-        wordCampDBs = ((BaseActivity)getActivity()).wordCampsList;
-        if(wordCampDBs!=null) {
+        communicator = ((BaseActivity) getActivity()).communicator;
+        wordCampDBs = ((BaseActivity) getActivity()).wordCampsList;
+        if (wordCampDBs != null) {
             sortAndModifyMyWC();
         }
     }
@@ -62,18 +62,18 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Activity parentActivity = getActivity();
-        View v =  inflater.inflate(R.layout.fragment_upcoming_wc, container, false);
-        myWCLists = (ListView)v.findViewById(R.id.scroll);
-        adapter = new MyWCListAdapter(myWordCampDBs,parentActivity,this);
+        View v = inflater.inflate(R.layout.fragment_upcoming_wc, container, false);
+        myWCLists = (ListView) v.findViewById(R.id.scroll);
+        adapter = new MyWCListAdapter(myWordCampDBs, parentActivity, this);
         myWCLists.setAdapter(adapter);
 
-        refreshLayout = (SwipeRefreshLayout)v.findViewById(R.id.swipe_refresh_layout);
+        refreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
         refreshLayout.setColorSchemeColors(Color.parseColor("#3F51B5"),
-                Color.parseColor("#FF4081"),Color.parseColor("#9C27B0"));
+                Color.parseColor("#FF4081"), Color.parseColor("#9C27B0"));
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                ((BaseActivity)getActivity()).onRefreshStart();
+                ((BaseActivity) getActivity()).onRefreshStart();
             }
         });
 
@@ -81,12 +81,12 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if(!deleteItems.contains(position)){
+                if (!deleteItems.contains(position)) {
                     Intent i = new Intent(getActivity(), WordCampDetailActivity.class);
-                    i.putExtra("wc", myWordCampDBs.get(position));
+                    i.putExtra("wc", adapter.getItem(position));
                     startActivity(i);
-                } else{
-                    MyWCListAdapter.ViewHolder holder = (MyWCListAdapter.ViewHolder)view.getTag();
+                } else {
+                    MyWCListAdapter.ViewHolder holder = (MyWCListAdapter.ViewHolder) view.getTag();
                     deleteItems.remove(Integer.valueOf(position));
                     holder.delete.setVisibility(View.GONE);
 
@@ -98,10 +98,10 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 adapter.notifyDataSetChanged();
-                MyWCListAdapter.ViewHolder holder = (MyWCListAdapter.ViewHolder)view.getTag();
+                MyWCListAdapter.ViewHolder holder = (MyWCListAdapter.ViewHolder) view.getTag();
                 holder.delete.setVisibility(View.VISIBLE);
 
-                if(!deleteItems.contains(position)){
+                if (!deleteItems.contains(position)) {
                     deleteItems.add(position);
                 }
                 return true;
@@ -111,28 +111,28 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
         return v;
     }
 
-    public void stopRefresh(){
+    public void stopRefresh() {
         refreshLayout.setRefreshing(false);
     }
 
     public void updateList(List<WordCampDB> wordCampsList) {
         wordCampDBs = wordCampsList;
         sortAndModifyMyWC();
-        adapter = new MyWCListAdapter(myWordCampDBs,getActivity(),this);
+        adapter = new MyWCListAdapter(myWordCampDBs, getActivity(), this);
         myWCLists.setAdapter(adapter);
     }
 
-    public void sortAndModifyMyWC(){
+    public void sortAndModifyMyWC() {
         myWordCampDBs = new ArrayList<>();
         for (int i = 0; i < wordCampDBs.size(); i++) {
-            if(wordCampDBs.get(i).isMyWC){
+            if (wordCampDBs.get(i).isMyWC) {
                 myWordCampDBs.add(wordCampDBs.get(i));
             }
         }
         sort();
     }
 
-    public void sort(){
+    public void sort() {
         Collections.sort(myWordCampDBs, new Comparator<WordCampDB>() {
             @Override
             public int compare(WordCampDB lhs, WordCampDB rhs) {
@@ -146,7 +146,7 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
     public void addWC(WordCampDB wordCampDB) {
         myWordCampDBs.add(wordCampDB);
         sort();
-        adapter = new MyWCListAdapter(myWordCampDBs,getActivity(),this);
+        adapter = new MyWCListAdapter(myWordCampDBs, getActivity(), this);
         myWCLists.setAdapter(adapter);
     }
 
@@ -155,28 +155,28 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
         Gson gson = new Gson();
         List<Integer> removedWCIDs = new ArrayList<>();
         Collections.sort(deleteItems);
-        for (int i = deleteItems.size()-1; i >=0; i--) {
+        for (int i = deleteItems.size() - 1; i >= 0; i--) {
             WordCampDB db = myWordCampDBs.get(deleteItems.get(i));
             removedWCIDs.add(db.getWc_id());
-            myWordCampDBs.remove((int)deleteItems.get(i));
-            if(!db.getTwitter().isEmpty()){
+            myWordCampDBs.remove((int) deleteItems.get(i));
+            if (!db.getTwitter().isEmpty()) {
                 ParsePush.unsubscribeInBackground(db.getTwitter().replace("#", ""));
             }
         }
         deleteItems = new ArrayList<>();
         communicator.removeFromMyWC(removedWCIDs);
-        adapter = new MyWCListAdapter(myWordCampDBs,getActivity(),this);
+        adapter = new MyWCListAdapter(myWordCampDBs, getActivity(), this);
         myWCLists.setAdapter(adapter);
-        ((BaseActivity)getActivity()).refreshUpcomingFrag();
+        ((BaseActivity) getActivity()).refreshUpcomingFrag();
 
     }
 
-    public void removeSingleMYWC(WordCampDB wordCampDB){
+    public void removeSingleMYWC(WordCampDB wordCampDB) {
         wordCampDBs = communicator.getAllWc();
-        if(wordCampDBs!=null) {
+        if (wordCampDBs != null) {
             sortAndModifyMyWC();
         }
-        adapter = new MyWCListAdapter(myWordCampDBs,getActivity(),this);
+        adapter = new MyWCListAdapter(myWordCampDBs, getActivity(), this);
         myWCLists.setAdapter(adapter);
     }
 
