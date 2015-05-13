@@ -5,9 +5,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
-import com.google.gson.Gson;
 
 import org.wordcamp.objects.SessionDB;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Created by aagam on 10/3/15.
@@ -15,23 +18,28 @@ import org.wordcamp.objects.SessionDB;
 public class FavoriteSession {
 
     private Context context;
-    private Gson gson;
 
-    public FavoriteSession(Context context){
+    public FavoriteSession(Context context) {
         this.context = context;
-        gson  = new Gson();
     }
 
-    public void favoriteSession(SessionDB session){
-        long halfHour = session.getTime() - (30000 * 60);
-        if (halfHour < System.currentTimeMillis()) {
+    public void favoriteSession(SessionDB session) {
+        Calendar calendar = Calendar.getInstance();
+        long s = ((long) session.getTime()) * 1000;
+        Date d = new Date(s);
+        calendar.setTime(d);
+        calendar.setTimeZone(TimeZone.getTimeZone("GMT"));
+        calendar.add(Calendar.MINUTE, -30);
+        Date now = new Date();
+
+        if (now.after(d)) {
             return;
         }
 
         AlarmManager manager = (AlarmManager) context
                 .getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = getPendingIntent(session);
-        manager.set(AlarmManager.RTC_WAKEUP, halfHour, pendingIntent);
+        manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
     }
 
     /**
@@ -39,8 +47,8 @@ public class FavoriteSession {
      */
     private PendingIntent getPendingIntent(SessionDB ss) {
         Intent intent = new Intent();
-        intent.putExtra("postid",ss.getPost_id());
-        intent.putExtra("wcid",ss.getWc_id());
+        intent.putExtra("postid", ss.getPost_id());
+        intent.putExtra("wcid", ss.getWc_id());
         intent.setClass(context, SessionNotifierReceiver.class);
         return PendingIntent.getBroadcast(context, 0, intent,
                 PendingIntent.FLAG_ONE_SHOT);

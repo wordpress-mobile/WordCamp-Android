@@ -25,9 +25,7 @@ import java.util.HashMap;
 /**
  * Created by aagam on 10/3/15.
  */
-public class SessionNotifierReceiver extends BroadcastReceiver{
-
-    private static final long[] VIBRATION = { 0, 250, 450 };
+public class SessionNotifierReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -37,13 +35,13 @@ public class SessionNotifierReceiver extends BroadcastReceiver{
         DBCommunicator dbc = new DBCommunicator(context);
         dbc.start();
         SessionDB sdb = dbc.getSession(wcid, postid);
-        final HashMap<String,MiniSpeaker> names = dbc.getSpeakersForSession(wcid,postid);
+        final HashMap<String, MiniSpeaker> names = dbc.getSpeakersForSession(wcid, postid);
         ArrayList<String> speakerList = new ArrayList<>(names.keySet());
         WordCampDB wordCampDB = dbc.getWC(wcid);
 
         dbc.close();
 
-        showStartNotification(sdb,context,speakerList,wordCampDB);
+        showStartNotification(sdb, context, speakerList, wordCampDB);
 
     }
 
@@ -51,8 +49,8 @@ public class SessionNotifierReceiver extends BroadcastReceiver{
         Intent sessionDetailIntent = new Intent(context, SessionDetailsActivity.class);
         sessionDetailIntent.putExtra("session", session);
 
-        Intent wcDetailIntent  = new Intent(context, WordCampDetailActivity.class);
-        wcDetailIntent.putExtra("wc",wordCampDB);
+        Intent wcDetailIntent = new Intent(context, WordCampDetailActivity.class);
+        wcDetailIntent.putExtra("wc", wordCampDB);
 
         Intent home = new Intent(context, BaseActivity.class);
 
@@ -61,19 +59,19 @@ public class SessionNotifierReceiver extends BroadcastReceiver{
         stackBuilder.addNextIntent(wcDetailIntent);
         stackBuilder.addNextIntent(sessionDetailIntent);
 
-        PendingIntent talkPendingIntent = stackBuilder.getPendingIntent(0,
-                PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent talkPendingIntent = stackBuilder.getPendingIntent(session.getPost_id(),
+                PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder.setSmallIcon(R.drawable.ic_favorite_white_36dp);
         builder.setContentTitle(Html.fromHtml(session.getTitle()));
-        if(session.getLocation()!=null){
+        if (session.getLocation() != null) {
             builder.setContentText("Starts in 30 minutes in " + session.getLocation());
-        } else{
+        } else {
             builder.setContentText("Starts in 30 minutes");
         }
-        if(speakerList.size()>1)
-            builder.setContentInfo(speakerList.get(0)+" & "+ (speakerList.size()-1) +" more");
+        if (speakerList.size() > 1)
+            builder.setContentInfo(speakerList.get(0) + " & " + (speakerList.size() - 1) + " more");
         else
             builder.setContentInfo(speakerList.get(0));
         builder.setContentIntent(talkPendingIntent);
