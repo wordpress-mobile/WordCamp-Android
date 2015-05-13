@@ -246,7 +246,9 @@ public class SpeakerDetailsActivity extends ActionBarActivity {
             mCurrentAnimator.cancel();
         }
 
-        Picasso.with(this).load(speakerDB.getGravatar() + "?s=400").noPlaceholder().into(zoomImageView);
+        String largeGravatarUrl = speakerDB.getGravatar()
+                .substring(0, speakerDB.getGravatar().length() - 6) + "?s=500";
+        Picasso.with(this).load(largeGravatarUrl).noPlaceholder().into(zoomImageView);
 
         container = findViewById(R.id.layout_zoom);
         startBounds = new Rect();

@@ -23,5 +23,6 @@
     <string name="wc_location">Location</string>
     <string name="action_search">Search WordCamps</string>
     <string name="search_wc_hint">Search WordCamps</string>
+    <string name="empty_mywordcamps">No WordCamps added yet</string>
 
 </resources>

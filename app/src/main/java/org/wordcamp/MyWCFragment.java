@@ -62,8 +62,9 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Activity parentActivity = getActivity();
-        View v = inflater.inflate(R.layout.fragment_upcoming_wc, container, false);
+        View v = inflater.inflate(R.layout.fragment_my_wc, container, false);
         myWCLists = (ListView) v.findViewById(R.id.scroll);
+        myWCLists.setEmptyView(v.findViewById(R.id.empty_view));
         adapter = new MyWCListAdapter(myWordCampDBs, parentActivity, this);
         myWCLists.setAdapter(adapter);
 
