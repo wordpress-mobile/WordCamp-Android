@@ -26,7 +26,6 @@ import java.util.List;
  */
 public class DBCommunicator {
 
-    private Context context;
     private WCSQLiteHelper helper;
     private SQLiteDatabase db;
 
@@ -34,8 +33,7 @@ public class DBCommunicator {
     private Gson gson;
 
     public DBCommunicator(Context ctx) {
-        context = ctx;
-        helper = new WCSQLiteHelper(context);
+        helper = new WCSQLiteHelper(ctx);
         gson = new Gson();
     }
 
@@ -56,7 +54,7 @@ public class DBCommunicator {
             contentValues.put("address", wc.getAddress());
             contentValues.put("about", wc.getAbout());
 
-            long id = db.insert(WCSQLiteHelper.TABLE_WC, null, contentValues);
+            long id = db.insertWithOnConflict(WCSQLiteHelper.TABLE_WC, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
 
             if (id == -1) {
                 //update it
@@ -134,7 +132,7 @@ public class DBCommunicator {
         contentValues.put("gravatar", sk.getAvatar().equals("") ? "null" :
                 sk.getAvatar().substring(0, sk.getAvatar().length() - 5) + "?s=120");
 
-        long id = db.insert("speaker", null, contentValues);
+        long id = db.insertWithOnConflict("speaker", null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
 
         if (id == -1) {
             id = db.update("speaker", contentValues, " wcid = ? AND postid = ?",
@@ -166,7 +164,7 @@ public class DBCommunicator {
             contentValues.put("category", map.get("_wcpt_session_type"));
             contentValues.put("gsonobject", gson.toJson(ss));
 
-            long id = db.insert("session", null, contentValues);
+            long id = db.insertWithOnConflict("session", null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
 
             if (id == -1) {
                 contentValues.remove("wcid");
@@ -198,30 +196,26 @@ public class DBCommunicator {
 
         //Currently we are adding the sessions which are not getting fetched by Speakers API
 
-        if (!map.get("_wcpt_session_type").equals("session")) {
 
-            contentValues.put("time", map.get("_wcpt_session_time"));
+        contentValues.put("time", map.get("_wcpt_session_time"));
 
-            contentValues.put("postid", ss.getID());
-            if (ss.getTerms().getWcbTrack().size() == 1)
-                contentValues.put("location", ss.getTerms().getWcbTrack().get(0).getName());
+        contentValues.put("postid", ss.getID());
+        if (ss.getTerms().getWcbTrack().size() == 1)
+            contentValues.put("location", ss.getTerms().getWcbTrack().get(0).getName());
 
-            contentValues.put("category", map.get("_wcpt_session_type"));
-            contentValues.put("gsonobject", gson.toJson(ss));
+        contentValues.put("category", map.get("_wcpt_session_type"));
+        contentValues.put("gsonobject", gson.toJson(ss));
 
-            long id = db.insert("session", null, contentValues);
+        long id = db.insertWithOnConflict("session", null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
 
-            if (id == -1) {
-                contentValues.remove("wcid");
-                contentValues.remove("postid");
-                id = db.update("session", contentValues, " wcid = ? AND postid = ?",
-                        new String[]{String.valueOf(wcid), String.valueOf(ss.getID())});
-            }
-
-            return id;
-        } else {
-            return -1;
+        if (id == -1) {
+            contentValues.remove("wcid");
+            contentValues.remove("postid");
+            id = db.update("session", contentValues, " wcid = ? AND postid = ?",
+                    new String[]{String.valueOf(wcid), String.valueOf(ss.getID())});
         }
+
+        return id;
     }
 
     public WordCampDB getWC(int id) {
