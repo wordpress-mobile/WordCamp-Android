@@ -95,11 +95,11 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
             case R.id.action_attending:
                 if (!wcdb.isMyWC) {
                     int recv = communicator.addToMyWC(wcid);
-                    item.setIcon(R.drawable.ic_star_white_36dp);
+                    item.setIcon(R.drawable.ic_bookmark_white_36dp);
                     wcdb.isMyWC = true;
                 } else {
                     communicator.removeFromMyWCSingle(wcid);
-                    item.setIcon(R.drawable.ic_star_outline_white_36dp);
+                    item.setIcon(R.drawable.ic_bookmark_outline_white_36dp);
                     wcdb.isMyWC = false;
                 }
                 break;
@@ -314,7 +314,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
         getMenuInflater().inflate(R.menu.menu_wc_detail, menu);
         if (wcdb.isMyWC) {
             MenuItem attending = menu.findItem(R.id.action_attending);
-            attending.setIcon(R.drawable.ic_star_white_36dp);
+            attending.setIcon(R.drawable.ic_bookmark_white_36dp);
         }
         return true;
     }
