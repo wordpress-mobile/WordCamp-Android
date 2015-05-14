@@ -18,5 +18,6 @@
     <string name="empty_mywordcamps">No WordCamps added yet</string>
     <string name="speaker_title">Speakers</string>
     <string name="session_title">Sessions</string>
+    <string name="map_directions">Get directions to the venue</string>
 
 </resources>

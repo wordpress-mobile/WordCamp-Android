@@ -3,6 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <se.emilsjolander.stickylistheaders.StickyListHeadersListView
+            android:id="@+id/sessionList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:background="#fff"
+            android:divider="@drawable/divider"
+            android:dividerHeight="1dp"
+            android:overScrollMode="never" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
     <TextView
         android:id="@+id/empty_view"
         android:layout_width="wrap_content"
@@ -12,21 +29,4 @@
         android:textColor="@color/secondary_text_color"
         android:textSize="25sp"
         android:visibility="gone" />
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <se.emilsjolander.stickylistheaders.StickyListHeadersListView
-            android:id="@+id/sessionList"
-            android:background="#fff"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:divider="@drawable/divider"
-            android:dividerHeight="1dp"
-            android:overScrollMode="never" />
-
-    </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>

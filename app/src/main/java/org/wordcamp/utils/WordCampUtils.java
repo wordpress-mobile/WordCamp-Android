@@ -28,20 +28,26 @@ public class WordCampUtils {
     }
 
     public static String getProperDate(WordCampDB wdb) {
-        Date d = new Date(Long.parseLong(wdb.getWc_start_date()) * 1000);
-        Date d1 = new Date(Long.parseLong(wdb.getWc_end_date()) * 1000);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd", Locale.getDefault());
-        SimpleDateFormat sdf1 = new SimpleDateFormat("dd, yyyy", Locale.getDefault());
+        if (!wdb.getWc_end_date().isEmpty()) {
+            Date d = new Date(Long.parseLong(wdb.getWc_start_date()) * 1000);
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd", Locale.getDefault());
+            Date d1 = new Date(Long.parseLong(wdb.getWc_end_date()) * 1000);
+            SimpleDateFormat sdf1 = new SimpleDateFormat("dd, yyyy", Locale.getDefault());
+            return sdf.format(d) + " - " + sdf1.format(d1);
+        } else {
+            Date d = new Date(Long.parseLong(wdb.getWc_start_date()) * 1000);
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
+            return sdf.format(d);
+        }
 
-        return sdf.format(d) + " - " + sdf1.format(d1);
     }
 
     public static String getProperFormatDate(String s) {
 
         Date d1 = new Date(Long.parseLong(s) * 1000);
 
-        SimpleDateFormat sdf1 = new SimpleDateFormat("dd, MMM yyyy",Locale.getDefault());
+        SimpleDateFormat sdf1 = new SimpleDateFormat("dd, MMM yyyy", Locale.getDefault());
 
         return sdf1.format(d1);
     }
@@ -81,7 +87,7 @@ public class WordCampUtils {
         }
         calendar.set(Calendar.MINUTE, minutes);
         d = calendar.getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, HH:mm",Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, HH:mm", Locale.getDefault());
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
         return sdf.format(d);
     }
@@ -93,7 +99,7 @@ public class WordCampUtils {
 
         for (int i = 0; i < wcdb.size(); i++) {
             long startDate = Long.parseLong(wcdb.get(i).getWc_start_date()) * 1000;
-            long diffDate =  (startDate - now) / (1000 * 60 * 60 * 24);
+            long diffDate = (startDate - now) / (1000 * 60 * 60 * 24);
             if (diffDate >= -1 && diffDate < lowestDiff) {
                 lowestDiff = diffDate;
                 counter = i;

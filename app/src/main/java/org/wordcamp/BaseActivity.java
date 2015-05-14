@@ -175,7 +175,7 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
                         }*/
 
                         WordCampDB wordCampDB = new WordCampDB(wcs, lastscanned);
-                        if (!wordCampDB.wc_end_date.isEmpty())
+                        if (!wordCampDB.getWc_start_date().isEmpty())
                             wordCampsList.add(wordCampDB);
 
                     } catch (Exception e) {

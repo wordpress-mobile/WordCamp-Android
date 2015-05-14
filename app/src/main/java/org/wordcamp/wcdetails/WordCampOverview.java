@@ -1,7 +1,9 @@
 package org.wordcamp.wcdetails;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,8 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 
 import org.wordcamp.R;
 import org.wordcamp.WordCampDetailActivity;
@@ -55,21 +55,34 @@ public class WordCampOverview extends Fragment {
 
         wcFeaturedImage = (ImageView) v.findViewById(R.id.featuredImage);
         if (wc.featureImageUrl != null && !wc.featureImageUrl.equals("")) {
-            Picasso.with(getActivity()).load("http://central.wordcamp.org/files/2014/12/Norway.png").placeholder(R.drawable.wcparis).into(wcFeaturedImage);
+//            Picasso.with(getActivity()).load("http://central.wordcamp.org/files/2014/12/Norway.png").placeholder(R.drawable.wcparis).into(wcFeaturedImage);
         }
         location = (TextView) v.findViewById(R.id.wc_location);
-
         setLocationText();
 
         about = (TextView) v.findViewById(R.id.wc_about);
         about.setText(Html.fromHtml(wc.getAbout()));
         v1.getLayoutParams().height = ImageUtils.getAspectRatio(getActivity());
+        View maps = v.findViewById(R.id.maps_cotainer);
+        maps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMaps();
+            }
+        });
         ViewCompat.setElevation(v.findViewById(R.id.centerLayoutDetail), getResources().getDimension(R.dimen.list_elevation));
         return v;
     }
 
+    private void openMaps() {
+        String map = "http://maps.google.com/maps?q="
+                + location.getText().toString().replaceAll("\n", ",");
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(map));
+        startActivity(intent);
+    }
+
     private void setLocationText() {
-        location.setText(wc.getLocation() + "\n" + wc.getVenue() + "\n" + wc.getAddress());
+        location.setText(wc.getVenue() + "\n" + wc.getAddress());
     }
 
     public void startRefreshOverview() {
