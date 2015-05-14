@@ -155,7 +155,7 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
         List<Integer> removedWCIDs = new ArrayList<>();
         Collections.sort(deleteItems);
         for (int i = deleteItems.size() - 1; i >= 0; i--) {
-            WordCampDB db = myWordCampDBs.get(deleteItems.get(i));
+            WordCampDB db = adapter.getItem(deleteItems.get(i));
             removedWCIDs.add(db.getWc_id());
             myWordCampDBs.remove((int) deleteItems.get(i));
             if (!db.getTwitter().isEmpty()) {

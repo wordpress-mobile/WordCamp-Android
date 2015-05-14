@@ -23,7 +23,7 @@
                     android:src="@drawable/wp_icon"
                     android:id="@+id/wcIcon"
                     android:layout_centerVertical="true"
-                    android:padding="4dp"
+                    android:padding="5dp"
                     android:layout_width="56dp"
                     android:layout_height="56dp" />
                 <ImageView

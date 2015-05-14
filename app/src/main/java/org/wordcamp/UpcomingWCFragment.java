@@ -147,7 +147,7 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
     public int addToMyWC(int wcid, int position) {
         int retId = communicator.addToMyWC(wcid);
 
-        WordCampDB wordCampDB = wordCampDBs.get(position);
+        WordCampDB wordCampDB = adapter.getItem(position);
         listener.onNewMyWCAdded(wordCampDB);
 
         if (!wordCampDB.getTwitter().isEmpty()) {
@@ -160,7 +160,7 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
     public void removeMyWC(int wcid, int position) {
         communicator.removeFromMyWCSingle(wcid);
 
-        WordCampDB wordCampDB = wordCampDBs.get(position);
+        WordCampDB wordCampDB = adapter.getItem(position);
         if (!wordCampDB.getTwitter().isEmpty()) {
             ParsePush.unsubscribeInBackground(wordCampDB.getTwitter().replace("#", ""));
         }
