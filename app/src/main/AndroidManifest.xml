@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.wordcamp" >
+    package="org.wordcamp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -11,20 +11,21 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
-    <permission android:protectionLevel="signature"
-        android:name="org.wordcamp.beta.permission.C2D_MESSAGE" />
+    <permission
+        android:name="org.wordcamp.beta.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
     <uses-permission android:name="org.wordcamp.beta.permission.C2D_MESSAGE" />
 
     <application
-        android:allowBackup="true"
         android:name=".MyApplication"
+        android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
-            android:configChanges="screenSize|orientation"
             android:name=".BaseActivity"
-            android:label="@string/app_name" >
+            android:configChanges="screenSize|orientation"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,27 +33,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:configChanges="screenSize|orientation"
             android:name=".WordCampDetailActivity"
-            android:label="@string/app_name" >
+            android:configChanges="screenSize|orientation"
+            android:label="@string/app_name">
 
         </activity>
 
         <activity
-            android:configChanges="screenSize|orientation"
             android:name=".wcdetails.SessionDetailsActivity"
+            android:configChanges="screenSize|orientation"
             android:label="@string/app_name" />
         <activity
-            android:configChanges="screenSize|orientation"
             android:name=".wcdetails.SpeakerDetailsActivity"
-            android:label="@string/app_name" >
+            android:configChanges="screenSize|orientation"
+            android:label="@string/app_name">
 
         </activity>
 
         <activity
-            android:configChanges="screenSize|orientation"
             android:name=".db.DBTester"
-            android:label="@string/app_name" >
+            android:configChanges="screenSize|orientation"
+            android:label="@string/app_name">
 
         </activity>
 
@@ -60,6 +61,7 @@
 
 
         <service android:name="com.parse.PushService" />
+
         <receiver android:name="com.parse.ParseBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -67,7 +69,9 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".networking.CustomGCMReceiver" android:exported="false">
+        <receiver
+            android:name=".networking.CustomGCMReceiver"
+            android:exported="false">
             <intent-filter>
                 <action android:name="org.wordcamp.UPDATES" />
                 <action android:name="com.parse.push.intent.RECEIVE" />
@@ -76,11 +80,13 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name="com.parse.GcmBroadcastReceiver"
+        <receiver
+            android:name="com.parse.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
                 <category android:name="org.wordcamp.beta" />
             </intent-filter>
         </receiver>
