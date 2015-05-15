@@ -354,17 +354,15 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
         //Even we are refreshing sessions,
         // we will fetch Speakers as we get Sessions from there
 
-        if (getSpeakerFragment() != null) {
-            getSpeakerFragment().startRefreshSession();
-        }
+        String webURL = wcdb.getUrl();
+        fetchSessionsAPI(webURL);
+        getSessionsFragment().startRefreshingBar();
     }
 
     @Override
     public void startRefreshSpeakers() {
         String webURL = wcdb.getUrl();
-        fetchSessionsAPI(webURL);
         fetchSpeakersAPI(webURL);
-        getSessionsFragment().startRefreshingBar();
     }
 
     @Override
