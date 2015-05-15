@@ -30,6 +30,7 @@ public class WordCampOverview extends Fragment {
     public ImageView wcFeaturedImage;
     private WordCampOverviewListener listener;
     private SwipeRefreshLayout refreshLayout;
+    private View aboutView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,8 +61,10 @@ public class WordCampOverview extends Fragment {
         location = (TextView) v.findViewById(R.id.wc_location);
         setLocationText();
 
+        aboutView = v.findViewById(R.id.wc_about_header);
         about = (TextView) v.findViewById(R.id.wc_about);
-        about.setText(Html.fromHtml(wc.getAbout()));
+        setAboutText();
+
         v1.getLayoutParams().height = ImageUtils.getAspectRatio(getActivity());
         View maps = v.findViewById(R.id.maps_cotainer);
         maps.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +88,15 @@ public class WordCampOverview extends Fragment {
         location.setText(wc.getVenue() + "\n" + wc.getAddress());
     }
 
+    private void setAboutText() {
+        if (wc.getAbout().isEmpty())
+            aboutView.setVisibility(View.GONE);
+        else {
+            aboutView.setVisibility(View.VISIBLE);
+            about.setText(Html.fromHtml(wc.getAbout()));
+        }
+    }
+
     public void startRefreshOverview() {
         refreshLayout.post(new Runnable() {
             @Override
@@ -102,7 +114,7 @@ public class WordCampOverview extends Fragment {
     public void updateData(WordCampDB wcd) {
         wc = wcd;
         setLocationText();
-        about.setText(Html.fromHtml(wc.getAbout()));
+        setAboutText();
         stopRefreshOverview();
     }
 
