@@ -72,7 +72,7 @@ public class SessionDetailsActivity extends AppCompatActivity {
         info = (TextView) headerView.findViewById(R.id.wc_detail_abstract);
         title.setText(Html.fromHtml(session.getTitle()));
         info.setText(Html.fromHtml(session.getContent()));
-        if (session.getTerms().getWcbTrack().size() == 1) {
+        if (session.getTerms()!=null && session.getTerms().getWcbTrack().size() == 1) {
             time.setText(WordCampUtils.formatProperTime(sessionDB.getTime()) + " in "
                     + session.getTerms().getWcbTrack().get(0).getName());
         } else {

@@ -7,25 +7,26 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.wordcamp.adapters.WCDetailAdapter;
 import org.wordcamp.db.DBCommunicator;
 import org.wordcamp.networking.WPAPIClient;
 import org.wordcamp.objects.WordCampDB;
+import org.wordcamp.objects.speaker.Session;
 import org.wordcamp.objects.speaker.SpeakerNew;
+import org.wordcamp.objects.speaker.Terms;
 import org.wordcamp.objects.wordcampnew.WordCampNew;
+import org.wordcamp.utils.CustomGsonDeSerializer;
 import org.wordcamp.utils.ImageUtils;
 import org.wordcamp.utils.WordCampUtils;
 import org.wordcamp.wcdetails.SessionsFragment;
@@ -185,20 +186,22 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
-                Gson gson = new Gson();
+                Gson gson = new GsonBuilder().registerTypeHierarchyAdapter(Terms.class,
+                        new CustomGsonDeSerializer()).create();
+
                 for (int i = 0; i < response.length(); i++) {
                     try {
-                        org.wordcamp.objects.speaker.Session session = gson.fromJson(response.getJSONObject(i).toString(), org.wordcamp.objects.speaker.Session.class);
+                        Session session = gson.fromJson(response.getJSONObject(i).toString(), Session.class);
                         if (communicator != null) {
                             communicator.addSession(session, wcid);
                         }
 
-                    } catch (JSONException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
 
-                Toast.makeText(getApplicationContext(), "Updated sessions "/* + response.length()*/, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Updated sessions", Toast.LENGTH_SHORT).show();
                 stopRefreshSession();
                 if (response.length() > 0) {
                     updateSessionContent();
@@ -253,11 +256,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
-                try {
-                    addUpdateSpeakers(response);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                addUpdateSpeakers(response);
             }
 
             @Override
@@ -280,11 +279,16 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
         });
     }
 
-    public void addUpdateSpeakers(JSONArray array) throws JSONException {
-        Gson gson = new Gson();
+    public void addUpdateSpeakers(JSONArray array) {
+        Gson gson = new GsonBuilder().registerTypeHierarchyAdapter(Terms.class,
+                new CustomGsonDeSerializer()).create();
         for (int i = 0; i < array.length(); i++) {
-            SpeakerNew skn = gson.fromJson(array.getJSONObject(i).toString(), SpeakerNew.class);
-            communicator.addSpeaker(skn, wcid);
+            try {
+                SpeakerNew skn = gson.fromJson(array.getJSONObject(i).toString(), SpeakerNew.class);
+                communicator.addSpeaker(skn, wcid);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         if (array.length() > 0) {

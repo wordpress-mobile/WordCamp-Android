@@ -12,6 +12,7 @@ import org.wordcamp.objects.MiniSpeaker;
 import org.wordcamp.objects.SessionDB;
 import org.wordcamp.objects.SpeakerDB;
 import org.wordcamp.objects.WordCampDB;
+import org.wordcamp.objects.speaker.Session;
 import org.wordcamp.objects.speaker.SpeakerNew;
 import org.wordcamp.utils.WordCampUtils;
 
@@ -145,11 +146,11 @@ public class DBCommunicator {
         return id;
     }
 
-    private void addSessionFromSpeaker(List<org.wordcamp.objects.speaker.Session> sessions, int spid, int wcid) {
+    private void addSessionFromSpeaker(List<Session> sessions, int spid, int wcid) {
         for (int i = 0; i < sessions.size(); i++) {
-            org.wordcamp.objects.speaker.Session ss = sessions.get(i);
+            Session ss = sessions.get(i);
 
-            HashMap<String, String> map = WordCampUtils.getTimeAndTypeSession(ss);
+            /*HashMap<String, String> map = WordCampUtils.getTimeAndTypeSession(ss);
 
             ContentValues contentValues = new ContentValues();
             contentValues.put("wcid", wcid);
@@ -158,7 +159,7 @@ public class DBCommunicator {
             contentValues.put("time", map.get("_wcpt_session_time"));
 
             contentValues.put("postid", ss.getID());
-            if (ss.getTerms().getWcbTrack().size() == 1)
+            if (ss.getTerms()!=null && ss.getTerms().getWcbTrack().size() == 1)
                 contentValues.put("location", ss.getTerms().getWcbTrack().get(0).getName());
 
             contentValues.put("category", map.get("_wcpt_session_type"));
@@ -171,7 +172,7 @@ public class DBCommunicator {
                 contentValues.remove("postid");
                 id = db.update("session", contentValues, " wcid = ? AND postid = ?",
                         new String[]{String.valueOf(wcid), String.valueOf(ss.getID())});
-            }
+            }*/
             mapSessionToSingleSpeaker(wcid, ss.getID(), spid);
         }
     }
@@ -200,7 +201,7 @@ public class DBCommunicator {
         contentValues.put("time", map.get("_wcpt_session_time"));
 
         contentValues.put("postid", ss.getID());
-        if (ss.getTerms().getWcbTrack().size() == 1)
+        if (ss.getTerms()!=null && ss.getTerms().getWcbTrack().size() == 1)
             contentValues.put("location", ss.getTerms().getWcbTrack().get(0).getName());
 
         contentValues.put("category", map.get("_wcpt_session_type"));
