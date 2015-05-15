@@ -14,6 +14,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.wordcamp.BaseActivity;
 import org.wordcamp.R;
+import org.wordcamp.db.DBCommunicator;
+import org.wordcamp.objects.WordCampDB;
 
 import java.util.Random;
 
@@ -42,11 +44,27 @@ public class CustomGCMReceiver extends BroadcastReceiver {
             } else {
 
                 String type = json.getString("type");
-                String title = json.getString("title");
-                String descr = json.getString("descr");
-                String link = json.getString("link");
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                showNotif(context, title, descr, browserIntent);
+                if (type.equals("feedback")) {
+
+                    int wcid = json.getInt("wcid");
+                    String url = json.getString("url");
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                    DBCommunicator communicator = new DBCommunicator(context);
+                    communicator.start();
+                    communicator.addFeedbackUrl(wcid, url);
+                    WordCampDB wcdb = communicator.getWC(wcid);
+                    communicator.close();
+                    showNotif(context, "Thanks for visiting " + wcdb.getWc_title(),
+                            "Please give your valuable feedback", browserIntent);
+                } else {
+                    String title = json.getString("title");
+                    String descr = json.getString("descr");
+                    String link = json.getString("link");
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                    showNotif(context, title, descr, browserIntent);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

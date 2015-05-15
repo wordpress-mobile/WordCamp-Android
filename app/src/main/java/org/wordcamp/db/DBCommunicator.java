@@ -201,7 +201,7 @@ public class DBCommunicator {
         contentValues.put("time", map.get("_wcpt_session_time"));
 
         contentValues.put("postid", ss.getID());
-        if (ss.getTerms()!=null && ss.getTerms().getWcbTrack().size() == 1)
+        if (ss.getTerms() != null && ss.getTerms().getWcbTrack().size() == 1)
             contentValues.put("location", ss.getTerms().getWcbTrack().get(0).getName());
 
         contentValues.put("category", map.get("_wcpt_session_type"));
@@ -441,6 +441,28 @@ public class DBCommunicator {
                 } while (cursor.moveToNext());
                 cursor.close();
                 return map;
+            }
+        }
+        return null;
+    }
+
+    public void addFeedbackUrl(int wcid, String url) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("wcid", wcid);
+        contentValues.put("url", url);
+        db.insertWithOnConflict("feedback", null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+    }
+
+    public String getFeedbackUrl(int wcid) {
+        Cursor cursor = db.rawQuery("SELECT * from feedback WHERE wcid=" + wcid, null);
+        if (cursor != null && cursor.getCount() > 0) {
+            String url = "";
+            if (cursor.moveToFirst()) {
+                do {
+                    url = cursor.getString(1);
+                } while (cursor.moveToNext());
+                cursor.close();
+                return url;
             }
         }
         return null;

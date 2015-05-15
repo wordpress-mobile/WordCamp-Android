@@ -28,6 +28,9 @@ public class WCSQLiteHelper extends SQLiteOpenHelper {
     public static final String DB_CREATE_SPEAKER_SESSION = "create table speakersessions ( wcid integer," +
             "speakerid integer, sessionid integer, PRIMARY KEY (wcid, speakerid, sessionid) ); ";
 
+    public static final String DB_CREATE_FEEDBACK_URLS = "create table feedback ( wcid integer primary key," +
+            " url text); ";
+
 
 
     public WCSQLiteHelper(Context context) {
@@ -40,6 +43,7 @@ public class WCSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(DB_CREATE_SPEAKER);
         db.execSQL(DB_CREATE_SESSION);
         db.execSQL(DB_CREATE_SPEAKER_SESSION);
+        db.execSQL(DB_CREATE_FEEDBACK_URLS);
     }
 
     @Override

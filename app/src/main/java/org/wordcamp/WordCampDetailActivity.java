@@ -107,19 +107,27 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
             case R.id.action_refresh:
                 updateWordCampData();
                 break;
+            case R.id.item_menu_feedback:
+                String url = communicator.getFeedbackUrl(wcid);
+                if (url == null) {
+                    Toast.makeText(this, "Feedback URL not yet avaialable", Toast.LENGTH_SHORT).show();
+                } else {
+                    startWebIntent(url);
+                }
+                break;
             case android.R.id.home:
                 finish();
                 break;
             case R.id.item_menu_website:
-                startWebIntent();
+                startWebIntent(wcdb.getUrl());
                 break;
         }
 
         return true;
     }
 
-    private void startWebIntent() {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(wcdb.getUrl()));
+    private void startWebIntent(String url) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(browserIntent);
     }
