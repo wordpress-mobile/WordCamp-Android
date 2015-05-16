@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -83,11 +84,18 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
         slidingTabLayout.setDistributeEvenly(true);
         slidingTabLayout.setViewPager(mPager);
 
-        toolbar.setTitle(wcdb.getWc_title());
-        toolbar.setSubtitle(WordCampUtils.getProperDate(wcdb));
+        setToolbar();
+    }
+
+    private void setToolbar() {
+        TextView title = (TextView) toolbar.findViewById(R.id.title);
+        TextView subTitle = (TextView) toolbar.findViewById(R.id.sub_title);
+        title.setText(wcdb.getWc_title());
+        title.setSelected(true);
+        subTitle.setText(WordCampUtils.getProperDate(wcdb));
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
     }
 
     @Override
