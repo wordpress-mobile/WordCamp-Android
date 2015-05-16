@@ -184,8 +184,6 @@ public class DBCommunicator {
         values.put("speakerid", spid);
 
         long id = db.insertWithOnConflict("speakersessions", null, values, SQLiteDatabase.CONFLICT_REPLACE);
-
-        Log.e("insert", " " + id);
     }
 
 

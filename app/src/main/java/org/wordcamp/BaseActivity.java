@@ -1,19 +1,3 @@
-/*
- * Copyright 2014 Soichiro Kashima
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package org.wordcamp;
 
 import android.content.Context;
@@ -42,10 +26,8 @@ import org.wordcamp.adapters.CacheFragmentStatePagerAdapter;
 import org.wordcamp.db.DBCommunicator;
 import org.wordcamp.networking.WPAPIClient;
 import org.wordcamp.objects.WordCampDB;
-import org.wordcamp.objects.wordcamp.WordCamps;
 import org.wordcamp.objects.wordcampnew.WordCampNew;
 import org.wordcamp.utils.ImageUtils;
-import org.wordcamp.utils.WordCampUtils;
 import org.wordcamp.widgets.SlidingTabLayout;
 
 import java.text.SimpleDateFormat;
@@ -54,7 +36,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class BaseActivity extends AppCompatActivity implements UpcomingWCFragment.upcomingFragListener, SearchView.OnQueryTextListener {
+public class BaseActivity extends AppCompatActivity implements UpcomingWCFragment.upcomingFragListener, SearchView.OnQueryTextListener, PastWCFragment.upcomingFragListener {
 
     private WCPagerAdapter mPagerAdapter;
     private String lastscanned;
@@ -80,6 +62,7 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
         mPagerAdapter = new WCPagerAdapter(getSupportFragmentManager());
         ViewPager mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(mPagerAdapter);
+        mPager.setOffscreenPageLimit(2);
         final int tabHeight = getResources().getDimensionPixelSize(R.dimen.tab_height);
         findViewById(R.id.pager_wrapper).setPadding(0, ImageUtils.getActionBarSize(this) + tabHeight, 0, 0);
 
@@ -220,12 +203,17 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
     private void refreshAllFragmentsData() {
         UpcomingWCFragment upcomingFragment = getUpcomingFragment();
         MyWCFragment myWCFragment = getMyWCFragment();
+        PastWCFragment pastWCFragment = getPastFragment();
         wordCampsList = communicator.getAllWc();
         if (upcomingFragment != null)
             upcomingFragment.updateList(wordCampsList);
 
         if (myWCFragment != null)
             myWCFragment.updateList(wordCampsList);
+
+        if (pastWCFragment != null) {
+            pastWCFragment.updateList(wordCampsList);
+        }
     }
 
     public void refreshUpcomingFrag() {
@@ -237,6 +225,17 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
 
     private UpcomingWCFragment getUpcomingFragment() {
         return (UpcomingWCFragment) mPagerAdapter.getItemAt(0);
+    }
+
+    public void refreshPastFrag() {
+        PastWCFragment pastFragment = getPastFragment();
+        wordCampsList = communicator.getAllWc();
+        if (pastFragment != null)
+            pastFragment.updateList(wordCampsList);
+    }
+
+    private PastWCFragment getPastFragment() {
+        return (PastWCFragment) mPagerAdapter.getItemAt(2);
     }
 
     private MyWCFragment getMyWCFragment() {
@@ -267,6 +266,7 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
     public boolean onQueryTextChange(String newText) {
         getUpcomingFragment().adapter.getFilter().filter(newText);
         getMyWCFragment().adapter.getFilter().filter(newText);
+        getPastFragment().adapter.getFilter().filter(newText);
         return true;
     }
 
@@ -284,7 +284,7 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
                 case 1:
                     return MyWCFragment.newInstance();
                 case 2:
-                    return UpcomingWCFragment.newInstance();
+                    return PastWCFragment.newInstance();
                 default:
                     return UpcomingWCFragment.newInstance();
             }
@@ -292,7 +292,7 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
 
         @Override
@@ -302,6 +302,8 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
                     return "Upcoming";
                 case 1:
                     return "My WordCamp";
+                case 2:
+                    return "Past";
                 default:
                     return "Past";
             }

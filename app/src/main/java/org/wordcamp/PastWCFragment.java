@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +25,7 @@ import java.util.Comparator;
 import java.util.List;
 
 
-public class UpcomingWCFragment extends android.support.v4.app.Fragment implements UpcomingWCListAdapter.WCListener {
+public class PastWCFragment extends Fragment implements UpcomingWCListAdapter.WCListener {
     public ListView upWCLists;
     public List<WordCampDB> wordCampDBs;
     public DBCommunicator communicator;
@@ -33,11 +34,11 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
     public Gson g;
     public UpcomingWCListAdapter adapter;
 
-    public static UpcomingWCFragment newInstance() {
-        return new UpcomingWCFragment();
+    public static PastWCFragment newInstance() {
+        return new PastWCFragment();
     }
 
-    public UpcomingWCFragment() {
+    public PastWCFragment() {
         // Required empty public constructor
     }
 
@@ -76,10 +77,11 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                listener.onRefreshStart();
+                //listener.onRefreshStart();
             }
         });
         setProperListPosition();
+
         adapter = new UpcomingWCListAdapter(wordCampDBs, parentActivity, this);
         upWCLists.setAdapter(adapter);
         upWCLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -102,7 +104,18 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
             @Override
             public void run() {
                 refreshLayout.setRefreshing(true);
-                listener.onRefreshStart();
+                //listener.onRefreshStart();
+            }
+        });
+    }
+
+    public void sortDescWC() {
+        Collections.sort(wordCampDBs, new Comparator<WordCampDB>() {
+            @Override
+            public int compare(WordCampDB lhs, WordCampDB rhs) {
+                int lhstime = Integer.parseInt(lhs.getWc_start_date());
+                int rhstime = Integer.parseInt(rhs.getWc_start_date());
+                return rhstime - lhstime;
             }
         });
     }
@@ -129,17 +142,19 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
         setProperListPosition();
         adapter = new UpcomingWCListAdapter(wordCampDBs, getActivity(), this);
         upWCLists.setAdapter(adapter);
+
     }
 
     private void setProperListPosition() {
         int pos = WordCampUtils.findFirstUpcomingFrag(wordCampDBs);
         if (pos > -1) {
-            wordCampDBs = wordCampDBs.subList(pos, wordCampDBs.size());
+            wordCampDBs = wordCampDBs.subList(0, pos);
+            sortDescWC();
         }
     }
 
     @Override
-    public int addToMyWC ( int wcid, int position){
+    public int addToMyWC(int wcid, int position) {
         int retId = communicator.addToMyWC(wcid);
 
         WordCampDB wordCampDB = adapter.getItem(position);
@@ -152,7 +167,7 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
     }
 
     @Override
-    public void removeMyWC ( int wcid, int position){
+    public void removeMyWC(int wcid, int position) {
         communicator.removeFromMyWCSingle(wcid);
 
         WordCampDB wordCampDB = adapter.getItem(position);
