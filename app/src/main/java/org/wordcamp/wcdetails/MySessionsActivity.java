@@ -1,9 +1,12 @@
 package org.wordcamp.wcdetails;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 
 import org.wordcamp.R;
 import org.wordcamp.adapters.SessionsListAdapter;
@@ -43,11 +46,19 @@ public class MySessionsActivity extends AppCompatActivity implements SessionsLis
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        List<SessionDB> sessionDBList = communicator.getFavoriteSessions(wcid);
-        SessionsListAdapter sessionsListAdapter = new SessionsListAdapter(this, sessionDBList, this);
+        final List<SessionDB> sessionDBList = communicator.getFavoriteSessions(wcid);
+        final SessionsListAdapter sessionsListAdapter = new SessionsListAdapter(this, sessionDBList, this);
         StickyListHeadersListView mySessionList = (StickyListHeadersListView) findViewById(R.id.sessionList);
         mySessionList.setEmptyView(findViewById(R.id.empty_view));
         mySessionList.setAdapter(sessionsListAdapter);
+        mySessionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent detail = new Intent(getApplicationContext(), SessionDetailsActivity.class);
+                detail.putExtra("session", sessionsListAdapter.getItem(position));
+                startActivity(detail);
+            }
+        });
     }
 
     @Override

@@ -133,7 +133,7 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
     }
 
     @Override
-    public Object getItem(int position) {
+    public SessionDB getItem(int position) {
         return list.get(position);
     }
 
