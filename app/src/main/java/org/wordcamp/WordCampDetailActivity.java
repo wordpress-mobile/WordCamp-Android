@@ -29,6 +29,7 @@ import org.wordcamp.objects.wordcampnew.WordCampNew;
 import org.wordcamp.utils.CustomGsonDeSerializer;
 import org.wordcamp.utils.ImageUtils;
 import org.wordcamp.utils.WordCampUtils;
+import org.wordcamp.wcdetails.MySessionsActivity;
 import org.wordcamp.wcdetails.SessionsFragment;
 import org.wordcamp.wcdetails.SpeakerFragment;
 import org.wordcamp.wcdetails.WordCampOverview;
@@ -121,9 +122,18 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
             case R.id.item_menu_website:
                 startWebIntent(wcdb.getUrl());
                 break;
+            case R.id.item_menu_my_sessions:
+                startMySessionActivity();
+                break;
         }
 
         return true;
+    }
+
+    private void startMySessionActivity() {
+        Intent mySessionIntent = new Intent(this, MySessionsActivity.class);
+        mySessionIntent.putExtra("wcid", wcid);
+        startActivity(mySessionIntent);
     }
 
     private void startWebIntent(String url) {

@@ -465,4 +465,34 @@ public class DBCommunicator {
         }
         return null;
     }
+
+    public List<SessionDB> getFavoriteSessions(int wcid) {
+        Cursor cursor = db.rawQuery("SELECT * from session WHERE mysession=1 AND wcid=" + wcid, null);
+        List<SessionDB> sessionDBs = new ArrayList<>();
+        if (cursor != null && cursor.getCount() > 0) {
+            if (cursor.moveToFirst()) {
+                do {
+                    String title = cursor.getString(1);
+                    int starttime = cursor.getInt(2);
+                    int postid = cursor.getInt(3);
+                    String category = cursor.getString(5);
+                    String location = cursor.getString(4);
+                    String lastscan = cursor.getString(6);
+                    String gsonobject = cursor.getString(7);
+                    sessionDBs.add(new SessionDB(wcid, postid, title, starttime, lastscan,
+                            location, category, gsonobject, true));
+                } while (cursor.moveToNext());
+                cursor.close();
+
+                Collections.sort(sessionDBs, new Comparator<SessionDB>() {
+                    @Override
+                    public int compare(SessionDB lhs, SessionDB rhs) {
+                        return lhs.getTime() - rhs.getTime();
+                    }
+                });
+                return sessionDBs;
+            }
+        }
+        return sessionDBs;
+    }
 }

@@ -6,6 +6,8 @@
     <item android:id="@+id/action_refresh" android:title="@string/refresh"
         android:icon="@drawable/ic_refresh_white_36dp"
         app:showAsAction="ifRoom" />
+    <item android:id="@+id/item_menu_my_sessions" android:title="@string/mysession"
+        android:orderInCategory="49" app:showAsAction="never" />
     <item android:id="@+id/item_menu_website" android:title="@string/webversion"
         android:orderInCategory="50" app:showAsAction="never" />
     <item android:id="@+id/item_menu_feedback" android:title="@string/feedback"

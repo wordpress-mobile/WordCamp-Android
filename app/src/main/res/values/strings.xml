@@ -19,5 +19,7 @@
     <string name="speaker_title">Speakers</string>
     <string name="session_title">Sessions</string>
     <string name="map_directions">Get directions to the venue</string>
+    <string name="mysession">My Sessions</string>
+    <string name="empty_mysessions">No Sessions favorited</string>
 
 </resources>
