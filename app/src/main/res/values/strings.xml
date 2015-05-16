@@ -21,5 +21,9 @@
     <string name="map_directions">Get directions to the venue</string>
     <string name="mysession">My Sessions</string>
     <string name="empty_mysessions">No Sessions favorited</string>
+    <string name="update_overview_toast">Updated overview</string>
+    <string name="update_sessions_toast">Updated sessions</string>
+    <string name="update_speakers_toast">Updated speakers</string>
+    <string name="feedback_url_not_available_toast">Feedback URL not yet available</string>
 
 </resources>

@@ -111,7 +111,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
             case R.id.item_menu_feedback:
                 String url = communicator.getFeedbackUrl(wcid);
                 if (url == null) {
-                    Toast.makeText(this, "Feedback URL not yet avaialable", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.feedback_url_not_available_toast), Toast.LENGTH_SHORT).show();
                 } else {
                     startWebIntent(url);
                 }
@@ -164,7 +164,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
                 WordCampOverview overview = getOverViewFragment();
                 if (overview != null) {
                     overview.updateData(wordCampDB);
-                    Toast.makeText(getApplicationContext(), "Updated overview", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.update_overview_toast), Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -219,7 +219,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
                     }
                 }
 
-                Toast.makeText(getApplicationContext(), "Updated sessions", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.update_sessions_toast), Toast.LENGTH_SHORT).show();
                 stopRefreshSession();
                 if (response.length() > 0) {
                     updateSessionContent();
@@ -315,7 +315,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
                 fragment.updateSpeakers(communicator.getAllSpeakers(wcid));
             }
         }
-        Toast.makeText(getApplicationContext(), "Updated speakers", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), getString(R.string.update_speakers_toast), Toast.LENGTH_SHORT).show();
         stopRefreshSpeaker();
     }
 
