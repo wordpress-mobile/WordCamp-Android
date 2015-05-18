@@ -198,6 +198,7 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
     private void stopRefresh() {
         getUpcomingFragment().stopRefresh();
         getMyWCFragment().stopRefresh();
+        getPastFragment().stopRefresh();
     }
 
     private void refreshAllFragmentsData() {

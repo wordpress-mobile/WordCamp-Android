@@ -93,16 +93,18 @@ public class WordCampUtils {
     }
 
     public static int findFirstUpcomingFrag(List<WordCampDB> wcdb) {
-        long lowestDiff = Integer.MAX_VALUE;
         int counter = -1;
-        long now = System.currentTimeMillis();
+        if (wcdb != null) {
+            long lowestDiff = Integer.MAX_VALUE;
+            long now = System.currentTimeMillis();
 
-        for (int i = 0; i < wcdb.size(); i++) {
-            long startDate = Long.parseLong(wcdb.get(i).getWc_start_date()) * 1000;
-            long diffDate = (startDate - now) / (1000 * 60 * 60 * 24);
-            if (diffDate >= -1 && diffDate < lowestDiff) {
-                lowestDiff = diffDate;
-                counter = i;
+            for (int i = 0; i < wcdb.size(); i++) {
+                long startDate = Long.parseLong(wcdb.get(i).getWc_start_date()) * 1000;
+                long diffDate = (startDate - now) / (1000 * 60 * 60 * 24);
+                if (diffDate >= -1 && diffDate < lowestDiff) {
+                    lowestDiff = diffDate;
+                    counter = i;
+                }
             }
         }
         return counter;
