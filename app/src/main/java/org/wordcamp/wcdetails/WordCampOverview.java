@@ -79,7 +79,7 @@ public class WordCampOverview extends Fragment {
 
     private void openMaps() {
         String map = "http://maps.google.com/maps?q="
-                + location.getText().toString().replaceAll("\n", ",");
+                + location.getText().toString().replaceAll("\n|\r", ",").replaceAll(" ","+");
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(map));
         startActivity(intent);
     }
@@ -130,7 +130,7 @@ public class WordCampOverview extends Fragment {
             listener = (WordCampDetailActivity) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement SessionFragmentListener");
+                    + " must implement WordCampOverviewListener");
         }
     }
 }

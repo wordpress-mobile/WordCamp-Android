@@ -118,7 +118,7 @@ public class SpeakerFragment extends Fragment {
             listener = (WordCampDetailActivity) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement SessionFragmentListener");
+                    + " must implement SpeakerFragmentListener");
         }
     }
 }
