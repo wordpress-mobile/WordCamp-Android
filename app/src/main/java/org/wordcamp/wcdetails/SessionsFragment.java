@@ -38,30 +38,33 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
     private SwipeRefreshLayout refreshLayout;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_sessions_list, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
         wcid = ((WordCampDetailActivity) getActivity()).wcid;
         communicator = ((WordCampDetailActivity) getActivity()).communicator;
         sessionDBList = communicator.getAllSession(wcid);
         favoriteSession = new FavoriteSession(getActivity());
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_sessions_list, container, false);
+        View v = getView();
         refreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
         refreshLayout.setColorSchemeColors(Color.parseColor("#3F51B5"),
                 Color.parseColor("#FF4081"), Color.parseColor("#9C27B0"));
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-               stopRefreshSession();
+                stopRefreshSession();
             }
         });
         sessionList = (StickyListHeadersListView) v.findViewById(R.id.sessionList);
         sessionList.setEmptyView(v.findViewById(R.id.empty_view));
         if (sessionDBList.size() == 0) {
-             startRefreshSession();
+            startRefreshSession();
         }
         sessionsListAdapter = new SessionsListAdapter(getActivity(), sessionDBList, this);
 
@@ -76,7 +79,7 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
 
         sessionList.getWrappedList().setHeaderDividersEnabled(true);
         sessionList.setAdapter(sessionsListAdapter);
-        return v;
+
     }
 
     public void startRefreshSession() {
@@ -89,7 +92,7 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
         });
     }
 
-    public void startRefreshingBar(){
+    public void startRefreshingBar() {
         refreshLayout.post(new Runnable() {
             @Override
             public void run() {

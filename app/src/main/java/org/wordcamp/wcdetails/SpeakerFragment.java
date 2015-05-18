@@ -36,25 +36,18 @@ public class SpeakerFragment extends Fragment {
     private SpeakerFragmentListener listener;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        wcid = ((WordCampDetailActivity)getActivity()).wcid;
-        speakerDBList = ((WordCampDetailActivity)getActivity()).communicator.getAllSpeakers(wcid);
-        sortList();
-    }
-
-    private void sortList() {
-        Collections.sort(speakerDBList, new Comparator<SpeakerDB>() {
-            @Override
-            public int compare(SpeakerDB lhs, SpeakerDB rhs) {
-                return lhs.getName().compareTo(rhs.getName());
-            }
-        });
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_wcdetails_speaker, container, false);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_wcdetails_speaker,container,false);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        wcid = ((WordCampDetailActivity) getActivity()).wcid;
+        speakerDBList = ((WordCampDetailActivity) getActivity()).communicator.getAllSpeakers(wcid);
+        sortList();
+
+        View v = getView();
         refreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
         refreshLayout.setColorSchemeColors(Color.parseColor("#3F51B5"),
                 Color.parseColor("#FF4081"), Color.parseColor("#9C27B0"));
@@ -65,11 +58,11 @@ public class SpeakerFragment extends Fragment {
             }
         });
 
-        lv = (ListView)v.findViewById(R.id.speaker_list);
+        lv = (ListView) v.findViewById(R.id.speaker_list);
         lv.setEmptyView(v.findViewById(R.id.empty_view));
-        adapter = new SpeakersListAdapter(getActivity(),speakerDBList);
+        adapter = new SpeakersListAdapter(getActivity(), speakerDBList);
 
-        if(speakerDBList.size()==0){
+        if (speakerDBList.size() == 0) {
             startRefreshSession();
         }
 
@@ -82,7 +75,15 @@ public class SpeakerFragment extends Fragment {
                 getActivity().startActivity(t);
             }
         });
-        return v;
+    }
+
+    private void sortList() {
+        Collections.sort(speakerDBList, new Comparator<SpeakerDB>() {
+            @Override
+            public int compare(SpeakerDB lhs, SpeakerDB rhs) {
+                return lhs.getName().compareTo(rhs.getName());
+            }
+        });
     }
 
     public void startRefreshSession() {
@@ -99,10 +100,10 @@ public class SpeakerFragment extends Fragment {
         refreshLayout.setRefreshing(false);
     }
 
-    public void updateSpeakers(List<SpeakerDB> newSpeakerDBList){
+    public void updateSpeakers(List<SpeakerDB> newSpeakerDBList) {
         speakerDBList = newSpeakerDBList;
         sortList();
-        adapter = new SpeakersListAdapter(getActivity(),speakerDBList);
+        adapter = new SpeakersListAdapter(getActivity(), speakerDBList);
         lv.setAdapter(adapter);
     }
 

@@ -33,14 +33,15 @@ public class WordCampOverview extends Fragment {
     private View aboutView;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        wc = ((WordCampDetailActivity) getActivity()).wcdb;
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_wcdetails_overview, container, false);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_wcdetails_overview, container, false);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        wc = ((WordCampDetailActivity) getActivity()).wcdb;
+        View v = getView();
         View v1 = v.findViewById(R.id.wc_image_container);
 
         refreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
@@ -74,12 +75,11 @@ public class WordCampOverview extends Fragment {
             }
         });
         ViewCompat.setElevation(v.findViewById(R.id.centerLayoutDetail), getResources().getDimension(R.dimen.list_elevation));
-        return v;
     }
 
     private void openMaps() {
         String map = "http://maps.google.com/maps?q="
-                + location.getText().toString().replaceAll("\n|\r", ",").replaceAll(" ","+");
+                + location.getText().toString().replaceAll("\n|\r", ",").replaceAll(" ", "+");
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(map));
         startActivity(intent);
     }

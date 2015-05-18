@@ -37,34 +37,25 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
         return new MyWCFragment();
     }
 
-    public MyWCFragment() {
-        // Required empty public constructor
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_my_wc, container, false);
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         communicator = ((BaseActivity) getActivity()).communicator;
         wordCampDBs = ((BaseActivity) getActivity()).wordCampsList;
         if (wordCampDBs != null) {
             sortAndModifyMyWC();
         }
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        deleteItems = new ArrayList<>();
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        Activity parentActivity = getActivity();
-        View v = inflater.inflate(R.layout.fragment_my_wc, container, false);
+        View v = getView();
         myWCLists = (ListView) v.findViewById(R.id.scroll);
         myWCLists.setEmptyView(v.findViewById(R.id.empty_view));
-        adapter = new MyWCListAdapter(myWordCampDBs, parentActivity, this);
+        adapter = new MyWCListAdapter(myWordCampDBs, getActivity(), this);
         myWCLists.setAdapter(adapter);
 
         refreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
@@ -107,8 +98,13 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
                 return true;
             }
         });
+    }
 
-        return v;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        deleteItems = new ArrayList<>();
     }
 
     public void stopRefresh() {

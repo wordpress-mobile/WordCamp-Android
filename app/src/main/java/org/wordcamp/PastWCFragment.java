@@ -38,38 +38,23 @@ public class PastWCFragment extends Fragment implements UpcomingWCListAdapter.WC
         return new PastWCFragment();
     }
 
-    public PastWCFragment() {
-        // Required empty public constructor
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_upcoming_wc, container, false);
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        try {
-            listener = (BaseActivity) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement upcomingFragListener");
-        }
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         g = new Gson();
-        super.onCreate(savedInstanceState);
         communicator = ((BaseActivity) getActivity()).communicator;
         wordCampDBs = ((BaseActivity) getActivity()).wordCampsList;
         if (wordCampDBs != null) {
             sortWC();
         }
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        Activity parentActivity = getActivity();
-        View v = inflater.inflate(R.layout.fragment_upcoming_wc, container, false);
+        View v = getView();
         upWCLists = (ListView) v.findViewById(R.id.scroll);
         refreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
         refreshLayout.setColorSchemeColors(Color.parseColor("#3F51B5"),
@@ -82,7 +67,7 @@ public class PastWCFragment extends Fragment implements UpcomingWCListAdapter.WC
         });
         setProperListPosition();
 
-        adapter = new UpcomingWCListAdapter(wordCampDBs, parentActivity, this);
+        adapter = new UpcomingWCListAdapter(wordCampDBs, getActivity(), this);
         upWCLists.setAdapter(adapter);
         upWCLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -96,7 +81,18 @@ public class PastWCFragment extends Fragment implements UpcomingWCListAdapter.WC
         if (wordCampDBs.size() == 0) {
             startRefresh();
         }
-        return v;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        try {
+            listener = (BaseActivity) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement PastFragListener");
+        }
     }
 
     public void startRefresh() {
