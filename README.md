@@ -2,7 +2,7 @@
 
 ## Build Instructions ##
 
-The [gradle build system][2] will fetch all dependencies and generate
+The [gradle build system][1] will fetch all dependencies and generate
 files you need to build the project.
 
 In order to compile the project you need to add gradle.properties file for which you can take
