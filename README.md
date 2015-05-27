@@ -1,22 +1,23 @@
 # WordCamp-Android
 
-### Server setup
-Download wordpress-meta-environment which has the copy of WordCamp Central which we will be using for testing purpose.
+## Build Instructions ##
 
-Install WP-API plugin in the Central WordCamp website.
+The [gradle build system][2] will fetch all dependencies and generate
+files you need to build the project.
 
-As local Vagrant can't be accessed from phones create a local server with the following script.
+In order to compile the project you need to add gradle.properties file for which you can take
+reference from gradle.properties-example
 
-``` php
-<?php
-$cu = curl_init($_GET["url"]);
-$result = curl_exec($cu);
-json_decode($result, true);
-?>
-```
-### Project setup
-Clone this repo and import the project in Android studio. Gradle build will import all necessary libs required for the project.
+## Need help to build or hack? ##
 
-Just change the path of your local server in `WPAPIClient.java`
+Say hello on [Slack][2] channel: `#mobile`.
 
-Run it!
+## License ##
+
+WordCamp for Android is an Open Source project covered by the
+[GNU General Public License version 2](LICENSE.md). Note: code
+in the `libs/` directory comes from external libraries, which might
+be covered by a different license compatible with the GPLv2.
+
+[1]: http://tools.android.com/tech-docs/new-build-system/user-guide
+[2]: https://make.wordpress.org/chat/
