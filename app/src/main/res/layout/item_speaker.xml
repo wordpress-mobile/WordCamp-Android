@@ -18,7 +18,6 @@
             android:layout_height="60dp">
 
             <org.wordcamp.widgets.CircularImageView
-                android:src="@drawable/wp_icon"
                 android:id="@+id/speaker_dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"

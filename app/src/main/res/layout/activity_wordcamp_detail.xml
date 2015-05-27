@@ -28,8 +28,8 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:minHeight="?attr/actionBarSize"
-            app:popupTheme="@style/SlidingLayoutTabPopUp"
-            android:theme="@style/SlidingLayoutTab">
+            android:theme="@style/SlidingLayoutTab"
+            app:popupTheme="@style/SlidingLayoutTabPopUp">
 
             <LinearLayout
                 android:layout_width="wrap_content"

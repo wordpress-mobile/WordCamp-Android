@@ -25,5 +25,11 @@
     <string name="update_sessions_toast">Updated sessions</string>
     <string name="update_speakers_toast">Updated speakers</string>
     <string name="feedback_url_not_available_toast">Feedback URL not yet available</string>
+    <string name="help_and_feedback">Feedback</string>
+    <string name="send">Send</string>
+    <string name="action_feedback">Feedback</string>
+    <string name="bug">Reporting a Bug?</string>
+    <string name="hint_description">Description</string>
+    <string name="hint_title">Title</string>
 
 </resources>

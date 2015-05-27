@@ -44,7 +44,7 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
     public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.item_session_new, parent, false);
+            convertView = inflater.inflate(R.layout.item_session, parent, false);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         } else {

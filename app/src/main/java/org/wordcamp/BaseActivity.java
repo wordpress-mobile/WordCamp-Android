@@ -1,6 +1,7 @@
 package org.wordcamp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -79,6 +80,10 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
         switch (item.getItemId()) {
             case R.id.action_refresh:
                 getUpcomingFragment().startRefresh();
+                break;
+            case R.id.action_feedback:
+                Intent feedbackIntent = new Intent(this,FeedbackActivity.class);
+                startActivity(feedbackIntent);
                 break;
             default:
                 break;

@@ -35,12 +35,8 @@ import java.util.HashMap;
 public class SessionDetailsActivity extends AppCompatActivity {
 
     private SessionDB sessionDB;
-    private TextView title, info, speakers, time;
-    private Toolbar toolbar;
     public org.wordcamp.objects.speaker.Session session;
-    private Gson gson;
     private ArrayList<MiniSpeaker> speakerList;
-    private ListView speakersListView;
     private DBCommunicator communicator;
     private FavoriteSession fav;
 
@@ -56,9 +52,9 @@ public class SessionDetailsActivity extends AppCompatActivity {
     }
 
     private void initGUI() {
-        gson = new Gson();
+        Gson gson = new Gson();
         session = gson.fromJson(sessionDB.getGson_object(), org.wordcamp.objects.speaker.Session.class);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
@@ -67,19 +63,19 @@ public class SessionDetailsActivity extends AppCompatActivity {
 
         View headerView = LayoutInflater.from(this).inflate(R.layout.item_header_session, null);
 
-        title = (TextView) findViewById(R.id.wc_detail_title);
-        time = (TextView) findViewById(R.id.wc_detail_date);
-        info = (TextView) headerView.findViewById(R.id.wc_detail_abstract);
+        TextView title = (TextView) findViewById(R.id.wc_detail_title);
+        TextView time = (TextView) findViewById(R.id.wc_detail_date);
+        TextView info = (TextView) headerView.findViewById(R.id.wc_detail_abstract);
         title.setText(Html.fromHtml(session.getTitle()));
         info.setText(Html.fromHtml(session.getContent()));
-        if (session.getTerms()!=null && session.getTerms().getWcbTrack().size() == 1) {
+        if (session.getTerms() != null && session.getTerms().getWcbTrack().size() == 1) {
             time.setText(WordCampUtils.formatProperTime(sessionDB.getTime()) + " in "
-                    + session.getTerms().getWcbTrack().get(0).getName());
+                    + Html.fromHtml(session.getTerms().getWcbTrack().get(0).getName()));
         } else {
             time.setText(WordCampUtils.formatProperTime(sessionDB.getTime()));
         }
 
-        speakersListView = (ListView) findViewById(R.id.session_list_speakers);
+        ListView speakersListView = (ListView) findViewById(R.id.session_list_speakers);
         speakersListView.addHeaderView(headerView, null, false);
 
         final HashMap<String, MiniSpeaker> names = communicator.getSpeakersForSession(sessionDB.getWc_id(), sessionDB.getPost_id());
