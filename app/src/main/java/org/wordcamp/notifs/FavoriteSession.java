@@ -29,6 +29,14 @@ public class FavoriteSession {
         calendar.setTime(d);
         calendar.setTimeZone(TimeZone.getTimeZone("GMT"));
         calendar.add(Calendar.MINUTE, -30);
+
+        //Converting the time to Local TimeZone
+        Calendar newCalendar = Calendar.getInstance();
+        newCalendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY)
+                , calendar.get(Calendar.MINUTE));
+
+        d = newCalendar.getTime();
         Date now = new Date();
 
         if (now.after(d)) {
@@ -38,7 +46,7 @@ public class FavoriteSession {
         AlarmManager manager = (AlarmManager) context
                 .getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = getPendingIntent(session);
-        manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        manager.set(AlarmManager.RTC_WAKEUP, newCalendar.getTimeInMillis(), pendingIntent);
     }
 
     /**

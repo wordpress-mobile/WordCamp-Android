@@ -24,7 +24,7 @@ public class MyApplication extends Application {
                 BuildConfig.PARSE_TOKEN);
 
 
-        ParsePush.subscribeInBackground("pro", new SaveCallback() {
+        ParsePush.subscribeInBackground("wc", new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 if (e == null) {

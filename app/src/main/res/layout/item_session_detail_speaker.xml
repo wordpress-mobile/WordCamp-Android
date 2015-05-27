@@ -10,8 +10,7 @@
         android:layout_height="44dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:src="@drawable/wp_icon" />
+        android:layout_marginStart="16dp" />
 
     <TextView
         android:id="@+id/item_session_speaker"

@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,7 +29,6 @@ public class CustomGCMReceiver extends BroadcastReceiver {
         //if json sent from server is {"action":"org.wordcamp.UPDATES","type":"feedback","title":"WC Custom",
         // "descr":"Please give your feedback","link":"http://www.google.com"}
 
-        Log.e("customgcm", "received");
         try {
             JSONObject json = new JSONObject(intent.getExtras().getString("com.parse.Data"));
 
@@ -81,18 +79,22 @@ public class CustomGCMReceiver extends BroadcastReceiver {
                         notifIntent,
                         0
                 );
+
+        //Set launcher icon currently although Android guidelines require WHITE icon
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.wp_icon)
+                        .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle(title)
                         .setContentText(descr)
-                        .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
+                        .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE |
+                                Notification.DEFAULT_LIGHTS)
+                        .setAutoCancel(true)
                         .setContentIntent(resultPendingIntent);
 
 
         NotificationManager mNotifyMgr =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        Random r = new Random();
+        Random r = new Random(100000);
         mNotifyMgr.notify(r.nextInt(), mBuilder.build());
     }
 }

@@ -15,16 +15,15 @@
             android:layout_height="60dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:src="@drawable/wp_icon" />
+            android:layout_marginStart="10dp" />
 
         <TextView
             android:id="@+id/speaker_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:autoLink="all"
             android:layout_marginStart="16dp"
+            android:autoLink="all"
             android:textColor="@color/secondary_text_color"
             android:textSize="16sp" />
     </LinearLayout>
@@ -32,8 +31,8 @@
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/line" />
 
