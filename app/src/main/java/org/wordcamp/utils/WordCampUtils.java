@@ -2,9 +2,8 @@ package org.wordcamp.utils;
 
 import org.wordcamp.objects.WordCampDB;
 import org.wordcamp.objects.speaker.Session;
-import org.wordcamp.objects.wordcamp.WordCamps;
-import org.wordcamp.objects.wordcampnew.PostMetum;
-import org.wordcamp.objects.wordcampnew.WordCampNew;
+import org.wordcamp.objects.wordcamp.PostMetum;
+import org.wordcamp.objects.wordcamp.WordCampNew;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -20,12 +19,6 @@ import java.util.TimeZone;
  * Created by aagam on 29/1/15.
  */
 public class WordCampUtils {
-
-    public static boolean hasStartEndDate(WordCamps wc) {
-
-        return wc.getFoo().getStartDateYYYYMmDd().size() > 0 && !wc.getFoo().getStartDateYYYYMmDd().get(0).equals("")
-                && wc.getFoo().getEndDateYYYYMmDd().size() > 0 && !wc.getFoo().getEndDateYYYYMmDd().get(0).equals("");
-    }
 
     public static String getProperDate(WordCampDB wdb) {
 

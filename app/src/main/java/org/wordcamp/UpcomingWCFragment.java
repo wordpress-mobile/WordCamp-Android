@@ -25,12 +25,12 @@ import java.util.List;
 
 
 public class UpcomingWCFragment extends android.support.v4.app.Fragment implements UpcomingWCListAdapter.WCListener {
-    public ListView upWCLists;
-    public List<WordCampDB> wordCampDBs;
-    public DBCommunicator communicator;
-    public upcomingFragListener listener;
-    public SwipeRefreshLayout refreshLayout;
-    public Gson g;
+    private ListView upWCLists;
+    private List<WordCampDB> wordCampDBs;
+    private DBCommunicator communicator;
+    private upcomingFragListener listener;
+    private SwipeRefreshLayout refreshLayout;
+    private Gson g;
     public UpcomingWCListAdapter adapter;
 
     public static UpcomingWCFragment newInstance() {
@@ -103,7 +103,7 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
         });
     }
 
-    public void sortWC() {
+    private void sortWC() {
         Collections.sort(wordCampDBs, new Comparator<WordCampDB>() {
             @Override
             public int compare(WordCampDB lhs, WordCampDB rhs) {

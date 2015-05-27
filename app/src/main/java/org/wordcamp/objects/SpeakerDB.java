@@ -7,14 +7,14 @@ import java.io.Serializable;
  */
 public class SpeakerDB implements Serializable {
 
-    public int wc_id;
-    public String name;
-    public int speaker_id;
-    public String info;
-    public String featured_image;
-    public String last_scanned_gmt;
-    public String gson_object;
-    public String gravatar;
+    private int wc_id;
+    private String name;
+    private int speaker_id;
+    private String info;
+    private String featured_image;
+    private String last_scanned_gmt;
+    private String gson_object;
+    private String gravatar;
 
     public SpeakerDB(int wc_id, String name, int speaker_id,
                      String info, String featured_image,

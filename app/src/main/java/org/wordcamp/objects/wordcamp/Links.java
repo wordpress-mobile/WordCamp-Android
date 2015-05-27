@@ -1,9 +1,7 @@
 
 package org.wordcamp.objects.wordcamp;
 
-
 import com.google.gson.annotations.Expose;
-
 
 public class Links {
 

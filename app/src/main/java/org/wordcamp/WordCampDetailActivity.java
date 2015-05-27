@@ -26,7 +26,7 @@ import org.wordcamp.objects.WordCampDB;
 import org.wordcamp.objects.speaker.Session;
 import org.wordcamp.objects.speaker.SpeakerNew;
 import org.wordcamp.objects.speaker.Terms;
-import org.wordcamp.objects.wordcampnew.WordCampNew;
+import org.wordcamp.objects.wordcamp.WordCampNew;
 import org.wordcamp.utils.CustomGsonDeSerializer;
 import org.wordcamp.utils.ImageUtils;
 import org.wordcamp.utils.WordCampUtils;
@@ -42,9 +42,9 @@ import org.wordcamp.widgets.SlidingTabLayout;
 public class WordCampDetailActivity extends AppCompatActivity implements SessionsFragment.SessionFragmentListener,
         SpeakerFragment.SpeakerFragmentListener, WordCampOverview.WordCampOverviewListener {
 
-    public WCDetailAdapter adapter;
-    public Toolbar toolbar;
-    public ViewPager mPager;
+    private WCDetailAdapter adapter;
+    private Toolbar toolbar;
+    private ViewPager mPager;
     public WordCampDB wcdb;
     public int wcid;
     public DBCommunicator communicator;
@@ -305,7 +305,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
         });
     }
 
-    public void addUpdateSpeakers(JSONArray array) {
+    private void addUpdateSpeakers(JSONArray array) {
         Gson gson = new GsonBuilder().registerTypeHierarchyAdapter(Terms.class,
                 new CustomGsonDeSerializer()).create();
         for (int i = 0; i < array.length(); i++) {
@@ -327,15 +327,15 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
         stopRefreshSpeaker();
     }
 
-    public SpeakerFragment getSpeakerFragment() {
+    private SpeakerFragment getSpeakerFragment() {
         return (SpeakerFragment) adapter.getItemAt(2);
     }
 
-    public SessionsFragment getSessionsFragment() {
+    private SessionsFragment getSessionsFragment() {
         return (SessionsFragment) adapter.getItemAt(1);
     }
 
-    public WordCampOverview getOverViewFragment() {
+    private WordCampOverview getOverViewFragment() {
         return (WordCampOverview) adapter.getItemAt(0);
     }
 

@@ -1,5 +1,5 @@
 
-package org.wordcamp.objects.wordcampnew;
+package org.wordcamp.objects.wordcamp;
 
 import com.google.gson.annotations.Expose;
 

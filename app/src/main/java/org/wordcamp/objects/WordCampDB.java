@@ -2,8 +2,7 @@ package org.wordcamp.objects;
 
 import com.google.gson.Gson;
 
-import org.wordcamp.objects.wordcamp.WordCamps;
-import org.wordcamp.objects.wordcampnew.WordCampNew;
+import org.wordcamp.objects.wordcamp.WordCampNew;
 import org.wordcamp.utils.WordCampUtils;
 
 import java.io.Serializable;
@@ -14,20 +13,20 @@ import java.util.HashMap;
  */
 public class WordCampDB implements Serializable {
 
-    public int wc_id;
-    public String wc_title;
-    public String wc_start_date;
-    public String wc_end_date;
-    public String last_scanned_gmt;
-    public String gson_object;
-    public String url;
-    public String twitter;
+    private int wc_id;
+    private String wc_title;
+    private String wc_start_date;
+    private String wc_end_date;
+    private String last_scanned_gmt;
+    private String gson_object;
+    private String url;
+    private String twitter;
     public String featureImageUrl;
-    public String address;
-    public String venue;
-    public String about;
-    public String location;
-    public Gson gson;
+    private String address;
+    private String venue;
+    private String about;
+    private String location;
+    private Gson gson;
     public boolean isMyWC = false;
 
     public WordCampDB(int wc_id, String wc_title, String wc_start_date, String wc_end_date,
@@ -48,22 +47,6 @@ public class WordCampDB implements Serializable {
         this.venue = venue;
         this.location = location;
         this.about = about;
-    }
-
-    public WordCampDB(WordCamps wcs, String lastscan) {
-        gson = new Gson();
-        this.wc_id = wcs.getID();
-        this.wc_title = wcs.getTitle();
-        this.wc_start_date = wcs.getFoo().getStartDateYYYYMmDd().get(0);
-        this.wc_end_date = wcs.getFoo().getEndDateYYYYMmDd().get(0);
-        this.last_scanned_gmt = lastscan;
-        this.gson_object = gson.toJson(wcs);
-        if (wcs.getFoo().getURL().size() > 0 && !wcs.getFoo().getURL().get(0).equals("")) {
-            this.url = wcs.getFoo().getURL().get(0);
-        }
-        if (wcs.getFeaturedImage() != null) {
-            this.featureImageUrl = wcs.getFeaturedImage().getSource();
-        }
     }
 
     public WordCampDB(WordCampNew wcs, String lastscanned) {

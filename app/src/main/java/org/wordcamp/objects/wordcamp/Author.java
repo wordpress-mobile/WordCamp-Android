@@ -1,15 +1,13 @@
 
 package org.wordcamp.objects.wordcamp;
 
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
 
 public class Author {
 
     @Expose
-    private int ID;
+    private Integer ID;
     @Expose
     private String username;
     @Expose
@@ -40,7 +38,7 @@ public class Author {
      * @return
      *     The ID
      */
-    public int getID() {
+    public Integer getID() {
         return ID;
     }
 
@@ -49,7 +47,7 @@ public class Author {
      * @param ID
      *     The ID
      */
-    public void setID(int ID) {
+    public void setID(Integer ID) {
         this.ID = ID;
     }
 

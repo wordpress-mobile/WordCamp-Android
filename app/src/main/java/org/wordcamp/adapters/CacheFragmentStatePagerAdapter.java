@@ -114,7 +114,7 @@ public abstract class CacheFragmentStatePagerAdapter extends FragmentStatePagerA
      * @param position position of the item in the adapter
      * @return key string for caching Fragment pages
      */
-    protected String createCacheKey(int position) {
+    private String createCacheKey(int position) {
         return STATE_PAGE_KEY_PREFIX + position;
     }
 }

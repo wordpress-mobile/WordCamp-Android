@@ -17,9 +17,9 @@ import java.util.List;
  */
 public class SpeakerDetailAdapter extends BaseAdapter {
 
-    public Context mContext;
-    public List<String> session;
-    public LayoutInflater inflater;
+    private Context mContext;
+    private List<String> session;
+    private LayoutInflater inflater;
 
     public SpeakerDetailAdapter(Context ctx, List<String> names){
         mContext = ctx;

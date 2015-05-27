@@ -5,7 +5,7 @@ package org.wordcamp.objects.session;
 import com.google.gson.annotations.Expose;
 
 
-public class WcbTrack {
+class WcbTrack {
 
     @Expose
     private int ID;

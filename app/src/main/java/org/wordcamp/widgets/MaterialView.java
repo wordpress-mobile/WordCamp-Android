@@ -10,11 +10,11 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class MaterialView {
+abstract class MaterialView {
 	static private boolean isAPI11 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
-	protected WeakReference<View> view;
-	protected int lastOffset;
-	protected List<Animation> animations;
+	private WeakReference<View> view;
+	int lastOffset;
+	private List<Animation> animations;
 
 	abstract protected void translatePreICS(View view, float offset);
 	
@@ -39,7 +39,7 @@ public abstract class MaterialView {
 			}
 	}
 
-	protected synchronized void animateNow() {
+	synchronized void animateNow() {
 		View view = this.view.get();
 		if (view != null) {
 			AnimationSet set = new AnimationSet(true);

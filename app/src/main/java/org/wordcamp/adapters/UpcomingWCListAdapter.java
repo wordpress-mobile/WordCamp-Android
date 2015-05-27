@@ -25,11 +25,12 @@ import java.util.List;
  */
 public class UpcomingWCListAdapter extends BaseAdapter implements Filterable {
 
-    public List<WordCampDB> wordCamps, filteredWordCamps;
+    private List<WordCampDB> wordCamps;
+    private List<WordCampDB> filteredWordCamps;
 
-    public Context ctx;
+    private Context ctx;
 
-    public LayoutInflater inflater;
+    private LayoutInflater inflater;
 
     private WCListener listener;
 

@@ -43,17 +43,18 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class SpeakerDetailsActivity extends AppCompatActivity {
 
-    public Toolbar toolbar;
+    private Toolbar toolbar;
 
-    public SpeakerDB speakerDB;
-    public SpeakerNew speaker;
-    public Gson gson;
-    public DBCommunicator communicator;
-    public HashMap<String, Integer> titleSession;
-    public TextView info;
-    public ListView lv;
+    private SpeakerDB speakerDB;
+    private SpeakerNew speaker;
+    private Gson gson;
+    private DBCommunicator communicator;
+    private HashMap<String, Integer> titleSession;
+    private TextView info,sessionTitle;
+    private ListView lv;
     private Animator mCurrentAnimator;
-    public ImageView dp, zoomImageView;
+    private ImageView dp;
+    private ImageView zoomImageView;
     private AtomicBoolean visible = new AtomicBoolean(false);
     private float startScale;
     private View container;
@@ -96,6 +97,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
 
         View headerView = LayoutInflater.from(this).inflate(R.layout.item_header_speaker, null);
         info = (TextView) headerView.findViewById(R.id.speaker_detail);
+        sessionTitle = (TextView) headerView.findViewById(R.id.session_title);
         info.setClickable(true);
         info.setMovementMethod(LinkMovementMethod.getInstance());
         info.setText(Html.fromHtml(speakerDB.getInfo()));
@@ -113,7 +115,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
 
         lv = (ListView) findViewById(R.id.session_list_speakers);
         lv.addHeaderView(headerView, null, false);
-//        lv.setEmptyView(headerView);
+
 
         if (titleSession != null) {
             final List<String> names = new ArrayList<>(titleSession.keySet());
@@ -132,6 +134,8 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         } else {
             final List<String> names = new ArrayList<>();
             lv.setAdapter(new SpeakerDetailAdapter(getApplicationContext(), names));
+            sessionTitle.setVisibility(View.GONE);
+
         }
 
         zoomImageView.setOnClickListener(new View.OnClickListener() {
@@ -234,7 +238,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
      * After zoomed, when the image is clicked then it will zoom out
      * The edit button will help to select new image
      */
-    public void zoomImageFromThumb(final View thumbView) {
+    private void zoomImageFromThumb(final View thumbView) {
 
         // set the visible atomic boolean to true
         // so the recentChatActivity can know

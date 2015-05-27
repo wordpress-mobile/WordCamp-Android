@@ -25,9 +25,10 @@ import org.wordcamp.utils.ImageUtils;
  * Created by aagam on 26/1/15.
  */
 public class WordCampOverview extends Fragment {
-    public WordCampDB wc;
-    public TextView location, about;
-    public ImageView wcFeaturedImage;
+    private WordCampDB wc;
+    private TextView location;
+    private TextView about;
+    private ImageView wcFeaturedImage;
     private WordCampOverviewListener listener;
     private SwipeRefreshLayout refreshLayout;
     private View aboutView;
@@ -97,7 +98,7 @@ public class WordCampOverview extends Fragment {
         }
     }
 
-    public void startRefreshOverview() {
+    private void startRefreshOverview() {
         refreshLayout.post(new Runnable() {
             @Override
             public void run() {

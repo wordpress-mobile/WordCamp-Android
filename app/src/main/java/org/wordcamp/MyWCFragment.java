@@ -25,7 +25,7 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
     private ListView myWCLists;
     private List<WordCampDB> wordCampDBs;
     private List<WordCampDB> myWordCampDBs;
-    public DBCommunicator communicator;
+    private DBCommunicator communicator;
     public MyWCListAdapter adapter;
     private List<Integer> deleteItems = new ArrayList<>();
     private SwipeRefreshLayout refreshLayout;

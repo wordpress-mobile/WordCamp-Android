@@ -34,7 +34,7 @@ import java.util.HashMap;
 public class SessionDetailsActivity extends AppCompatActivity {
 
     private SessionDB sessionDB;
-    public org.wordcamp.objects.speaker.Session session;
+    private org.wordcamp.objects.speaker.Session session;
     private ArrayList<MiniSpeaker> speakerList;
     private DBCommunicator communicator;
     private FavoriteSession fav;

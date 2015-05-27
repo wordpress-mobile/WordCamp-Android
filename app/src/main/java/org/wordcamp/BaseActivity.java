@@ -27,7 +27,7 @@ import org.wordcamp.adapters.CacheFragmentStatePagerAdapter;
 import org.wordcamp.db.DBCommunicator;
 import org.wordcamp.networking.WPAPIClient;
 import org.wordcamp.objects.WordCampDB;
-import org.wordcamp.objects.wordcampnew.WordCampNew;
+import org.wordcamp.objects.wordcamp.WordCampNew;
 import org.wordcamp.utils.ImageUtils;
 import org.wordcamp.widgets.SlidingTabLayout;
 

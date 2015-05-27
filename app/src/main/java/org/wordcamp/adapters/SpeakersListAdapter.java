@@ -20,9 +20,9 @@ import java.util.List;
  */
 public class SpeakersListAdapter extends BaseAdapter {
 
-    public Context context;
-    public LayoutInflater inflater;
-    public List<SpeakerDB> speakerDBList;
+    private Context context;
+    private LayoutInflater inflater;
+    private List<SpeakerDB> speakerDBList;
 
     public SpeakersListAdapter(Context ctx, List<SpeakerDB> speakerDBList) {
         this.context = ctx;

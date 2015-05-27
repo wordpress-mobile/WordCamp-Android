@@ -27,10 +27,10 @@ import java.util.List;
  */
 public class SpeakerFragment extends Fragment {
 
-    public ListView lv;
-    public SpeakersListAdapter adapter;
-    public List<SpeakerDB> speakerDBList;
-    public int wcid;
+    private ListView lv;
+    private SpeakersListAdapter adapter;
+    private List<SpeakerDB> speakerDBList;
+    private int wcid;
     private SwipeRefreshLayout refreshLayout;
     private SpeakerFragmentListener listener;
 
@@ -85,7 +85,7 @@ public class SpeakerFragment extends Fragment {
         });
     }
 
-    public void startRefreshSession() {
+    private void startRefreshSession() {
         refreshLayout.post(new Runnable() {
             @Override
             public void run() {

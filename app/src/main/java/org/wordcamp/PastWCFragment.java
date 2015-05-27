@@ -26,12 +26,12 @@ import java.util.List;
 
 
 public class PastWCFragment extends Fragment implements UpcomingWCListAdapter.WCListener {
-    public ListView upWCLists;
-    public List<WordCampDB> wordCampDBs;
-    public DBCommunicator communicator;
-    public upcomingFragListener listener;
-    public SwipeRefreshLayout refreshLayout;
-    public Gson g;
+    private ListView upWCLists;
+    private List<WordCampDB> wordCampDBs;
+    private DBCommunicator communicator;
+    private upcomingFragListener listener;
+    private SwipeRefreshLayout refreshLayout;
+    private Gson g;
     public UpcomingWCListAdapter adapter;
 
     public static PastWCFragment newInstance() {
@@ -95,7 +95,7 @@ public class PastWCFragment extends Fragment implements UpcomingWCListAdapter.WC
         }
     }
 
-    public void startRefresh() {
+    private void startRefresh() {
         refreshLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -105,7 +105,7 @@ public class PastWCFragment extends Fragment implements UpcomingWCListAdapter.WC
         });
     }
 
-    public void sortDescWC() {
+    private void sortDescWC() {
         Collections.sort(wordCampDBs, new Comparator<WordCampDB>() {
             @Override
             public int compare(WordCampDB lhs, WordCampDB rhs) {
@@ -116,7 +116,7 @@ public class PastWCFragment extends Fragment implements UpcomingWCListAdapter.WC
         });
     }
 
-    public void sortWC() {
+    private void sortWC() {
         Collections.sort(wordCampDBs, new Comparator<WordCampDB>() {
             @Override
             public int compare(WordCampDB lhs, WordCampDB rhs) {
@@ -125,11 +125,6 @@ public class PastWCFragment extends Fragment implements UpcomingWCListAdapter.WC
                 return lhstime - rhstime;
             }
         });
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
     }
 
     public void updateList(List<WordCampDB> wordCampsList) {
