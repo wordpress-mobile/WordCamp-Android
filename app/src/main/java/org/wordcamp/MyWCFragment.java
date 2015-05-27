@@ -1,6 +1,5 @@
 package org.wordcamp;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,13 +10,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.google.gson.Gson;
 import com.parse.ParsePush;
 
 import org.wordcamp.adapters.MyWCListAdapter;
 import org.wordcamp.db.DBCommunicator;
 import org.wordcamp.objects.WordCampDB;
-import org.wordcamp.objects.wordcamp.WordCamps;
 
 import java.util.ArrayList;
 import java.util.Collections;

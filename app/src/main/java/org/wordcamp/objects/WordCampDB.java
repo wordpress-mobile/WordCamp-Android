@@ -8,7 +8,6 @@ import org.wordcamp.utils.WordCampUtils;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by aagam on 28/1/15.
