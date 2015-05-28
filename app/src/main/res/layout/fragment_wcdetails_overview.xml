@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <org.wordcamp.widgets.MaterialScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fff"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/wc_image_container"
+                    android:layout_width="fill_parent"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/featuredImage"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:scaleType="fitStart" />
+                </LinearLayout>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="8dp"
+
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="16dp"
+                    card_view:cardCornerRadius="2dp"
+                    card_view:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:id="@+id/centerLayoutDetail"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#fff"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:id="@+id/wc_loc_header"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:text="@string/wc_location"
+                            android:textColor="@color/accent_material_light"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/wc_location"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:textColor="@color/text_color"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/wc_about_header"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:text="@string/wc_about"
+                            android:textColor="@color/flat_blue_dark"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/wc_about"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_color"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="fill_parent"
+                            android:background="@drawable/divider"
+                            android:layout_marginBottom="16dp"
+                            android:layout_height="1dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:padding="16dp"
+                            android:background="@drawable/highlight"
+                            android:id="@+id/maps_cotainer"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:src="@drawable/ic_directions_car_24dp"
+                                android:layout_width="wrap_content"
+                                android:layout_marginRight="16dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:id="@+id/maps_text"
+                                android:text="@string/map_directions"
+                                android:textSize="16sp"
+                                android:textColor="@color/accent_material_light"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+        </org.wordcamp.widgets.MaterialScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

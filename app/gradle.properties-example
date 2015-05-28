@@ -1,0 +1,7 @@
+wc.url = wordcamp
+wc.url_local = wordcamp
+wc.url_singlewc = wordcamp
+wc.url_beta = wordcamp
+wc.parse_token = wordcamp
+wc.parse_appkey = wordcamp
+wc.feedback_url = wordcamp
