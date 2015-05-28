@@ -15,16 +15,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 21
         versionCode 1
-        versionName "0.1.1"
-    }
-
-    productFlavors {
-        local {
-            applicationId "org.wordcamp.local"
-        }
-        beta {
-            applicationId "org.wordcamp.beta"
-        }
+        versionName "1.0-beta-1"
     }
 
     buildTypes {
@@ -32,10 +23,17 @@ android {
             debuggable false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "LIST_WORDCAMP_URL", '"' + project.properties["default.list_wordcamp_url"] + '"'
         }
 
         debug {
             debuggable true
+            buildConfigField "String", "LIST_WORDCAMP_URL", '"' + project.properties["default.list_wordcamp_url"] + '"'
+        }
+
+        localdebug.initWith(buildTypes.debug);
+        localdebug {
+            buildConfigField "String", "LIST_WORDCAMP_URL", '"' + project.properties["local.list_wordcamp_url"] + '"'
         }
     }
 }
