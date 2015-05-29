@@ -5,17 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-
-    <permission
-        android:name="org.wordcamp.beta.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
-    <uses-permission android:name="org.wordcamp.beta.permission.C2D_MESSAGE" />
-
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -58,38 +47,6 @@
             android:configChanges="screenSize|orientation" />
 
         <receiver android:name=".notifs.SessionNotifierReceiver" />
-
-
-        <service android:name="com.parse.PushService" />
-
-        <receiver android:name="com.parse.ParseBroadcastReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.USER_PRESENT" />
-            </intent-filter>
-        </receiver>
-
-        <receiver
-            android:name=".networking.CustomGCMReceiver"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="org.wordcamp.UPDATES" />
-                <action android:name="com.parse.push.intent.RECEIVE" />
-                <action android:name="com.parse.push.intent.DELETE" />
-                <action android:name="com.parse.push.intent.OPEN" />
-            </intent-filter>
-        </receiver>
-
-        <receiver
-            android:name="com.parse.GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND">
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-
-                <category android:name="org.wordcamp.beta" />
-            </intent-filter>
-        </receiver>
 
     </application>
 

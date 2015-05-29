@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.parse.ParsePush;
-
 import org.wordcamp.adapters.MyWCListAdapter;
 import org.wordcamp.db.DBCommunicator;
 import org.wordcamp.objects.WordCampDB;
@@ -151,9 +149,6 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
             WordCampDB db = adapter.getItem(deleteItems.get(i));
             removedWCIDs.add(db.getWc_id());
             myWordCampDBs.remove((int) deleteItems.get(i));
-            if (!db.getTwitter().isEmpty()) {
-                ParsePush.unsubscribeInBackground(db.getTwitter().replace("#", ""));
-            }
         }
         deleteItems = new ArrayList<>();
         communicator.removeFromMyWC(removedWCIDs);
