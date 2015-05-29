@@ -14,21 +14,25 @@ import org.wordcamp.BuildConfig;
  */
 public class WPAPIClient {
 
-    private static final String LOCAL = BuildConfig.URL_LOCAL;
+    private static final String LOCAL = "";
 
     private static final String QUERY_PARAM_SPEAKERS = "wp-json/posts?type=wcb_speaker&filter[posts_per_page]=100";
 
-    private static final String QUERY_PARAM_WC = BuildConfig.URL_BETA;
+    private static final String QUERY_PARAM_WORDCAMP_LIST = "wp-json/posts?type=wordcamp";
 
     private static final String QUERY_PARAM_SCHEDULE = "wp-json/posts?type=wcb_session&filter[order]=DESC&filter[orderby]=modified&filter[posts_per_page]=100";
 
-    private static final String QUERY_PARAM_SINGLEWC = BuildConfig.URL_SINGLEWC;
+    private static final String QUERY_PARAM_SINGLEWC = "";
 
     //This config of client accepts all SSL connections
     private static AsyncHttpClient client = new AsyncHttpClient(true, 80, 443);
 
+    private static String getListWordCampEndpoint() {
+        return BuildConfig.LIST_WORDCAMP_URL + QUERY_PARAM_WORDCAMP_LIST;
+    }
+
     public static void getWordCampsList(Context ctx, String date, JsonHttpResponseHandler responseHandler) {
-        client.get(ctx, QUERY_PARAM_WC, responseHandler);
+        client.get(ctx, getListWordCampEndpoint(), responseHandler);
     }
 
     public static void getWordCampSpeakers(Context ctx, String wordcampURL, JsonHttpResponseHandler responseHandler) {
@@ -46,7 +50,6 @@ public class WPAPIClient {
         client.setEnableRedirects(true, true, true);
         client.get(ctx, wordcampURL + QUERY_PARAM_SCHEDULE, responseHandler);
     }
-
 
     public static void getSession(Context ctx, String url, AsyncHttpResponseHandler responseHandler) {
         RequestParams params = new RequestParams();
