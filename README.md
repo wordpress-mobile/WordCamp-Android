@@ -18,10 +18,10 @@ Say hello on [Slack][2] channel: `#mobile`.
 ## License ##
 
 WordCamp for Android is an Open Source project covered by the
-[GNU General Public License version 2](LICENSE.md). Note: Libraries in
-`app/libs` and some source files come from external libraries, and might be
-covered by a different license compatible with the GPLv2. License information
-for these files are included as a comment header. 
+[GNU General Public License version 2](LICENSE.md). Note: some source
+files come from external libraries, and might be covered by a different
+license compatible with the GPLv2. License information for these files
+are included as a comment header.
 
 [1]: http://tools.android.com/tech-docs/new-build-system/user-guide
 [2]: https://make.wordpress.org/chat/
