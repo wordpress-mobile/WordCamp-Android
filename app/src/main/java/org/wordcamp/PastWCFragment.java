@@ -13,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
-import com.parse.ParsePush;
 
 import org.wordcamp.adapters.UpcomingWCListAdapter;
 import org.wordcamp.db.DBCommunicator;
@@ -147,26 +146,16 @@ public class PastWCFragment extends Fragment implements UpcomingWCListAdapter.WC
     @Override
     public int addToMyWC(int wcid, int position) {
         int retId = communicator.addToMyWC(wcid);
-
         WordCampDB wordCampDB = adapter.getItem(position);
         listener.onNewMyWCAdded(wordCampDB);
-
-        if (!wordCampDB.getTwitter().isEmpty()) {
-            ParsePush.subscribeInBackground(wordCampDB.getTwitter().replace("#", ""));
-        }
         return retId;
     }
 
     @Override
     public void removeMyWC(int wcid, int position) {
         communicator.removeFromMyWCSingle(wcid);
-
         WordCampDB wordCampDB = adapter.getItem(position);
-        if (!wordCampDB.getTwitter().isEmpty()) {
-            ParsePush.unsubscribeInBackground(wordCampDB.getTwitter().replace("#", ""));
-        }
         listener.onMyWCRemoved(wordCampDB);
-
     }
 
     public void stopRefresh() {
