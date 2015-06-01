@@ -21,41 +21,36 @@ public class WPAPIClient {
 
     private static final String QUERY_PARAM_SINGLEWC = "wp-json/posts/";
 
-    //This config of client accepts all SSL connections
+    // This config of client accepts all SSL connections
     private static AsyncHttpClient client = new AsyncHttpClient(true, 80, 443);
 
-    private static String getListWordCampEndpoint() {
-        return BuildConfig.LIST_WORDCAMP_URL + QUERY_PARAM_WORDCAMP_LIST;
+    private static String normalizeWordCampUrl(String wordcampURL) {
+        if (!wordcampURL.endsWith("/")) {
+            wordcampURL = wordcampURL + "/";
+        }
+        return wordcampURL;
     }
 
     public static void getWordCampsList(Context ctx, String date, JsonHttpResponseHandler responseHandler) {
-        client.get(ctx, getListWordCampEndpoint(), responseHandler);
+        client.get(ctx, BuildConfig.CENTRAL_WORDCAMP_URL + QUERY_PARAM_WORDCAMP_LIST, responseHandler);
     }
 
     public static void getWordCampSpeakers(Context ctx, String wordcampURL, JsonHttpResponseHandler responseHandler) {
-        if (!wordcampURL.endsWith("/")) {
-            wordcampURL = wordcampURL + "/";
-        }
         client.setEnableRedirects(true, true, true);
-        client.get(ctx, wordcampURL + QUERY_PARAM_SPEAKERS, responseHandler);
+        client.get(ctx, normalizeWordCampUrl(wordcampURL) + QUERY_PARAM_SPEAKERS, responseHandler);
     }
 
     public static void getWordCampSchedule(Context ctx, String wordcampURL, JsonHttpResponseHandler responseHandler) {
-        if (!wordcampURL.endsWith("/")) {
-            wordcampURL = wordcampURL + "/";
-        }
         client.setEnableRedirects(true, true, true);
-        client.get(ctx, wordcampURL + QUERY_PARAM_SCHEDULE, responseHandler);
+        client.get(ctx, normalizeWordCampUrl(wordcampURL) + QUERY_PARAM_SCHEDULE, responseHandler);
     }
 
     public static void getSingleWC(Context ctx, int wcid, AsyncHttpResponseHandler responseHandler) {
         client.setEnableRedirects(true, true, true);
-        client.get(ctx, BuildConfig.LIST_WORDCAMP_URL + QUERY_PARAM_SINGLEWC + wcid, responseHandler);
+        client.get(ctx, BuildConfig.CENTRAL_WORDCAMP_URL + QUERY_PARAM_SINGLEWC + wcid, responseHandler);
     }
 
     public static void cancelAllRequests(Context ctx) {
         client.cancelRequests(ctx, true);
     }
-
-
 }

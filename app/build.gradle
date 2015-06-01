@@ -23,17 +23,17 @@ android {
             debuggable false
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "LIST_WORDCAMP_URL", '"' + project.properties["default.list_wordcamp_url"] + '"'
+            buildConfigField "String", "CENTRAL_WORDCAMP_URL", '"' + project.properties["default.central_wordcamp_url"] + '"'
         }
 
         debug {
             debuggable true
-            buildConfigField "String", "LIST_WORDCAMP_URL", '"' + project.properties["default.list_wordcamp_url"] + '"'
+            buildConfigField "String", "CENTRAL_WORDCAMP_URL", '"' + project.properties["default.central_wordcamp_url"] + '"'
         }
 
         localdebug.initWith(buildTypes.debug);
         localdebug {
-            buildConfigField "String", "LIST_WORDCAMP_URL", '"' + project.properties["local.list_wordcamp_url"] + '"'
+            buildConfigField "String", "CENTRAL_WORDCAMP_URL", '"' + project.properties["local.central_wordcamp_url"] + '"'
         }
     }
 }

@@ -1,5 +1,5 @@
-default.list_wordcamp_url = https://www.central.wordcamp.org/
-local.list_wordcamp_url = http://localhost:8000/
+default.central_wordcamp_url = https://central.wordcamp.org/
+local.central_wordcamp_url = http://localhost:8000/
 wc.parse_token = wordcamp
 wc.parse_appkey = wordcamp
 wc.feedback_url = http://wordcamp.org
