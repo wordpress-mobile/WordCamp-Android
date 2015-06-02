@@ -1,3 +1,3 @@
 default.central_wordcamp_url = https://central.wordcamp.org/
 local.central_wordcamp_url = http://localhost:8000/
-wc.feedback_mail = mobile@wordcamp.org
+wc.feedback_mail = example@example.com
