@@ -11,9 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.google.gson.Gson;
-
-import org.wordcamp.adapters.UpcomingWCListAdapter;
+import org.wordcamp.adapters.WCListAdapter;
 import org.wordcamp.db.DBCommunicator;
 import org.wordcamp.objects.WordCampDB;
 import org.wordcamp.utils.WordCampUtils;
@@ -23,14 +21,13 @@ import java.util.Comparator;
 import java.util.List;
 
 
-public class UpcomingWCFragment extends android.support.v4.app.Fragment implements UpcomingWCListAdapter.WCListener {
+public class UpcomingWCFragment extends android.support.v4.app.Fragment implements WCListAdapter.WCListener {
     private ListView upWCLists;
     private List<WordCampDB> wordCampDBs;
     private DBCommunicator communicator;
     private upcomingFragListener listener;
     private SwipeRefreshLayout refreshLayout;
-    private Gson g;
-    public UpcomingWCListAdapter adapter;
+    public WCListAdapter adapter;
 
     public static UpcomingWCFragment newInstance() {
         return new UpcomingWCFragment();
@@ -45,7 +42,6 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        g = new Gson();
         communicator = ((BaseActivity) getActivity()).communicator;
         wordCampDBs = ((BaseActivity) getActivity()).wordCampsList;
         if (wordCampDBs != null) {
@@ -64,7 +60,7 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
             }
         });
         setProperListPosition();
-        adapter = new UpcomingWCListAdapter(wordCampDBs, getActivity(), this);
+        adapter = new WCListAdapter(wordCampDBs, getActivity(), this);
         upWCLists.setAdapter(adapter);
         upWCLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -122,7 +118,7 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
         wordCampDBs = wordCampsList;
         sortWC();
         setProperListPosition();
-        adapter = new UpcomingWCListAdapter(wordCampDBs, getActivity(), this);
+        adapter = new WCListAdapter(wordCampDBs, getActivity(), this);
         upWCLists.setAdapter(adapter);
     }
 

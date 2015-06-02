@@ -280,6 +280,41 @@ public class DBCommunicator {
         }
     }
 
+    public List<WordCampDB> getAllMyWc() {
+        Cursor cursor = db.rawQuery("SELECT * FROM wordcamp WHERE mywc = 1 ", null);
+
+        if (cursor != null) {
+            List<WordCampDB> wordCampDBList = new ArrayList<>();
+
+            if (cursor.moveToFirst()) {
+                do {
+                    int id = cursor.getInt(0);
+                    String title = cursor.getString(1);
+                    String from = cursor.getString(2);
+                    String to = cursor.getString(3);
+                    String lastscanned = cursor.getString(4);
+                    String data = cursor.getString(5);
+                    String url = cursor.getString(6);
+                    String featuredImage = cursor.getString(7);
+                    int isMyWC = cursor.getInt(8);
+                    String twitter = cursor.getString(9);
+
+                    String address = cursor.getString(10);
+                    String venue = cursor.getString(11);
+                    String location = cursor.getString(12);
+                    String about = cursor.getString(13);
+
+                    wordCampDBList.add(new WordCampDB(id, title, from, to, lastscanned,
+                            data, url, featuredImage, isMyWC != 0, twitter, address, venue, location, about));
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            return wordCampDBList;
+        } else {
+            return null;
+        }
+    }
+
 
     /**
      * Get the speaker by the post-id

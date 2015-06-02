@@ -3,6 +3,7 @@ package org.wordcamp;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import org.wordcamp.adapters.MyWCListAdapter;
+import org.wordcamp.adapters.WCListAdapter;
 import org.wordcamp.db.DBCommunicator;
 import org.wordcamp.objects.WordCampDB;
 
@@ -19,13 +20,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class MyWCFragment extends android.support.v4.app.Fragment implements MyWCListAdapter.OnDeleteListener {
+public class MyWCFragment extends Fragment implements WCListAdapter.WCListener {
     private ListView myWCLists;
     private List<WordCampDB> wordCampDBs;
     private List<WordCampDB> myWordCampDBs;
     private DBCommunicator communicator;
-    public MyWCListAdapter adapter;
-    private List<Integer> deleteItems = new ArrayList<>();
+    public WCListAdapter adapter;
     private SwipeRefreshLayout refreshLayout;
 
     public static MyWCFragment newInstance() {
@@ -50,7 +50,7 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
         View v = getView();
         myWCLists = (ListView) v.findViewById(R.id.scroll);
         myWCLists.setEmptyView(v.findViewById(R.id.empty_view));
-        adapter = new MyWCListAdapter(myWordCampDBs, getActivity(), this);
+        adapter = new WCListAdapter(myWordCampDBs, getActivity(), this);
         myWCLists.setAdapter(adapter);
 
         refreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
@@ -66,31 +66,9 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
         myWCLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                if (!deleteItems.contains(position)) {
-                    Intent i = new Intent(getActivity(), WordCampDetailActivity.class);
-                    i.putExtra("wc", adapter.getItem(position));
-                    startActivity(i);
-                } else {
-                    MyWCListAdapter.ViewHolder holder = (MyWCListAdapter.ViewHolder) view.getTag();
-                    deleteItems.remove(Integer.valueOf(position));
-                    holder.delete.setVisibility(View.GONE);
-
-                }
-            }
-        });
-
-        myWCLists.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                adapter.notifyDataSetChanged();
-                MyWCListAdapter.ViewHolder holder = (MyWCListAdapter.ViewHolder) view.getTag();
-                holder.delete.setVisibility(View.VISIBLE);
-
-                if (!deleteItems.contains(position)) {
-                    deleteItems.add(position);
-                }
-                return true;
+                Intent i = new Intent(getActivity(), WordCampDetailActivity.class);
+                i.putExtra("wc", adapter.getItem(position));
+                startActivity(i);
             }
         });
     }
@@ -99,7 +77,6 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
     @Override
     public void onResume() {
         super.onResume();
-        deleteItems = new ArrayList<>();
     }
 
     public void stopRefresh() {
@@ -109,7 +86,7 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
     public void updateList(List<WordCampDB> wordCampsList) {
         wordCampDBs = wordCampsList;
         sortAndModifyMyWC();
-        adapter = new MyWCListAdapter(myWordCampDBs, getActivity(), this);
+        adapter = new WCListAdapter(myWordCampDBs, getActivity(), this);
         myWCLists.setAdapter(adapter);
     }
 
@@ -137,35 +114,29 @@ public class MyWCFragment extends android.support.v4.app.Fragment implements MyW
     public void addWC(WordCampDB wordCampDB) {
         myWordCampDBs.add(wordCampDB);
         sort();
-        adapter = new MyWCListAdapter(myWordCampDBs, getActivity(), this);
+        adapter = new WCListAdapter(myWordCampDBs, getActivity(), this);
+        myWCLists.setAdapter(adapter);
+    }
+
+    public void removeSingleMYWC(WordCampDB wordCampDB) {
+        myWordCampDBs.remove(wordCampDB);
+        adapter = new WCListAdapter(myWordCampDBs, getActivity(), this);
         myWCLists.setAdapter(adapter);
     }
 
     @Override
-    public void removeWC() {
-        List<Integer> removedWCIDs = new ArrayList<>();
-        Collections.sort(deleteItems);
-        for (int i = deleteItems.size() - 1; i >= 0; i--) {
-            WordCampDB db = adapter.getItem(deleteItems.get(i));
-            removedWCIDs.add(db.getWc_id());
-            myWordCampDBs.remove((int) deleteItems.get(i));
-        }
-        deleteItems = new ArrayList<>();
-        communicator.removeFromMyWC(removedWCIDs);
-        adapter = new MyWCListAdapter(myWordCampDBs, getActivity(), this);
+    public int addToMyWC(int wcid, int position) {
+        return 0;
+    }
+
+    @Override
+    public void removeMyWC(int wcid, int position) {
+        communicator.removeFromMyWCSingle(wcid);
+        myWordCampDBs = communicator.getAllMyWc();
+        sort();
+        adapter = new WCListAdapter(myWordCampDBs, getActivity(), this);
         myWCLists.setAdapter(adapter);
         ((BaseActivity) getActivity()).refreshUpcomingFrag();
         ((BaseActivity) getActivity()).refreshPastFrag();
-
     }
-
-    public void removeSingleMYWC(WordCampDB wordCampDB) {
-        wordCampDBs = communicator.getAllWc();
-        if (wordCampDBs != null) {
-            sortAndModifyMyWC();
-        }
-        adapter = new MyWCListAdapter(myWordCampDBs, getActivity(), this);
-        myWCLists.setAdapter(adapter);
-    }
-
 }

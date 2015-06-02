@@ -23,40 +23,40 @@ import java.util.List;
 /**
  * Created by aagam on 5/2/15.
  */
-public class MyWCListAdapter extends BaseAdapter implements Filterable {
+public class WCListAdapter extends BaseAdapter implements Filterable {
 
-    private List<WordCampDB> wordCamps, filteredWCs;
+    private List<WordCampDB> wordCamps;
+    private List<WordCampDB> filteredWordCamps;
 
     private Context ctx;
 
-    private OnDeleteListener listener;
-
-    private WordCampsFilter wordCampsFilter;
-
     private LayoutInflater inflater;
+
+    private WCListener listener;
 
     private int color, color1;
 
-    public MyWCListAdapter(List<WordCampDB> arr, Context context, OnDeleteListener listener) {
+    private WordCampsFilter wordCampsFilter;
+
+    public WCListAdapter(List<WordCampDB> arr, Context context, WCListener listener) {
         wordCamps = arr;
         ctx = context;
-        inflater = LayoutInflater.from(ctx);
         this.listener = listener;
-        filteredWCs = wordCamps;
-        wordCampsFilter = new WordCampsFilter();
+        inflater = LayoutInflater.from(ctx);
         color = ctx.getResources().getColor(R.color.flat_light_pink);
         color1 = ctx.getResources().getColor(R.color.flat_light_blue);
-
+        filteredWordCamps = wordCamps;
+        wordCampsFilter = new WordCampsFilter();
     }
 
     @Override
     public int getCount() {
-        return filteredWCs.size();
+        return filteredWordCamps.size();
     }
 
     @Override
     public WordCampDB getItem(int position) {
-        return filteredWCs.get(position);
+        return filteredWordCamps.get(position);
     }
 
     @Override
@@ -66,32 +66,50 @@ public class MyWCListAdapter extends BaseAdapter implements Filterable {
 
     @Override
     public View getView(final int position, View view, ViewGroup parent) {
-        ViewHolder holder;
+        final ViewHolder holder;
 
         if (view == null) {
-            view = inflater.inflate(R.layout.my_wc_card, parent, false);
+            view = inflater.inflate(R.layout.upcoming_wc_card, parent, false);
             holder = new ViewHolder(view);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
         }
 
-        final WordCampDB wc = filteredWCs.get(position);
+        final WordCampDB wc = filteredWordCamps.get(position);
         holder.title.setText(wc.getWc_title());
         holder.date.setText(WordCampUtils.getProperDate(wc));
-        holder.delete.setOnClickListener(new View.OnClickListener() {
+        if (wc.isMyWC) {
+            Picasso.with(ctx).load(R.drawable.ic_bookmark_grey600_24dp).into(holder.bookmark);
+        } else {
+            Picasso.with(ctx).load(R.drawable.ic_bookmark_outline_grey600_24dp).into(holder.bookmark);
+        }
+
+        holder.bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.removeWC();
+                if (!wc.isMyWC) {
+                    listener.addToMyWC(wc.getWc_id(), position);
+                    Picasso.with(ctx).load(R.drawable.ic_bookmark_grey600_24dp).into(holder.bookmark);
+                    wc.isMyWC = true;
+                    filteredWordCamps.set(position, wc);
+                } else {
+                    listener.removeMyWC(wc.getWc_id(), position);
+                    Picasso.with(ctx).load(R.drawable.ic_bookmark_outline_grey600_24dp).into(holder.bookmark);
+                    wc.isMyWC = false;
+                    filteredWordCamps.set(position, wc);
+                }
             }
         });
-        if (wc.featureImageUrl != null && !wc.featureImageUrl.equals(""))
-            Picasso.with(ctx).load(wc.featureImageUrl).error(R.drawable.ic_refresh_white_36dp).into(holder.icon);
+        //Currently featured image will always be null due to bug in API
+        /*if(wc.featureImageUrl!=null && !wc.featureImageUrl.equals(""))
+            Picasso.with(ctx).load(wc.featureImageUrl).into(holder.icon);*/
 
         TextDrawable drawable = TextDrawable.builder()
                 .buildRound("" + wc.getWc_title().split(" ")[1].charAt(0), position % 2 == 0 ? color : color1);
 
         holder.icon.setImageDrawable(drawable);
+
         return view;
     }
 
@@ -102,18 +120,20 @@ public class MyWCListAdapter extends BaseAdapter implements Filterable {
 
     public static class ViewHolder {
         public TextView title, date;
-        public ImageView icon, delete;
+        public ImageView icon, bookmark;
 
         public ViewHolder(View v) {
             title = (TextView) v.findViewById(R.id.up_wc_title);
             date = (TextView) v.findViewById(R.id.up_wc_dates);
             icon = (ImageView) v.findViewById(R.id.wcIcon);
-            delete = (ImageView) v.findViewById(R.id.wcDelete);
+            bookmark = (ImageView) v.findViewById(R.id.bookmark);
         }
     }
 
-    public interface OnDeleteListener {
-        void removeWC();
+    public interface WCListener {
+        int addToMyWC(int wcid, int position);
+
+        void removeMyWC(int wcid, int position);
     }
 
     private class WordCampsFilter extends Filter {
@@ -138,7 +158,7 @@ public class MyWCListAdapter extends BaseAdapter implements Filterable {
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            filteredWCs = (ArrayList<WordCampDB>) results.values;
+            filteredWordCamps = (ArrayList<WordCampDB>) results.values;
             notifyDataSetChanged();
         }
     }
