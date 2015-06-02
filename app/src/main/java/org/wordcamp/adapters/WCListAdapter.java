@@ -69,7 +69,7 @@ public class WCListAdapter extends BaseAdapter implements Filterable {
         final ViewHolder holder;
 
         if (view == null) {
-            view = inflater.inflate(R.layout.upcoming_wc_card, parent, false);
+            view = inflater.inflate(R.layout.item_wordcamp, parent, false);
             holder = new ViewHolder(view);
             view.setTag(holder);
         } else {
