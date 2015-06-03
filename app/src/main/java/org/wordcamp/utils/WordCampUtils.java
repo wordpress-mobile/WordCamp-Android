@@ -5,6 +5,7 @@ import org.wordcamp.objects.speaker.Session;
 import org.wordcamp.objects.wordcamp.PostMetum;
 import org.wordcamp.objects.wordcamp.WordCampNew;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,27 +20,21 @@ import java.util.TimeZone;
 public class WordCampUtils {
 
     public static String getProperDate(WordCampDB wdb) {
-
         if (!wdb.getWc_end_date().isEmpty()) {
             Date d = new Date(Long.parseLong(wdb.getWc_start_date()) * 1000);
-            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd", Locale.getDefault());
             Date d1 = new Date(Long.parseLong(wdb.getWc_end_date()) * 1000);
-            SimpleDateFormat sdf1 = new SimpleDateFormat("dd, yyyy", Locale.getDefault());
-            return sdf.format(d) + " - " + sdf1.format(d1);
+            DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
+            return df.format(d) + " - " + df.format(d1);
         } else {
             Date d = new Date(Long.parseLong(wdb.getWc_start_date()) * 1000);
-            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
-            return sdf.format(d);
+            DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
+            return df.format(d);
         }
-
     }
 
     public static String getProperFormatDate(String s) {
-
         Date d1 = new Date(Long.parseLong(s) * 1000);
-
         SimpleDateFormat sdf1 = new SimpleDateFormat("dd, MMM yyyy", Locale.getDefault());
-
         return sdf1.format(d1);
     }
 
@@ -66,10 +61,11 @@ public class WordCampUtils {
 
             for (int i = 0; i < wcdb.size(); i++) {
                 long wcDate;
-                if (!wcdb.get(i).getWc_end_date().isEmpty())
+                if (!wcdb.get(i).getWc_end_date().isEmpty()) {
                     wcDate = Long.parseLong(wcdb.get(i).getWc_end_date()) * 1000;
-                else
+                } else {
                     wcDate = Long.parseLong(wcdb.get(i).getWc_start_date()) * 1000;
+                }
                 long diffDate = (wcDate - now) / (1000 * 60 * 60 * 24);
                 if (diffDate > -1) {
                     counter = i;
@@ -95,7 +91,6 @@ public class WordCampUtils {
         return d.hashCode();
     }
 
-
     public static HashMap<String, String> getTwitterAndUrl(WordCampNew wcn) {
         List<PostMetum> meta = wcn.getPostMeta();
 
@@ -119,6 +114,4 @@ public class WordCampUtils {
 
         return map;
     }
-
-
 }
