@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">WordCamp Central</string>
-    <string name="action_settings">Settings</string>
     <string name="item_attending">Attending</string>
     <string name="action_refresh">Refresh</string>
     <string name="favorite">favorite</string>
@@ -31,5 +29,4 @@
     <string name="bug">Reporting a Bug?</string>
     <string name="hint_description">Description</string>
     <string name="hint_title">Title</string>
-
 </resources>
