@@ -28,10 +28,10 @@
             android:minHeight="?attr/actionBarSize"
             app:theme="@style/SlidingLayoutTab"
             app:popupTheme="@style/SlidingLayoutTabPopUp"/>
-        <org.wordcamp.widgets.SlidingTabLayout
+        <android.support.design.widget.TabLayout
             android:id="@+id/sliding_tabs"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/tab_height" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </FrameLayout>

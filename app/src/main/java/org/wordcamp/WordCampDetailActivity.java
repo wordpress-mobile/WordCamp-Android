@@ -3,6 +3,7 @@ package org.wordcamp;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -34,7 +35,6 @@ import org.wordcamp.wcdetails.MySessionsActivity;
 import org.wordcamp.wcdetails.SessionsFragment;
 import org.wordcamp.wcdetails.SpeakerFragment;
 import org.wordcamp.wcdetails.WordCampOverview;
-import org.wordcamp.widgets.SlidingTabLayout;
 
 /**
  * Created by aagam on 26/1/15.
@@ -77,12 +77,12 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
         final int tabHeight = getResources().getDimensionPixelSize(R.dimen.tab_height);
         findViewById(R.id.pager_wrapper).setPadding(0, ImageUtils.getActionBarSize(this) + tabHeight, 0, 0);
 
-        SlidingTabLayout slidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
-        slidingTabLayout.setCustomTabView(R.layout.tab_view, android.R.id.text1);
-
-        slidingTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.accent));
-        slidingTabLayout.setDistributeEvenly(true);
-        slidingTabLayout.setViewPager(mPager);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setTabTextColors(getResources().getColor(R.color.tab_normal_text),
+                getResources().getColor(R.color.tab_selected_text));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        tabLayout.setupWithViewPager(mPager);
 
         setToolbar();
     }

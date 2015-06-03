@@ -12,4 +12,6 @@
     <color name="flat_light_blue">#90caf9</color>
     <color name="flat_light_pink">#f48fb1</color>
     <color name="dividers">#DBDBDB</color>
+    <color name="tab_normal_text">#beffffff</color>
+    <color name="tab_selected_text">#fff</color>
 </resources>
