@@ -100,7 +100,8 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
         MenuItem searchItem = menu.findItem(R.id.search_wc);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(this);
-        searchView.setQueryHint(Html.fromHtml(getString(R.string.search_wc_hint)));
+        searchView.setQueryHint(Html.fromHtml("<font color = #ffffff>"
+                + getString(R.string.search_wc_hint) + "</font>"));
         return true;
     }
 

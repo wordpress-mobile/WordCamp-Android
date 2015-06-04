@@ -23,16 +23,16 @@
                 android:layout_width="@dimen/speaker_dp_size"
                 android:layout_height="@dimen/speaker_dp_size"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/margin_16dp"
-                android:layout_marginStart="@dimen/margin_16dp" />
+                android:layout_marginLeft="@dimen/side_margin"
+                android:layout_marginStart="@dimen/side_margin" />
 
             <TextView
                 android:id="@+id/speaker_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/margin_16dp"
-                android:layout_marginStart="@dimen/margin_16dp"
+                android:layout_marginLeft="@dimen/side_margin"
+                android:layout_marginStart="@dimen/side_margin"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/regular_text_size" />
         </LinearLayout>

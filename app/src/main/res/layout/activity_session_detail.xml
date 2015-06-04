@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/margin_16dp">
+        android:paddingBottom="@dimen/side_margin">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -27,10 +27,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="0dp"
-            android:layout_marginEnd="@dimen/margin_16dp"
-            android:layout_marginLeft="@dimen/large_margin_72dp"
-            android:layout_marginRight="@dimen/margin_16dp"
-            android:layout_marginStart="@dimen/large_margin_72dp"
+            android:layout_marginEnd="@dimen/side_margin"
+            android:layout_marginLeft="@dimen/large_margin"
+            android:layout_marginRight="@dimen/side_margin"
+            android:layout_marginStart="@dimen/large_margin"
             android:ellipsize="end"
             android:lineSpacingMultiplier="1.1"
             android:maxLines="4"
@@ -42,10 +42,10 @@
             android:id="@+id/wc_detail_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_16dp"
-            android:layout_marginLeft="@dimen/large_margin_72dp"
-            android:layout_marginRight="@dimen/margin_16dp"
-            android:layout_marginStart="@dimen/large_margin_72dp"
+            android:layout_marginEnd="@dimen/side_margin"
+            android:layout_marginLeft="@dimen/large_margin"
+            android:layout_marginRight="@dimen/side_margin"
+            android:layout_marginStart="@dimen/large_margin"
             android:ellipsize="end"
             android:maxLines="2"
             android:textColor="#8affffff"
@@ -56,9 +56,9 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/layout_toolbar"
-        android:layout_marginBottom="@dimen/margin_16dp"
-        android:layout_marginLeft="@dimen/margin_16dp"
-        android:layout_marginRight="@dimen/margin_16dp"
+        android:layout_marginBottom="@dimen/side_margin"
+        android:layout_marginLeft="@dimen/side_margin"
+        android:layout_marginRight="@dimen/side_margin"
         android:orientation="vertical">
 
         <ListView

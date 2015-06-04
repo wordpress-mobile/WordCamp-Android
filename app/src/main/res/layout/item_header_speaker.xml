@@ -13,16 +13,15 @@
             android:id="@+id/speaker_dp"
             android:layout_width="@dimen/speaker_dp_size"
             android:layout_height="@dimen/speaker_dp_size"
-            android:layout_marginLeft="@dimen/margin_10dp"
-            android:layout_marginStart="@dimen/margin_10dp"
-            />
+            android:layout_marginLeft="@dimen/list_item_header_speaker_dp_margin"
+            android:layout_marginStart="@dimen/list_item_header_speaker_dp_margin" />
 
         <TextView
             android:id="@+id/speaker_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_16dp"
-            android:layout_marginStart="@dimen/margin_16dp"
+            android:layout_marginLeft="@dimen/side_margin"
+            android:layout_marginStart="@dimen/side_margin"
             android:autoLink="all"
             android:textColor="@color/secondary_text_color"
             android:textSize="16sp" />
@@ -31,8 +30,8 @@
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_16dp"
-        android:layout_marginRight="@dimen/margin_16dp"
+        android:layout_marginEnd="@dimen/side_margin"
+        android:layout_marginRight="@dimen/side_margin"
         android:layout_marginTop="@dimen/margin_8dp"
         android:background="@drawable/line" />
 
@@ -40,7 +39,7 @@
         android:id="@+id/session_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/side_margin"
         android:text="@string/session_title"
         android:textColor="@color/wc_detail_title"
         android:textSize="@dimen/text_size_18sp" />

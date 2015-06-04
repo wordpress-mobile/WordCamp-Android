@@ -26,7 +26,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/layout_toolbar"
-        android:layout_margin="@dimen/margin_16dp"
+        android:layout_margin="@dimen/side_margin"
         android:orientation="vertical">
 
         <ListView

@@ -9,17 +9,17 @@
         android:layout_width="@dimen/session_detail_speaker_dp_size"
         android:layout_height="@dimen/session_detail_speaker_dp_size"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/margin_16dp"
-        android:layout_marginStart="@dimen/margin_16dp" />
+        android:layout_marginLeft="@dimen/side_margin"
+        android:layout_marginStart="@dimen/side_margin" />
 
     <TextView
         android:id="@+id/item_session_speaker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginBottom="@dimen/margin_16dp"
-        android:layout_marginLeft="@dimen/margin_16dp"
-        android:layout_marginStart="@dimen/margin_16dp"
+        android:layout_marginBottom="@dimen/side_margin"
+        android:layout_marginLeft="@dimen/side_margin"
+        android:layout_marginStart="@dimen/side_margin"
         android:layout_toEndOf="@+id/speaker_dp"
         android:layout_toRightOf="@+id/speaker_dp"
         android:textColor="@color/text_color_dark"
