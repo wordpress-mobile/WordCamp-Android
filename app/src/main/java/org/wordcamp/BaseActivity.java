@@ -37,7 +37,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class BaseActivity extends AppCompatActivity implements UpcomingWCFragment.upcomingFragListener, SearchView.OnQueryTextListener, PastWCFragment.upcomingFragListener {
+public class BaseActivity extends AppCompatActivity implements UpcomingWCFragment.upcomingFragListener,
+        SearchView.OnQueryTextListener, PastWCFragment.upcomingFragListener {
 
     private WCPagerAdapter mPagerAdapter;
     private String lastscanned;
@@ -60,7 +61,7 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
         wordCampsList = communicator.getAllWc();
 
         ViewCompat.setElevation(findViewById(R.id.header), getResources().getDimension(R.dimen.toolbar_elevation));
-        mPagerAdapter = new WCPagerAdapter(getSupportFragmentManager());
+        mPagerAdapter = new WCPagerAdapter(getSupportFragmentManager(), this);
         ViewPager mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(mPagerAdapter);
         mPager.setOffscreenPageLimit(2);
@@ -99,7 +100,7 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
         MenuItem searchItem = menu.findItem(R.id.search_wc);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(this);
-        searchView.setQueryHint(Html.fromHtml("<font color = #ffffff>" + getResources().getString(R.string.search_wc_hint) + "</font>"));
+        searchView.setQueryHint(Html.fromHtml(getString(R.string.search_wc_hint)));
         return true;
     }
 
@@ -180,7 +181,7 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
-                Toast.makeText(getApplicationContext(), "Error: ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
                 stopRefresh();
             }
 
@@ -279,8 +280,11 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
 
     private static class WCPagerAdapter extends CacheFragmentStatePagerAdapter {
 
-        public WCPagerAdapter(FragmentManager fm) {
+        private Context mContext;
+
+        public WCPagerAdapter(FragmentManager fm, Context ctx) {
             super(fm);
+            mContext = ctx;
         }
 
         @Override
@@ -306,13 +310,13 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Upcoming";
+                    return mContext.getString(R.string.upcoming_wc_title);
                 case 1:
-                    return "My WordCamp";
+                    return mContext.getString(R.string.my_wc_title);
                 case 2:
-                    return "Past";
+                    return mContext.getString(R.string.past_wc_title);
                 default:
-                    return "Past";
+                    return mContext.getString(R.string.past_wc_title);
             }
         }
     }

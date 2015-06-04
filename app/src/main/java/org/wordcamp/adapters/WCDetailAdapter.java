@@ -1,8 +1,10 @@
 package org.wordcamp.adapters;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
+import org.wordcamp.R;
 import org.wordcamp.wcdetails.SessionsFragment;
 import org.wordcamp.wcdetails.SpeakerFragment;
 import org.wordcamp.wcdetails.WordCampOverview;
@@ -12,8 +14,11 @@ import org.wordcamp.wcdetails.WordCampOverview;
  */
 public class WCDetailAdapter extends CacheFragmentStatePagerAdapter {
 
-    public WCDetailAdapter(FragmentManager fm) {
+    private Context mContext;
+
+    public WCDetailAdapter(FragmentManager fm,Context ctx) {
         super(fm);
+        mContext = ctx;
     }
 
     @Override
@@ -39,11 +44,11 @@ public class WCDetailAdapter extends CacheFragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "Overview";
+                return mContext.getString(R.string.title_overview);
             case 1:
-                return "Schedule";
+                return mContext.getString(R.string.title_schedule);
             default:
-                return "Speakers";
+                return mContext.getString(R.string.title_speakers);
         }
     }
 }

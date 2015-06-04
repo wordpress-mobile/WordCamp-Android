@@ -70,7 +70,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
         ViewCompat.setElevation(findViewById(R.id.header), getResources().getDimension(R.dimen.toolbar_elevation));
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        adapter = new WCDetailAdapter(getSupportFragmentManager());
+        adapter = new WCDetailAdapter(getSupportFragmentManager(), this);
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(adapter);
         mPager.setOffscreenPageLimit(2);

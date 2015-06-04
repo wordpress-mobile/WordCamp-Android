@@ -233,15 +233,8 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
             communicator.close();
     }
 
-    /**
-     * Here zoom of the layout is done instead of the image.
-     * After zoomed, when the image is clicked then it will zoom out
-     * The edit button will help to select new image
-     */
     private void zoomImageFromThumb(final View thumbView) {
 
-        // set the visible atomic boolean to true
-        // so the recentChatActivity can know
         visible.set(true);
 
         if (mCurrentAnimator != null) {

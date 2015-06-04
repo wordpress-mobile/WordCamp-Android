@@ -2,7 +2,6 @@ package org.wordcamp.wcdetails;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -46,8 +45,8 @@ public class WordCampOverview extends Fragment {
         View v1 = v.findViewById(R.id.wc_image_container);
 
         refreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
-        refreshLayout.setColorSchemeColors(Color.parseColor("#3F51B5"),
-                Color.parseColor("#FF4081"), Color.parseColor("#9C27B0"));
+        refreshLayout.setColorSchemeResources(R.color.swipe_refresh_color1,
+                R.color.swipe_refresh_color2, R.color.swipe_refresh_color3);
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

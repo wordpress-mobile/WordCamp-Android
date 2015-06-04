@@ -12,7 +12,7 @@
     <string name="wc_about">About</string>
     <string name="wc_location">Location</string>
     <string name="action_search">Search WordCamps</string>
-    <string name="search_wc_hint">Search WordCamps</string>
+    <string name="search_wc_hint"><![CDATA[<font color = #ffffff> Search WordCamps </font>]]></string>
     <string name="empty_mywordcamps">No WordCamps added yet</string>
     <string name="speaker_title">Speakers</string>
     <string name="session_title">Sessions</string>
@@ -29,4 +29,11 @@
     <string name="bug">Reporting a Bug?</string>
     <string name="hint_description">Description</string>
     <string name="hint_title">Title</string>
+    <string name="my_sessions_title">My Sessions</string>
+    <string name="upcoming_wc_title">Upcoming</string>
+    <string name="my_wc_title">My WordCamp</string>
+    <string name="past_wc_title">Past</string>
+    <string name="title_overview">Overview</string>
+    <string name="title_schedule">Schedule</string>
+    <string name="title_speakers">Speakers</string>
 </resources>
