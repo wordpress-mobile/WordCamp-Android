@@ -38,8 +38,8 @@
                     android:id="@+id/card_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/margin_8dp"
-                    android:layout_marginRight="@dimen/margin_8dp"
+                    android:layout_marginLeft="@dimen/medium_margin"
+                    android:layout_marginRight="@dimen/medium_margin"
                     android:layout_marginTop="@dimen/side_margin"
                     card_view:cardCornerRadius="2dp"
                     card_view:cardElevation="2dp">

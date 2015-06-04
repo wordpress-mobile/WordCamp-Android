@@ -4,8 +4,8 @@
     android:layout_height="@dimen/header_time_height"
     android:background="#beffffff"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/padding_16dp"
-    android:paddingStart="@dimen/padding_16dp">
+    android:paddingLeft="@dimen/normal_padding"
+    android:paddingStart="@dimen/normal_padding">
 
     <TextView
         android:id="@+id/headerListTitle"

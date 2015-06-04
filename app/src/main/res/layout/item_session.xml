@@ -12,8 +12,8 @@
         android:layout_marginEnd="56dp"
         android:layout_marginRight="56dp"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/padding_16dp"
-        android:paddingStart="@dimen/padding_16dp">
+        android:paddingLeft="@dimen/normal_padding"
+        android:paddingStart="@dimen/normal_padding">
 
         <TextView
             android:id="@+id/titleSession"
@@ -47,5 +47,5 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:padding="@dimen/padding_16dp" />
+        android:padding="@dimen/normal_padding" />
 </RelativeLayout>
