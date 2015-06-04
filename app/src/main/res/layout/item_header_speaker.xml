@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <org.wordcamp.widgets.CircularImageView
+        <org.wordcamp.android.widgets.CircularImageView
             android:id="@+id/speaker_dp"
             android:layout_width="60dp"
             android:layout_height="60dp"
