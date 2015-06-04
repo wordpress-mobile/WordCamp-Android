@@ -12,8 +12,8 @@
         android:layout_marginEnd="56dp"
         android:layout_marginRight="56dp"
         android:orientation="vertical"
-        android:paddingLeft="16dp"
-        android:paddingStart="16dp">
+        android:paddingLeft="@dimen/margin_16dp"
+        android:paddingStart="@dimen/margin_16dp">
 
         <TextView
             android:id="@+id/titleSession"
@@ -22,21 +22,21 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/text_color"
-            android:textSize="16sp" />
+            android:textSize="@dimen/regular_text_size" />
 
         <TextView
             android:id="@+id/locationSession"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/secondary_text_color"
-            android:textSize="14sp"
+            android:textSize="@dimen/medium_text_size"
             android:textStyle="italic" />
 
         <TextView
             android:id="@+id/speakersSession"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:textSize="@dimen/medium_text_size"
             android:visibility="gone" />
     </LinearLayout>
 
@@ -47,5 +47,5 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:padding="15dp" />
+        android:padding="@dimen/padding_16dp" />
 </RelativeLayout>

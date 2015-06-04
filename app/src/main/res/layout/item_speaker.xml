@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
-        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        card_view:cardElevation="4dp"
-        card_view:cardCornerRadius="2dp" >
+        android:layout_gravity="center"
+        card_view:cardCornerRadius="2dp"
+        card_view:cardElevation="4dp">
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="60dp">
+            android:layout_height="@dimen/speaker_dp_size"
+            android:orientation="horizontal">
 
             <org.wordcamp.widgets.CircularImageView
                 android:id="@+id/speaker_dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
+                android:layout_width="@dimen/speaker_dp_size"
+                android:layout_height="@dimen/speaker_dp_size"
                 android:layout_gravity="center_vertical"
-                android:layout_width="60dp"
-                android:layout_height="60dp" />
+                android:layout_marginLeft="@dimen/margin_16dp"
+                android:layout_marginStart="@dimen/margin_16dp" />
 
             <TextView
-                android:textSize="16sp"
                 android:id="@+id/speaker_title"
                 android:layout_width="match_parent"
-                android:textColor="@color/text_color"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_height="wrap_content" />
+                android:layout_marginLeft="@dimen/margin_16dp"
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/regular_text_size" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

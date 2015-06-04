@@ -11,18 +11,18 @@
 
         <org.wordcamp.widgets.CircularImageView
             android:id="@+id/speaker_dp"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_width="@dimen/speaker_dp_size"
+            android:layout_height="@dimen/speaker_dp_size"
+            android:layout_marginLeft="@dimen/margin_10dp"
+            android:layout_marginStart="@dimen/margin_10dp"
             />
 
         <TextView
             android:id="@+id/speaker_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginLeft="@dimen/margin_16dp"
+            android:layout_marginStart="@dimen/margin_16dp"
             android:autoLink="all"
             android:textColor="@color/secondary_text_color"
             android:textSize="16sp" />
@@ -31,17 +31,17 @@
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="@dimen/margin_16dp"
+        android:layout_marginRight="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_8dp"
         android:background="@drawable/line" />
 
     <TextView
         android:id="@+id/session_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/margin_16dp"
         android:text="@string/session_title"
-        android:textColor="#E64A19"
-        android:textSize="18sp" />
+        android:textColor="@color/wc_detail_title"
+        android:textSize="@dimen/text_size_18sp" />
 </LinearLayout>

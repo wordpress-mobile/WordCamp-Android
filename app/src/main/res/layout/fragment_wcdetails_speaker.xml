@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <TextView
         android:id="@+id/empty_view"
         android:layout_width="wrap_content"
@@ -10,7 +11,7 @@
         android:gravity="center"
         android:text="@string/speaker_to_be_announced"
         android:textColor="@color/secondary_text_color"
-        android:textSize="25sp"
+        android:textSize="@dimen/empty_view_text_size"
         android:visibility="gone" />
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -22,7 +23,7 @@
             android:id="@+id/speaker_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="@dimen/small_top_margin"
             android:divider="@null"
             android:scrollbars="vertical" />
 

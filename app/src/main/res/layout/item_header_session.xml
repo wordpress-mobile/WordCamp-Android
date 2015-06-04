@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <TextView
         android:id="@+id/wc_detail_abstract"
-        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8dp"
         android:textColor="@color/secondary_text_color"
-        android:layout_marginTop="8dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:textSize="@dimen/regular_text_size" />
+
     <ImageView
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/line"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_16dp"
+        android:layout_marginRight="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_8dp"
+        android:background="@drawable/line" />
+
     <TextView
-        android:layout_marginTop="16dp"
         android:id="@+id/wc_detail_speaker_title"
-        android:textColor="#E64A19"
-        android:textSize="18sp"
-        android:text="@string/speaker_title"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:text="@string/speaker_title"
+        android:textColor="@color/wc_detail_title"
+        android:textSize="@dimen/text_size_18sp" />
 </LinearLayout>

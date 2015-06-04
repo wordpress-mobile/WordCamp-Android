@@ -16,4 +16,8 @@
     <color name="swipe_refresh_color1">#3F51B5</color>
     <color name="swipe_refresh_color2">#FF4081</color>
     <color name="swipe_refresh_color3">#9C27B0</color>
+    <color name="dp_background_color">#a0ffffff</color>
+    <color name="white">#fff</color>
+    <color name="wc_detail_title">#E64A19</color>
+    <color name="wc_dates_color">#ff575757</color>
 </resources>

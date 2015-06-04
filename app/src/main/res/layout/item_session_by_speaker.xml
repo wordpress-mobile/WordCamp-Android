@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="48dp">
-<TextView
-    android:layout_centerVertical="true"
-    android:layout_marginLeft="16dp"
-    android:layout_marginStart="16dp"
-    android:layout_marginBottom="16dp"
-    android:textSize="16sp"
-    android:textColor="@color/text_color_dark"
-    android:id="@+id/item_session"
-    android:maxLines="2"
-    android:ellipsize="end"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
+    android:minHeight="@dimen/item_session_height"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/item_session"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="@dimen/margin_16dp"
+        android:layout_marginLeft="@dimen/margin_16dp"
+        android:layout_marginStart="@dimen/margin_16dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/text_color_dark"
+        android:textSize="@dimen/regular_text_size" />
 </RelativeLayout>

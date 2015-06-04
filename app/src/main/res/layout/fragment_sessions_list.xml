@@ -12,8 +12,8 @@
             android:id="@+id/sessionList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:background="#fff"
+            android:layout_marginTop="@dimen/small_top_margin"
+            android:background="@color/white"
             android:divider="@drawable/divider"
             android:dividerHeight="1dp"
             android:overScrollMode="never" />
@@ -27,6 +27,6 @@
         android:layout_centerInParent="true"
         android:text="@string/schedule_to_be_announced"
         android:textColor="@color/secondary_text_color"
-        android:textSize="25sp"
+        android:textSize="@dimen/empty_view_text_size"
         android:visibility="gone" />
 </RelativeLayout>
