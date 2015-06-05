@@ -102,7 +102,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.action_attending:
+            case R.id.action_bookmark:
                 if (!wcdb.isMyWC) {
                     int recv = communicator.addToMyWC(wcid);
                     item.setIcon(R.drawable.ic_bookmark_white_36dp);
@@ -343,8 +343,8 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_wc_detail, menu);
         if (wcdb.isMyWC) {
-            MenuItem attending = menu.findItem(R.id.action_attending);
-            attending.setIcon(R.drawable.ic_bookmark_white_36dp);
+            MenuItem bookmark = menu.findItem(R.id.action_bookmark);
+            bookmark.setIcon(R.drawable.ic_bookmark_white_36dp);
         }
         return true;
     }

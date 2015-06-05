@@ -112,7 +112,7 @@
                                 android:id="@+id/maps_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/map_directions"
+                                android:text="@string/map_directions_text"
                                 android:textColor="@color/accent_material_light"
                                 android:textSize="@dimen/regular_text_size" />
 

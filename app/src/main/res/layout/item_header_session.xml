@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/side_margin"
-        android:text="@string/speaker_title"
+        android:text="@string/title_speakers"
         android:textColor="@color/wc_detail_title"
         android:textSize="@dimen/text_size_18sp" />
 </LinearLayout>

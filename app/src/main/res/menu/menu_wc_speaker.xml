@@ -3,6 +3,6 @@
     <item
         android:id="@+id/item_menu_website"
         android:orderInCategory="50"
-        android:title="@string/webversion"
+        android:title="@string/action_webversion"
         app:showAsAction="never" />
 </menu>
