@@ -1,15 +1,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/action_attending" android:title="@string/item_attending"
+    <item android:id="@+id/action_bookmark" android:title="@string/action_bookmark"
         android:icon="@drawable/ic_bookmark_outline_white_36dp"
         app:showAsAction="always" />
-    <item android:id="@+id/action_refresh" android:title="@string/refresh"
+    <item android:id="@+id/action_refresh" android:title="@string/action_refresh"
         android:icon="@drawable/ic_refresh_white_36dp"
         app:showAsAction="ifRoom" />
-    <item android:id="@+id/item_menu_my_sessions" android:title="@string/mysession"
+    <item android:id="@+id/item_menu_my_sessions" android:title="@string/mysession_title"
         android:orderInCategory="49" app:showAsAction="never" />
-    <item android:id="@+id/item_menu_website" android:title="@string/webversion"
+    <item android:id="@+id/item_menu_website" android:title="@string/action_webversion"
         android:orderInCategory="50" app:showAsAction="never" />
-    <item android:id="@+id/item_menu_feedback" android:title="@string/feedback"
+    <item android:id="@+id/item_menu_feedback" android:title="@string/action_feedback"
         android:orderInCategory="51" app:showAsAction="never" />
 </menu>

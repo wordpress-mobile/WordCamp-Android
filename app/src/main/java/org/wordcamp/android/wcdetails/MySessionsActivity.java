@@ -41,7 +41,7 @@ public class MySessionsActivity extends AppCompatActivity implements SessionsLis
 
     private void initGUI() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("My Sessions");
+        toolbar.setTitle(getString(R.string.my_sessions_title));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

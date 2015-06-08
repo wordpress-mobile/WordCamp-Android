@@ -21,7 +21,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/side_margin"
             android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
@@ -42,7 +42,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="@dimen/side_margin">
 
                 <EditText
                     android:id="@+id/descrFeedback"
@@ -58,9 +58,9 @@
                 android:id="@+id/bugSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/side_margin"
                 android:text="@string/bug"
-                android:textSize="18sp" />
+                android:textSize="@dimen/text_size_18sp" />
 
         </LinearLayout>
     </ScrollView>

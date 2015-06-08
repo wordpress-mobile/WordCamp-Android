@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
+    android:layout_height="@dimen/item_session_height"
     android:orientation="vertical">
 
     <org.wordcamp.android.widgets.CircularImageView
         android:id="@+id/speaker_dp"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
+        android:layout_width="@dimen/session_detail_speaker_dp_size"
+        android:layout_height="@dimen/session_detail_speaker_dp_size"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp" />
+        android:layout_marginLeft="@dimen/side_margin"
+        android:layout_marginStart="@dimen/side_margin" />
 
     <TextView
         android:id="@+id/item_session_speaker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginBottom="@dimen/side_margin"
+        android:layout_marginLeft="@dimen/side_margin"
+        android:layout_marginStart="@dimen/side_margin"
         android:layout_toEndOf="@+id/speaker_dp"
         android:layout_toRightOf="@+id/speaker_dp"
         android:textColor="@color/text_color_dark"
-        android:textSize="16sp" />
+        android:textSize="@dimen/regular_text_size" />
 </RelativeLayout>

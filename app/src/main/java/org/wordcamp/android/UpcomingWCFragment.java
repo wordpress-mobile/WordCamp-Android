@@ -2,7 +2,6 @@ package org.wordcamp.android;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -51,8 +50,8 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
         View v = getView();
         upWCLists = (ListView) v.findViewById(R.id.scroll);
         refreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
-        refreshLayout.setColorSchemeColors(Color.parseColor("#3F51B5"),
-                Color.parseColor("#FF4081"), Color.parseColor("#9C27B0"));
+        refreshLayout.setColorSchemeResources(R.color.swipe_refresh_color1,
+                R.color.swipe_refresh_color2, R.color.swipe_refresh_color3);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

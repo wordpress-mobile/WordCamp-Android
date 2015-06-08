@@ -48,8 +48,8 @@ public class SpeakerFragment extends Fragment {
 
         View v = getView();
         refreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
-        refreshLayout.setColorSchemeColors(Color.parseColor("#3F51B5"),
-                Color.parseColor("#FF4081"), Color.parseColor("#9C27B0"));
+        refreshLayout.setColorSchemeResources(R.color.swipe_refresh_color1,
+                R.color.swipe_refresh_color2, R.color.swipe_refresh_color3);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

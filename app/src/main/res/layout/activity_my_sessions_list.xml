@@ -34,7 +34,7 @@
             android:layout_centerInParent="true"
             android:text="@string/empty_mysessions"
             android:textColor="@color/secondary_text_color"
-            android:textSize="25sp"
+            android:textSize="@dimen/empty_view_text_size"
             android:visibility="gone" />
     </RelativeLayout>
 </LinearLayout>
