@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="action_feedback">Повратна информација</string>
+	<string name="hint_title">Наслов</string>
+	<string name="hint_description">Опис</string>
+	<string name="bug">Пријављујете грешку?</string>
+	<string name="update_sessions_toast">Ажурирана предавања</string>
+	<string name="help_and_feedback">Повратна информација</string>
+	<string name="feedback_url_not_available_toast">Повратна информација није још доступна</string>
+	<string name="schedule_to_be_announced">Распоред предавања ће бити објављен</string>
+	<string name="speaker_to_be_announced">Предавачи ће бити објављени</string>
+	<string name="empty_mywordcamps">Нисте додали ниједан Вордкамп</string>
+	<string name="search_wc_hint">Претражи Вордкампове</string>
+	<string name="update_overview_toast">Ажурирани преглед</string>
+	<string name="wc_about">О </string>
+	<string name="empty_mysessions">Немате омиљених предавања</string>
+	<string name="update_speakers_toast">Ажурирани предавачи</string>
+	<string name="action_search">Претражи Вордкампове</string>
+	<string name="wc_location">Локација</string>
+	<string name="app_name">Вордкамп Централ</string>
+	<string name="action_refresh">Освежи</string>
+</resources>

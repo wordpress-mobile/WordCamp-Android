@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="bug">Rapporteer een bug</string>
+	<string name="hint_title">Titel</string>
+	<string name="action_feedback">Feedback</string>
+	<string name="hint_description">Beschrijving</string>
+	<string name="empty_mysessions">Geen favoriete sessies</string>
+	<string name="wc_about">Over</string>
+	<string name="update_speakers_toast">Vernieuwde sprekers</string>
+	<string name="help_and_feedback">Feedback</string>
+	<string name="update_sessions_toast">Vernieuwde sessies</string>
+	<string name="feedback_url_not_available_toast">URL om feedback te geven is nog niet beschikbaar</string>
+	<string name="schedule_to_be_announced">Tijdschema is nog niet aangekondigd</string>
+	<string name="speaker_to_be_announced">Sprekers zijn nog niet aangekondigd</string>
+	<string name="empty_mywordcamps">Nog geen WordCamps toegevoegd</string>
+	<string name="search_wc_hint">Zoek WordCamps</string>
+	<string name="update_overview_toast">Vernieuwd overzicht</string>
+	<string name="wc_location">Locatie</string>
+	<string name="action_search">Zoek WordCamps</string>
+	<string name="app_name">WordCamp Central</string>
+	<string name="action_refresh">Verversen</string>
+</resources>

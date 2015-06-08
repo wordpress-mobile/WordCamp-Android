@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="hint_title">Titlu</string>
+	<string name="bug">Raportezi un defect?</string>
+	<string name="action_feedback">Impresii</string>
+	<string name="hint_description">Descriere</string>
+	<string name="update_speakers_toast">Actualizare oratori</string>
+	<string name="update_sessions_toast">Actualizare sesiuni</string>
+	<string name="update_overview_toast">Actualizare prezentare generală</string>
+	<string name="speaker_to_be_announced">Oratori de anunțat</string>
+	<string name="action_search">Caută WordCamp-uri</string>
+	<string name="schedule_to_be_announced">Program de anunțat</string>
+	<string name="empty_mywordcamps">Niciun WordCamp adăugat</string>
+	<string name="empty_mysessions">Nicio sesiune favorită</string>
+	<string name="wc_location">Locație</string>
+	<string name="feedback_url_not_available_toast">URL impresii indisponibil</string>
+	<string name="search_wc_hint">Căutare WordCamp-uri</string>
+	<string name="help_and_feedback">Impresii</string>
+	<string name="wc_about">Despre</string>
+	<string name="app_name">WordCamp Central</string>
+	<string name="action_refresh">Actualizare</string>
+</resources>
