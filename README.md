@@ -11,6 +11,11 @@ files you need to build the project.
 In order to compile the project you need to add `app/gradle.properties` file
 for which you can take reference from `app/gradle.properties-example`.
 
+## Help us translate the app in your language ##
+
+You can suggest new translations on our translation
+tool: [WordCamp GlotPress project][3].
+
 ## Need help to build or hack? ##
 
 Say hello on [Slack][2] channel: `#mobile`.
@@ -25,3 +30,4 @@ are included as a comment header.
 
 [1]: http://tools.android.com/tech-docs/new-build-system/user-guide
 [2]: https://make.wordpress.org/chat/
+[3]: https://translate.wordpress.org/projects/apps/wordcamp-android/dev
