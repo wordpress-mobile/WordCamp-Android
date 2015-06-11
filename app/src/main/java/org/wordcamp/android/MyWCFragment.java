@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.wordcamp.android.adapters.WCListAdapter;
 import org.wordcamp.android.db.DBCommunicator;
@@ -26,6 +27,7 @@ public class MyWCFragment extends Fragment implements WCListAdapter.WCListener {
     private DBCommunicator communicator;
     public WCListAdapter adapter;
     private SwipeRefreshLayout refreshLayout;
+    private TextView emptyView;
 
     public static MyWCFragment newInstance() {
         return new MyWCFragment();
@@ -34,7 +36,7 @@ public class MyWCFragment extends Fragment implements WCListAdapter.WCListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_my_wc, container, false);
+        return inflater.inflate(R.layout.fragment_wc, container, false);
     }
 
     @Override
@@ -48,7 +50,9 @@ public class MyWCFragment extends Fragment implements WCListAdapter.WCListener {
 
         View v = getView();
         myWCLists = (ListView) v.findViewById(R.id.scroll);
-        myWCLists.setEmptyView(v.findViewById(R.id.empty_view));
+        emptyView = (TextView)v.findViewById(R.id.empty_view);
+        emptyView.setText(getActivity().getString(R.string.empty_mywordcamps));
+        myWCLists.setEmptyView(emptyView);
         adapter = new WCListAdapter(myWordCampDBs, getActivity(), this);
         myWCLists.setAdapter(adapter);
 

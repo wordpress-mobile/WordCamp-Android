@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.wordcamp.android.adapters.WCListAdapter;
 import org.wordcamp.android.db.DBCommunicator;
@@ -27,6 +28,7 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
     private upcomingFragListener listener;
     private SwipeRefreshLayout refreshLayout;
     public WCListAdapter adapter;
+    private TextView emptyView;
 
     public static UpcomingWCFragment newInstance() {
         return new UpcomingWCFragment();
@@ -35,7 +37,7 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_upcoming_wc, container, false);
+        return inflater.inflate(R.layout.fragment_wc, container, false);
     }
 
     @Override
@@ -49,6 +51,9 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
 
         View v = getView();
         upWCLists = (ListView) v.findViewById(R.id.scroll);
+        emptyView = (TextView) v.findViewById(R.id.empty_view);
+        emptyView.setText(getActivity().getString(R.string.empty_wordcamps));
+
         refreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
         refreshLayout.setColorSchemeResources(R.color.swipe_refresh_color1,
                 R.color.swipe_refresh_color2, R.color.swipe_refresh_color3);
@@ -60,7 +65,9 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
         });
         setProperListPosition();
         adapter = new WCListAdapter(wordCampDBs, getActivity(), this);
+        updateEmptyView();
         upWCLists.setAdapter(adapter);
+
         upWCLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -72,6 +79,14 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
 
         if (wordCampDBs.size() == 0) {
             startRefresh();
+        }
+    }
+
+    private void updateEmptyView() {
+        if (adapter.getCount() < 1) {
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            emptyView.setVisibility(View.GONE);
         }
     }
 
@@ -118,6 +133,7 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
         sortWC();
         setProperListPosition();
         adapter = new WCListAdapter(wordCampDBs, getActivity(), this);
+        updateEmptyView();
         upWCLists.setAdapter(adapter);
     }
 
