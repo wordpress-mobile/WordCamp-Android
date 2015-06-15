@@ -15,7 +15,7 @@
     <string name="wc_about">About</string>
     <string name="wc_location">Location</string>
     <string name="empty_mywordcamps">No WordCamps added yet</string>
-    <string name="empty_wordcamps">WordCamps not yet synced \n Please refresh</string>
+    <string name="empty_wordcamps">WordCamps not yet synced</string>
     <string name="mysession_title">My Sessions</string>
     <string name="empty_mysessions">No Sessions favorited</string>
     <string name="update_overview_toast">Updated overview</string>
