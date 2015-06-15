@@ -182,7 +182,8 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
-                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.no_network_toast),
+                        Toast.LENGTH_SHORT).show();
                 stopRefresh();
             }
 

@@ -34,4 +34,5 @@
     <string name="title_schedule">Schedule</string>
     <string name="title_speakers">Speakers</string>
     <string name="title_sessions">Sessions</string>
+    <string name="no_network_toast">No network available</string>
 </resources>

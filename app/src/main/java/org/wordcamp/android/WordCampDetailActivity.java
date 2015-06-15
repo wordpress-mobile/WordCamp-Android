@@ -181,6 +181,8 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
+                Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.no_network_toast),
+                        Toast.LENGTH_SHORT).show();
                 WordCampOverview overview = getOverViewFragment();
                 if (overview != null) {
                     overview.stopRefreshOverview();
@@ -243,6 +245,8 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
+                Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.no_network_toast),
+                        Toast.LENGTH_SHORT).show();
                 stopRefreshSession();
             }
 
@@ -294,6 +298,8 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
+                Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.no_network_toast),
+                        Toast.LENGTH_SHORT).show();
                 stopRefreshSpeaker();
             }
 
