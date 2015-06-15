@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.wordcamp.android.adapters.WCListAdapter;
 import org.wordcamp.android.db.DBCommunicator;
@@ -22,12 +23,13 @@ import java.util.List;
 
 
 public class PastWCFragment extends Fragment implements WCListAdapter.WCListener {
-    private ListView upWCLists;
+    private ListView pastWCLists;
     private List<WordCampDB> wordCampDBs;
     private DBCommunicator communicator;
     private upcomingFragListener listener;
     private SwipeRefreshLayout refreshLayout;
     public WCListAdapter adapter;
+    private TextView emptyView;
 
     public static PastWCFragment newInstance() {
         return new PastWCFragment();
@@ -36,7 +38,7 @@ public class PastWCFragment extends Fragment implements WCListAdapter.WCListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_upcoming_wc, container, false);
+        return inflater.inflate(R.layout.fragment_wc, container, false);
     }
 
     @Override
@@ -49,7 +51,10 @@ public class PastWCFragment extends Fragment implements WCListAdapter.WCListener
         }
 
         View v = getView();
-        upWCLists = (ListView) v.findViewById(R.id.scroll);
+        pastWCLists = (ListView) v.findViewById(R.id.scroll);
+        emptyView = (TextView) v.findViewById(R.id.empty_view);
+        emptyView.setText(getActivity().getString(R.string.empty_wordcamps));
+
         refreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
         refreshLayout.setColorSchemeResources(R.color.swipe_refresh_color1,
                 R.color.swipe_refresh_color2, R.color.swipe_refresh_color3);
@@ -62,8 +67,9 @@ public class PastWCFragment extends Fragment implements WCListAdapter.WCListener
         setProperListPosition();
 
         adapter = new WCListAdapter(wordCampDBs, getActivity(), this);
-        upWCLists.setAdapter(adapter);
-        upWCLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        updateEmptyView();
+        pastWCLists.setAdapter(adapter);
+        pastWCLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(getActivity(), WordCampDetailActivity.class);
@@ -74,6 +80,14 @@ public class PastWCFragment extends Fragment implements WCListAdapter.WCListener
 
         if (wordCampDBs.size() == 0) {
             startRefresh();
+        }
+    }
+
+    private void updateEmptyView() {
+        if (adapter.getCount() < 1) {
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            emptyView.setVisibility(View.GONE);
         }
     }
 
@@ -126,7 +140,8 @@ public class PastWCFragment extends Fragment implements WCListAdapter.WCListener
         sortWC();
         setProperListPosition();
         adapter = new WCListAdapter(wordCampDBs, getActivity(), this);
-        upWCLists.setAdapter(adapter);
+        updateEmptyView();
+        pastWCLists.setAdapter(adapter);
 
     }
 
