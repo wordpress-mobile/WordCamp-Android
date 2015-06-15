@@ -28,5 +28,6 @@
         android:text="@string/schedule_to_be_announced"
         android:textColor="@color/secondary_text_color"
         android:textSize="@dimen/empty_view_text_size"
+        android:padding="@dimen/normal_padding"
         android:visibility="gone" />
 </RelativeLayout>
