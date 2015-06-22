@@ -100,7 +100,7 @@ public class SessionDetailsActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_session_detail, menu);
         if (sessionDB.isMySession) {
             MenuItem attending = menu.findItem(R.id.action_favorite);
-            attending.setIcon(R.drawable.ic_favorite_white_36dp);
+            attending.setIcon(R.drawable.ic_favorite_white_24dp);
         }
         return true;
     }
@@ -113,12 +113,12 @@ public class SessionDetailsActivity extends AppCompatActivity {
                 return true;
             case R.id.action_favorite:
                 if (sessionDB.isMySession) {
-                    item.setIcon(R.drawable.ic_favorite_outline_white_36dp);
+                    item.setIcon(R.drawable.ic_favorite_border_white_24dp);
                     sessionDB.isMySession = false;
                     fav.unFavoriteSession(sessionDB);
                     communicator.removeFromMySession(sessionDB);
                 } else {
-                    item.setIcon(R.drawable.ic_favorite_white_36dp);
+                    item.setIcon(R.drawable.ic_favorite_white_24dp);
                     sessionDB.isMySession = true;
                     fav.favoriteSession(sessionDB);
                     communicator.addToMySession(sessionDB);

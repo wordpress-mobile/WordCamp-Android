@@ -63,7 +63,7 @@ public class SessionNotifierReceiver extends BroadcastReceiver {
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-        builder.setSmallIcon(R.drawable.ic_favorite_white_36dp);
+        builder.setSmallIcon(R.drawable.ic_favorite_white_24dp);
         builder.setContentTitle(Html.fromHtml(session.getTitle()));
         if (session.getLocation() != null) {
             builder.setContentText("Starts in 30 minutes in " + session.getLocation());

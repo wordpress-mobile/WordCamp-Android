@@ -63,9 +63,9 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
         }
 
         if (db.isMySession) {
-            Picasso.with(ctx).load(R.drawable.ic_favorite_24dp).into(holder.favorite);
+            Picasso.with(ctx).load(R.drawable.ic_favorite_red_24dp).into(holder.favorite);
         } else {
-            Picasso.with(ctx).load(R.drawable.ic_favorite_outline_24dp).into(holder.favorite);
+            Picasso.with(ctx).load(R.drawable.ic_favorite_border_red_24dp).into(holder.favorite);
         }
 
         holder.favorite.setOnClickListener(new View.OnClickListener() {
@@ -77,12 +77,12 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
                     db.isMySession = false;
                     list.set(position, db);
                     listener.removeMySession(db);
-                    Picasso.with(ctx).load(R.drawable.ic_favorite_outline_24dp).into(holder.favorite);
+                    Picasso.with(ctx).load(R.drawable.ic_favorite_border_red_24dp).into(holder.favorite);
                 } else {
                     db.isMySession = true;
                     list.set(position, db);
                     listener.addMySession(db);
-                    Picasso.with(ctx).load(R.drawable.ic_favorite_24dp).into(holder.favorite);
+                    Picasso.with(ctx).load(R.drawable.ic_favorite_red_24dp).into(holder.favorite);
                 }
             }
         });

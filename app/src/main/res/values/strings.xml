@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">WordCamp Central</string>
-    <string name="action_bookmark">Bookmark</string>
     <string name="action_refresh">Refresh</string>
     <string name="action_favorite">Favorite</string>
     <string name="action_webversion">Web version</string>

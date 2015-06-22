@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_favorite"
-        android:icon="@drawable/ic_favorite_outline_white_36dp"
+        android:icon="@drawable/ic_favorite_border_white_24dp"
         android:title="@string/action_favorite"
         app:showAsAction="always" />
     <item
