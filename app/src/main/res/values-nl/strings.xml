@@ -17,6 +17,5 @@
 	<string name="update_overview_toast">Vernieuwd overzicht</string>
 	<string name="wc_location">Locatie</string>
 	<string name="action_search">Zoek WordCamps</string>
-	<string name="app_name">WordCamp Central</string>
 	<string name="action_refresh">Verversen</string>
 </resources>

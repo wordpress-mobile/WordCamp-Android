@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="no_network_toast">Nessun network disponibile</string>
+	<string name="empty_wordcamps">WordCamp non è ancora sincronizzato</string>
+	<string name="title_speakers">Relatori</string>
+	<string name="action_bookmark">Segnalibro</string>
+	<string name="past_wc_title">Passato</string>
+	<string name="my_wc_title">Il mio WordCamp</string>
+	<string name="upcoming_wc_title">Prossimo</string>
+	<string name="action_favorite">Preferito</string>
+	<string name="action_webversion">Versione per il web</string>
+	<string name="mysession_title">Le mie sessioni</string>
+	<string name="title_overview">Panoramica</string>
+	<string name="title_schedule">Programma</string>
+	<string name="my_sessions_title">Le mie sessioni</string>
+	<string name="action_send">Invia</string>
+	<string name="title_sessions">Sessioni</string>
+	<string name="action_feedback">Riscontro</string>
+	<string name="hint_title">Titolo</string>
+	<string name="bug">Segnalazione di un bug?</string>
+	<string name="hint_description">Descrizione</string>
+	<string name="schedule_to_be_announced">Programmato per essere annunciato</string>
+	<string name="feedback_url_not_available_toast">URL di riscontro non ancora disponibile</string>
+	<string name="update_speakers_toast">Relatori aggiornati</string>
+	<string name="speaker_to_be_announced">Realatori non ancora annunciati</string>
+	<string name="action_search">Cerca WordCamp</string>
+	<string name="search_wc_hint">Cerca WordCamp</string>
+	<string name="help_and_feedback">Riscontro</string>
+	<string name="empty_mywordcamps">Nessun WordCamp aggiunto</string>
+	<string name="update_sessions_toast">Sessioni aggiornate</string>
+	<string name="wc_location">Luogo</string>
+	<string name="update_overview_toast">Panoramica aggiornata</string>
+	<string name="wc_about">A proposito</string>
+	<string name="empty_mysessions">Nessuna sessione aggiunta ai preferiti</string>
+	<string name="map_directions_text">Ottieni indicazioni per arrivare</string>
+	<string name="action_refresh">Sessioni aggiornate</string>
+</resources>

@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="no_network_toast">Kein Netzwerk verfügbar</string>
+	<string name="empty_wordcamps">WordCamps wurden noch nicht synchronisiert</string>
+	<string name="past_wc_title">Archiv</string>
+	<string name="title_schedule">Programm</string>
+	<string name="upcoming_wc_title">Demnächst</string>
+	<string name="title_sessions">Sessions</string>
+	<string name="title_speakers">Speaker</string>
+	<string name="action_bookmark">Lesezeichen</string>
+	<string name="action_favorite">Favorisieren</string>
+	<string name="title_overview">Übersicht</string>
+	<string name="action_send">Abschicken</string>
+	<string name="my_wc_title">Mein WordCamp</string>
 	<string name="mysession_title">Meine Sessions</string>
 	<string name="action_webversion">Webversion</string>
 	<string name="my_sessions_title">Meine Sessions</string>
+	<string name="bug">Fehler melden?</string>
 	<string name="hint_description">Beschreibung</string>
 	<string name="hint_title">Titel</string>
 	<string name="action_feedback">Feedback</string>
@@ -21,5 +34,4 @@
 	<string name="help_and_feedback">Feedback</string>
 	<string name="update_sessions_toast">Sessions wurden aktualisiert</string>
 	<string name="action_refresh">Aktualisieren</string>
-	<string name="app_name">WordCamp Central</string>
 </resources>

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="no_network_toast">Réseau indisponible</string>
+	<string name="empty_wordcamps">WordCamps non synchronisés</string>
 	<string name="title_sessions">Sessions</string>
 	<string name="my_sessions_title">Mes Sessions</string>
 	<string name="title_speakers">Intervenants</string>
@@ -32,5 +34,4 @@
 	<string name="help_and_feedback">Feedback</string>
 	<string name="update_sessions_toast">Sessions mis à jour</string>
 	<string name="action_refresh">Rafraichir</string>
-	<string name="app_name">WordCamp Central</string>
 </resources>

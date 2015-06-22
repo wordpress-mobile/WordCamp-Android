@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="no_network_toast">ネットワークが利用できません</string>
+	<string name="empty_wordcamps">WordCamp はまだ同期されていません</string>
+	<string name="my_wc_title">自分の WordCamp</string>
+	<string name="past_wc_title">過去</string>
+	<string name="mysession_title">自分のセッション</string>
+	<string name="upcoming_wc_title">今後</string>
+	<string name="action_bookmark">ブックマーク</string>
+	<string name="action_favorite">お気に入り</string>
+	<string name="action_webversion">ウェブ版</string>
+	<string name="title_overview">概要</string>
+	<string name="title_schedule">スケジュール</string>
+	<string name="action_send">送信</string>
+	<string name="title_speakers">スピーカー</string>
+	<string name="my_sessions_title">自分のセッション</string>
+	<string name="title_sessions">セッション</string>
 	<string name="action_feedback">フィードバック</string>
 	<string name="hint_title">タイトル</string>
 	<string name="hint_description">説明</string>
 	<string name="bug">バグを報告しますか？</string>
 	<string name="wc_about">About</string>
+	<string name="map_directions_text">場所への道順を取得</string>
 	<string name="update_speakers_toast">スピーカーを更新しました</string>
 	<string name="schedule_to_be_announced">告知するスケジュール</string>
 	<string name="update_sessions_toast">セッションを更新しました</string>
@@ -17,6 +33,5 @@
 	<string name="search_wc_hint">WordCamp を検索</string>
 	<string name="wc_location">場所</string>
 	<string name="action_search">WordCamp を検索</string>
-	<string name="app_name">WordCamp セントラル</string>
 	<string name="action_refresh">更新</string>
 </resources>

@@ -17,6 +17,5 @@
 	<string name="update_speakers_toast">Ажурирани предавачи</string>
 	<string name="action_search">Претражи Вордкампове</string>
 	<string name="wc_location">Локација</string>
-	<string name="app_name">Вордкамп Централ</string>
 	<string name="action_refresh">Освежи</string>
 </resources>

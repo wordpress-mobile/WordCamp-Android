@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="no_network_toast">Nicio rețea disponibilă</string>
+	<string name="empty_wordcamps">WordCamp-urile încă nesincronizate</string>
+	<string name="action_favorite">Favorite</string>
+	<string name="upcoming_wc_title">Următoare</string>
+	<string name="action_bookmark">Marcate</string>
+	<string name="past_wc_title">Trecute</string>
+	<string name="my_wc_title">WordCamp-ul meu</string>
+	<string name="mysession_title">Sesiunile mele</string>
+	<string name="title_speakers">Vorbitori</string>
+	<string name="my_sessions_title">Sesiunile mele</string>
+	<string name="action_send">Trimite</string>
+	<string name="title_schedule">Planificare</string>
+	<string name="title_overview">Prezentare generală</string>
+	<string name="action_webversion">Versiune web</string>
+	<string name="title_sessions">Sesiuni</string>
 	<string name="hint_title">Titlu</string>
 	<string name="bug">Raportezi un defect?</string>
 	<string name="action_feedback">Impresii</string>
 	<string name="hint_description">Descriere</string>
+	<string name="update_sessions_toast">Sesiuni actualizate</string>
+	<string name="map_directions_text">Indicații de orientare către locul de desfășurare</string>
 	<string name="update_speakers_toast">Actualizare oratori</string>
-	<string name="update_sessions_toast">Actualizare sesiuni</string>
 	<string name="update_overview_toast">Actualizare prezentare generală</string>
 	<string name="speaker_to_be_announced">Oratori de anunțat</string>
 	<string name="action_search">Caută WordCamp-uri</string>
@@ -17,6 +33,5 @@
 	<string name="search_wc_hint">Căutare WordCamp-uri</string>
 	<string name="help_and_feedback">Impresii</string>
 	<string name="wc_about">Despre</string>
-	<string name="app_name">WordCamp Central</string>
 	<string name="action_refresh">Actualizare</string>
 </resources>

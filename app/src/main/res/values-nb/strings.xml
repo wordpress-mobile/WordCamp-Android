@@ -17,6 +17,5 @@
 	<string name="wc_about">Om</string>
 	<string name="empty_mysessions">Ingen økter er favorittmerket</string>
 	<string name="update_speakers_toast">Oppdatert foredragsholdere</string>
-	<string name="app_name">WordCamp Central</string>
 	<string name="action_refresh">Oppdater</string>
 </resources>
