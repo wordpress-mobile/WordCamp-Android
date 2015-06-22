@@ -1,22 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Never use another color than one defined in the Palette (+android/white)
+
+Any text that shows on the blue or on an image, should maintain that scheme: alpha 1 for main things,
+alpha 0.7 for secondary
+-->
 <resources>
-    <color name="primary">#138EC8</color>
-    <color name="primary_dark">#0F71AB</color>
-    <color name="accent">#FEDE87</color>
+    <!-- Color Palette -->
+    <color name="blue_light">#00A0D2</color>
+    <color name="blue_dark">#0085BA</color>
+    <color name="grey_dark">#32373C</color>
+    <color name="grey_light">#A0A5AA</color>
+    <color name="almost_white">#F7F8F8</color>
+    <color name="orange">#F78B53</color>
+    <color name="orange_outline">#F9A87E</color>
+    <color name="yellow">#FFE399</color>
+    <color name="transparent70_white">#B3FFFFFF</color>
+
+    <!-- App Colors -->
+    <color name="window_background">@color/almost_white</color>
+    <color name="primary">@color/blue_light</color>
+    <color name="primary_dark">@color/blue_dark</color>
+    <color name="accent">@color/yellow</color>
     <color name="text_primary">@android:color/white</color>
-
-    <color name="list_item_text">#32373C</color>
-    <color name="list_item_subtext">#A0A5AA</color>
-    <color name="empty_view_text">#32373C</color>
-
-    <color name="profile_pic_background_color">#a0ffffff</color>
-
-    <color name="hint_text_color">#B8B8B8</color>
-
-    <color name="tab_selected_text">#fff</color>
-    <color name="tab_normal_text">#A5DDEF</color>
-
-    <color name="text">#32373C</color>
+    <color name="list_item_text">@color/grey_dark</color>
+    <color name="list_item_subtext">@color/grey_light</color>
+    <color name="empty_view_text">@color/grey_dark</color>
+    <color name="profile_pic_background_color">@color/grey_light</color>
+    <color name="hint_text_color">@color/grey_light</color>
+    <color name="tab_selected_text">@android:color/white</color>
+    <color name="tab_normal_text">@color/transparent70_white</color>
+    <color name="text">@color/grey_dark</color>
 
     <color name="swipe_refresh_color1">@color/primary</color>
     <color name="swipe_refresh_color2">@color/primary</color>
