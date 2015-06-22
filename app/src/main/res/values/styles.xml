@@ -15,5 +15,7 @@
         <item name="colorControlNormal">@color/text</item>
         <item name="colorControlActivated">@color/text</item>
         <item name="colorControlHighlight">@color/text</item>
+
+        <item name="android:windowBackground">@android:color/white</item>
     </style>
 </resources>
