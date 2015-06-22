@@ -1,6 +1,8 @@
 <resources>
+    <!-- action bar and tabs -->
     <dimen name="tab_height">48dp</dimen>
     <dimen name="toolbar_elevation">4dp</dimen>
+
     <dimen name="list_elevation">8dp</dimen>
     <dimen name="single_line_list_item">24dp</dimen>
     <dimen name="double_line_list_item">72dp</dimen>
@@ -16,16 +18,19 @@
     <dimen name="session_detail_speaker_dp_size">44dp</dimen>
     <dimen name="item_session_height">48dp</dimen>
     <dimen name="item_wc_icon_size">56dp</dimen>
+
+    <!-- List item -->
     <dimen name="list_item_wc_margin">12dp</dimen>
     <dimen name="list_item_wc_title_margin">34dp</dimen>
     <dimen name="list_item_session_height">72dp</dimen>
+    <dimen name="list_item_padding">16dp</dimen>
 
+    <!-- Text sizes -->
     <dimen name="wc_date_title_text">12sp</dimen>
     <dimen name="medium_text_size">14sp</dimen>
     <dimen name="regular_text_size">16sp</dimen>
     <dimen name="text_size_18sp">18sp</dimen>
     <dimen name="title_text_size">20sp</dimen>
     <dimen name="empty_view_text_size">25sp</dimen>
-    <dimen name="list_item_bookmark_padding">16dp</dimen>
 
 </resources>
