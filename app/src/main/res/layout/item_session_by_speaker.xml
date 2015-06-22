@@ -15,6 +15,6 @@
         android:layout_marginStart="@dimen/side_margin"
         android:ellipsize="end"
         android:maxLines="2"
-        android:textColor="@color/text_color_dark"
+        android:textColor="@color/list_item_text"
         android:textSize="@dimen/regular_text_size" />
 </RelativeLayout>

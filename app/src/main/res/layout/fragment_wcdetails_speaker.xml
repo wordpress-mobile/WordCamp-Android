@@ -10,7 +10,7 @@
         android:layout_centerInParent="true"
         android:gravity="center"
         android:text="@string/speaker_to_be_announced"
-        android:textColor="@color/secondary_text_color"
+        android:textColor="@color/empty_view_text"
         android:textSize="@dimen/empty_view_text_size"
         android:padding="@dimen/normal_padding"
         android:visibility="gone" />

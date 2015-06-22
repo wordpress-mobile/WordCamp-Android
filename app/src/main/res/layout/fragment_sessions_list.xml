@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/small_top_margin"
-            android:background="@color/white"
+            android:background="@android:color/white"
             android:divider="@drawable/divider"
             android:dividerHeight="1dp"
             android:overScrollMode="never" />
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="@string/schedule_to_be_announced"
-        android:textColor="@color/secondary_text_color"
+        android:textColor="@color/empty_view_text"
         android:textSize="@dimen/empty_view_text_size"
         android:padding="@dimen/normal_padding"
         android:visibility="gone" />

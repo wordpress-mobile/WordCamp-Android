@@ -20,15 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/wcIcon"
-                android:layout_width="@dimen/item_wc_icon_size"
-                android:layout_height="@dimen/item_wc_icon_size"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/list_item_wc_margin"
-                android:layout_marginStart="@dimen/list_item_wc_margin"
-                android:padding="4dp" />
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -46,14 +37,14 @@
                     android:layout_marginEnd="@dimen/list_item_wc_title_margin"
                     android:layout_marginRight="@dimen/list_item_wc_title_margin"
                     android:maxLines="2"
-                    android:textColor="@color/text_color"
+                    android:textColor="@color/list_item_text"
                     android:textSize="@dimen/regular_text_size" />
 
                 <TextView
                     android:id="@+id/up_wc_dates"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textColor="@color/wc_dates_color"
+                    android:textColor="@color/list_item_subtext"
                     android:textSize="@dimen/wc_date_title_text" />
             </LinearLayout>
 

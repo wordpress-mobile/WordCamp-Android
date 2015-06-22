@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="accent">#e91e63</color>
-    <color name="accent_dark">#e91e63</color>
-    <color name="text_color">#ff313131</color>
-    <color name="text_color_dark">#c0392b</color>
-    <color name="secondary_text_color">#727272</color>
+    <color name="primary">#138EC8</color>
+    <color name="primary_dark">#0F71AB</color>
+    <color name="accent">#FEDE87</color>
+    <color name="text_primary">@android:color/white</color>
+
+    <color name="list_item_text">#32373C</color>
+    <color name="list_item_subtext">#A0A5AA</color>
+    <color name="empty_view_text">#32373C</color>
+
+    <color name="profile_pic_background_color">#a0ffffff</color>
+
     <color name="hint_text_color">#B8B8B8</color>
-    <color name="flat_blue">#3498db</color>
-    <color name="flat_blue_dark">#0F85D1</color>
-    <color name="flat_light_blue">#90caf9</color>
-    <color name="flat_light_pink">#f48fb1</color>
-    <color name="dividers">#DBDBDB</color>
-    <color name="tab_normal_text">#beffffff</color>
+
     <color name="tab_selected_text">#fff</color>
-    <color name="swipe_refresh_color1">#3F51B5</color>
-    <color name="swipe_refresh_color2">#FF4081</color>
-    <color name="swipe_refresh_color3">#9C27B0</color>
-    <color name="dp_background_color">#a0ffffff</color>
-    <color name="white">#fff</color>
-    <color name="wc_detail_title">#E64A19</color>
-    <color name="wc_dates_color">#ff575757</color>
+    <color name="tab_normal_text">#A5DDEF</color>
+
+    <color name="text">#32373C</color>
+
+    <color name="swipe_refresh_color1">@color/primary</color>
+    <color name="swipe_refresh_color2">@color/primary</color>
+    <color name="swipe_refresh_color3">@color/primary</color>
 </resources>

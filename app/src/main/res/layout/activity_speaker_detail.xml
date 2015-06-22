@@ -50,7 +50,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_marginTop="?attr/actionBarSize"
-            android:background="@color/dp_background_color"
+            android:background="@color/profile_pic_background_color"
             android:clickable="true"
             android:padding="?attr/actionBarSize" />
     </RelativeLayout>

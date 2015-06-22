@@ -10,7 +10,6 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.amulyakhare.textdrawable.TextDrawable;
 import com.squareup.picasso.Picasso;
 
 import org.wordcamp.android.R;
@@ -27,15 +26,9 @@ public class WCListAdapter extends BaseAdapter implements Filterable {
 
     private List<WordCampDB> wordCamps;
     private List<WordCampDB> filteredWordCamps;
-
     private Context ctx;
-
     private LayoutInflater inflater;
-
     private WCListener listener;
-
-    private int color, color1;
-
     private WordCampsFilter wordCampsFilter;
 
     public WCListAdapter(List<WordCampDB> arr, Context context, WCListener listener) {
@@ -43,8 +36,6 @@ public class WCListAdapter extends BaseAdapter implements Filterable {
         ctx = context;
         this.listener = listener;
         inflater = LayoutInflater.from(ctx);
-        color = ctx.getResources().getColor(R.color.flat_light_pink);
-        color1 = ctx.getResources().getColor(R.color.flat_light_blue);
         filteredWordCamps = wordCamps;
         wordCampsFilter = new WordCampsFilter();
     }
@@ -101,14 +92,6 @@ public class WCListAdapter extends BaseAdapter implements Filterable {
                 }
             }
         });
-        //Currently featured image will always be null due to bug in API
-        /*if(wc.featureImageUrl!=null && !wc.featureImageUrl.equals(""))
-            Picasso.with(ctx).load(wc.featureImageUrl).into(holder.icon);*/
-
-        TextDrawable drawable = TextDrawable.builder()
-                .buildRound("" + wc.getWc_title().split(" ")[1].charAt(0), position % 2 == 0 ? color : color1);
-
-        holder.icon.setImageDrawable(drawable);
 
         return view;
     }
@@ -125,7 +108,6 @@ public class WCListAdapter extends BaseAdapter implements Filterable {
         public ViewHolder(View v) {
             title = (TextView) v.findViewById(R.id.up_wc_title);
             date = (TextView) v.findViewById(R.id.up_wc_dates);
-            icon = (ImageView) v.findViewById(R.id.wcIcon);
             bookmark = (ImageView) v.findViewById(R.id.bookmark);
         }
     }

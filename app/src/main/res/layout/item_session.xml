@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item_session_container"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/list_item_session_height"
-    android:background="@color/white">
+    android:layout_height="@dimen/list_item_session_height">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -21,14 +20,14 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="@color/text_color"
+            android:textColor="@color/list_item_text"
             android:textSize="@dimen/regular_text_size" />
 
         <TextView
             android:id="@+id/locationSession"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/secondary_text_color"
+            android:textColor="@color/list_item_subtext"
             android:textSize="@dimen/medium_text_size"
             android:textStyle="italic" />
 

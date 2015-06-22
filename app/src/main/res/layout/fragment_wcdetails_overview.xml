@@ -67,7 +67,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/side_margin"
-                            android:textColor="@color/text_color"
+                            android:textColor="@color/text"
                             android:textSize="@dimen/regular_text_size" />
 
                         <TextView
@@ -77,14 +77,14 @@
                             android:clickable="true"
                             android:focusable="true"
                             android:text="@string/wc_about"
-                            android:textColor="@color/flat_blue_dark"
+                            android:textColor="@color/text"
                             android:textSize="@dimen/title_text_size" />
 
                         <TextView
                             android:id="@+id/wc_about"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
+                            android:textColor="@color/text"
                             android:textSize="@dimen/regular_text_size" />
 
                         <ImageView

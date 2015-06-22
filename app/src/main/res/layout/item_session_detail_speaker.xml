@@ -22,6 +22,6 @@
         android:layout_marginStart="@dimen/side_margin"
         android:layout_toEndOf="@+id/speaker_dp"
         android:layout_toRightOf="@+id/speaker_dp"
-        android:textColor="@color/text_color_dark"
+        android:textColor="@color/list_item_text"
         android:textSize="@dimen/regular_text_size" />
 </RelativeLayout>
