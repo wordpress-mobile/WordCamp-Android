@@ -1,65 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/layout_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/side_margin">
+    <include layout="@layout/toolbar"/>
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            app:popupTheme="@style/SlidingLayoutTabPopUp"
-            app:theme="@style/SlidingLayoutTab" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="@dimen/side_margin"
+        android:layout_marginLeft="@dimen/side_margin"
+        android:layout_marginRight="@dimen/side_margin"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/wc_detail_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
-            android:layout_marginEnd="@dimen/side_margin"
-            android:layout_marginLeft="@dimen/large_margin"
-            android:layout_marginRight="@dimen/side_margin"
-            android:layout_marginStart="@dimen/large_margin"
             android:ellipsize="end"
-            android:lineSpacingMultiplier="1.1"
             android:maxLines="4"
-            android:textColor="#deffffff"
-            android:textSize="@dimen/text_size_18sp"
-            android:textStyle="bold" />
+            android:textColor="@color/list_item_text"
+            android:textSize="@dimen/text_size_18sp"/>
 
         <TextView
             android:id="@+id/wc_detail_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/side_margin"
-            android:layout_marginLeft="@dimen/large_margin"
-            android:layout_marginRight="@dimen/side_margin"
-            android:layout_marginStart="@dimen/large_margin"
             android:ellipsize="end"
             android:maxLines="2"
-            android:textColor="#8affffff"
+            android:textColor="@color/list_item_subtext"
             android:textSize="@dimen/regular_text_size" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/layout_toolbar"
-        android:layout_marginBottom="@dimen/side_margin"
-        android:layout_marginLeft="@dimen/side_margin"
-        android:layout_marginRight="@dimen/side_margin"
-        android:orientation="vertical">
 
         <ListView
             android:id="@+id/session_list_speakers"
@@ -69,4 +40,4 @@
             android:overScrollMode="never"
             android:scrollbars="none" />
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

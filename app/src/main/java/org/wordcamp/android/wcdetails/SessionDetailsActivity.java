@@ -54,11 +54,10 @@ public class SessionDetailsActivity extends AppCompatActivity {
         Gson gson = new Gson();
         session = gson.fromJson(sessionDB.getGson_object(), org.wordcamp.android.objects.speaker.Session.class);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("");
+        toolbar.setTitle(session.getTitle());
         setSupportActionBar(toolbar);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
         View headerView = LayoutInflater.from(this).inflate(R.layout.item_header_session, null);
 
