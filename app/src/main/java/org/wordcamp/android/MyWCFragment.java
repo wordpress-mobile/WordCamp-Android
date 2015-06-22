@@ -141,6 +141,5 @@ public class MyWCFragment extends Fragment implements WCListAdapter.WCListener {
         adapter = new WCListAdapter(myWordCampDBs, getActivity(), this);
         myWCLists.setAdapter(adapter);
         ((BaseActivity) getActivity()).refreshUpcomingFrag();
-        ((BaseActivity) getActivity()).refreshPastFrag();
     }
 }

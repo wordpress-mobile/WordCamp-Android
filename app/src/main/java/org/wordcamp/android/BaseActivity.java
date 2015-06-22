@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class BaseActivity extends AppCompatActivity implements UpcomingWCFragment.upcomingFragListener,
-        SearchView.OnQueryTextListener, PastWCFragment.upcomingFragListener {
+        SearchView.OnQueryTextListener {
 
     private WCPagerAdapter mPagerAdapter;
     private String lastscanned;
@@ -104,13 +104,13 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
         return true;
     }
 
-
     @Override
     protected void onPause() {
         super.onPause();
         WPAPIClient.cancelAllRequests(this);
-        if (communicator != null)
+        if (communicator != null) {
             communicator.close();
+        }
     }
 
     @Override
@@ -165,9 +165,9 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
                         }*/
 
                         WordCampDB wordCampDB = new WordCampDB(wcs, lastscanned);
-                        if (!wordCampDB.getWc_start_date().isEmpty())
+                        if (!wordCampDB.getWc_start_date().isEmpty()) {
                             wordCampsList.add(wordCampDB);
-
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -206,45 +206,30 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
     private void stopRefresh() {
         getUpcomingFragment().stopRefresh();
         getMyWCFragment().stopRefresh();
-        getPastFragment().stopRefresh();
     }
 
     private void refreshAllFragmentsData() {
         UpcomingWCFragment upcomingFragment = getUpcomingFragment();
         MyWCFragment myWCFragment = getMyWCFragment();
-        PastWCFragment pastWCFragment = getPastFragment();
         wordCampsList = communicator.getAllWc();
-        if (upcomingFragment != null)
+        if (upcomingFragment != null) {
             upcomingFragment.updateList(wordCampsList);
-
-        if (myWCFragment != null)
+        }
+        if (myWCFragment != null) {
             myWCFragment.updateList(wordCampsList);
-
-        if (pastWCFragment != null) {
-            pastWCFragment.updateList(wordCampsList);
         }
     }
 
     public void refreshUpcomingFrag() {
         UpcomingWCFragment upcomingFragment = getUpcomingFragment();
         wordCampsList = communicator.getAllWc();
-        if (upcomingFragment != null)
+        if (upcomingFragment != null) {
             upcomingFragment.updateList(wordCampsList);
+        }
     }
 
     private UpcomingWCFragment getUpcomingFragment() {
         return (UpcomingWCFragment) mPagerAdapter.getItemAt(0);
-    }
-
-    public void refreshPastFrag() {
-        PastWCFragment pastFragment = getPastFragment();
-        wordCampsList = communicator.getAllWc();
-        if (pastFragment != null)
-            pastFragment.updateList(wordCampsList);
-    }
-
-    private PastWCFragment getPastFragment() {
-        return (PastWCFragment) mPagerAdapter.getItemAt(2);
     }
 
     private MyWCFragment getMyWCFragment() {
@@ -275,48 +260,43 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
     public boolean onQueryTextChange(String newText) {
         getUpcomingFragment().adapter.getFilter().filter(newText);
         getMyWCFragment().adapter.getFilter().filter(newText);
-        getPastFragment().adapter.getFilter().filter(newText);
         return true;
     }
 
-    private static class WCPagerAdapter extends CacheFragmentStatePagerAdapter {
+private static class WCPagerAdapter extends CacheFragmentStatePagerAdapter {
 
-        private Context mContext;
+    private Context mContext;
 
-        public WCPagerAdapter(FragmentManager fm, Context ctx) {
-            super(fm);
-            mContext = ctx;
-        }
+    public WCPagerAdapter(FragmentManager fm, Context ctx) {
+        super(fm);
+        mContext = ctx;
+    }
 
-        @Override
-        protected Fragment createItem(int position) {
-            switch (position) {
-                case 1:
-                    return MyWCFragment.newInstance();
-                case 2:
-                    return PastWCFragment.newInstance();
-                case 0:
-                default:
-                    return UpcomingWCFragment.newInstance();
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return 3;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 1:
-                    return mContext.getString(R.string.my_wc_title);
-                case 2:
-                    return mContext.getString(R.string.past_wc_title);
-                case 0:
-                default:
-                    return mContext.getString(R.string.upcoming_wc_title);
-            }
+    @Override
+    protected Fragment createItem(int position) {
+        switch (position) {
+            case 1:
+                return MyWCFragment.newInstance();
+            case 0:
+            default:
+                return UpcomingWCFragment.newInstance();
         }
     }
+
+    @Override
+    public int getCount() {
+        return 2;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        switch (position) {
+            case 1:
+                return mContext.getString(R.string.my_wc_title);
+            case 0:
+            default:
+                return mContext.getString(R.string.upcoming_wc_title);
+        }
+    }
+}
 }
