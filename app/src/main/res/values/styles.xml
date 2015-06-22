@@ -2,13 +2,6 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-
-        <!-- EditText and all other controls color -->
-        <!--
-        <item name="colorControlNormal">#eeeeee</item>
-        <item name="colorControlActivated">@color/accent_dark</item>
-        <item name="colorControlHighlight">@color/accent_dark</item>
-        -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
@@ -17,29 +10,10 @@
         <item name="windowActionModeOverlay">true</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:fitsSystemWindows">true</item>
-        <item name="android:textColorPrimary">#fff</item>
-    </style>
 
-    <style name="SlidingLayoutTab" parent="AppTheme">
-        <item name="android:textColor">#fff</item>
-        <item name="android:textColorPrimary">#fff</item>
+        <!-- EditText and all other controls color -->
+        <item name="colorControlNormal">@color/text</item>
+        <item name="colorControlActivated">@color/text</item>
+        <item name="colorControlHighlight">@color/text</item>
     </style>
-    <style name="WCDetails" parent="AppTheme">
-        <item name="android:textColor">#fff</item>
-        <item name="android:textColorPrimary">#fff</item>
-
-    </style>
-
-    <style name="HeaderBar">
-        <item name="android:background">?colorPrimary</item>
-        <item name="elevation">@dimen/headerbar_elevation</item>
-    </style>
-
-    <style name="SlidingLayoutTabPopUp" parent="AppTheme">
-        <item name="android:textColorPrimary">#fff</item>
-        <item name="actionMenuTextColor">#fff</item>
-        <item name="android:background">@color/primary</item>
-    </style>
-
-    <dimen name="headerbar_elevation">4dp</dimen>
 </resources>

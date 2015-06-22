@@ -76,7 +76,6 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
         tabLayout.setupWithViewPager(mPager);
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -292,12 +291,11 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
         @Override
         protected Fragment createItem(int position) {
             switch (position) {
-                case 0:
-                    return UpcomingWCFragment.newInstance();
                 case 1:
                     return MyWCFragment.newInstance();
                 case 2:
                     return PastWCFragment.newInstance();
+                case 0:
                 default:
                     return UpcomingWCFragment.newInstance();
             }
@@ -311,14 +309,13 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
-                case 0:
-                    return mContext.getString(R.string.upcoming_wc_title);
                 case 1:
                     return mContext.getString(R.string.my_wc_title);
                 case 2:
                     return mContext.getString(R.string.past_wc_title);
+                case 0:
                 default:
-                    return mContext.getString(R.string.past_wc_title);
+                    return mContext.getString(R.string.upcoming_wc_title);
             }
         }
     }
