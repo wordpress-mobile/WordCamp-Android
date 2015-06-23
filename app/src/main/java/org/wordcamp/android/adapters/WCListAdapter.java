@@ -73,7 +73,7 @@ public class WCListAdapter extends BaseAdapter implements Filterable {
         if (wc.isMyWC) {
             Picasso.with(ctx).load(R.drawable.ic_favorite_red_24dp).into(holder.bookmark);
         } else {
-            Picasso.with(ctx).load(R.drawable.ic_favorite_border_red_24dp).into(holder.bookmark);
+            Picasso.with(ctx).load(R.drawable.ic_favorite_border_light_grey_24dp).into(holder.bookmark);
         }
 
         holder.bookmark.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +86,7 @@ public class WCListAdapter extends BaseAdapter implements Filterable {
                     filteredWordCamps.set(position, wc);
                 } else {
                     listener.removeMyWC(wc.getWc_id(), position);
-                    Picasso.with(ctx).load(R.drawable.ic_favorite_border_red_24dp).into(holder.bookmark);
+                    Picasso.with(ctx).load(R.drawable.ic_favorite_border_light_grey_24dp).into(holder.bookmark);
                     wc.isMyWC = false;
                     filteredWordCamps.set(position, wc);
                 }
