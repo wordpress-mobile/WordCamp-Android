@@ -16,6 +16,7 @@ alpha 0.7 for secondary
     <color name="orange_outline">#F9A87E</color>
     <color name="yellow">#FFE399</color>
     <color name="transparent70_white">#B3FFFFFF</color>
+    <color name="transparent12_grey_dark">#1F32373C</color>
 
     <!-- App Colors -->
     <color name="window_background">@color/almost_white</color>
@@ -30,6 +31,7 @@ alpha 0.7 for secondary
     <color name="tab_selected_text">@android:color/white</color>
     <color name="tab_normal_text">@color/transparent70_white</color>
     <color name="text">@color/grey_dark</color>
+    <color name="divider_name">@color/transparent12_grey_dark</color>
 
     <color name="swipe_refresh_color1">@color/primary</color>
     <color name="swipe_refresh_color2">@color/primary</color>
