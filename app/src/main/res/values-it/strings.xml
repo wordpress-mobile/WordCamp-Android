@@ -30,6 +30,5 @@
 	<string name="update_overview_toast">Panoramica aggiornata</string>
 	<string name="wc_about">A proposito</string>
 	<string name="empty_mysessions">Nessuna sessione aggiunta ai preferiti</string>
-	<string name="map_directions_text">Ottieni indicazioni per arrivare</string>
 	<string name="action_refresh">Sessioni aggiornate</string>
 </resources>

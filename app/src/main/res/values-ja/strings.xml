@@ -17,7 +17,6 @@
 	<string name="hint_description">説明</string>
 	<string name="bug">バグを報告しますか？</string>
 	<string name="wc_about">About</string>
-	<string name="map_directions_text">場所への道順を取得</string>
 	<string name="update_speakers_toast">スピーカーを更新しました</string>
 	<string name="schedule_to_be_announced">告知するスケジュール</string>
 	<string name="update_sessions_toast">セッションを更新しました</string>

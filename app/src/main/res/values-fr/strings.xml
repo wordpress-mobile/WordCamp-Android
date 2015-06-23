@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="my_wc_title">Favoris</string>
 	<string name="no_network_toast">Réseau indisponible</string>
 	<string name="empty_wordcamps">WordCamps non synchronisés</string>
 	<string name="title_sessions">Sessions</string>
@@ -17,7 +18,6 @@
 	<string name="hint_title">Titre</string>
 	<string name="action_feedback">Feedback</string>
 	<string name="action_search">Chercher un WordCamp</string>
-	<string name="map_directions_text">Localisation de la salle</string>
 	<string name="update_speakers_toast">Intervenants mis à jour</string>
 	<string name="empty_mysessions">Aucune Session Favorite</string>
 	<string name="wc_about">À Propos</string>

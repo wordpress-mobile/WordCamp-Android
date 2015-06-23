@@ -22,7 +22,6 @@ alpha 0.7 for secondary
     <color name="primary">@color/blue_light</color>
     <color name="primary_dark">@color/blue_dark</color>
     <color name="accent">@color/yellow</color>
-    <color name="text_primary">@android:color/white</color>
     <color name="list_item_text">@color/grey_dark</color>
     <color name="list_item_subtext">@color/grey_light</color>
     <color name="empty_view_text">@color/grey_dark</color>

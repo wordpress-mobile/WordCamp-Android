@@ -18,7 +18,6 @@
 	<string name="action_feedback">Impresii</string>
 	<string name="hint_description">Descriere</string>
 	<string name="update_sessions_toast">Sesiuni actualizate</string>
-	<string name="map_directions_text">Indicații de orientare către locul de desfășurare</string>
 	<string name="update_speakers_toast">Actualizare oratori</string>
 	<string name="update_overview_toast">Actualizare prezentare generală</string>
 	<string name="speaker_to_be_announced">Oratori de anunțat</string>

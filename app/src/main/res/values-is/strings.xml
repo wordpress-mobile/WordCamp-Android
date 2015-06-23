@@ -16,7 +16,6 @@
 	<string name="hint_description">Lýsing</string>
 	<string name="hint_title">Fyrirsögn</string>
 	<string name="action_feedback">Endurgjöf</string>
-	<string name="map_directions_text">Fá leiðarlýsingu að fundarstað</string>
 	<string name="action_search">Leita í WordCamps</string>
 	<string name="update_speakers_toast">Uppfæra fyrirlesara</string>
 	<string name="empty_mysessions">Engir eftirlætis fyrirlestrar enn</string>
