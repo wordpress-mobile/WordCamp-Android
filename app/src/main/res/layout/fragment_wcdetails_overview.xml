@@ -96,6 +96,10 @@
                         style="?android:attr/borderlessButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/default_padding"
+                        android:layout_marginLeft="@dimen/default_padding"
+                        android:layout_marginRight="@dimen/default_padding"
+                        android:layout_marginStart="@dimen/default_padding"
                         android:text="@string/action_navigate"
                         android:textColor="@color/blue_dark"/>
 
@@ -149,6 +153,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/visit_website"
+                        android:layout_marginEnd="@dimen/default_padding"
+                        android:layout_marginLeft="@dimen/default_padding"
+                        android:layout_marginRight="@dimen/default_padding"
+                        android:layout_marginStart="@dimen/default_padding"
                         android:textColor="@color/blue_dark"/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
