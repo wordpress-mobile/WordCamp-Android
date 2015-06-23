@@ -1,153 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/swipe_refresh_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/almost_white">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="@dimen/normal_padding">
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/about_card"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:layout_marginBottom="@dimen/normal_padding"
-            card_view:cardUseCompatPadding="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/normal_padding">
 
-            <LinearLayout
-                android:padding="@dimen/normal_padding"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/wc_date"
-                    android:textColor="@color/text"
-                    android:textSize="@dimen/title_text_size"
-                    android:layout_marginBottom="@dimen/normal_padding"/>
-
-                <TextView
-                    android:id="@+id/wc_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/list_item_subtext"
-                    android:textSize="@dimen/regular_text_size"
-                    tools:text="June 29, 2015 - June 30, 2015"/>
-
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/location_card"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:padding="@dimen/normal_padding"
-            android:layout_marginBottom="@dimen/normal_padding"
-            card_view:cardUseCompatPadding="true">
-
-            <LinearLayout
+            <android.support.v7.widget.CardView
+                android:id="@+id/date_card"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginBottom="@dimen/normal_padding"
+                android:background="@android:color/white"
+                card_view:cardUseCompatPadding="true">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/wc_location"
-                    android:textColor="@color/text"
-                    android:textSize="@dimen/title_text_size"
-                    android:layout_margin="@dimen/normal_padding"/>
-
-                <TextView
-                    android:id="@+id/wc_location"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/list_item_subtext"
-                    android:textSize="@dimen/regular_text_size"
-                    android:layout_marginBottom="@dimen/side_margin"
-                    android:layout_marginStart="@dimen/normal_padding"
-                    android:layout_marginEnd="@dimen/normal_padding"
-                    android:layout_marginLeft="@dimen/normal_padding"
-                    android:layout_marginRight="@dimen/normal_padding"
-                    tools:text="La Reserve de Quasimodo\n4 Rue de la Colombe\n75004 Paris"/>
-
-                <ImageView
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp"
-                    android:background="@drawable/divider"/>
-
-                <Button
-                    android:id="@+id/navigate_button"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/action_navigate"
-                    android:textColor="@color/blue_dark"
-                    style="?android:attr/borderlessButtonStyle"/>
+                    android:orientation="vertical"
+                    android:padding="@dimen/normal_padding">
 
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/normal_padding"
+                        android:text="@string/wc_date"
+                        android:textColor="@color/text"
+                        android:textSize="@dimen/title_text_size"/>
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/about_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            card_view:cardUseCompatPadding="true">
+                    <TextView
+                        android:id="@+id/wc_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/list_item_subtext"
+                        android:textSize="@dimen/regular_text_size"
+                        tools:text="June 29, 2015 - June 30, 2015"/>
 
-            <LinearLayout
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/location_card"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/normal_padding"
+                android:background="@android:color/white"
+                android:padding="@dimen/normal_padding"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/normal_padding"
+                        android:text="@string/wc_location"
+                        android:textColor="@color/text"
+                        android:textSize="@dimen/title_text_size"/>
+
+                    <TextView
+                        android:id="@+id/wc_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/side_margin"
+                        android:layout_marginEnd="@dimen/normal_padding"
+                        android:layout_marginLeft="@dimen/normal_padding"
+                        android:layout_marginRight="@dimen/normal_padding"
+                        android:layout_marginStart="@dimen/normal_padding"
+                        android:textColor="@color/list_item_subtext"
+                        android:textSize="@dimen/regular_text_size"
+                        tools:text="La Reserve de Quasimodo\n4 Rue de la Colombe\n75004 Paris"/>
+
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:background="@drawable/divider"/>
+
+                    <Button
+                        android:id="@+id/navigate_button"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/action_navigate"
+                        android:textColor="@color/blue_dark"/>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/about_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:background="@android:color/white"
+                card_view:cardUseCompatPadding="true">
 
-                <TextView
-                    android:id="@+id/wc_about_header"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:text="@string/wc_about"
-                    android:textColor="@color/text"
-                    android:textSize="@dimen/title_text_size"
-                    android:layout_margin="@dimen/normal_padding"/>
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/wc_about"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/list_item_subtext"
-                    android:textSize="@dimen/regular_text_size"
-                    android:layout_marginBottom="@dimen/normal_padding"
-                    android:layout_marginStart="@dimen/normal_padding"
-                    android:layout_marginEnd="@dimen/normal_padding"
-                    android:layout_marginLeft="@dimen/normal_padding"
-                    android:layout_marginRight="@dimen/normal_padding"
-                    tools:text="Best WordCamp in the World\nBest WordCamp in the World\nBest WordCamp in the World"/>
+                    <TextView
+                        android:id="@+id/wc_about_header"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/normal_padding"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:text="@string/wc_about"
+                        android:textColor="@color/text"
+                        android:textSize="@dimen/title_text_size"/>
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@drawable/divider"/>
+                    <TextView
+                        android:id="@+id/wc_about"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/normal_padding"
+                        android:layout_marginEnd="@dimen/normal_padding"
+                        android:layout_marginLeft="@dimen/normal_padding"
+                        android:layout_marginRight="@dimen/normal_padding"
+                        android:layout_marginStart="@dimen/normal_padding"
+                        android:textColor="@color/list_item_subtext"
+                        android:textSize="@dimen/regular_text_size"
+                        tools:text="Best WordCamp in the World\nBest WordCamp in the World\nBest WordCamp in the World"/>
 
-                <Button
-                    android:id="@+id/navigate_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/visit_website"
-                    android:textColor="@color/blue_dark"
-                    style="?android:attr/borderlessButtonStyle"/>
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-    </LinearLayout>
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@drawable/divider"/>
+
+                    <Button
+                        android:id="@+id/navigate_button"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/visit_website"
+                        android:textColor="@color/blue_dark"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
 </android.support.v4.widget.SwipeRefreshLayout>
