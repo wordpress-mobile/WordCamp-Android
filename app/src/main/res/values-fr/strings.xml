@@ -10,10 +10,7 @@
 	<string name="title_overview">Présentation</string>
 	<string name="action_webversion">Version Web</string>
 	<string name="mysession_title">Mes Sessions</string>
-	<string name="past_wc_title">Passés</string>
-	<string name="my_wc_title">Mes WordCamps</string>
 	<string name="upcoming_wc_title">Prochains</string>
-	<string name="action_bookmark">Favoris</string>
 	<string name="action_favorite">Favoriser</string>
 	<string name="bug">Rapporter un Bug?</string>
 	<string name="hint_description">Description</string>

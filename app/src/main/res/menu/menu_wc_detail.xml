@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/action_bookmark" android:title="@string/action_bookmark"
+    <item android:id="@+id/action_bookmark" android:title="@string/action_favorite"
         android:icon="@drawable/ic_favorite_border_white_24dp"
         app:showAsAction="ifRoom" />
     <item android:id="@+id/action_refresh" android:title="@string/action_refresh"
