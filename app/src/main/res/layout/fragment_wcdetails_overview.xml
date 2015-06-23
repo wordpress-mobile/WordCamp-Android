@@ -16,13 +16,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/default_padding">
+            android:padding="@dimen/card_margin">
 
             <android.support.v7.widget.CardView
                 android:id="@+id/date_card"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/default_padding"
+                android:layout_marginBottom="@dimen/card_margin"
                 android:background="@android:color/white"
                 card_view:cardUseCompatPadding="true">
 
@@ -55,7 +55,7 @@
                 android:id="@+id/location_card"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/default_padding"
+                android:layout_marginBottom="@dimen/card_margin"
                 android:background="@android:color/white"
                 android:padding="@dimen/default_padding"
                 card_view:cardUseCompatPadding="true">

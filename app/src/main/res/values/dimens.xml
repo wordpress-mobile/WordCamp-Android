@@ -11,10 +11,13 @@
     <dimen name="list_item_header_speaker_dp_margin">10dp</dimen>
     <dimen name="speaker_dp_size">40dp</dimen>
 
-    <!-- List item -->
+    <!-- Lists -->
     <dimen name="list_item_padding">16dp</dimen>
     <dimen name="list_item_default_height">48dp</dimen>
     <dimen name="list_item_avatar_default_height">56dp</dimen>
+
+    <!-- Cards -->
+    <dimen name="card_margin">8dp</dimen>
 
     <!-- Text sizes -->
     <dimen name="wc_date_title_text">12sp</dimen>
