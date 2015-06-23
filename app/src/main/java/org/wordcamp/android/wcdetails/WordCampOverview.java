@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,6 +12,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.wordcamp.android.R;
@@ -61,13 +63,44 @@ public class WordCampOverview extends Fragment {
         mAboutTextView = (TextView) v.findViewById(R.id.wc_about);
         setAboutText();
 
-        View maps = v.findViewById(R.id.navigate_button);
+        Button maps = (Button) v.findViewById(R.id.navigate_button);
         maps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openMaps();
             }
         });
+
+        Button visitWebsite = (Button) v.findViewById(R.id.visit_website_button);
+        visitWebsite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startWebIntent();
+            }
+        });
+
+        Button addToCalendar = (Button) v.findViewById(R.id.add_to_calendar_button);
+        addToCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCalendar();
+            }
+        });
+    }
+
+    private void openCalendar() {
+        Intent intent = new Intent(Intent.ACTION_INSERT)
+                .setData(CalendarContract.Events.CONTENT_URI)
+                .putExtra(CalendarContract.Events.TITLE, wc.getWc_title())
+                .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
+                        WordCampUtils.getProperDate(wc.getWc_start_date()).getTime())
+                .putExtra(CalendarContract.Events.EVENT_LOCATION, wc.getVenue() + " " + wc.getAddress());
+
+        if (!wc.getWc_end_date().isEmpty()) {
+            intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
+                    WordCampUtils.getProperDate(wc.getWc_end_date()).getTime());
+        }
+        startActivity(intent);
     }
 
     private void openMaps() {
@@ -75,6 +108,12 @@ public class WordCampOverview extends Fragment {
                 + location.getText().toString().replaceAll("\n|\r", ",").replaceAll(" ", "+");
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(map));
         startActivity(intent);
+    }
+
+    private void startWebIntent() {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(wc.getUrl()));
+        browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(browserIntent);
     }
 
     private void setLocationText() {

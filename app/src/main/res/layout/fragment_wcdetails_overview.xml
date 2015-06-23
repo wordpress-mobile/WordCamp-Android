@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v4.widget.SwipeRefreshLayout
-    android:id="@+id/swipe_refresh_layout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -24,29 +23,51 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/card_margin"
                 android:background="@android:color/white"
+                android:padding="@dimen/default_padding"
                 card_view:cardUseCompatPadding="true">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/default_padding">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/default_padding"
+                        android:layout_margin="@dimen/default_padding"
                         android:text="@string/wc_date"
                         android:textColor="@color/text"
-                        android:textSize="@dimen/title_text_size"/>
+                        android:textSize="@dimen/title_text_size" />
 
                     <TextView
                         android:id="@+id/wc_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/default_padding"
+                        android:layout_marginEnd="@dimen/default_padding"
+                        android:layout_marginLeft="@dimen/default_padding"
+                        android:layout_marginRight="@dimen/default_padding"
+                        android:layout_marginStart="@dimen/default_padding"
                         android:textColor="@color/list_item_subtext"
                         android:textSize="@dimen/default_text_size"
-                        tools:text="June 29, 2015 - June 30, 2015"/>
+                        tools:text="June 29, 2015 - June 30, 2015" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@drawable/divider" />
+
+                    <Button
+                        android:id="@+id/add_to_calendar_button"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/default_padding"
+                        android:layout_marginLeft="@dimen/default_padding"
+                        android:layout_marginRight="@dimen/default_padding"
+                        android:layout_marginStart="@dimen/default_padding"
+                        android:text="@string/add_to_calendar"
+                        android:textColor="@color/blue_dark" />
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -71,7 +92,7 @@
                         android:layout_margin="@dimen/default_padding"
                         android:text="@string/wc_location"
                         android:textColor="@color/text"
-                        android:textSize="@dimen/title_text_size"/>
+                        android:textSize="@dimen/title_text_size" />
 
                     <TextView
                         android:id="@+id/wc_location"
@@ -84,20 +105,24 @@
                         android:layout_marginStart="@dimen/default_padding"
                         android:textColor="@color/list_item_subtext"
                         android:textSize="@dimen/default_text_size"
-                        tools:text="La Reserve de Quasimodo\n4 Rue de la Colombe\n75004 Paris"/>
+                        tools:text="La Reserve de Quasimodo\n4 Rue de la Colombe\n75004 Paris" />
 
                     <ImageView
                         android:layout_width="fill_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/divider"/>
+                        android:background="@drawable/divider" />
 
                     <Button
                         android:id="@+id/navigate_button"
                         style="?android:attr/borderlessButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/default_padding"
+                        android:layout_marginLeft="@dimen/default_padding"
+                        android:layout_marginRight="@dimen/default_padding"
+                        android:layout_marginStart="@dimen/default_padding"
                         android:text="@string/action_navigate"
-                        android:textColor="@color/blue_dark"/>
+                        android:textColor="@color/blue_dark" />
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -123,7 +148,7 @@
                         android:focusable="true"
                         android:text="@string/wc_about"
                         android:textColor="@color/text"
-                        android:textSize="@dimen/title_text_size"/>
+                        android:textSize="@dimen/title_text_size" />
 
                     <TextView
                         android:id="@+id/wc_about"
@@ -136,20 +161,24 @@
                         android:layout_marginStart="@dimen/default_padding"
                         android:textColor="@color/list_item_subtext"
                         android:textSize="@dimen/default_text_size"
-                        tools:text="Best WordCamp in the World\nBest WordCamp in the World\nBest WordCamp in the World"/>
+                        tools:text="Best WordCamp in the World\nBest WordCamp in the World\nBest WordCamp in the World" />
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/divider"/>
+                        android:background="@drawable/divider" />
 
                     <Button
                         android:id="@+id/visit_website_button"
                         style="?android:attr/borderlessButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/default_padding"
+                        android:layout_marginLeft="@dimen/default_padding"
+                        android:layout_marginRight="@dimen/default_padding"
+                        android:layout_marginStart="@dimen/default_padding"
                         android:text="@string/visit_website"
-                        android:textColor="@color/blue_dark"/>
+                        android:textColor="@color/blue_dark" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
         </LinearLayout>
