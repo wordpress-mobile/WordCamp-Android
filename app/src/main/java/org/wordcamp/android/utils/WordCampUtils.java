@@ -24,7 +24,7 @@ public class WordCampUtils {
             Date d = new Date(Long.parseLong(wdb.getWc_start_date()) * 1000);
             Date d1 = new Date(Long.parseLong(wdb.getWc_end_date()) * 1000);
             DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
-            return df.format(d) + " - " + df.format(d1);
+            return df.format(d) + " – " + df.format(d1);
         } else {
             Date d = new Date(Long.parseLong(wdb.getWc_start_date()) * 1000);
             DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
