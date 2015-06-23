@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -78,7 +79,28 @@ public class WordCampOverview extends Fragment {
             }
         });
 
+        Button addToCalendar = (Button) v.findViewById(R.id.add_to_calendar_button);
+        addToCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCalendar();
+            }
+        });
+    }
 
+    private void openCalendar() {
+        Intent intent = new Intent(Intent.ACTION_INSERT)
+                .setData(CalendarContract.Events.CONTENT_URI)
+                .putExtra(CalendarContract.Events.TITLE, wc.getWc_title())
+                .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
+                        WordCampUtils.getProperDate(wc.getWc_start_date()).getTime())
+                .putExtra(CalendarContract.Events.EVENT_LOCATION, wc.getVenue() + " " + wc.getAddress());
+
+        if (!wc.getWc_end_date().isEmpty()) {
+            intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
+                    WordCampUtils.getProperDate(wc.getWc_end_date()).getTime());
+        }
+        startActivity(intent);
     }
 
     private void openMaps() {
