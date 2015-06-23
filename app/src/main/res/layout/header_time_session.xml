@@ -1,18 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/header_time_height"
-    android:background="#beffffff"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/normal_padding"
-    android:paddingStart="@dimen/normal_padding">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/almost_white"
+    android:padding="@dimen/list_item_padding">
 
     <TextView
-        android:id="@+id/headerListTitle"
+        android:id="@+id/headerListDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:textColor="@color/accent"
+        android:textColor="@color/list_item_subtext"
         android:textSize="@dimen/medium_text_size"
-        android:textStyle="bold" />
-</RelativeLayout>
+        tools:text="June 29"/>
+
+    <TextView
+        android:id="@+id/headerListDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/list_item_subtext"
+        android:textSize="@dimen/medium_text_size"
+        android:text="@string/date_separator"/>
+
+    <TextView
+        android:id="@+id/headerListTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/list_item_subtext"
+        android:textSize="@dimen/medium_text_size"
+        android:textStyle="bold"
+        tools:text="08:45"/>
+
+</LinearLayout>

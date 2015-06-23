@@ -38,8 +38,15 @@ public class WordCampUtils {
         return sdf1.format(d1);
     }
 
-    public static String formatProperTime(int time) {
-        Date d = new Date((long) time * 1000);
+    public static String getFormattedDate(int date) {
+        Date d = new Date((long) date * 1000);
+        DateFormat df = DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault());
+        df.setTimeZone(TimeZone.getTimeZone("GMT"));
+        return df.format(d);
+    }
+
+    public static String getFormattedTime(int date) {
+        Date d = new Date((long) date * 1000);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(d);
         int minutes = 5 * (Math.round(calendar.get(Calendar.MINUTE) / 5));
@@ -49,9 +56,9 @@ public class WordCampUtils {
         }
         calendar.set(Calendar.MINUTE, minutes);
         d = calendar.getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, HH:mm", Locale.getDefault());
-        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-        return sdf.format(d);
+        DateFormat df = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault());
+        df.setTimeZone(TimeZone.getTimeZone("GMT"));
+        return df.format(d);
     }
 
     public static int findFirstUpcomingFrag(List<WordCampDB> wcdb) {

@@ -20,10 +20,10 @@
     <dimen name="item_wc_icon_size">56dp</dimen>
 
     <!-- List item -->
+    <dimen name="list_item_padding">16dp</dimen>
     <dimen name="list_item_wc_margin">12dp</dimen>
     <dimen name="list_item_wc_title_margin">34dp</dimen>
     <dimen name="list_item_session_height">72dp</dimen>
-    <dimen name="list_item_padding">16dp</dimen>
 
     <!-- Text sizes -->
     <dimen name="wc_date_title_text">12sp</dimen>
@@ -32,5 +32,4 @@
     <dimen name="text_size_18sp">18sp</dimen>
     <dimen name="title_text_size">20sp</dimen>
     <dimen name="empty_view_text_size">25sp</dimen>
-
 </resources>

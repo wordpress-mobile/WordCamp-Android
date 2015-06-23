@@ -1,50 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_session_container"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/list_item_session_height">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/list_item_padding">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/titleSession"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="56dp"
-        android:layout_marginRight="56dp"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/normal_padding"
-        android:paddingStart="@dimen/normal_padding">
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/list_item_text"
+        android:textSize="@dimen/regular_text_size"
+        tools:text="Session title"/>
 
-        <TextView
-            android:id="@+id/titleSession"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="@color/list_item_text"
-            android:textSize="@dimen/regular_text_size" />
-
-        <TextView
-            android:id="@+id/locationSession"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/list_item_subtext"
-            android:textSize="@dimen/medium_text_size"
-            android:textStyle="italic" />
-
-        <TextView
-            android:id="@+id/speakersSession"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/medium_text_size"
-            android:visibility="gone" />
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/favorite"
+    <TextView
+        android:id="@+id/locationSession"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:padding="@dimen/normal_padding" />
-</RelativeLayout>
+        android:textColor="@color/list_item_subtext"
+        android:textSize="@dimen/medium_text_size"
+        tools:text="Track 1 - Joe Speaker"/>
+
+    <TextView
+        android:id="@+id/speakersSession"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/medium_text_size"
+        android:visibility="gone"/>
+</LinearLayout>

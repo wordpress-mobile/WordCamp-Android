@@ -67,10 +67,10 @@ public class SessionDetailsActivity extends AppCompatActivity {
         title.setText(Html.fromHtml(session.getTitle()));
         info.setText(Html.fromHtml(session.getContent()));
         if (session.getTerms() != null && session.getTerms().getWcbTrack().size() == 1) {
-            time.setText(WordCampUtils.formatProperTime(sessionDB.getTime()) + " in "
+            time.setText(WordCampUtils.getFormattedDate(sessionDB.getTime()) + " in "
                     + Html.fromHtml(session.getTerms().getWcbTrack().get(0).getName()));
         } else {
-            time.setText(WordCampUtils.formatProperTime(sessionDB.getTime()));
+            time.setText(WordCampUtils.getFormattedDate(sessionDB.getTime()));
         }
 
         ListView speakersListView = (ListView) findViewById(R.id.session_list_speakers);

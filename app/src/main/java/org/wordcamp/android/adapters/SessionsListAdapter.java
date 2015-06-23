@@ -2,16 +2,12 @@ package org.wordcamp.android.adapters;
 
 import android.content.Context;
 import android.text.Html;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 
 import org.wordcamp.android.R;
 import org.wordcamp.android.objects.SessionDB;
@@ -61,59 +57,19 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
             holder.location.setVisibility(View.VISIBLE);
             holder.location.setText(Html.fromHtml(db.getLocation()));
         }
-
-        if (db.isMySession) {
-            Picasso.with(ctx).load(R.drawable.ic_favorite_red_24dp).into(holder.favorite);
-        } else {
-            Picasso.with(ctx).load(R.drawable.ic_favorite_border_light_grey_24dp).into(holder.favorite);
-        }
-
-        holder.favorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Do not refresh the whole list, just update in DB & the item
-
-                if (db.isMySession) {
-                    db.isMySession = false;
-                    list.set(position, db);
-                    listener.removeMySession(db);
-                    Picasso.with(ctx).load(R.drawable.ic_favorite_border_light_grey_24dp).into(holder.favorite);
-                } else {
-                    db.isMySession = true;
-                    list.set(position, db);
-                    listener.addMySession(db);
-                    Picasso.with(ctx).load(R.drawable.ic_favorite_red_24dp).into(holder.favorite);
-                }
-            }
-        });
-
-        if (list.get(position).category.equals("custom")) {
-            holder.container.getLayoutParams().height = singleLineSize;
-            holder.favorite.setVisibility(View.INVISIBLE);
-            if (db.getLocation() == null || db.getLocation().isEmpty())
-                holder.title.setGravity(Gravity.CENTER);
-            else
-                holder.title.setGravity(Gravity.LEFT);
-        } else {
-            holder.container.getLayoutParams().height = doubleLineSize;
-            holder.favorite.setVisibility(View.VISIBLE);
-            if (db.getLocation() == null || db.getLocation().isEmpty())
-                holder.title.setGravity(Gravity.CENTER_VERTICAL);
-            else
-                holder.title.setGravity(Gravity.LEFT);
-        }
         return convertView;
     }
 
     @Override
     public View getHeaderView(int i, View view, ViewGroup viewGroup) {
-
         if (view == null) {
             view = inflater.inflate(R.layout.header_time_session, viewGroup, false);
         }
 
-        TextView date = (TextView) view.findViewById(R.id.headerListTitle);
-        date.setText(WordCampUtils.formatProperTime(list.get(i).getTime()));
+        TextView date = (TextView) view.findViewById(R.id.headerListDate);
+        date.setText(WordCampUtils.getFormattedDate(list.get(i).getTime()));
+        TextView time = (TextView) view.findViewById(R.id.headerListTime);
+        time.setText(WordCampUtils.getFormattedTime(list.get(i).getTime()));
         return view;
     }
 
@@ -143,16 +99,14 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
     }
 
     public static class ViewHolder {
-        public TextView title, location, speakers;
-        public ImageView favorite;
-        public RelativeLayout container;
+        public TextView title;
+        public TextView location;
+        public LinearLayout container;
 
         public ViewHolder(View v) {
             title = (TextView) v.findViewById(R.id.titleSession);
             location = (TextView) v.findViewById(R.id.locationSession);
-            speakers = (TextView) v.findViewById(R.id.speakersSession);
-            favorite = (ImageView) v.findViewById(R.id.favorite);
-            container = (RelativeLayout) v.findViewById(R.id.item_session_container);
+            container = (LinearLayout) v.findViewById(R.id.item_session_container);
         }
     }
 
