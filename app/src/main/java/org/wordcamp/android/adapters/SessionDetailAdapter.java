@@ -55,7 +55,7 @@ public class SessionDetailAdapter extends BaseAdapter {
         }
 
         title = (TextView)convertView.findViewById(R.id.item_session_speaker);
-        dp = (ImageView)convertView.findViewById(R.id.speaker_dp);
+        dp = (ImageView)convertView.findViewById(R.id.speaker_avatar);
         title.setText(speakers.get(position).name);
         Picasso.with(mContext).load(speakers.get(position).dp).
                 placeholder(R.drawable.ic_account_circle_grey600).into(dp);

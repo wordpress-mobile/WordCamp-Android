@@ -110,7 +110,6 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
                 finish();
                 break;
             case R.id.item_menu_website:
-                startWebIntent(wcdb.getUrl());
                 break;
             case R.id.item_menu_my_sessions:
                 startMySessionActivity();

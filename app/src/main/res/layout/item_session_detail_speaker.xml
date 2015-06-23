@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/item_session_height"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <org.wordcamp.android.widgets.CircularImageView
-        android:id="@+id/speaker_dp"
-        android:layout_width="@dimen/session_detail_speaker_dp_size"
-        android:layout_height="@dimen/session_detail_speaker_dp_size"
+        android:id="@+id/speaker_avatar"
+        android:layout_width="@dimen/speaker_dp_size"
+        android:layout_height="@dimen/speaker_dp_size"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/side_margin"
-        android:layout_marginStart="@dimen/side_margin" />
+        android:layout_marginLeft="@dimen/list_item_padding"
+        android:layout_marginStart="@dimen/list_item_padding" />
 
     <TextView
         android:id="@+id/item_session_speaker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginBottom="@dimen/side_margin"
-        android:layout_marginLeft="@dimen/side_margin"
-        android:layout_marginStart="@dimen/side_margin"
-        android:layout_toEndOf="@+id/speaker_dp"
-        android:layout_toRightOf="@+id/speaker_dp"
+        android:layout_marginBottom="@dimen/list_item_padding"
+        android:layout_marginLeft="@dimen/list_item_padding"
+        android:layout_marginStart="@dimen/list_item_padding"
+        android:layout_toEndOf="@+id/speaker_avatar"
+        android:layout_toRightOf="@+id/speaker_avatar"
         android:textColor="@color/list_item_text"
-        android:textSize="@dimen/regular_text_size" />
+        android:textSize="@dimen/default_text_size" />
 </RelativeLayout>

@@ -12,10 +12,8 @@
             android:id="@+id/sessionList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_top_margin"
+            android:layout_marginTop="@dimen/medium_margin"
             android:background="@android:color/white"
-            android:divider="@drawable/divider"
-            android:dividerHeight="1dp"
             android:overScrollMode="never" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
@@ -28,6 +26,6 @@
         android:text="@string/schedule_to_be_announced"
         android:textColor="@color/empty_view_text"
         android:textSize="@dimen/empty_view_text_size"
-        android:padding="@dimen/normal_padding"
+        android:padding="@dimen/default_padding"
         android:visibility="gone" />
 </RelativeLayout>

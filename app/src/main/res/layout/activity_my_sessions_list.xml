@@ -28,7 +28,7 @@
             android:text="@string/empty_mysessions"
             android:textColor="@color/list_item_text"
             android:textSize="@dimen/empty_view_text_size"
-            android:padding="@dimen/normal_padding"
+            android:padding="@dimen/default_padding"
             android:visibility="gone" />
     </RelativeLayout>
 </LinearLayout>

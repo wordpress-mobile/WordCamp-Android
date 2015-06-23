@@ -102,7 +102,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         info.setMovementMethod(LinkMovementMethod.getInstance());
         info.setText(Html.fromHtml(speakerDB.getInfo()));
 
-        dp = (ImageView) headerView.findViewById(R.id.speaker_dp);
+        dp = (ImageView) headerView.findViewById(R.id.speaker_avatar);
 
         dp.setOnClickListener(new View.OnClickListener() {
             @Override

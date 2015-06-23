@@ -15,7 +15,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/list_item_text"
-        android:textSize="@dimen/regular_text_size"
+        android:textSize="@dimen/default_text_size"
         tools:text="Session title"/>
 
     <TextView

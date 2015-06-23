@@ -17,13 +17,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="@dimen/normal_padding">
+            android:padding="@dimen/default_padding">
 
             <android.support.v7.widget.CardView
                 android:id="@+id/date_card"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/normal_padding"
+                android:layout_marginBottom="@dimen/default_padding"
                 android:background="@android:color/white"
                 card_view:cardUseCompatPadding="true">
 
@@ -31,12 +31,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="@dimen/normal_padding">
+                    android:padding="@dimen/default_padding">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/normal_padding"
+                        android:layout_marginBottom="@dimen/default_padding"
                         android:text="@string/wc_date"
                         android:textColor="@color/text"
                         android:textSize="@dimen/title_text_size"/>
@@ -46,7 +46,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/list_item_subtext"
-                        android:textSize="@dimen/regular_text_size"
+                        android:textSize="@dimen/default_text_size"
                         tools:text="June 29, 2015 - June 30, 2015"/>
 
                 </LinearLayout>
@@ -56,9 +56,9 @@
                 android:id="@+id/location_card"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/normal_padding"
+                android:layout_marginBottom="@dimen/default_padding"
                 android:background="@android:color/white"
-                android:padding="@dimen/normal_padding"
+                android:padding="@dimen/default_padding"
                 card_view:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -69,7 +69,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/normal_padding"
+                        android:layout_margin="@dimen/default_padding"
                         android:text="@string/wc_location"
                         android:textColor="@color/text"
                         android:textSize="@dimen/title_text_size"/>
@@ -78,13 +78,13 @@
                         android:id="@+id/wc_location"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/side_margin"
-                        android:layout_marginEnd="@dimen/normal_padding"
-                        android:layout_marginLeft="@dimen/normal_padding"
-                        android:layout_marginRight="@dimen/normal_padding"
-                        android:layout_marginStart="@dimen/normal_padding"
+                        android:layout_marginBottom="@dimen/default_padding"
+                        android:layout_marginEnd="@dimen/default_padding"
+                        android:layout_marginLeft="@dimen/default_padding"
+                        android:layout_marginRight="@dimen/default_padding"
+                        android:layout_marginStart="@dimen/default_padding"
                         android:textColor="@color/list_item_subtext"
-                        android:textSize="@dimen/regular_text_size"
+                        android:textSize="@dimen/default_text_size"
                         tools:text="La Reserve de Quasimodo\n4 Rue de la Colombe\n75004 Paris"/>
 
                     <ImageView
@@ -119,7 +119,7 @@
                         android:id="@+id/wc_about_header"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/normal_padding"
+                        android:layout_margin="@dimen/default_padding"
                         android:clickable="true"
                         android:focusable="true"
                         android:text="@string/wc_about"
@@ -130,13 +130,13 @@
                         android:id="@+id/wc_about"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/normal_padding"
-                        android:layout_marginEnd="@dimen/normal_padding"
-                        android:layout_marginLeft="@dimen/normal_padding"
-                        android:layout_marginRight="@dimen/normal_padding"
-                        android:layout_marginStart="@dimen/normal_padding"
+                        android:layout_marginBottom="@dimen/default_padding"
+                        android:layout_marginEnd="@dimen/default_padding"
+                        android:layout_marginLeft="@dimen/default_padding"
+                        android:layout_marginRight="@dimen/default_padding"
+                        android:layout_marginStart="@dimen/default_padding"
                         android:textColor="@color/list_item_subtext"
-                        android:textSize="@dimen/regular_text_size"
+                        android:textSize="@dimen/default_text_size"
                         tools:text="Best WordCamp in the World\nBest WordCamp in the World\nBest WordCamp in the World"/>
 
                     <ImageView

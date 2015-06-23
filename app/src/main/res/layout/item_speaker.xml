@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="horizontal">
+<LinearLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
     <org.wordcamp.android.widgets.CircularImageView
-        android:id="@+id/speaker_dp"
+        android:id="@+id/speaker_avatar"
         android:layout_width="@dimen/speaker_dp_size"
         android:layout_height="@dimen/speaker_dp_size"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="@dimen/side_margin"
-        android:layout_marginStart="@dimen/side_margin"/>
+        android:layout_marginLeft="@dimen/default_padding"
+        android:layout_marginStart="@dimen/default_padding"/>
 
     <TextView
-        android:id="@+id/speaker_title"
+        android:id="@+id/speaker_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/list_item_avatar_default_height"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="@dimen/side_margin"
-        android:layout_marginStart="@dimen/side_margin"
         android:textColor="@color/list_item_text"
-        android:textSize="@dimen/regular_text_size"/>
+        android:textSize="@dimen/default_text_size"
+        android:layout_marginLeft="@dimen/default_padding"
+        android:layout_marginStart="@dimen/default_padding"
+        android:layout_marginEnd="@dimen/default_padding"
+        android:layout_marginRight="@dimen/default_padding"
+        tools:text="Joe Speaker"
+        android:gravity="center_vertical"/>
 </LinearLayout>

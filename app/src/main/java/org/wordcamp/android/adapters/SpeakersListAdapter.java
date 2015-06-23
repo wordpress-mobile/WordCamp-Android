@@ -53,9 +53,8 @@ public class SpeakersListAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.item_speaker, null);
             holder = new ViewHolder();
-            holder.title = (TextView) convertView.findViewById(R.id.speaker_title);
-            holder.dp = (CircularImageView) convertView.findViewById(R.id.speaker_dp);
-
+            holder.title = (TextView) convertView.findViewById(R.id.speaker_name);
+            holder.dp = (CircularImageView) convertView.findViewById(R.id.speaker_avatar);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

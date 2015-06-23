@@ -13,7 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/side_margin"
+            android:layout_margin="@dimen/default_padding"
             android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
@@ -34,7 +34,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/side_margin">
+                android:layout_marginTop="@dimen/default_padding">
 
                 <EditText
                     android:id="@+id/descrFeedback"
@@ -50,7 +50,7 @@
                 android:id="@+id/bugSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/side_margin"
+                android:layout_marginTop="@dimen/default_padding"
                 android:text="@string/bug"
                 android:textSize="@dimen/text_size_18sp" />
 
