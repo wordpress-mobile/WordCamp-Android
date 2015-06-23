@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -30,7 +29,6 @@ import org.wordcamp.android.objects.speaker.Terms;
 import org.wordcamp.android.objects.wordcamp.WordCampNew;
 import org.wordcamp.android.utils.CustomGsonDeSerializer;
 import org.wordcamp.android.utils.ImageUtils;
-import org.wordcamp.android.utils.WordCampUtils;
 import org.wordcamp.android.wcdetails.MySessionsActivity;
 import org.wordcamp.android.wcdetails.SessionsFragment;
 import org.wordcamp.android.wcdetails.SpeakerFragment;
@@ -88,12 +86,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
     }
 
     private void setToolbar() {
-        TextView title = (TextView) toolbar.findViewById(R.id.title);
-        TextView subTitle = (TextView) toolbar.findViewById(R.id.sub_title);
-        title.setText(wcdb.getWc_title());
-        title.setSelected(true);
-        subTitle.setText(WordCampUtils.getProperDate(wcdb));
-        toolbar.setTitle("");
+        toolbar.setTitle(wcdb.getWc_title());
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -102,17 +95,6 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.action_bookmark:
-                if (!wcdb.isMyWC) {
-                    int recv = communicator.addToMyWC(wcid);
-                    item.setIcon(R.drawable.ic_favorite_white_24dp);
-                    wcdb.isMyWC = true;
-                } else {
-                    communicator.removeFromMyWCSingle(wcid);
-                    item.setIcon(R.drawable.ic_favorite_border_white_24dp);
-                    wcdb.isMyWC = false;
-                }
-                break;
             case R.id.action_refresh:
                 updateWordCampData();
                 break;
@@ -348,10 +330,6 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_wc_detail, menu);
-        if (wcdb.isMyWC) {
-            MenuItem bookmark = menu.findItem(R.id.action_bookmark);
-            bookmark.setIcon(R.drawable.ic_favorite_white_24dp);
-        }
         return true;
     }
 
