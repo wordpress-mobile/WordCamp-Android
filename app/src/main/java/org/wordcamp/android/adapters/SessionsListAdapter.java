@@ -47,15 +47,15 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
             holder = (ViewHolder) convertView.getTag();
         }
 
-        final SessionDB db = list.get(position);
+        final SessionDB sessionDB = list.get(position);
 
-        holder.title.setText(Html.fromHtml(db.getTitle()));
+        holder.title.setText(Html.fromHtml(sessionDB.getTitle()));
 
-        if (db.getLocation() == null || db.getLocation().isEmpty()) {
+        if (sessionDB.getLocation() == null || sessionDB.getLocation().isEmpty()) {
             holder.location.setVisibility(View.GONE);
         } else {
             holder.location.setVisibility(View.VISIBLE);
-            holder.location.setText(Html.fromHtml(db.getLocation()));
+            holder.location.setText(Html.fromHtml(sessionDB.getLocation()));
         }
         return convertView;
     }
