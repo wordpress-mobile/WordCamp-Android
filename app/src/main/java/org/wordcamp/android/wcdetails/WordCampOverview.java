@@ -17,6 +17,7 @@ import android.widget.TextView;
 import org.wordcamp.android.R;
 import org.wordcamp.android.WordCampDetailActivity;
 import org.wordcamp.android.objects.WordCampDB;
+import org.wordcamp.android.utils.WordCampUtils;
 
 /**
  * Created by aagam on 26/1/15.
@@ -24,6 +25,7 @@ import org.wordcamp.android.objects.WordCampDB;
 public class WordCampOverview extends Fragment {
     private WordCampDB wc;
     private TextView location;
+    private TextView mDateTextView;
     private TextView about;
     private ImageView wcFeaturedImage;
     private WordCampOverviewListener listener;
@@ -54,6 +56,9 @@ public class WordCampOverview extends Fragment {
 
         location = (TextView) v.findViewById(R.id.wc_location);
         setLocationText();
+
+        mDateTextView = (TextView) v.findViewById(R.id.wc_date);
+        mDateTextView.setText(WordCampUtils.getProperDate(wc));
 
         aboutView = v.findViewById(R.id.wc_about_header);
         about = (TextView) v.findViewById(R.id.wc_about);

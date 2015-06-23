@@ -1,14 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/action_bookmark" android:title="@string/action_favorite"
-        android:icon="@drawable/ic_favorite_border_white_24dp"
-        app:showAsAction="ifRoom" />
     <item android:id="@+id/action_refresh" android:title="@string/action_refresh"
         app:showAsAction="never" />
     <item android:id="@+id/item_menu_my_sessions" android:title="@string/mysession_title"
         android:orderInCategory="49" app:showAsAction="never" />
-    <item android:id="@+id/item_menu_website" android:title="@string/action_webversion"
-        android:orderInCategory="50" app:showAsAction="never" />
     <item android:id="@+id/item_menu_feedback" android:title="@string/action_feedback"
         android:orderInCategory="51" app:showAsAction="never" />
 </menu>
