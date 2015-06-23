@@ -6,7 +6,6 @@ import org.wordcamp.android.objects.wordcamp.PostMetum;
 import org.wordcamp.android.objects.wordcamp.WordCampNew;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -32,10 +31,8 @@ public class WordCampUtils {
         }
     }
 
-    public static String getProperFormatDate(String s) {
-        Date d1 = new Date(Long.parseLong(s) * 1000);
-        SimpleDateFormat sdf1 = new SimpleDateFormat("dd, MMM yyyy", Locale.getDefault());
-        return sdf1.format(d1);
+    public static Date getProperDate(String s) {
+        return new Date(Long.parseLong(s) * 1000);
     }
 
     public static String getFormattedDate(int date) {
