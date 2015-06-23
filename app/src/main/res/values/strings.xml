@@ -10,7 +10,7 @@
     <string name="search_wc_hint">Search WordCamps</string>
     <string name="action_feedback">Feedback</string>
     <string name="action_send">Send</string>
-    <string name="map_directions_text">Get directions to the venue</string>
+    <string name="action_navigate">Navigate</string>
     <string name="speaker_to_be_announced">Speakers yet to be announced</string>
     <string name="schedule_to_be_announced">Schedule to be announced</string>
     <string name="wc_about">About</string>
@@ -30,9 +30,11 @@
     <string name="my_sessions_title">My Sessions</string>
     <string name="upcoming_wc_title">Upcoming</string>
     <string name="my_wc_title">Favorites</string>
+    <string name="wc_date">Date</string>
     <string name="title_overview">Overview</string>
     <string name="title_schedule">Schedule</string>
     <string name="title_speakers">Speakers</string>
     <string name="title_sessions">Sessions</string>
     <string name="no_network_toast">No network available</string>
+    <string name="visit_website">Visit Website</string>
 </resources>

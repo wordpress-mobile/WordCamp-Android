@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -18,7 +17,6 @@ import android.widget.TextView;
 import org.wordcamp.android.R;
 import org.wordcamp.android.WordCampDetailActivity;
 import org.wordcamp.android.objects.WordCampDB;
-import org.wordcamp.android.utils.ImageUtils;
 
 /**
  * Created by aagam on 26/1/15.
@@ -42,7 +40,6 @@ public class WordCampOverview extends Fragment {
         super.onActivityCreated(savedInstanceState);
         wc = ((WordCampDetailActivity) getActivity()).wcdb;
         View v = getView();
-        View v1 = v.findViewById(R.id.wc_image_container);
 
         refreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
         refreshLayout.setColorSchemeResources(R.color.swipe_refresh_color1,
@@ -55,10 +52,6 @@ public class WordCampOverview extends Fragment {
             }
         });
 
-        wcFeaturedImage = (ImageView) v.findViewById(R.id.featuredImage);
-        if (wc.featureImageUrl != null && !wc.featureImageUrl.equals("")) {
-//            Picasso.with(getActivity()).load("http://central.wordcamp.org/files/2014/12/Norway.png").placeholder(R.drawable.wcparis).into(wcFeaturedImage);
-        }
         location = (TextView) v.findViewById(R.id.wc_location);
         setLocationText();
 
@@ -66,15 +59,13 @@ public class WordCampOverview extends Fragment {
         about = (TextView) v.findViewById(R.id.wc_about);
         setAboutText();
 
-        v1.getLayoutParams().height = ImageUtils.getAspectRatio(getActivity());
-        View maps = v.findViewById(R.id.maps_cotainer);
+        View maps = v.findViewById(R.id.navigate_button);
         maps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openMaps();
             }
         });
-        ViewCompat.setElevation(v.findViewById(R.id.centerLayoutDetail), getResources().getDimension(R.dimen.list_elevation));
     }
 
     private void openMaps() {
