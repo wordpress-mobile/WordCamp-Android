@@ -11,7 +11,6 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.wordcamp.android.R;
@@ -25,12 +24,10 @@ import org.wordcamp.android.utils.WordCampUtils;
 public class WordCampOverview extends Fragment {
     private WordCampDB wc;
     private TextView location;
-    private TextView mDateTextView;
-    private TextView about;
-    private ImageView wcFeaturedImage;
+    private TextView mAboutTextView;
     private WordCampOverviewListener listener;
     private SwipeRefreshLayout refreshLayout;
-    private View aboutView;
+    private View mAboutCardView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -57,11 +54,11 @@ public class WordCampOverview extends Fragment {
         location = (TextView) v.findViewById(R.id.wc_location);
         setLocationText();
 
-        mDateTextView = (TextView) v.findViewById(R.id.wc_date);
-        mDateTextView.setText(WordCampUtils.getProperDate(wc));
+        TextView dateTextView = (TextView) v.findViewById(R.id.wc_date);
+        dateTextView.setText(WordCampUtils.getProperDate(wc));
 
-        aboutView = v.findViewById(R.id.wc_about_header);
-        about = (TextView) v.findViewById(R.id.wc_about);
+        mAboutCardView = v.findViewById(R.id.about_card);
+        mAboutTextView = (TextView) v.findViewById(R.id.wc_about);
         setAboutText();
 
         View maps = v.findViewById(R.id.navigate_button);
@@ -86,10 +83,10 @@ public class WordCampOverview extends Fragment {
 
     private void setAboutText() {
         if (wc.getAbout().isEmpty())
-            aboutView.setVisibility(View.GONE);
+            mAboutCardView.setVisibility(View.GONE);
         else {
-            aboutView.setVisibility(View.VISIBLE);
-            about.setText(Html.fromHtml(wc.getAbout()));
+            mAboutCardView.setVisibility(View.VISIBLE);
+            mAboutTextView.setText(Html.fromHtml(wc.getAbout()));
         }
     }
 
