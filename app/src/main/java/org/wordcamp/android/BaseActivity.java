@@ -52,6 +52,7 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
         setContentView(R.layout.activity_base);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         setupUI();
+        getSupportActionBar().setTitle(R.string.main_action_bar_title);
     }
 
     private void setupUI() {
