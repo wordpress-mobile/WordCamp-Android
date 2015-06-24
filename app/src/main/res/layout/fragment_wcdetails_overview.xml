@@ -23,13 +23,13 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/card_margin"
-                android:background="@android:color/white"
                 android:padding="@dimen/default_padding"
                 card_view:cardUseCompatPadding="true">
 
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:background="@android:color/white"
                     android:orientation="vertical">
 
                     <TextView
@@ -76,13 +76,13 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/card_margin"
-                android:background="@android:color/white"
                 android:padding="@dimen/default_padding"
                 card_view:cardUseCompatPadding="true">
 
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:background="@android:color/white"
                     android:orientation="vertical">
 
                     <TextView
@@ -128,12 +128,12 @@
                 android:id="@+id/about_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white"
                 card_view:cardUseCompatPadding="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@android:color/white"
                     android:orientation="vertical">
 
                     <TextView

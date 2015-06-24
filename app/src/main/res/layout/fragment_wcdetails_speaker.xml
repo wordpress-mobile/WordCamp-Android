@@ -14,7 +14,7 @@
         android:text="@string/speaker_to_be_announced"
         android:textColor="@color/empty_view_text"
         android:textSize="@dimen/empty_view_text_size"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
@@ -25,9 +25,10 @@
             android:id="@+id/speaker_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clipToPadding="false"
             android:divider="@null"
             android:paddingTop="@dimen/medium_margin"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
