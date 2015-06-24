@@ -4,38 +4,49 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar"/>
-
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginBottom="@dimen/default_padding"
-        android:layout_marginLeft="@dimen/default_padding"
-        android:layout_marginRight="@dimen/default_padding"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/wc_detail_title"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="4"
-            android:textColor="@color/list_item_text"
-            android:textSize="@dimen/text_size_18sp"/>
+            android:background="?attr/colorPrimary"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/default_padding">
 
-        <TextView
-            android:id="@+id/wc_detail_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:textColor="@color/list_item_subtext"
-            android:textSize="@dimen/default_text_size" />
+            <include layout="@layout/toolbar" />
+
+            <TextView
+                android:id="@+id/wc_detail_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/toolbar_custom_title_padding"
+                android:layout_marginRight="@dimen/default_padding"
+                android:ellipsize="end"
+                android:maxLines="4"
+                android:textColor="@color/almost_white"
+                android:textSize="@dimen/text_size_18sp" />
+
+            <TextView
+                android:id="@+id/wc_detail_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/toolbar_custom_title_padding"
+                android:layout_marginRight="@dimen/default_padding"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/transparent70_white"
+                android:textSize="@dimen/default_text_size" />
+        </LinearLayout>
 
         <ListView
             android:id="@+id/session_list_speakers"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_marginLeft="@dimen/default_padding"
+            android:layout_marginRight="@dimen/default_padding"
             android:headerDividersEnabled="false"
             android:overScrollMode="never"
             android:scrollbars="none" />

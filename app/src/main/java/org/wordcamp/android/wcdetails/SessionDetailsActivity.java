@@ -23,6 +23,7 @@ import org.wordcamp.android.notifs.FavoriteSession;
 import org.wordcamp.android.objects.MiniSpeaker;
 import org.wordcamp.android.objects.SessionDB;
 import org.wordcamp.android.objects.SpeakerDB;
+import org.wordcamp.android.objects.speaker.Session;
 import org.wordcamp.android.utils.WordCampUtils;
 
 import java.util.ArrayList;
@@ -52,9 +53,9 @@ public class SessionDetailsActivity extends AppCompatActivity {
 
     private void initGUI() {
         Gson gson = new Gson();
-        session = gson.fromJson(sessionDB.getGson_object(), org.wordcamp.android.objects.speaker.Session.class);
+        session = gson.fromJson(sessionDB.getGson_object(), Session.class);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(session.getTitle());
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

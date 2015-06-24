@@ -2,6 +2,7 @@
     <!-- action bar and tabs -->
     <dimen name="tab_height">48dp</dimen>
     <dimen name="toolbar_elevation">4dp</dimen>
+    <dimen name="toolbar_custom_title_padding">72dp</dimen>
 
     <dimen name="single_line_list_item">24dp</dimen>
     <dimen name="double_line_list_item">72dp</dimen>
