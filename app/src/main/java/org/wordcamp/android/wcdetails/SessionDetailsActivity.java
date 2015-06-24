@@ -98,10 +98,6 @@ public class SessionDetailsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_session_detail, menu);
-        if (sessionDB.isMySession) {
-            MenuItem attending = menu.findItem(R.id.action_favorite);
-            attending.setIcon(R.drawable.ic_favorite_white_24dp);
-        }
         return true;
     }
 
@@ -110,19 +106,6 @@ public class SessionDetailsActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
-                return true;
-            case R.id.action_favorite:
-                if (sessionDB.isMySession) {
-                    item.setIcon(R.drawable.ic_favorite_border_white_24dp);
-                    sessionDB.isMySession = false;
-                    fav.unFavoriteSession(sessionDB);
-                    communicator.removeFromMySession(sessionDB);
-                } else {
-                    item.setIcon(R.drawable.ic_favorite_white_24dp);
-                    sessionDB.isMySession = true;
-                    fav.favoriteSession(sessionDB);
-                    communicator.addToMySession(sessionDB);
-                }
                 return true;
             case R.id.item_menu_website:
                 startWebIntent();

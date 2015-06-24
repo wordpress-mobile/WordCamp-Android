@@ -104,9 +104,6 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
                 break;
             case R.id.item_menu_website:
                 break;
-            case R.id.item_menu_my_sessions:
-                startMySessionActivity();
-                break;
         }
 
         return true;
