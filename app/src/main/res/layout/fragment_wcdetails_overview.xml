@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v4.widget.SwipeRefreshLayout android:id="@+id/swipe_refresh_layout"
-                                              xmlns:android="http://schemas.android.com/apk/res/android"
-                                              xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                                              xmlns:tools="http://schemas.android.com/tools"
-                                              android:layout_width="match_parent"
-                                              android:layout_height="match_parent">
+<android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/swipe_refresh_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -59,13 +60,11 @@
 
                     <Button
                         android:id="@+id/add_to_calendar_button"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/default_padding"
-                        android:layout_marginLeft="@dimen/default_padding"
-                        android:layout_marginRight="@dimen/default_padding"
-                        android:layout_marginStart="@dimen/default_padding"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:gravity="left|start"
+                        android:padding="@dimen/default_padding"
                         android:text="@string/add_to_calendar"
                         android:textColor="@color/blue_dark" />
 
@@ -114,9 +113,11 @@
 
                     <Button
                         android:id="@+id/navigate_button"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:gravity="left|start"
+                        android:padding="@dimen/default_padding"
                         android:text="@string/action_navigate"
                         android:textColor="@color/blue_dark" />
 
@@ -140,8 +141,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/default_padding"
-                        android:clickable="true"
-                        android:focusable="true"
                         android:text="@string/wc_about"
                         android:textColor="@color/text"
                         android:textSize="@dimen/title_text_size" />
@@ -166,9 +165,11 @@
 
                     <Button
                         android:id="@+id/visit_website_button"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:gravity="left|start"
+                        android:padding="@dimen/default_padding"
                         android:text="@string/visit_website"
                         android:textColor="@color/blue_dark" />
                 </LinearLayout>
