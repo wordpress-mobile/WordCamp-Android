@@ -35,5 +35,5 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_favorite_border_light_grey_24dp"/>
+        android:src="@drawable/ic_favorite_outline_24dp"/>
 </RelativeLayout>
