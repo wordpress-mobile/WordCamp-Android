@@ -17,7 +17,7 @@
     <dimen name="list_item_avatar_default_height">56dp</dimen>
 
     <!-- Cards -->
-    <dimen name="card_margin">8dp</dimen>
+    <dimen name="card_margin">5dp</dimen>
 
     <!-- Text sizes -->
     <dimen name="wc_date_title_text">12sp</dimen>
