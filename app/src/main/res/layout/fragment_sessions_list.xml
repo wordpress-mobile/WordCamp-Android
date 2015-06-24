@@ -27,5 +27,6 @@
         android:textColor="@color/empty_view_text"
         android:textSize="@dimen/empty_view_text_size"
         android:padding="@dimen/default_padding"
+        android:gravity="center"
         android:visibility="gone" />
 </RelativeLayout>
