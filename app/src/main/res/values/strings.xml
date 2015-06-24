@@ -38,4 +38,5 @@
     <string name="no_network_toast">No network available</string>
     <string name="visit_website">Visit Website</string>
     <string name="add_to_calendar">Add to calendar</string>
+    <string name="about_description_fallback">Check out the website for more information</string>
 </resources>

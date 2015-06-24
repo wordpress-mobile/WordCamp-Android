@@ -29,7 +29,6 @@ public class WordCampOverview extends Fragment {
     private TextView mAboutTextView;
     private WordCampOverviewListener listener;
     private SwipeRefreshLayout refreshLayout;
-    private View mAboutCardView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -59,7 +58,6 @@ public class WordCampOverview extends Fragment {
         TextView dateTextView = (TextView) v.findViewById(R.id.wc_date);
         dateTextView.setText(WordCampUtils.getProperDate(wc));
 
-        mAboutCardView = v.findViewById(R.id.about_card);
         mAboutTextView = (TextView) v.findViewById(R.id.wc_about);
         setAboutText();
 
@@ -121,10 +119,7 @@ public class WordCampOverview extends Fragment {
     }
 
     private void setAboutText() {
-        if (wc.getAbout().isEmpty())
-            mAboutCardView.setVisibility(View.GONE);
-        else {
-            mAboutCardView.setVisibility(View.VISIBLE);
+        if (!wc.getAbout().isEmpty()) {
             mAboutTextView.setText(Html.fromHtml(wc.getAbout()));
         }
     }

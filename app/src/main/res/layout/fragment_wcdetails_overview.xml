@@ -155,9 +155,9 @@
                         android:layout_marginLeft="@dimen/default_padding"
                         android:layout_marginRight="@dimen/default_padding"
                         android:layout_marginStart="@dimen/default_padding"
+                        android:text="@string/about_description_fallback"
                         android:textColor="@color/list_item_subtext"
-                        android:textSize="@dimen/default_text_size"
-                        tools:text="Best WordCamp in the World\nBest WordCamp in the World\nBest WordCamp in the World" />
+                        android:textSize="@dimen/default_text_size" />
 
                     <ImageView
                         android:layout_width="match_parent"

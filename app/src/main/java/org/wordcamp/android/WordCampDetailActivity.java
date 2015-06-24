@@ -42,7 +42,6 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
 
     private WCDetailAdapter adapter;
     private Toolbar toolbar;
-    private ViewPager mPager;
     public WordCampDB wcdb;
     public int wcid;
     public DBCommunicator communicator;
@@ -69,9 +68,9 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         adapter = new WCDetailAdapter(getSupportFragmentManager(), this);
-        mPager = (ViewPager) findViewById(R.id.pager);
-        mPager.setAdapter(adapter);
-        mPager.setOffscreenPageLimit(2);
+        ViewPager pager = (ViewPager) findViewById(R.id.pager);
+        pager.setAdapter(adapter);
+        pager.setOffscreenPageLimit(2);
         final int tabHeight = getResources().getDimensionPixelSize(R.dimen.tab_height);
         findViewById(R.id.pager_wrapper).setPadding(0, ImageUtils.getActionBarSize(this) + tabHeight, 0, 0);
 
@@ -80,7 +79,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
                 getResources().getColor(R.color.tab_selected_text));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
-        tabLayout.setupWithViewPager(mPager);
+        tabLayout.setupWithViewPager(pager);
 
         setToolbar();
     }
