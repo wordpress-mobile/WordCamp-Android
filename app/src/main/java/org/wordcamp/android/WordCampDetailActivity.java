@@ -77,8 +77,6 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setTabTextColors(getResources().getColor(R.color.tab_normal_text),
                 getResources().getColor(R.color.tab_selected_text));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        tabLayout.setTabMode(TabLayout.MODE_FIXED);
         tabLayout.setupWithViewPager(pager);
 
         setToolbar();
