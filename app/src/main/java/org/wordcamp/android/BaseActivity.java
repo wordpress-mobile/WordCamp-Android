@@ -29,7 +29,6 @@ import org.wordcamp.android.db.DBCommunicator;
 import org.wordcamp.android.networking.WPAPIClient;
 import org.wordcamp.android.objects.WordCampDB;
 import org.wordcamp.android.objects.wordcamp.WordCampNew;
-import org.wordcamp.android.utils.ImageUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -65,14 +64,10 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
         ViewPager mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(mPagerAdapter);
         mPager.setOffscreenPageLimit(2);
-        final int tabHeight = getResources().getDimensionPixelSize(R.dimen.tab_height);
-        findViewById(R.id.pager_wrapper).setPadding(0, ImageUtils.getActionBarSize(this) + tabHeight, 0, 0);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setTabTextColors(getResources().getColor(R.color.tab_normal_text),
                 getResources().getColor(R.color.tab_selected_text));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        tabLayout.setTabMode(TabLayout.MODE_FIXED);
         tabLayout.setupWithViewPager(mPager);
     }
 

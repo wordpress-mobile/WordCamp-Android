@@ -28,7 +28,6 @@ import org.wordcamp.android.objects.speaker.SpeakerNew;
 import org.wordcamp.android.objects.speaker.Terms;
 import org.wordcamp.android.objects.wordcamp.WordCampNew;
 import org.wordcamp.android.utils.CustomGsonDeSerializer;
-import org.wordcamp.android.utils.ImageUtils;
 import org.wordcamp.android.wcdetails.MySessionsActivity;
 import org.wordcamp.android.wcdetails.SessionsFragment;
 import org.wordcamp.android.wcdetails.SpeakerFragment;
@@ -70,9 +69,6 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
         adapter = new WCDetailAdapter(getSupportFragmentManager(), this);
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(adapter);
-        pager.setOffscreenPageLimit(2);
-        final int tabHeight = getResources().getDimensionPixelSize(R.dimen.tab_height);
-        findViewById(R.id.pager_wrapper).setPadding(0, ImageUtils.getActionBarSize(this) + tabHeight, 0, 0);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setTabTextColors(getResources().getColor(R.color.tab_normal_text),
