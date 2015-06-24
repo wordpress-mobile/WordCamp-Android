@@ -1,10 +1,10 @@
 package org.wordcamp.android.adapters;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Created by aagam on 5/2/15.
  */
-public class WCListAdapter extends BaseAdapter implements Filterable {
+public class WCListAdapter extends RecyclerView.Adapter<WCListAdapter.ViewHolder> implements Filterable {
 
     private List<WordCampDB> wordCamps;
     private List<WordCampDB> filteredWordCamps;
@@ -30,6 +30,7 @@ public class WCListAdapter extends BaseAdapter implements Filterable {
     private LayoutInflater inflater;
     private WCListener listener;
     private WordCampsFilter wordCampsFilter;
+    private OnWCSelectedListener wcSelectedListener;
 
     public WCListAdapter(List<WordCampDB> arr, Context context, WCListener listener) {
         wordCamps = arr;
@@ -40,32 +41,20 @@ public class WCListAdapter extends BaseAdapter implements Filterable {
         wordCampsFilter = new WordCampsFilter();
     }
 
-    @Override
-    public int getCount() {
-        return filteredWordCamps.size();
+    public void setOnWCSelectedListener(OnWCSelectedListener listener) {
+        wcSelectedListener = listener;
     }
 
     @Override
-    public WordCampDB getItem(int position) {
-        return filteredWordCamps.get(position);
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_wordcamp, parent, false);
+        ViewHolder holder = new ViewHolder(v);
+        return holder;
     }
 
     @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
-    @Override
-    public View getView(final int position, View view, ViewGroup parent) {
-        final ViewHolder holder;
-
-        if (view == null) {
-            view = inflater.inflate(R.layout.item_wordcamp, parent, false);
-            holder = new ViewHolder(view);
-            view.setTag(holder);
-        } else {
-            holder = (ViewHolder) view.getTag();
-        }
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         final WordCampDB wc = filteredWordCamps.get(position);
         holder.title.setText(wc.getWc_title());
@@ -93,7 +82,28 @@ public class WCListAdapter extends BaseAdapter implements Filterable {
             }
         });
 
-        return view;
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                WordCampDB wc = getItem(position);
+                wcSelectedListener.onWCSelected(wc);
+            }
+        });
+
+    }
+
+    public WordCampDB getItem(int position){
+        return filteredWordCamps.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return 0;
+    }
+
+    @Override
+    public int getItemCount() {
+        return filteredWordCamps.size();
     }
 
     @Override
@@ -101,11 +111,12 @@ public class WCListAdapter extends BaseAdapter implements Filterable {
         return wordCampsFilter;
     }
 
-    public static class ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView title, date;
         public ImageView icon, bookmark;
 
         public ViewHolder(View v) {
+            super(v);
             title = (TextView) v.findViewById(R.id.up_wc_title);
             date = (TextView) v.findViewById(R.id.up_wc_dates);
             bookmark = (ImageView) v.findViewById(R.id.bookmark);
@@ -116,6 +127,10 @@ public class WCListAdapter extends BaseAdapter implements Filterable {
         int addToMyWC(int wcid, int position);
 
         void removeMyWC(int wcid, int position);
+    }
+
+    public interface OnWCSelectedListener {
+        void onWCSelected(WordCampDB wc);
     }
 
     private class WordCampsFilter extends Filter {
