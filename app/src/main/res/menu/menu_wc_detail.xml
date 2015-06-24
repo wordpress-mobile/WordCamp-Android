@@ -2,6 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/action_refresh" android:title="@string/action_refresh"
         app:showAsAction="never" />
-    <item android:id="@+id/item_menu_feedback" android:title="@string/action_feedback"
+    <item android:id="@+id/item_menu_feedback" android:title="@string/action_wc_feedback"
         android:orderInCategory="51" app:showAsAction="never" />
 </menu>

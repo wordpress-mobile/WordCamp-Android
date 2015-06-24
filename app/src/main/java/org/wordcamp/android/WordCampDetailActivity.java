@@ -94,7 +94,8 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
             case R.id.item_menu_feedback:
                 String url = communicator.getFeedbackUrl(wcid);
                 if (url == null) {
-                    Toast.makeText(this, getString(R.string.feedback_url_not_available_toast), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.feedback_url_not_available_toast),
+                            Toast.LENGTH_LONG).show();
                 } else {
                     startWebIntent(url);
                 }

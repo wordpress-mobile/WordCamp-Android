@@ -9,7 +9,6 @@
         <item name="windowActionBar">false</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="android:windowActionBarOverlay">true</item>
-        <item name="android:fitsSystemWindows">true</item>
 
         <!-- EditText and all other controls color -->
         <item name="colorControlNormal">@color/text</item>
