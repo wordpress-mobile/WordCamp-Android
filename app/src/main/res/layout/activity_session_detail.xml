@@ -8,55 +8,48 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/default_padding">
 
-        <LinearLayout
-            android:layout_width="fill_parent"
+        <include layout="@layout/toolbar" />
+
+        <TextView
+            android:id="@+id/wc_detail_title"
+            style="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/default_padding">
-
-            <include layout="@layout/toolbar" />
-
-            <TextView
-                android:id="@+id/wc_detail_title"
-                style="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/default_padding"
-                android:layout_marginLeft="@dimen/toolbar_left_margin"
-                android:layout_marginRight="@dimen/default_padding"
-                android:layout_marginStart="@dimen/toolbar_left_margin"
-                android:ellipsize="end"
-                android:maxLines="4"
-                android:textColor="@android:color/white"
-                tool:text="Session Title" />
-
-            <TextView
-                android:id="@+id/wc_detail_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/default_padding"
-                android:layout_marginLeft="@dimen/toolbar_left_margin"
-                android:layout_marginRight="@dimen/default_padding"
-                android:layout_marginStart="@dimen/toolbar_left_margin"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:textColor="@color/transparent70_white"
-                android:textSize="@dimen/default_text_size"
-                tool:text="June 26, 2015 - 10:15" />
-        </LinearLayout>
-
-        <ListView
-            android:id="@+id/session_list_speakers"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginLeft="@dimen/default_padding"
+            android:layout_marginEnd="@dimen/default_padding"
+            android:layout_marginLeft="@dimen/toolbar_left_margin"
             android:layout_marginRight="@dimen/default_padding"
-            android:headerDividersEnabled="false"
-            android:overScrollMode="never"
-            android:scrollbars="none" />
+            android:layout_marginStart="@dimen/toolbar_left_margin"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:textColor="@android:color/white"
+            tool:text="Session Title" />
+
+        <TextView
+            android:id="@+id/wc_detail_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/default_padding"
+            android:layout_marginLeft="@dimen/toolbar_left_margin"
+            android:layout_marginRight="@dimen/default_padding"
+            android:layout_marginStart="@dimen/toolbar_left_margin"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/transparent70_white"
+            android:textSize="@dimen/default_text_size"
+            tool:text="June 26, 2015 - 10:15" />
     </LinearLayout>
+
+    <ListView
+        android:id="@+id/session_list_speakers"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:headerDividersEnabled="false"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        />
 </LinearLayout>

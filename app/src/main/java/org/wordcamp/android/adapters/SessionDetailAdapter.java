@@ -51,10 +51,10 @@ public class SessionDetailAdapter extends BaseAdapter {
         TextView title;
         ImageView dp;
         if(convertView==null){
-            convertView = inflater.inflate(R.layout.item_session_detail_speaker,parent,false);
+            convertView = inflater.inflate(R.layout.item_speaker,parent,false);
         }
 
-        title = (TextView)convertView.findViewById(R.id.item_session_speaker);
+        title = (TextView)convertView.findViewById(R.id.speaker_name);
         dp = (ImageView)convertView.findViewById(R.id.speaker_avatar);
         title.setText(speakers.get(position).name);
         Picasso.with(mContext).load(speakers.get(position).dp).
