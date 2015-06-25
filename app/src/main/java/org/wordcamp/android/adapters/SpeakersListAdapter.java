@@ -11,9 +11,10 @@ import com.squareup.picasso.Picasso;
 
 import org.wordcamp.android.R;
 import org.wordcamp.android.objects.SpeakerDB;
-import org.wordcamp.android.widgets.CircularImageView;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by aagam on 30/1/15.
@@ -54,7 +55,7 @@ public class SpeakersListAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.item_speaker, null);
             holder = new ViewHolder();
             holder.title = (TextView) convertView.findViewById(R.id.speaker_name);
-            holder.dp = (CircularImageView) convertView.findViewById(R.id.speaker_avatar);
+            holder.dp = (CircleImageView) convertView.findViewById(R.id.speaker_avatar);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -69,6 +70,6 @@ public class SpeakersListAdapter extends BaseAdapter {
 
     static class ViewHolder {
         TextView title;
-        CircularImageView dp;
+        CircleImageView dp;
     }
 }
