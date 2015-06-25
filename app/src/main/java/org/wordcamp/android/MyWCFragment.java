@@ -60,6 +60,7 @@ public class MyWCFragment extends Fragment implements WCListAdapter.WCListener, 
         adapter = new WCListAdapter(myWordCampDBs, getActivity(), this);
         adapter.setOnWCSelectedListener(this);
         myWCLists.setAdapter(adapter);
+        updateEmptyView();
 
         refreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
         refreshLayout.setColorSchemeResources(R.color.swipe_refresh_color1,
@@ -89,6 +90,7 @@ public class MyWCFragment extends Fragment implements WCListAdapter.WCListener, 
         adapter = new WCListAdapter(myWordCampDBs, getActivity(), this);
         adapter.setOnWCSelectedListener(this);
         myWCLists.swapAdapter(adapter, false);
+        updateEmptyView();
     }
 
     private void sortAndModifyMyWC() {
@@ -118,6 +120,7 @@ public class MyWCFragment extends Fragment implements WCListAdapter.WCListener, 
         adapter = new WCListAdapter(myWordCampDBs, getActivity(), this);
         adapter.setOnWCSelectedListener(this);
         myWCLists.swapAdapter(adapter, false);
+        updateEmptyView();
     }
 
     public void removeSingleMYWC(WordCampDB wordCampDB) {
@@ -125,6 +128,7 @@ public class MyWCFragment extends Fragment implements WCListAdapter.WCListener, 
         adapter = new WCListAdapter(myWordCampDBs, getActivity(), this);
         adapter.setOnWCSelectedListener(this);
         myWCLists.swapAdapter(adapter, false);
+        updateEmptyView();
     }
 
     @Override
@@ -134,8 +138,17 @@ public class MyWCFragment extends Fragment implements WCListAdapter.WCListener, 
 
     @Override
     public void removeMyWC(int wcid, int position) {
+        updateEmptyView();
         communicator.removeFromMyWCSingle(wcid);
         ((BaseActivity) getActivity()).refreshUpcomingFrag();
+    }
+
+    private void updateEmptyView() {
+        if (adapter.getItemCount() < 1) {
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            emptyView.setVisibility(View.GONE);
+        }
     }
 
     @Override
