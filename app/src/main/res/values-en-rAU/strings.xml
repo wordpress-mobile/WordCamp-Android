@@ -18,7 +18,6 @@
 	<string name="hint_description">Description</string>
 	<string name="update_sessions_toast">Updated sessions</string>
 	<string name="help_and_feedback">Feedback</string>
-	<string name="feedback_url_not_available_toast">Feedback URL not yet available</string>
 	<string name="schedule_to_be_announced">Schedule to be announced</string>
 	<string name="speaker_to_be_announced">Speakers yet to be announced</string>
 	<string name="empty_mywordcamps">No WordCamps added yet</string>

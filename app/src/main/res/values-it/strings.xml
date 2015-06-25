@@ -18,7 +18,6 @@
 	<string name="bug">Segnalazione di un bug?</string>
 	<string name="hint_description">Descrizione</string>
 	<string name="schedule_to_be_announced">Programmato per essere annunciato</string>
-	<string name="feedback_url_not_available_toast">URL di riscontro non ancora disponibile</string>
 	<string name="update_speakers_toast">Relatori aggiornati</string>
 	<string name="speaker_to_be_announced">Realatori non ancora annunciati</string>
 	<string name="action_search">Cerca WordCamp</string>

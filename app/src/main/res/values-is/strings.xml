@@ -26,7 +26,6 @@
 	<string name="empty_mywordcamps">Engu WordCamp bætt við enn</string>
 	<string name="speaker_to_be_announced">Fyrirlesarar verða kynntir síðar</string>
 	<string name="schedule_to_be_announced">Dagskrá verður kynnt síðar</string>
-	<string name="feedback_url_not_available_toast">Vefslóð fyrir endurgjöf ekki fáanleg enn</string>
 	<string name="help_and_feedback">Endurgjöf</string>
 	<string name="update_sessions_toast">Uppfæra fyrirlestra</string>
 	<string name="action_refresh">Endurhlaða</string>

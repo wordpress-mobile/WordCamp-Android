@@ -6,7 +6,6 @@
 	<string name="hint_title">Tittel</string>
 	<string name="update_sessions_toast">Oppdatert økter</string>
 	<string name="help_and_feedback">Tilbakemelding</string>
-	<string name="feedback_url_not_available_toast">URL for tilbakemeldinger er ennå ikke tilgjengelig</string>
 	<string name="schedule_to_be_announced">Tidsplanen er ikke publisert enda</string>
 	<string name="speaker_to_be_announced">Foredragsholdere er ikke publisert enda</string>
 	<string name="action_search">Søk i WordCamper</string>

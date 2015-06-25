@@ -6,7 +6,6 @@
 	<string name="bug">Пријављујете грешку?</string>
 	<string name="update_sessions_toast">Ажурирана предавања</string>
 	<string name="help_and_feedback">Повратна информација</string>
-	<string name="feedback_url_not_available_toast">Повратна информација није још доступна</string>
 	<string name="schedule_to_be_announced">Распоред предавања ће бити објављен</string>
 	<string name="speaker_to_be_announced">Предавачи ће бити објављени</string>
 	<string name="empty_mywordcamps">Нисте додали ниједан Вордкамп</string>

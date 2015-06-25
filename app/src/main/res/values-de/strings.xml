@@ -16,7 +16,6 @@
 	<string name="hint_description">Beschreibung</string>
 	<string name="hint_title">Titel</string>
 	<string name="action_feedback">Feedback</string>
-	<string name="feedback_url_not_available_toast">Die Feedback-URL ist noch nicht verfügbar</string>
 	<string name="empty_mysessions">Keine Sessions favorisiert</string>
 	<string name="wc_about">Über</string>
 	<string name="update_speakers_toast">Speaker wurden aktualisiert</string>

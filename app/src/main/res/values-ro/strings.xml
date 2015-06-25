@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="feedback_url_not_available_toast">Acest WordCamp încă n-a publicat un URL pentru impresii</string>
+	<string name="action_wc_feedback">Impresii despre WordCamp</string>
+	<string name="about_description_fallback">Verifică situl web pentru mai multe informații</string>
+	<string name="add_to_calendar">Adaugă la calendar</string>
+	<string name="wc_date">Data</string>
+	<string name="visit_website">Vizitează situl</string>
+	<string name="action_navigate">Navighează</string>
 	<string name="my_wc_title">Favorite</string>
 	<string name="no_network_toast">Nicio rețea disponibilă</string>
 	<string name="empty_wordcamps">WordCamp-urile încă nesincronizate</string>
@@ -26,7 +33,6 @@
 	<string name="empty_mywordcamps">Niciun WordCamp adăugat</string>
 	<string name="empty_mysessions">Nicio sesiune favorită</string>
 	<string name="wc_location">Locație</string>
-	<string name="feedback_url_not_available_toast">URL impresii indisponibil</string>
 	<string name="search_wc_hint">Căutare WordCamp-uri</string>
 	<string name="help_and_feedback">Impresii</string>
 	<string name="wc_about">Despre</string>

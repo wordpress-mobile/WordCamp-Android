@@ -5,7 +5,6 @@
     <string name="date_separator" translatable="false">" – "</string>
 
     <string name="action_refresh">Refresh</string>
-    <string name="action_favorite">Favorite</string>
     <string name="action_webversion">Web version</string>
     <string name="action_search">Search WordCamps</string>
     <string name="search_wc_hint">Search WordCamps</string>
@@ -19,7 +18,6 @@
     <string name="wc_location">Location</string>
     <string name="empty_mywordcamps">No WordCamps added yet</string>
     <string name="empty_wordcamps">WordCamps not yet synced</string>
-    <string name="mysession_title">My Sessions</string>
     <string name="empty_mysessions">No Sessions favorited</string>
     <string name="update_overview_toast">Updated overview</string>
     <string name="update_sessions_toast">Updated sessions</string>

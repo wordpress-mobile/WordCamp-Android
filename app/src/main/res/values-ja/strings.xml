@@ -24,7 +24,6 @@
 	<string name="help_and_feedback">フィードバック</string>
 	<string name="speaker_to_be_announced">スピーカーはこれから告知されます</string>
 	<string name="empty_mysessions">お気に入りのセッションがありません</string>
-	<string name="feedback_url_not_available_toast">フィードバック URL はまだ利用できません</string>
 	<string name="empty_mywordcamps">まだ WordCamp が追加されていません</string>
 	<string name="search_wc_hint">WordCamp を検索</string>
 	<string name="wc_location">場所</string>
