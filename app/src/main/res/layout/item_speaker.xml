@@ -7,7 +7,7 @@
     android:orientation="horizontal"
     android:background="@android:color/white">
 
-    <org.wordcamp.android.widgets.CircularImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/speaker_avatar"
         android:layout_width="@dimen/speaker_dp_size"
         android:layout_height="@dimen/speaker_dp_size"

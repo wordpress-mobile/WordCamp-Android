@@ -23,6 +23,7 @@ import org.wordcamp.android.notifs.FavoriteSession;
 import org.wordcamp.android.objects.MiniSpeaker;
 import org.wordcamp.android.objects.SessionDB;
 import org.wordcamp.android.objects.SpeakerDB;
+import org.wordcamp.android.objects.speaker.Session;
 import org.wordcamp.android.utils.WordCampUtils;
 
 import java.util.ArrayList;
@@ -52,9 +53,9 @@ public class SessionDetailsActivity extends AppCompatActivity {
 
     private void initGUI() {
         Gson gson = new Gson();
-        session = gson.fromJson(sessionDB.getGson_object(), org.wordcamp.android.objects.speaker.Session.class);
+        session = gson.fromJson(sessionDB.getGson_object(), Session.class);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(session.getTitle());
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -62,15 +63,18 @@ public class SessionDetailsActivity extends AppCompatActivity {
         View headerView = LayoutInflater.from(this).inflate(R.layout.item_header_session, null);
 
         TextView title = (TextView) findViewById(R.id.wc_detail_title);
-        TextView time = (TextView) findViewById(R.id.wc_detail_date);
+        TextView subtitle = (TextView) findViewById(R.id.wc_detail_date);
         TextView info = (TextView) headerView.findViewById(R.id.wc_detail_abstract);
         title.setText(Html.fromHtml(session.getTitle()));
         info.setText(Html.fromHtml(session.getContent()));
         if (session.getTerms() != null && session.getTerms().getWcbTrack().size() == 1) {
-            time.setText(WordCampUtils.getFormattedDate(sessionDB.getTime()) + " in "
-                    + Html.fromHtml(session.getTerms().getWcbTrack().get(0).getName()));
+            String date = WordCampUtils.getFormattedDate(sessionDB.getTime());
+            String time = WordCampUtils.getFormattedTime(sessionDB.getTime());
+            String track = session.getTerms().getWcbTrack().get(0).getName();
+            String sep = getString(R.string.date_separator);
+            subtitle.setText(date + sep + time + sep + track);
         } else {
-            time.setText(WordCampUtils.getFormattedDate(sessionDB.getTime()));
+            subtitle.setText(WordCampUtils.getFormattedDate(sessionDB.getTime()));
         }
 
         ListView speakersListView = (ListView) findViewById(R.id.session_list_speakers);
