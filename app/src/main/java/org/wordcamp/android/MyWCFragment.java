@@ -135,11 +135,6 @@ public class MyWCFragment extends Fragment implements WCListAdapter.WCListener, 
     @Override
     public void removeMyWC(int wcid, int position) {
         communicator.removeFromMyWCSingle(wcid);
-        myWordCampDBs = communicator.getAllMyWc();
-        sort();
-        adapter = new WCListAdapter(myWordCampDBs, getActivity(), this);
-        adapter.setOnWCSelectedListener(this);
-        myWCLists.swapAdapter(adapter, false);
         ((BaseActivity) getActivity()).refreshUpcomingFrag();
     }
 

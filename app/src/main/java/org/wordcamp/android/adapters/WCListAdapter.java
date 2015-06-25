@@ -74,10 +74,10 @@ public class WCListAdapter extends RecyclerView.Adapter<WCListAdapter.ViewHolder
                     wc.isMyWC = true;
                     filteredWordCamps.set(position, wc);
                 } else {
+                    filteredWordCamps.remove(wc);
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, filteredWordCamps.size());
                     listener.removeMyWC(wc.getWc_id(), position);
-                    Picasso.with(ctx).load(R.drawable.ic_favorite_outline_24dp).into(holder.bookmark);
-                    wc.isMyWC = false;
-                    filteredWordCamps.set(position, wc);
                 }
             }
         });
