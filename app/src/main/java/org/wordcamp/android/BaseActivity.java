@@ -59,8 +59,6 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
         communicator = new DBCommunicator(this);
         communicator.start();
         wordCampsList = communicator.getAllWc();
-
-        ViewCompat.setElevation(findViewById(R.id.header), getResources().getDimension(R.dimen.toolbar_elevation));
         mPagerAdapter = new WCPagerAdapter(getSupportFragmentManager(), this);
         ViewPager mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(mPagerAdapter);
