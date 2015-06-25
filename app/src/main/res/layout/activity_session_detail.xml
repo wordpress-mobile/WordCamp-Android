@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
@@ -20,25 +22,31 @@
 
             <TextView
                 android:id="@+id/wc_detail_title"
+                style="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/default_padding"
                 android:layout_marginLeft="@dimen/toolbar_left_margin"
                 android:layout_marginRight="@dimen/default_padding"
+                android:layout_marginStart="@dimen/toolbar_left_margin"
                 android:ellipsize="end"
                 android:maxLines="4"
-                android:textColor="@color/almost_white"
-                android:textSize="@dimen/text_size_18sp" />
+                android:textColor="@android:color/white"
+                tool:text="Session Title" />
 
             <TextView
                 android:id="@+id/wc_detail_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/default_padding"
                 android:layout_marginLeft="@dimen/toolbar_left_margin"
                 android:layout_marginRight="@dimen/default_padding"
+                android:layout_marginStart="@dimen/toolbar_left_margin"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:textColor="@color/transparent70_white"
-                android:textSize="@dimen/default_text_size" />
+                android:textSize="@dimen/default_text_size"
+                tool:text="June 26, 2015 - 10:15" />
         </LinearLayout>
 
         <ListView
