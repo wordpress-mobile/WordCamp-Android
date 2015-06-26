@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="feedback_url_not_available_toast">This WordCamp hasn\'t published a feedback URL yet</string>
+	<string name="action_wc_feedback">WordCamp Feedback</string>
+	<string name="add_to_calendar">Add to calendar</string>
+	<string name="about_description_fallback">Check out the website for more information</string>
+	<string name="wc_date">Date</string>
+	<string name="action_navigate">Navigate</string>
+	<string name="visit_website">Visit Website</string>
+	<string name="my_wc_title">Favourites</string>
 	<string name="no_network_toast">No network available</string>
 	<string name="empty_wordcamps">WordCamps not yet synced</string>
 	<string name="title_sessions">Sessions</string>
@@ -9,9 +17,7 @@
 	<string name="title_schedule">Schedule</string>
 	<string name="title_overview">Overview</string>
 	<string name="action_webversion">Web version</string>
-	<string name="mysession_title">My Sessions</string>
 	<string name="upcoming_wc_title">Upcoming</string>
-	<string name="action_favorite">Favourite</string>
 	<string name="hint_title">Title</string>
 	<string name="action_feedback">Feedback</string>
 	<string name="bug">Reporting a Bug?</string>

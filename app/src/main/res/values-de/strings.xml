@@ -6,10 +6,8 @@
 	<string name="upcoming_wc_title">Demnächst</string>
 	<string name="title_sessions">Sessions</string>
 	<string name="title_speakers">Speaker</string>
-	<string name="action_favorite">Favorisieren</string>
 	<string name="title_overview">Übersicht</string>
 	<string name="action_send">Abschicken</string>
-	<string name="mysession_title">Meine Sessions</string>
 	<string name="action_webversion">Webversion</string>
 	<string name="my_sessions_title">Meine Sessions</string>
 	<string name="bug">Fehler melden?</string>

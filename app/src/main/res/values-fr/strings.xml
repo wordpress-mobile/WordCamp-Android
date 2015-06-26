@@ -17,9 +17,7 @@
 	<string name="title_schedule">Programme</string>
 	<string name="title_overview">Présentation</string>
 	<string name="action_webversion">Version Web</string>
-	<string name="mysession_title">Mes Sessions</string>
 	<string name="upcoming_wc_title">Prochains</string>
-	<string name="action_favorite">Favoriser</string>
 	<string name="bug">Rapporter un Bug?</string>
 	<string name="hint_description">Description</string>
 	<string name="hint_title">Titre</string>

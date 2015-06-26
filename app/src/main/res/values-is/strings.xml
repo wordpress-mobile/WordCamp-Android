@@ -2,10 +2,8 @@
 <resources>
 	<string name="no_network_toast">Engin nettenging</string>
 	<string name="empty_wordcamps">WordCamp hafa ekki verið samkeyrð</string>
-	<string name="action_favorite">Uppáhald</string>
 	<string name="upcoming_wc_title">Væntanlegt</string>
 	<string name="action_webversion">Vefútgáfa</string>
-	<string name="mysession_title">Mínir fyrirlestrar</string>
 	<string name="title_overview">Yfirlit</string>
 	<string name="title_schedule">Setja í áætlun</string>
 	<string name="action_send">Senda</string>

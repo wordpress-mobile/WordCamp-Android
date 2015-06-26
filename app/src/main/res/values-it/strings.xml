@@ -5,9 +5,7 @@
 	<string name="empty_wordcamps">WordCamp non è ancora sincronizzato</string>
 	<string name="title_speakers">Relatori</string>
 	<string name="upcoming_wc_title">Prossimo</string>
-	<string name="action_favorite">Preferito</string>
 	<string name="action_webversion">Versione per il web</string>
-	<string name="mysession_title">Le mie sessioni</string>
 	<string name="title_overview">Panoramica</string>
 	<string name="title_schedule">Programma</string>
 	<string name="my_sessions_title">Le mie sessioni</string>

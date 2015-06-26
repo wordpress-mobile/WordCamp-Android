@@ -10,9 +10,7 @@
 	<string name="my_wc_title">Favorite</string>
 	<string name="no_network_toast">Nicio rețea disponibilă</string>
 	<string name="empty_wordcamps">WordCamp-urile încă nesincronizate</string>
-	<string name="action_favorite">Favorite</string>
 	<string name="upcoming_wc_title">Următoare</string>
-	<string name="mysession_title">Sesiunile mele</string>
 	<string name="title_speakers">Vorbitori</string>
 	<string name="my_sessions_title">Sesiunile mele</string>
 	<string name="action_send">Trimite</string>
