@@ -74,9 +74,9 @@ public class WCListAdapter extends RecyclerView.Adapter<WCListAdapter.ViewHolder
                     wc.isMyWC = true;
                     filteredWordCamps.set(position, wc);
                 } else {
-                    filteredWordCamps.remove(wc);
-                    notifyItemRemoved(position);
-                    notifyItemRangeChanged(position, filteredWordCamps.size());
+                    Picasso.with(ctx).load(R.drawable.ic_favorite_outline_24dp).into(holder.bookmark);
+                    wc.isMyWC = false;
+                    filteredWordCamps.set(position, wc);
                     listener.removeMyWC(wc.getWc_id(), position);
                 }
             }
@@ -92,7 +92,13 @@ public class WCListAdapter extends RecyclerView.Adapter<WCListAdapter.ViewHolder
 
     }
 
-    public WordCampDB getItem(int position){
+    public void removeWC(int position) {
+        filteredWordCamps.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, filteredWordCamps.size());
+    }
+
+    public WordCampDB getItem(int position) {
         return filteredWordCamps.get(position);
     }
 

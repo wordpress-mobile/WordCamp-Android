@@ -138,6 +138,7 @@ public class MyWCFragment extends Fragment implements WCListAdapter.WCListener, 
 
     @Override
     public void removeMyWC(int wcid, int position) {
+        adapter.removeWC(position);
         updateEmptyView();
         communicator.removeFromMyWCSingle(wcid);
         ((BaseActivity) getActivity()).refreshUpcomingFrag();
