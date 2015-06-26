@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_session_container"
     android:layout_width="match_parent"
@@ -16,20 +15,30 @@
         android:maxLines="1"
         android:textColor="@color/list_item_text"
         android:textSize="@dimen/default_text_size"
-        tools:text="Session title"/>
+        tools:text="Session title" />
 
-    <TextView
-        android:id="@+id/locationSession"
+    <LinearLayout
+        android:id="@+id/location_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/list_item_subtext"
-        android:textSize="@dimen/medium_text_size"
-        tools:text="Track 1 - Joe Speaker"/>
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/speakersSession"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/medium_text_size"
-        android:visibility="gone"/>
+        <TextView
+            android:id="@+id/locationSession"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/list_item_subtext"
+            android:textSize="@dimen/medium_text_size"
+            tools:text="Track 1" />
+
+        <TextView
+            android:id="@+id/speakersSession"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/list_item_subtext"
+            android:textSize="@dimen/medium_text_size"
+            android:ellipsize="end"
+            tools:text="Joe Speaker and 2 others" />
+    </LinearLayout>
+
 </LinearLayout>

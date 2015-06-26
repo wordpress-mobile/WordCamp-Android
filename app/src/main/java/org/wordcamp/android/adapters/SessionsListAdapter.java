@@ -13,6 +13,7 @@ import org.wordcamp.android.R;
 import org.wordcamp.android.objects.SessionDB;
 import org.wordcamp.android.utils.WordCampUtils;
 
+import java.util.HashMap;
 import java.util.List;
 
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
@@ -22,15 +23,17 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
  */
 public class SessionsListAdapter extends BaseAdapter implements StickyListHeadersAdapter {
     private List<SessionDB> list;
+    private HashMap<Integer, String> speakersForSession;
     private Context ctx;
     private LayoutInflater inflater;
     private OnAddToMySessionListener listener;
     private int singleLineSize, doubleLineSize;
 
-    public SessionsListAdapter(Context ctx, List<SessionDB> dbList, OnAddToMySessionListener listener) {
+    public SessionsListAdapter(Context ctx, List<SessionDB> dbList, HashMap<Integer, String> speakersForSession, OnAddToMySessionListener listener) {
         this.ctx = ctx;
         this.listener = listener;
         this.list = dbList;
+        this.speakersForSession = speakersForSession;
         inflater = LayoutInflater.from(ctx);
         singleLineSize = (int) ctx.getResources().getDimension(R.dimen.single_line_list_item);
         doubleLineSize = (int) ctx.getResources().getDimension(R.dimen.double_line_list_item);
@@ -52,10 +55,16 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
         holder.title.setText(Html.fromHtml(sessionDB.getTitle()));
 
         if (sessionDB.getLocation() == null || sessionDB.getLocation().isEmpty()) {
-            holder.location.setVisibility(View.GONE);
+            holder.locationContainer.setVisibility(View.GONE);
         } else {
-            holder.location.setVisibility(View.VISIBLE);
+            holder.locationContainer.setVisibility(View.VISIBLE);
             holder.location.setText(Html.fromHtml(sessionDB.getLocation()));
+            if (speakersForSession.containsKey(sessionDB.getPost_id())) {
+                holder.speakers.setVisibility(View.VISIBLE);
+                holder.speakers.setText(" – " + speakersForSession.get(sessionDB.getPost_id()));
+            } else {
+                holder.speakers.setVisibility(View.GONE);
+            }
         }
         return convertView;
     }
@@ -101,12 +110,14 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
     public static class ViewHolder {
         public TextView title;
         public TextView location;
-        public LinearLayout container;
+        public TextView speakers;
+        public LinearLayout locationContainer;
 
         public ViewHolder(View v) {
             title = (TextView) v.findViewById(R.id.titleSession);
             location = (TextView) v.findViewById(R.id.locationSession);
-            container = (LinearLayout) v.findViewById(R.id.item_session_container);
+            speakers = (TextView) v.findViewById(R.id.speakersSession);
+            locationContainer = (LinearLayout) v.findViewById(R.id.location_container);
         }
     }
 

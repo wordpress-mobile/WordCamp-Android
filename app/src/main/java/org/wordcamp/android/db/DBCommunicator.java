@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by aagam on 27/1/15.
@@ -529,4 +530,51 @@ public class DBCommunicator {
         }
         return sessionDBs;
     }
+
+    public HashMap<Integer, String> getSpeakersforAllSessions(int wcid) {
+        Cursor cursor = db.rawQuery("SELECT name, sessionid FROM speakersessions JOIN speaker" +
+                " ON speaker.speaker_id = speakersessions.speakerid AND speaker.wcid=" + wcid + " " +
+                "WHERE speakersessions.wcid=" + wcid, null);
+
+        HashMap<Integer, String> speakersEachSession = new HashMap<>();
+        HashMap<Integer, Integer> speakersCount = new HashMap<>();
+
+        if (cursor != null && cursor.getCount() > 0) {
+            if (cursor.moveToFirst()) {
+                do {
+                    String speakerName = cursor.getString(0);
+                    int sessionid = cursor.getInt(1);
+                    if (speakersEachSession.containsKey(sessionid)) {
+                        if (speakersCount.containsKey(sessionid)) {
+                            speakersCount.put(sessionid, speakersCount.get(sessionid) + 1);
+                        } else {
+                            speakersCount.put(sessionid, 1);
+                        }
+                    } else {
+                        speakersEachSession.put(sessionid, speakerName);
+                    }
+                } while (cursor.moveToNext());
+                cursor.close();
+
+                for (Map.Entry<Integer, Integer> sCounts : speakersCount.entrySet()) {
+                    int sessionid = sCounts.getKey();
+                    int speakerscount = sCounts.getValue();
+
+                    if (speakerscount > 1) {
+                        speakersEachSession.put(sessionid,
+                                speakersEachSession.get(sessionid) + " & " + speakerscount + " others");
+                    } else {
+                        speakersEachSession.put(sessionid,
+                                speakersEachSession.get(sessionid) + " & 1 other");
+                    }
+
+                }
+
+                return speakersEachSession;
+            }
+        }
+        return speakersEachSession;
+    }
+
+
 }
