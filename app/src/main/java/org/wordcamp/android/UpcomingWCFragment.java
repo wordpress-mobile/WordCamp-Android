@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import org.wordcamp.android.adapters.WCListAdapter;
@@ -21,8 +21,9 @@ import java.util.Comparator;
 import java.util.List;
 
 
-public class UpcomingWCFragment extends android.support.v4.app.Fragment implements WCListAdapter.WCListener {
-    private ListView upWCLists;
+public class UpcomingWCFragment extends android.support.v4.app.Fragment implements WCListAdapter.WCListener,
+        WCListAdapter.OnWCSelectedListener {
+    private RecyclerView upWCLists;
     private List<WordCampDB> wordCampDBs;
     private DBCommunicator communicator;
     private upcomingFragListener listener;
@@ -50,7 +51,11 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
         }
 
         View v = getView();
-        upWCLists = (ListView) v.findViewById(R.id.scroll);
+        upWCLists = (RecyclerView) v.findViewById(R.id.scroll);
+        upWCLists.setHasFixedSize(true);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        upWCLists.setLayoutManager(mLayoutManager);
+
         emptyView = (TextView) v.findViewById(R.id.empty_view);
         emptyView.setText(getActivity().getString(R.string.empty_wordcamps));
 
@@ -65,17 +70,9 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
         });
         setProperListPosition();
         adapter = new WCListAdapter(wordCampDBs, getActivity(), this);
+        adapter.setOnWCSelectedListener(this);
         updateEmptyView();
         upWCLists.setAdapter(adapter);
-
-        upWCLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(getActivity(), WordCampDetailActivity.class);
-                i.putExtra("wc", adapter.getItem(position));
-                startActivity(i);
-            }
-        });
 
         if (wordCampDBs.size() == 0) {
             startRefresh();
@@ -83,7 +80,7 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
     }
 
     private void updateEmptyView() {
-        if (adapter.getCount() < 1) {
+        if (adapter.getItemCount() < 1) {
             emptyView.setVisibility(View.VISIBLE);
         } else {
             emptyView.setVisibility(View.GONE);
@@ -133,8 +130,9 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
         sortWC();
         setProperListPosition();
         adapter = new WCListAdapter(wordCampDBs, getActivity(), this);
+        adapter.setOnWCSelectedListener(this);
         updateEmptyView();
-        upWCLists.setAdapter(adapter);
+        upWCLists.swapAdapter(adapter, false);
     }
 
     private void setProperListPosition() {
@@ -161,6 +159,13 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
 
     public void stopRefresh() {
         refreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onWCSelected(WordCampDB wc) {
+        Intent i = new Intent(getActivity(), WordCampDetailActivity.class);
+        i.putExtra("wc", wc);
+        startActivity(i);
     }
 
     public interface upcomingFragListener {
