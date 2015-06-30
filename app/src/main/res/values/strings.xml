@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name" translatable="false">WordCamp</string>
     <string name="main_action_bar_title" translatable="false">WordCamp Central</string>
-    <string name="date_separator" translatable="false">" – "</string>
+    <string name="separator" translatable="false">" – "</string>
 
     <string name="action_refresh">Refresh</string>
     <string name="action_webversion">Web version</string>

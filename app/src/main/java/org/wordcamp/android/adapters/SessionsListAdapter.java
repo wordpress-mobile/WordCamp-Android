@@ -61,7 +61,8 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
             holder.location.setText(Html.fromHtml(sessionDB.getLocation()));
             if (speakersForSession.containsKey(sessionDB.getPost_id())) {
                 holder.speakers.setVisibility(View.VISIBLE);
-                holder.speakers.setText(" – " + speakersForSession.get(sessionDB.getPost_id()));
+                holder.speakers.setText(ctx.getString(R.string.separator)
+                        + speakersForSession.get(sessionDB.getPost_id()));
             } else {
                 holder.speakers.setVisibility(View.GONE);
             }
