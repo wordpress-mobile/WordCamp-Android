@@ -38,6 +38,7 @@
             android:textColor="@color/list_item_subtext"
             android:textSize="@dimen/medium_text_size"
             android:ellipsize="end"
+            android:maxLines="1"
             tools:text="Joe Speaker and 2 others" />
     </LinearLayout>
 

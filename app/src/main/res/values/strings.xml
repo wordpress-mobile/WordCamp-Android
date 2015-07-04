@@ -39,4 +39,6 @@
     <string name="visit_website">Visit Website</string>
     <string name="add_to_calendar">Add to calendar</string>
     <string name="about_description_fallback">Check out the website for more information</string>
+    <string name="multiple_speakers">and %d others</string>
+    <string name="and">" and "</string>
 </resources>
