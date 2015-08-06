@@ -68,6 +68,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
         adapter = new WCDetailAdapter(getSupportFragmentManager(), this);
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(adapter);
+        pager.setOffscreenPageLimit(2);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setTabTextColors(getResources().getColor(R.color.tab_normal_text),
@@ -122,12 +123,9 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
     }
 
     private void updateWordCampData() {
-        String webURL = wcdb.getUrl();
-
-        fetchSpeakersAPI(webURL);
         getSessionsFragment().startRefreshSession();
-//        fetchSessionsAPI(webURL);
-//        fetchOverviewAPI();
+        getSpeakerFragment().startRefreshSpeakers();
+        getOverViewFragment().startRefreshOverview();
     }
 
     private void fetchOverviewAPI() {
@@ -211,12 +209,8 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
 
     @Override
     public void startRefreshSessions() {
-        //Even we are refreshing sessions,
-        // we will fetch Speakers as we get Sessions from there
-
         String webURL = wcdb.getUrl();
         fetchSessionsAPI(webURL);
-        getSessionsFragment().startRefreshingBar();
     }
 
     @Override
