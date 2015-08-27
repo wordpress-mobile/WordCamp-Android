@@ -4,11 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import org.wordcamp.android.adapters.WCListAdapter;
@@ -20,8 +20,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class MyWCFragment extends Fragment implements WCListAdapter.WCListener {
-    private ListView myWCLists;
+public class MyWCFragment extends Fragment implements WCListAdapter.WCListener, WCListAdapter.OnWCSelectedListener {
+    private RecyclerView myWCLists;
     private List<WordCampDB> wordCampDBs;
     private List<WordCampDB> myWordCampDBs;
     private DBCommunicator communicator;
@@ -49,12 +49,18 @@ public class MyWCFragment extends Fragment implements WCListAdapter.WCListener {
         }
 
         View v = getView();
-        myWCLists = (ListView) v.findViewById(R.id.scroll);
-        emptyView = (TextView)v.findViewById(R.id.empty_view);
+        myWCLists = (RecyclerView) v.findViewById(R.id.scroll);
+        myWCLists.setHasFixedSize(true);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        myWCLists.setLayoutManager(mLayoutManager);
+
+        emptyView = (TextView) v.findViewById(R.id.empty_view);
         emptyView.setText(getActivity().getString(R.string.empty_mywordcamps));
-        myWCLists.setEmptyView(emptyView);
+
         adapter = new WCListAdapter(myWordCampDBs, getActivity(), this);
+        adapter.setOnWCSelectedListener(this);
         myWCLists.setAdapter(adapter);
+        updateEmptyView();
 
         refreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
         refreshLayout.setColorSchemeResources(R.color.swipe_refresh_color1,
@@ -64,15 +70,6 @@ public class MyWCFragment extends Fragment implements WCListAdapter.WCListener {
             @Override
             public void onRefresh() {
                 ((BaseActivity) getActivity()).onRefreshStart();
-            }
-        });
-
-        myWCLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(getActivity(), WordCampDetailActivity.class);
-                i.putExtra("wc", adapter.getItem(position));
-                startActivity(i);
             }
         });
     }
@@ -91,7 +88,9 @@ public class MyWCFragment extends Fragment implements WCListAdapter.WCListener {
         wordCampDBs = wordCampsList;
         sortAndModifyMyWC();
         adapter = new WCListAdapter(myWordCampDBs, getActivity(), this);
-        myWCLists.setAdapter(adapter);
+        adapter.setOnWCSelectedListener(this);
+        myWCLists.swapAdapter(adapter, false);
+        updateEmptyView();
     }
 
     private void sortAndModifyMyWC() {
@@ -119,13 +118,17 @@ public class MyWCFragment extends Fragment implements WCListAdapter.WCListener {
         myWordCampDBs.add(wordCampDB);
         sort();
         adapter = new WCListAdapter(myWordCampDBs, getActivity(), this);
-        myWCLists.setAdapter(adapter);
+        adapter.setOnWCSelectedListener(this);
+        myWCLists.swapAdapter(adapter, false);
+        updateEmptyView();
     }
 
     public void removeSingleMYWC(WordCampDB wordCampDB) {
         myWordCampDBs.remove(wordCampDB);
         adapter = new WCListAdapter(myWordCampDBs, getActivity(), this);
-        myWCLists.setAdapter(adapter);
+        adapter.setOnWCSelectedListener(this);
+        myWCLists.swapAdapter(adapter, false);
+        updateEmptyView();
     }
 
     @Override
@@ -135,11 +138,24 @@ public class MyWCFragment extends Fragment implements WCListAdapter.WCListener {
 
     @Override
     public void removeMyWC(int wcid, int position) {
+        adapter.removeWC(position);
+        updateEmptyView();
         communicator.removeFromMyWCSingle(wcid);
-        myWordCampDBs = communicator.getAllMyWc();
-        sort();
-        adapter = new WCListAdapter(myWordCampDBs, getActivity(), this);
-        myWCLists.setAdapter(adapter);
         ((BaseActivity) getActivity()).refreshUpcomingFrag();
+    }
+
+    private void updateEmptyView() {
+        if (adapter.getItemCount() < 1) {
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            emptyView.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onWCSelected(WordCampDB wc) {
+        Intent i = new Intent(getActivity(), WordCampDetailActivity.class);
+        i.putExtra("wc", wc);
+        startActivity(i);
     }
 }
