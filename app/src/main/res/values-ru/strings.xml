@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="action_wc_feedback">Обратная связь о конференции</string>
+	<string name="feedback_url_not_available_toast">Для этой конференции ещё не указан URL обратной связи</string>
+	<string name="about_description_fallback">Посетите сайт, чтобы получить больше информации</string>
+	<string name="add_to_calendar">Добавить в календарь</string>
+	<string name="action_navigate">Перейти</string>
+	<string name="wc_date">Дата</string>
+	<string name="visit_website">Перейти на сайт</string>
+	<string name="my_wc_title">Избранное</string>
+	<string name="no_network_toast">Сеть недоступна</string>
+	<string name="empty_wordcamps">Конференции WordCamp ещё не синхронизированы</string>
+	<string name="action_webversion">Веб-версия</string>
+	<string name="title_speakers">Докладчики</string>
+	<string name="upcoming_wc_title">Скоро</string>
+	<string name="title_overview">Обзор</string>
+	<string name="title_schedule">Расписание</string>
+	<string name="my_sessions_title">Мои сессии</string>
+	<string name="action_send">Отправить</string>
+	<string name="title_sessions">Сессии</string>
+	<string name="action_feedback">Обратная связь</string>
+	<string name="hint_description">Описание</string>
+	<string name="hint_title">Заголовок </string>
+	<string name="bug">Сообщить об ошибке?</string>
+	<string name="schedule_to_be_announced">Расписание ещё не объявлено</string>
+	<string name="speaker_to_be_announced">Докладчики ещё не объявлены</string>
+	<string name="empty_mywordcamps">Конференции WordCamp ещё не добавлены</string>
+	<string name="search_wc_hint">Поиск конференций WordCamp</string>
+	<string name="action_search">Поиск конференций WordCamp</string>
+	<string name="update_speakers_toast">Докладчики обновлены</string>
+	<string name="wc_location">Место</string>
+	<string name="update_sessions_toast">Сессии обновлены</string>
+	<string name="help_and_feedback">Обратная связь</string>
+	<string name="update_overview_toast">Страница обзора обновлена</string>
+	<string name="wc_about">О программе</string>
+	<string name="empty_mysessions">Нет избранных сессий</string>
+	<string name="action_refresh">Обновить</string>
+</resources>
