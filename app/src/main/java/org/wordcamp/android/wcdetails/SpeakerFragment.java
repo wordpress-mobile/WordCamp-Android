@@ -53,7 +53,7 @@ public class SpeakerFragment extends Fragment implements SpeakersListAdapter.OnS
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                startRefreshSession();
+                startRefreshSpeakers();
             }
         });
 
@@ -66,7 +66,7 @@ public class SpeakerFragment extends Fragment implements SpeakersListAdapter.OnS
         adapter = new SpeakersListAdapter(getActivity(), speakerDBList);
         adapter.setOnSpeakerSelectedListener(this);
         if (speakerDBList.size() == 0) {
-            startRefreshSession();
+            startRefreshSpeakers();
         }
 
         updateEmptyView();
@@ -97,7 +97,7 @@ public class SpeakerFragment extends Fragment implements SpeakersListAdapter.OnS
         });
     }
 
-    private void startRefreshSession() {
+    public void startRefreshSpeakers() {
         refreshLayout.post(new Runnable() {
             @Override
             public void run() {

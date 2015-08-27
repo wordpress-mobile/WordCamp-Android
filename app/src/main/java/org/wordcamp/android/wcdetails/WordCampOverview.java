@@ -124,7 +124,7 @@ public class WordCampOverview extends Fragment {
         }
     }
 
-    private void startRefreshOverview() {
+    public void startRefreshOverview() {
         refreshLayout.post(new Runnable() {
             @Override
             public void run() {
