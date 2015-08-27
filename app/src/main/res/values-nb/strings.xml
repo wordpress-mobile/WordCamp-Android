@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="feedback_url_not_available_toast">Denne WordCampen har ikke publisert tilbakemeldingslenke enda.</string>
+	<string name="action_wc_feedback">Tilbakemelding til WordCamp</string>
+	<string name="add_to_calendar">Legg til i kalender</string>
+	<string name="about_description_fallback">Besøk nettsiden for mer informasjon</string>
+	<string name="action_navigate">Naviger</string>
+	<string name="wc_date">Dato</string>
+	<string name="visit_website">Besøk nettside</string>
+	<string name="my_wc_title">Favoritter</string>
+	<string name="no_network_toast">Ingen nettverk tilgjengelig</string>
+	<string name="empty_wordcamps">WordCamper er ennå ikke synkronisert</string>
+	<string name="title_overview">Oversikt</string>
+	<string name="title_sessions">Økter</string>
+	<string name="my_sessions_title">Mine økter</string>
+	<string name="action_send">Send</string>
+	<string name="title_speakers">Foredragsholdere</string>
+	<string name="title_schedule">Timeplan</string>
+	<string name="action_webversion">Webversjon</string>
+	<string name="upcoming_wc_title">Kommende</string>
 	<string name="bug">Rapportere en feil?</string>
 	<string name="action_feedback">Tilbakemelding</string>
 	<string name="hint_description">Beskrivelse</string>

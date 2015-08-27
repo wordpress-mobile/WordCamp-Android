@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="action_wc_feedback">WordCamp のフィードバック</string>
+	<string name="feedback_url_not_available_toast">この WordCamp はまだフィードバック URL を公開していません</string>
+	<string name="add_to_calendar">カレンダーに追加</string>
+	<string name="about_description_fallback">サイトで詳細をチェック</string>
+	<string name="wc_date">日付</string>
+	<string name="visit_website">ウェブサイトを見る</string>
+	<string name="action_navigate">ナビゲート</string>
+	<string name="my_wc_title">お気に入り</string>
 	<string name="no_network_toast">ネットワークが利用できません</string>
 	<string name="empty_wordcamps">WordCamp はまだ同期されていません</string>
 	<string name="upcoming_wc_title">今後</string>
