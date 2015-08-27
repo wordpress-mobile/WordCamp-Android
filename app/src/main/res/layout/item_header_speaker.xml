@@ -3,39 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="@dimen/default_padding">
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/speaker_avatar"
-            android:layout_width="@dimen/speaker_dp_size"
-            android:layout_height="@dimen/speaker_dp_size"
-            android:layout_marginLeft="@dimen/list_item_header_speaker_dp_margin"
-            android:layout_marginStart="@dimen/list_item_header_speaker_dp_margin" />
-
-        <TextView
-            android:id="@+id/speaker_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/default_padding"
-            android:layout_marginStart="@dimen/default_padding"
-            android:autoLink="all"
-            android:textColor="@color/list_item_subtext"
-            android:textSize="16sp" />
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/default_padding"
-        android:layout_marginRight="@dimen/default_padding"
-        android:layout_marginTop="@dimen/medium_margin"
-        android:background="@drawable/line" />
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/session_title"

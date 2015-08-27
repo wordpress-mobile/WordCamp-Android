@@ -1,23 +1,18 @@
 package org.wordcamp.android.wcdetails;
 
 import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.graphics.Point;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -82,27 +77,27 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         mShortAnimationDuration = getResources().getInteger(
                 android.R.integer.config_shortAnimTime);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(speakerDB.getName());
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
 
+        CollapsingToolbarLayout collapsingToolbar =
+                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbar.setTitle(speakerDB.getName());
+
 
         // Load the high-resolution "zoomed-in" image.
         zoomImageView = (ImageView) findViewById(
-                R.id.zoomProfilePic);
+                R.id.backdrop);
 
         Picasso.with(this).load(speakerDB.getGravatar())
                 .placeholder(R.drawable.ic_account_circle_grey600).into(zoomImageView);
 
         View headerView = LayoutInflater.from(this).inflate(R.layout.item_header_speaker, null);
-        info = (TextView) headerView.findViewById(R.id.speaker_detail);
-        sessionTitle = (TextView) headerView.findViewById(R.id.session_title);
-        info.setClickable(true);
-        info.setMovementMethod(LinkMovementMethod.getInstance());
+        info = (TextView) findViewById(R.id.wc_about);
         info.setText(Html.fromHtml(speakerDB.getInfo()));
 
-        dp = (ImageView) headerView.findViewById(R.id.speaker_avatar);
+       /* dp = (ImageView) headerView.findViewById(R.id.speaker_avatar);
 
         dp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +107,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         });
         Picasso.with(this).load(speakerDB.getGravatar())
                 .placeholder(R.drawable.ic_account_circle_grey600).into(dp);
-
+*/
         lv = (ListView) findViewById(R.id.session_list_speakers);
         lv.addHeaderView(headerView, null, false);
 
@@ -138,7 +133,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
 
         }
 
-        zoomImageView.setOnClickListener(new View.OnClickListener() {
+        /*zoomImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mCurrentAnimator != null) {
@@ -180,7 +175,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
                 mCurrentAnimator = set;
                 visible.set(false);
             }
-        });
+        });*/
     }
 
     @Override
@@ -233,7 +228,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
             communicator.close();
     }
 
-    private void zoomImageFromThumb(final View thumbView) {
+    /*private void zoomImageFromThumb(final View thumbView) {
 
         visible.set(true);
 
@@ -305,5 +300,5 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         });
         set.start();
         mCurrentAnimator = set;
-    }
+    }*/
 }
