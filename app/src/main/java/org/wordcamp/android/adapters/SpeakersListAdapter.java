@@ -41,7 +41,7 @@ public class SpeakersListAdapter extends RecyclerView.Adapter<SpeakersListAdapte
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = inflater.inflate(R.layout.item_speaker, null);
+        View v = inflater.inflate(R.layout.item_speaker, parent, false);
         ViewHolder holder = new ViewHolder(v);
         return holder;
     }
