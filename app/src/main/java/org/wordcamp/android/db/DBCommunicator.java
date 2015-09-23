@@ -31,6 +31,7 @@ public class DBCommunicator {
     private WCSQLiteHelper helper;
     private SQLiteDatabase db;
     private Context ctx;
+    private String space = " ";
 
 
     private Gson gson;
@@ -559,8 +560,8 @@ public class DBCommunicator {
                         counter++;
                         speakersCount.put(sessionid, counter);
                         if (counter == 2) {
-                            speakersEachSession.put(sessionid, speakerName + ctx.getString(R.string.and)
-                                    + speakersEachSession.get(sessionid));
+                            speakersEachSession.put(sessionid, speakerName + space +
+                                    ctx.getString(R.string.and) + space + speakersEachSession.get(sessionid));
                         } else {
                             speakersEachSession.put(sessionid, speakerName);
                         }
