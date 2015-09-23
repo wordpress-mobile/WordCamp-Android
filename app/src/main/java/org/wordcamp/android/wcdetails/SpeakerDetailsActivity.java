@@ -2,27 +2,27 @@ package org.wordcamp.android.wcdetails;
 
 import android.animation.Animator;
 import android.content.Intent;
-import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import org.wordcamp.android.R;
-import org.wordcamp.android.adapters.SpeakerDetailAdapter;
+import org.wordcamp.android.adapters.SessionsBySpeakerListAdapter;
 import org.wordcamp.android.db.DBCommunicator;
 import org.wordcamp.android.objects.SessionDB;
 import org.wordcamp.android.objects.SpeakerDB;
@@ -31,7 +31,6 @@ import org.wordcamp.android.objects.speaker.SpeakerNew;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Created by aagam on 26/2/15.
@@ -45,16 +44,12 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
     private Gson gson;
     private DBCommunicator communicator;
     private HashMap<String, Integer> titleSession;
-    private TextView info,sessionTitle;
-    private ListView lv;
+    private TextView info, sessionTitle;
+    private RecyclerView lv;
     private Animator mCurrentAnimator;
     private ImageView dp;
     private ImageView zoomImageView;
-    private AtomicBoolean visible = new AtomicBoolean(false);
-    private float startScale;
-    private View container;
-    private int mShortAnimationDuration;
-    private Rect startBounds;
+    private SessionsBySpeakerListAdapter sessionsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,9 +68,6 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
     }
 
     private void initGUI() {
-
-        mShortAnimationDuration = getResources().getInteger(
-                android.R.integer.config_shortAnimTime);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -84,6 +76,24 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(speakerDB.getName());
+
+        if (titleSession != null) {
+            final List<String> names = new ArrayList<>(titleSession.keySet());
+            sessionsAdapter = new SessionsBySpeakerListAdapter(this, names);
+            sessionsAdapter.setOnSessionSelectedListener(new SessionsBySpeakerListAdapter.OnSessionSelected() {
+                @Override
+                public void onSessionSelected(int position) {
+                    SessionDB sessionDB = communicator.getSession(speakerDB.getWc_id(), titleSession.get(names.get(position)));
+                    Intent intent = new Intent(getApplicationContext(), SessionDetailsActivity.class);
+                    intent.putExtra("session", sessionDB);
+                    startActivity(intent);
+                }
+            });
+
+            lv = (RecyclerView) findViewById(R.id.session_list_speakers);
+            lv.setHasFixedSize(true);
+            lv.setAdapter(sessionsAdapter);
+        }
 
 
         // Load the high-resolution "zoomed-in" image.
@@ -97,6 +107,21 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         info = (TextView) findViewById(R.id.wc_about);
         info.setText(Html.fromHtml(speakerDB.getInfo()));
 
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        lv.setLayoutManager(mLayoutManager);
+
+
+        lv.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) lv.getLayoutParams();
+                params.height = sessionsAdapter.getItemCount() * getResources().getDimensionPixelSize(R.dimen.list_item_default_height);
+                lv.setLayoutParams(params);
+            }
+        },200);
+
+
+
        /* dp = (ImageView) headerView.findViewById(R.id.speaker_avatar);
 
         dp.setOnClickListener(new View.OnClickListener() {
@@ -108,13 +133,10 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         Picasso.with(this).load(speakerDB.getGravatar())
                 .placeholder(R.drawable.ic_account_circle_grey600).into(dp);
 */
-        lv = (ListView) findViewById(R.id.session_list_speakers);
-        lv.addHeaderView(headerView, null, false);
 
 
-        if (titleSession != null) {
-            final List<String> names = new ArrayList<>(titleSession.keySet());
-            lv.setAdapter(new SpeakerDetailAdapter(getApplicationContext(), names));
+        /*if (titleSession != null) {
+
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
@@ -131,7 +153,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
             lv.setAdapter(new SpeakerDetailAdapter(getApplicationContext(), names));
             sessionTitle.setVisibility(View.GONE);
 
-        }
+        }*/
 
         /*zoomImageView.setOnClickListener(new View.OnClickListener() {
             @Override

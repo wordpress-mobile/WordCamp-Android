@@ -442,9 +442,13 @@ public class DBCommunicator {
 
 
     public HashMap<String, Integer> getSpeakerSession(int wc_id, int speaker_id) {
+//        Cursor cursor = db.rawQuery("SELECT title, postid FROM speakersessions JOIN session" +
+//                " ON session.postid = speakersessions.sessionid AND session.wcid=" + wc_id + " " +
+//                "WHERE speakersessions.wcid=" + wc_id + " AND speakersessions.speakerid=" + speaker_id, null);
+
         Cursor cursor = db.rawQuery("SELECT title, postid FROM speakersessions JOIN session" +
                 " ON session.postid = speakersessions.sessionid AND session.wcid=" + wc_id + " " +
-                "WHERE speakersessions.wcid=" + wc_id + " AND speakersessions.speakerid=" + speaker_id, null);
+                "WHERE speakersessions.wcid=" + wc_id+" limit 3", null);
 
         if (cursor != null && cursor.getCount() > 0) {
             HashMap<String, Integer> map = new HashMap<>();
