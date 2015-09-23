@@ -10,10 +10,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -103,7 +101,6 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         Picasso.with(this).load(speakerDB.getGravatar())
                 .placeholder(R.drawable.ic_account_circle_grey600).into(zoomImageView);
 
-        View headerView = LayoutInflater.from(this).inflate(R.layout.item_header_speaker, null);
         info = (TextView) findViewById(R.id.wc_about);
         info.setText(Html.fromHtml(speakerDB.getInfo()));
 
