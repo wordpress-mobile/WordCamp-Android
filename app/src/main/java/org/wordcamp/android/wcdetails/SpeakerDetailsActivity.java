@@ -2,10 +2,14 @@ package org.wordcamp.android.wcdetails;
 
 import android.animation.Animator;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -13,11 +17,11 @@ import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.wordcamp.android.R;
 import org.wordcamp.android.adapters.SessionsBySpeakerListAdapter;
@@ -25,6 +29,7 @@ import org.wordcamp.android.db.DBCommunicator;
 import org.wordcamp.android.objects.SessionDB;
 import org.wordcamp.android.objects.SpeakerDB;
 import org.wordcamp.android.objects.speaker.SpeakerNew;
+import org.wordcamp.android.utils.WordCampUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +38,7 @@ import java.util.List;
 /**
  * Created by aagam on 26/2/15.
  */
-public class SpeakerDetailsActivity extends AppCompatActivity {
+public class SpeakerDetailsActivity extends AppCompatActivity implements Palette.PaletteAsyncListener {
 
     private Toolbar toolbar;
 
@@ -46,8 +51,10 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
     private RecyclerView lv;
     private Animator mCurrentAnimator;
     private ImageView dp;
-    private ImageView zoomImageView;
+    private ImageView backdropImageView;
     private SessionsBySpeakerListAdapter sessionsAdapter;
+    private CollapsingToolbarLayout collapsingToolbar;
+    private Bitmap lowerDpBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,9 +78,10 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
 
-        CollapsingToolbarLayout collapsingToolbar =
-                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(speakerDB.getName());
+        info = (TextView) findViewById(R.id.wc_about);
+        backdropImageView = (ImageView) findViewById(R.id.backdrop);
 
         if (titleSession != null) {
             final List<String> names = new ArrayList<>(titleSession.keySet());
@@ -88,113 +96,48 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
                 }
             });
 
+            int height = names.size() * getResources().getDimensionPixelSize(R.dimen.list_item_default_height);
             lv = (RecyclerView) findViewById(R.id.session_list_speakers);
-            lv.setHasFixedSize(true);
+            LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+            lv.setLayoutManager(mLayoutManager);
+            lv.setMinimumHeight(height);
             lv.setAdapter(sessionsAdapter);
-        }
-
-
-        // Load the high-resolution "zoomed-in" image.
-        zoomImageView = (ImageView) findViewById(
-                R.id.backdrop);
-
-        Picasso.with(this).load(speakerDB.getGravatar())
-                .placeholder(R.drawable.ic_account_circle_grey600).into(zoomImageView);
-
-        info = (TextView) findViewById(R.id.wc_about);
-        info.setText(Html.fromHtml(speakerDB.getInfo()));
-
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
-        lv.setLayoutManager(mLayoutManager);
-
-
-        lv.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) lv.getLayoutParams();
-                params.height = sessionsAdapter.getItemCount() * getResources().getDimensionPixelSize(R.dimen.list_item_default_height);
-                lv.setLayoutParams(params);
-            }
-        },200);
-
-
-
-       /* dp = (ImageView) headerView.findViewById(R.id.speaker_avatar);
-
-        dp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                zoomImageFromThumb(v);
-            }
-        });
-        Picasso.with(this).load(speakerDB.getGravatar())
-                .placeholder(R.drawable.ic_account_circle_grey600).into(dp);
-*/
-
-
-        /*if (titleSession != null) {
-
-            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            lv.post(new Runnable() {
                 @Override
-                public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
-                    //As we have 1 header view so the counter starts from 1
-                    i--;
-                    SessionDB sessionDB = communicator.getSession(speakerDB.getWc_id(), titleSession.get(names.get(i)));
-                    Intent intent = new Intent(getApplicationContext(), SessionDetailsActivity.class);
-                    intent.putExtra("session", sessionDB);
-                    startActivity(intent);
+                public void run() {
+                    info.setText(Html.fromHtml(speakerDB.getInfo()));
                 }
             });
         } else {
-            final List<String> names = new ArrayList<>();
-            lv.setAdapter(new SpeakerDetailAdapter(getApplicationContext(), names));
-            sessionTitle.setVisibility(View.GONE);
+            info.setText(Html.fromHtml(speakerDB.getInfo()));
+        }
 
-        }*/
 
-        /*zoomImageView.setOnClickListener(new View.OnClickListener() {
+        // Load the low-resolution image initally
+        Picasso.with(this).load(speakerDB.getGravatar())
+                .placeholder(R.drawable.ic_account_circle_grey600).into(new Target() {
             @Override
-            public void onClick(View v) {
-                if (mCurrentAnimator != null) {
-                    mCurrentAnimator.cancel();
-                }
-
-                AnimatorSet set = new AnimatorSet();
-
-                set.play(ObjectAnimator
-                        .ofFloat(container, "x", startBounds.left))
-                        .with(ObjectAnimator
-                                .ofFloat(container,
-                                        "y", startBounds.top))
-                        .with(ObjectAnimator
-                                .ofFloat(container,
-                                        "scaleX", startScale))
-                        .with(ObjectAnimator
-                                .ofFloat(container,
-                                        "scaleY", startScale));
-                set.setDuration(mShortAnimationDuration);
-                set.setInterpolator(new DecelerateInterpolator());
-                set.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        dp.setAlpha(1f);
-                        container.setVisibility(View.GONE);
-                        mCurrentAnimator = null;
-                    }
-
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-                        dp.setAlpha(1f);
-                        container.setVisibility(View.GONE);
-                        mCurrentAnimator = null;
-                    }
-                });
-                set.start();
-                mCurrentAnimator = set;
-                visible.set(false);
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                lowerDpBitmap = Bitmap.createBitmap(bitmap, 0, bitmap.getHeight() / 2, bitmap.getWidth(), bitmap.getHeight() / 2);
+                Palette.from(lowerDpBitmap).generate(SpeakerDetailsActivity.this);
+                backdropImageView.setImageBitmap(bitmap);
             }
-        });*/
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        });
+
+        // Load the high-resolution image
+        Picasso.with(this).load(WordCampUtils.generateHighResGravatarUrlFromDefault(speakerDB.getGravatar()))
+                .noPlaceholder().into(backdropImageView);
+
     }
 
     @Override
@@ -247,77 +190,15 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
             communicator.close();
     }
 
-    /*private void zoomImageFromThumb(final View thumbView) {
+    @Override
+    public void onGenerated(Palette palette) {
+        collapsingToolbar.setCollapsedTitleTextColor(Color.WHITE);
+        collapsingToolbar.setExpandedTitleColor(palette.getVibrantColor(Color.WHITE));
 
-        visible.set(true);
-
-        if (mCurrentAnimator != null) {
-            mCurrentAnimator.cancel();
+        if (lowerDpBitmap != null) {
+            lowerDpBitmap.recycle();
         }
-
-        String largeGravatarUrl = speakerDB.getGravatar()
-                .substring(0, speakerDB.getGravatar().length() - 6) + "?s=500";
-        Picasso.with(this).load(largeGravatarUrl).noPlaceholder().into(zoomImageView);
-
-        container = findViewById(R.id.layout_zoom);
-        startBounds = new Rect();
-        Rect finalBounds = new Rect();
-        Point globalOffset = new Point();
-
-        thumbView.getGlobalVisibleRect(startBounds);
-        findViewById(R.id.mainLayout)
-                .getGlobalVisibleRect(finalBounds, globalOffset);
-        startBounds.offset(-globalOffset.x, -globalOffset.y);
-        finalBounds.offset(-globalOffset.x, -globalOffset.y);
-
-        if ((float) finalBounds.width() / finalBounds.height()
-                > (float) startBounds.width() / startBounds.height()) {
-            // Extend start bounds horizontally
-            startScale = (float) startBounds.height() / finalBounds.height();
-            float startWidth = startScale * finalBounds.width();
-            float deltaWidth = (startWidth - startBounds.width()) / 2;
-            startBounds.left -= deltaWidth;
-            startBounds.right += deltaWidth;
-        } else {
-            // Extend start bounds vertically
-            startScale = (float) startBounds.width() / finalBounds.width();
-            float startHeight = startScale * finalBounds.height();
-            float deltaHeight = (startHeight - startBounds.height()) / 2;
-            startBounds.top -= deltaHeight;
-            startBounds.bottom += deltaHeight;
-        }
-
-        // Hide the thumbnail and show the zoomed-in view.
-        thumbView.setAlpha(0f);
-        container.setVisibility(View.VISIBLE);
-
-        container.setPivotX(0f);
-        container.setPivotY(0f);
-
-        final AnimatorSet set = new AnimatorSet();
-        set.play(ObjectAnimator.ofFloat(container, "x",
-                startBounds.left, finalBounds.left))
-                .with(ObjectAnimator.ofFloat(container, "y",
-                        startBounds.top, finalBounds.top))
-                .with(ObjectAnimator.ofFloat(container, "scaleX",
-                        startScale, 1f))
-                .with(ObjectAnimator.ofFloat(container,
-                        "scaleY", startScale, 1f));
-        set.setDuration(mShortAnimationDuration);
-        set.setInterpolator(new DecelerateInterpolator());
-        set.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                mCurrentAnimator = null;
-            }
+    }
 
 
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                mCurrentAnimator = null;
-            }
-        });
-        set.start();
-        mCurrentAnimator = set;
-    }*/
 }

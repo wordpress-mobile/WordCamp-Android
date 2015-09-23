@@ -118,4 +118,8 @@ public class WordCampUtils {
 
         return map;
     }
+
+    public static String generateHighResGravatarUrlFromDefault(String url) {
+        return url.substring(0, url.length() - 6) + "?s=500";
+    }
 }
