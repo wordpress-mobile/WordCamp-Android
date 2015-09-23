@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="feedback_url_not_available_toast">Bu WordCamp henüz bir geri besleme adresi yayınlamadı</string>
+	<string name="action_wc_feedback">WordCamp geri beslemesi</string>
+	<string name="about_description_fallback">Daha fazla bilgi için web sitesine göz atın</string>
+	<string name="add_to_calendar">Takvime ekle</string>
+	<string name="wc_date">Tarih</string>
+	<string name="visit_website">Websiteyi ziyaret et</string>
+	<string name="action_navigate">Gezinti</string>
+	<string name="my_wc_title">Favoriler</string>
+	<string name="no_network_toast">Bağlantı yok</string>
+	<string name="empty_wordcamps">WordCamplar henüz senkronize edilmedi</string>
+	<string name="my_sessions_title">Oturumlarım</string>
+	<string name="title_sessions">Oturumlar</string>
+	<string name="title_speakers">Konuşmacılar</string>
+	<string name="action_send">Gönder</string>
+	<string name="title_schedule">Program</string>
+	<string name="upcoming_wc_title">Yaklaşan</string>
+	<string name="action_webversion">Web sürümü</string>
+	<string name="title_overview">Genel bakış</string>
+	<string name="hint_description">Açıklama</string>
+	<string name="hint_title">Başlık</string>
+	<string name="action_feedback">Geri besleme</string>
+	<string name="bug">Bir hata mı bildiriyorsunuz?</string>
+	<string name="speaker_to_be_announced">Konuşmacılar henüz ilan edilmedi</string>
+	<string name="schedule_to_be_announced">Program açıklanacak</string>
+	<string name="update_sessions_toast">Güncel oturumlar</string>
+	<string name="update_overview_toast">Güncel genel bakış</string>
+	<string name="empty_mywordcamps">Henüz WordCamp eklenmedi</string>
+	<string name="empty_mysessions">Favori oturum yok</string>
+	<string name="wc_about">Hakkında</string>
+	<string name="wc_location">Konum</string>
+	<string name="update_speakers_toast">Güncel konuşmacılar</string>
+	<string name="help_and_feedback">Geri besleme</string>
+	<string name="action_search">WordCamp&amp;#8217;ler arasında ara</string>
+	<string name="search_wc_hint">WordCamp&amp;#8217;ler arasında ara</string>
+	<string name="action_refresh">Yenile</string>
+</resources>

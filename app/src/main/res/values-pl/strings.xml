@@ -1,3 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="feedback_url_not_available_toast">Ten WordCamp nie opublikował jeszcze adresu URL do nadsyłania opinii</string>
+	<string name="action_wc_feedback">Opinia o WordCampie</string>
+	<string name="about_description_fallback">Przejdź na witrynę, aby uzyskać więcej informacji</string>
+	<string name="add_to_calendar">Dodaj do kalendarza</string>
+	<string name="action_navigate">Przejdź</string>
+	<string name="wc_date">Data</string>
+	<string name="visit_website">Odwiedź witrynę</string>
+	<string name="my_wc_title">Ulubione</string>
+	<string name="no_network_toast">Brak połączenia z siecią</string>
+	<string name="empty_wordcamps">Informacje o WordCampach nie zostały jeszcze zsynchronizowane</string>
+	<string name="title_sessions">Sesje</string>
+	<string name="my_sessions_title">Moje sesje</string>
+	<string name="title_speakers">Prelegenci</string>
+	<string name="upcoming_wc_title">Nadchodzące</string>
+	<string name="action_webversion">Wersja WWW</string>
+	<string name="title_overview">Opis</string>
+	<string name="title_schedule">Agenda</string>
+	<string name="action_send">Wyślij</string>
+	<string name="bug">Zgłaszasz błąd?</string>
+	<string name="action_feedback">Opinia</string>
+	<string name="hint_title">Tytuł</string>
+	<string name="hint_description">Opis</string>
+	<string name="update_overview_toast">Zaktualizowany opis</string>
+	<string name="update_speakers_toast">Zaktualizowane informacje o prelegentach</string>
+	<string name="update_sessions_toast">Zaktualizowane sesje</string>
+	<string name="empty_mysessions">Nie dodano żadnych sesji do ulubionych</string>
+	<string name="schedule_to_be_announced">Agenda zostanie dopiero opublikowana</string>
+	<string name="speaker_to_be_announced">Lista prelegentów zostanie dopiero opublikowana</string>
+	<string name="help_and_feedback">Opinia</string>
+	<string name="search_wc_hint">Szukaj WordCampów</string>
+	<string name="empty_mywordcamps">Nie dodano jeszcze żadnych WordCampów</string>
+	<string name="wc_location">Lokalizacja</string>
+	<string name="wc_about">O WordCampie</string>
+	<string name="action_search">Szukaj WordCampów</string>
+	<string name="action_refresh">Odśwież</string>
 </resources>

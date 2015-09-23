@@ -2,7 +2,6 @@ package org.wordcamp.android;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -18,18 +17,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.loopj.android.http.JsonHttpResponseHandler;
+import com.android.volley.NoConnectionError;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 
-import org.apache.http.Header;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.wordcamp.android.adapters.CacheFragmentStatePagerAdapter;
 import org.wordcamp.android.db.DBCommunicator;
+import org.wordcamp.android.networking.ResponseListener;
 import org.wordcamp.android.networking.WPAPIClient;
 import org.wordcamp.android.objects.WordCampDB;
 import org.wordcamp.android.objects.wordcamp.WordCampNew;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,10 +36,9 @@ import java.util.List;
 import java.util.Locale;
 
 public class BaseActivity extends AppCompatActivity implements UpcomingWCFragment.upcomingFragListener,
-        SearchView.OnQueryTextListener {
+        SearchView.OnQueryTextListener, Response.ErrorListener, ResponseListener {
 
     private WCPagerAdapter mPagerAdapter;
-    private String lastscanned;
 
     public DBCommunicator communicator;
 
@@ -59,7 +57,6 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
         communicator = new DBCommunicator(this);
         communicator.start();
         wordCampsList = communicator.getAllWc();
-
         ViewCompat.setElevation(findViewById(R.id.header), getResources().getDimension(R.dimen.toolbar_elevation));
         mPagerAdapter = new WCPagerAdapter(getSupportFragmentManager(), this);
         ViewPager mPager = (ViewPager) findViewById(R.id.pager);
@@ -95,7 +92,7 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
         MenuItem searchItem = menu.findItem(R.id.search_wc);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(this);
-        searchView.setQueryHint(Html.fromHtml("<font color = #ffffff>"
+        searchView.setQueryHint(Html.fromHtml("<font color = #d3ffffff>"
                 + getString(R.string.search_wc_hint) + "</font>"));
         return true;
     }
@@ -124,79 +121,7 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
     }
 
     private void fetchWCList() {
-
-        final SharedPreferences pref = getSharedPreferences("wc", Context.MODE_PRIVATE);
-        final String lastdate = pref.getString("date", "0");
-        WPAPIClient.getWordCampsList(this, lastdate, new JsonHttpResponseHandler() {
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                super.onSuccess(statusCode, headers, response);
-                SharedPreferences.Editor editor = pref.edit();
-
-                wordCampsList = new ArrayList<>();
-                Gson gson = new Gson();
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        WordCampNew wcs = gson.fromJson(response.getJSONObject(i).toString(), WordCampNew.class);
-                        if (i == 0) {
-                            //Set last scan date of WC List by saving the later WC's modified GMT date
-                            editor.putString("date", wcs.getModifiedGmt());
-                            lastscanned = wcs.getModifiedGmt();
-                            editor.apply();
-                        }
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
-                        Date d = sdf.parse(wcs.getModifiedGmt());
-                        /*if (!lastdate.equals("0") && WordCampUtils.hasStartEndDate(wcs)) {
-                            Date oldDate = sdf.parse(lastdate);
-                            boolean chc = d.after(oldDate);
-                            if (d.after(oldDate)) {
-                                WordCampDB wordCampDB = new WordCampDB(wcs, lastscanned);
-                                wordCampsList.add(wordCampDB);
-                            } else
-                                break; //ignore older WCs as it is already scanned
-                        } else if (lastdate.equals("0") && WordCampUtils.hasStartEndDate(wcs)) {
-                            WordCampDB wordCampDB = new WordCampDB(wcs, lastscanned);
-                            wordCampsList.add(wordCampDB);
-                        }*/
-
-                        WordCampDB wordCampDB = new WordCampDB(wcs, lastscanned);
-                        if (!wordCampDB.getWc_start_date().isEmpty()) {
-                            wordCampsList.add(wordCampDB);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-                communicator.addAllNewWC(wordCampsList);
-
-                refreshAllFragmentsData();
-                stopRefresh();
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                super.onFailure(statusCode, headers, throwable, errorResponse);
-                Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.no_network_toast),
-                        Toast.LENGTH_SHORT).show();
-                stopRefresh();
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-                super.onFailure(statusCode, headers, throwable, errorResponse);
-                Toast.makeText(getApplicationContext(), "Error: " + errorResponse.toString()
-                        , Toast.LENGTH_SHORT).show();
-                stopRefresh();
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                Toast.makeText(getApplicationContext(), "Error: " + responseString, Toast.LENGTH_SHORT).show();
-                stopRefresh();
-            }
-        });
+        WPAPIClient.getAllWCs(this, this, this);
     }
 
     private void stopRefresh() {
@@ -259,40 +184,73 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
         return true;
     }
 
-private static class WCPagerAdapter extends CacheFragmentStatePagerAdapter {
-
-    private Context mContext;
-
-    public WCPagerAdapter(FragmentManager fm, Context ctx) {
-        super(fm);
-        mContext = ctx;
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        if (error instanceof NoConnectionError) {
+            Toast.makeText(this, getString(R.string.no_network_toast), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Error : " + error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        }
+        stopRefresh();
     }
 
     @Override
-    protected Fragment createItem(int position) {
-        switch (position) {
-            case 1:
-                return MyWCFragment.newInstance();
-            case 0:
-            default:
-                return UpcomingWCFragment.newInstance();
+    public void onResponseReceived(Object o) {
+        try {
+            wordCampsList = new ArrayList<>();
+            WordCampNew[] wordCampNews = (WordCampNew[]) o;
+            for (WordCampNew wordcamp : wordCampNews) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+                Date d = sdf.parse(wordcamp.getModifiedGmt());
+                WordCampDB wordCampDB = new WordCampDB(wordcamp, d.toString());
+                if (!wordCampDB.getWc_start_date().isEmpty()) {
+                    wordCampsList.add(wordCampDB);
+                }
+            }
+            communicator.addAllNewWC(wordCampsList);
+            refreshAllFragmentsData();
+            stopRefresh();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            stopRefresh();
+        }
+
+    }
+
+    private static class WCPagerAdapter extends CacheFragmentStatePagerAdapter {
+
+        private Context mContext;
+
+        public WCPagerAdapter(FragmentManager fm, Context ctx) {
+            super(fm);
+            mContext = ctx;
+        }
+
+        @Override
+        protected Fragment createItem(int position) {
+            switch (position) {
+                case 1:
+                    return MyWCFragment.newInstance();
+                case 0:
+                default:
+                    return UpcomingWCFragment.newInstance();
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 1:
+                    return mContext.getString(R.string.my_wc_title);
+                case 0:
+                default:
+                    return mContext.getString(R.string.upcoming_wc_title);
+            }
         }
     }
-
-    @Override
-    public int getCount() {
-        return 2;
-    }
-
-    @Override
-    public CharSequence getPageTitle(int position) {
-        switch (position) {
-            case 1:
-                return mContext.getString(R.string.my_wc_title);
-            case 0:
-            default:
-                return mContext.getString(R.string.upcoming_wc_title);
-        }
-    }
-}
 }

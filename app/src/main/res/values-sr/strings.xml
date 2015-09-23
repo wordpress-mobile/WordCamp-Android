@@ -1,10 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="feedback_url_not_available_toast">Вордкамп још увек није објавио URL за повратне информације</string>
+	<string name="action_wc_feedback">Повратна информација Вордкампа</string>
+	<string name="about_description_fallback">Проверите веб место за још информација</string>
+	<string name="add_to_calendar">Додај у календар</string>
+	<string name="visit_website">Посети веб место</string>
+	<string name="wc_date">Датум</string>
+	<string name="action_navigate">Крећи се</string>
+	<string name="my_wc_title">Омиљени</string>
+	<string name="no_network_toast">Нема доступне мреже</string>
+	<string name="empty_wordcamps">Вордкампови још увек нису усклађени</string>
+	<string name="title_schedule">Распоред</string>
+	<string name="upcoming_wc_title">Предстојећи</string>
+	<string name="title_sessions">Сесије</string>
+	<string name="my_sessions_title">Моје сесије</string>
+	<string name="title_overview">Преглед</string>
+	<string name="action_send">Пошаљи</string>
+	<string name="title_speakers">Предавачи</string>
+	<string name="action_webversion">Веб издање</string>
 	<string name="action_feedback">Повратна информација</string>
 	<string name="hint_title">Наслов</string>
 	<string name="hint_description">Опис</string>
 	<string name="bug">Пријављујете грешку?</string>
-	<string name="update_sessions_toast">Ажурирана предавања</string>
 	<string name="help_and_feedback">Повратна информација</string>
 	<string name="schedule_to_be_announced">Распоред предавања ће бити објављен</string>
 	<string name="speaker_to_be_announced">Предавачи ће бити објављени</string>
@@ -16,5 +33,6 @@
 	<string name="update_speakers_toast">Ажурирани предавачи</string>
 	<string name="action_search">Претражи Вордкампове</string>
 	<string name="wc_location">Локација</string>
+	<string name="update_sessions_toast">Ажуриране сесије</string>
 	<string name="action_refresh">Освежи</string>
 </resources>

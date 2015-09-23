@@ -60,7 +60,7 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                stopRefreshSession();
+                    startRefreshSession();
             }
         });
         sessionList = (StickyListHeadersListView) v.findViewById(R.id.sessionList);

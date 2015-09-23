@@ -2,11 +2,13 @@ package org.wordcamp.android.networking;
 
 import android.content.Context;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
+import com.android.volley.Response;
 
 import org.wordcamp.android.BuildConfig;
+import org.wordcamp.android.WordCampApplication;
+import org.wordcamp.android.objects.speaker.Session;
+import org.wordcamp.android.objects.speaker.SpeakerNew;
+import org.wordcamp.android.objects.wordcamp.WordCampNew;
 
 /**
  * Created by aagam on 14/1/15.
@@ -21,9 +23,6 @@ public class WPAPIClient {
 
     private static final String QUERY_PARAM_SINGLEWC = "wp-json/posts/";
 
-    // This config of client accepts all SSL connections
-    private static AsyncHttpClient client = new AsyncHttpClient(true, 80, 443);
-
     private static String normalizeWordCampUrl(String wordcampURL) {
         if (!wordcampURL.endsWith("/")) {
             wordcampURL = wordcampURL + "/";
@@ -31,26 +30,43 @@ public class WPAPIClient {
         return wordcampURL;
     }
 
-    public static void getWordCampsList(Context ctx, String date, JsonHttpResponseHandler responseHandler) {
-        client.get(ctx, BuildConfig.CENTRAL_WORDCAMP_URL + QUERY_PARAM_WORDCAMP_LIST, responseHandler);
+    public static void getAllWCs(Context context, Response.ErrorListener errorListener,
+                                      ResponseListener responseListener){
+        WCRequest request = new WCRequest(BuildConfig.CENTRAL_WORDCAMP_URL + QUERY_PARAM_WORDCAMP_LIST,
+                WordCampNew[].class, errorListener, responseListener);
+        request.setTag(context);
+        WordCampApplication.requestQueue.cancelAll(context);
+        WordCampApplication.requestQueue.add(request);
     }
 
-    public static void getWordCampSpeakers(Context ctx, String wordcampURL, JsonHttpResponseHandler responseHandler) {
-        client.setEnableRedirects(true, true, true);
-        client.get(ctx, normalizeWordCampUrl(wordcampURL) + QUERY_PARAM_SPEAKERS, responseHandler);
+
+    public static void getWordCampSpeakersVolley(String wordcampURL, Context context, Response.ErrorListener errorListener,
+                                                 ResponseListener responseListener){
+        WCRequest request = new WCRequest(normalizeWordCampUrl(wordcampURL) + QUERY_PARAM_SPEAKERS,
+                SpeakerNew[].class, errorListener, responseListener);
+        request.setTag(context);
+        WordCampApplication.requestQueue.add(request);
     }
 
-    public static void getWordCampSchedule(Context ctx, String wordcampURL, JsonHttpResponseHandler responseHandler) {
-        client.setEnableRedirects(true, true, true);
-        client.get(ctx, normalizeWordCampUrl(wordcampURL) + QUERY_PARAM_SCHEDULE, responseHandler);
+    public static void getWordCampScheduleVolley(String wordcampURL, Context context, Response.ErrorListener errorListener,
+                                         ResponseListener responseListener){
+        WCRequest request = new WCRequest(normalizeWordCampUrl(wordcampURL) + QUERY_PARAM_SCHEDULE,
+                Session[].class, errorListener, responseListener);
+        request.setTag(context);
+        WordCampApplication.requestQueue.add(request);
     }
 
-    public static void getSingleWC(Context ctx, int wcid, AsyncHttpResponseHandler responseHandler) {
-        client.setEnableRedirects(true, true, true);
-        client.get(ctx, BuildConfig.CENTRAL_WORDCAMP_URL + QUERY_PARAM_SINGLEWC + wcid, responseHandler);
+    public static void getSingleWCVolley(int wcid, Context context, Response.ErrorListener errorListener,
+                                                 ResponseListener responseListener){
+        WCRequest request = new WCRequest(BuildConfig.CENTRAL_WORDCAMP_URL + QUERY_PARAM_SINGLEWC + wcid,
+                WordCampNew.class, errorListener, responseListener);
+        request.setTag(context);
+        WordCampApplication.requestQueue.add(request);
     }
 
     public static void cancelAllRequests(Context ctx) {
-        client.cancelRequests(ctx, true);
+        WordCampApplication.requestQueue.cancelAll(ctx);
     }
+
+
 }

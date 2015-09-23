@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="feedback_url_not_available_toast">WordCamp นี้ยังไม่สามารถเผยแพร่ URL ผลตอบรับได้</string>
+	<string name="action_wc_feedback">ผลตอบรับ WordCamp</string>
+	<string name="about_description_fallback">ดูเว็บไซต์สำหรับข้อมูลเพิ่มเติม</string>
+	<string name="add_to_calendar">เพิ่มไปยังปฎิทิน</string>
+	<string name="wc_date">วันที่</string>
+	<string name="visit_website">เยี่ยมชมเว็บไซต์</string>
+	<string name="action_navigate">ค้นหา</string>
+	<string name="my_wc_title">ชื่นชอบ</string>
+	<string name="no_network_toast">ไม่มีเครือข่ายที่ใช้งานได้</string>
+	<string name="empty_wordcamps">ยังไม่เชื่อมต่อ WordCamps</string>
+	<string name="title_schedule">ตารางเวลา</string>
+	<string name="my_sessions_title">ช่วงเวลาของฉัน</string>
+	<string name="action_send">ส่ง</string>
+	<string name="title_sessions">ช่วงเวลา</string>
+	<string name="title_speakers">ผู้พูด</string>
+	<string name="title_overview">ภาพรวม</string>
+	<string name="action_webversion">เว็บรุ่น</string>
+	<string name="upcoming_wc_title">กำลังมา</string>
+	<string name="hint_title">หัวข้อ</string>
+	<string name="action_feedback">ผลตอบรับ</string>
+	<string name="hint_description">คำอธิบาย</string>
+	<string name="bug">ต้องการรายงานบั๊ก?</string>
+	<string name="search_wc_hint">ค้นหา WordCamps</string>
+	<string name="empty_mywordcamps">ยังไม่มีการเพิ่ม WordCamps</string>
+	<string name="action_search">ค้นหา WordCamps</string>
+	<string name="update_speakers_toast">รายชื่อผู้พูดที่อัปเดต</string>
+	<string name="empty_mysessions">ไม่มีช่วงเวลาที่ชื่นชอบ</string>
+	<string name="wc_about">เกี่ยวกับ</string>
+	<string name="wc_location">สถานที่</string>
+	<string name="update_overview_toast">ภาพรวมที่อัปเดต</string>
+	<string name="speaker_to_be_announced">ยังไม่ประกาศชื่อผู้พูดในงาน</string>
+	<string name="schedule_to_be_announced">ตารางเวลาที่จะประกาศ</string>
+	<string name="help_and_feedback">ผลตอบรับ</string>
+	<string name="update_sessions_toast">อัปเดตแต่ละช่วงเวลา</string>
+	<string name="action_refresh">รีเฟรช</string>
+</resources>

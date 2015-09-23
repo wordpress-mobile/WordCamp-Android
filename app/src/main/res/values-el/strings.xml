@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="feedback_url_not_available_toast">Αυτό το WordCamp δεν έχει δημοσιεύσει διεύθυνση URL για σχόλια ακόμη</string>
+	<string name="action_wc_feedback">Σχόλια WordCamp</string>
+	<string name="add_to_calendar">Προσθήκη στο ημερολόγιο</string>
+	<string name="about_description_fallback">Ελέγξτε την ιστοσελίδα για περισσότερες πληροφορίες</string>
+	<string name="wc_date">Ημερομηνία</string>
+	<string name="action_navigate">Πλοηγηθείτε</string>
+	<string name="visit_website">Επισκεφθείτε την ιστοσελίδα</string>
+	<string name="my_wc_title">Αγαπημένα</string>
+	<string name="no_network_toast">Δεν υπάρχει διαθέσιμο δίκτυο</string>
+	<string name="empty_wordcamps">Τα WordCamps δεν έχουν συγχρονιστεί ακόμη</string>
+	<string name="upcoming_wc_title">επερχόμενο</string>
+	<string name="action_webversion">Web έκδοση</string>
+	<string name="title_overview">Επισκόπηση</string>
+	<string name="action_send">Αποστολή</string>
+	<string name="title_schedule">Πρόγραμμα</string>
+	<string name="my_sessions_title">Οι συνεδρίες μου</string>
+	<string name="title_speakers">Ομιλητές</string>
+	<string name="title_sessions">Συνεδρίες</string>
+	<string name="action_feedback">Σχόλια</string>
+	<string name="hint_title">Τίτλος</string>
+	<string name="hint_description">Περιγραφή</string>
+	<string name="bug">Αναφορά Σφάλματος;</string>
+	<string name="update_sessions_toast">Ενημερώθηκαν οι συνεδρίες</string>
+	<string name="speaker_to_be_announced">Οι ομιλιτές θα ανακοινωθούν</string>
+	<string name="schedule_to_be_announced">Το πρόγραμμα θα ανακοινωθεί</string>
+	<string name="help_and_feedback">Σχόλια</string>
+	<string name="empty_mywordcamps">Δεν προστέθηκαν WordCamps ακόμα</string>
+	<string name="search_wc_hint">Αναζήτηση WordCamps</string>
+	<string name="wc_about">Σχετικά</string>
+	<string name="wc_location">Τοποθεσία</string>
+	<string name="update_overview_toast">Ενημερώθηκε η επισκόπηση</string>
+	<string name="empty_mysessions">Καμία Συνεδρία ως αγαπημένο</string>
+	<string name="update_speakers_toast">Ανανεώθηκαν οι Ομιλιτές</string>
+	<string name="action_search">Αναζήτηση WordCamps</string>
+	<string name="action_refresh">Ανανέωση</string>
+</resources>

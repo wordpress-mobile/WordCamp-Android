@@ -2,16 +2,15 @@ package org.wordcamp.android.wcdetails;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import org.wordcamp.android.R;
 import org.wordcamp.android.WordCampDetailActivity;
@@ -25,9 +24,10 @@ import java.util.List;
 /**
  * Created by aagam on 29/1/15.
  */
-public class SpeakerFragment extends Fragment {
+public class SpeakerFragment extends Fragment implements SpeakersListAdapter.OnSpeakerSelectedListener {
 
-    private ListView lv;
+    private RecyclerView lv;
+    private View emptyView;
     private SpeakersListAdapter adapter;
     private List<SpeakerDB> speakerDBList;
     private int wcid;
@@ -53,27 +53,39 @@ public class SpeakerFragment extends Fragment {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                startRefreshSession();
+                startRefreshSpeakers();
             }
         });
 
-        lv = (ListView) v.findViewById(R.id.speaker_list);
-        lv.setEmptyView(v.findViewById(R.id.empty_view));
-        adapter = new SpeakersListAdapter(getActivity(), speakerDBList);
+        lv = (RecyclerView) v.findViewById(R.id.speaker_list);
+        lv.setHasFixedSize(true);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        lv.setLayoutManager(mLayoutManager);
 
+        emptyView = v.findViewById(R.id.empty_view);
+        adapter = new SpeakersListAdapter(getActivity(), speakerDBList);
+        adapter.setOnSpeakerSelectedListener(this);
         if (speakerDBList.size() == 0) {
-            startRefreshSession();
+            startRefreshSpeakers();
         }
 
+        updateEmptyView();
         lv.setAdapter(adapter);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent t = new Intent(getActivity(), SpeakerDetailsActivity.class);
-                t.putExtra("speaker", speakerDBList.get(position));
-                getActivity().startActivity(t);
-            }
-        });
+    }
+
+    private void updateEmptyView() {
+        if (adapter.getItemCount() < 1) {
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            emptyView.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onSpeakerSelected(SpeakerDB speakerDB) {
+        Intent t = new Intent(getActivity(), SpeakerDetailsActivity.class);
+        t.putExtra("speaker", speakerDB);
+        getActivity().startActivity(t);
     }
 
     private void sortList() {
@@ -85,7 +97,7 @@ public class SpeakerFragment extends Fragment {
         });
     }
 
-    private void startRefreshSession() {
+    public void startRefreshSpeakers() {
         refreshLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -103,7 +115,9 @@ public class SpeakerFragment extends Fragment {
         speakerDBList = newSpeakerDBList;
         sortList();
         adapter = new SpeakersListAdapter(getActivity(), speakerDBList);
-        lv.setAdapter(adapter);
+        adapter.setOnSpeakerSelectedListener(this);
+        updateEmptyView();
+        lv.swapAdapter(adapter, false);
     }
 
     public interface SpeakerFragmentListener {

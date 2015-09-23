@@ -12,22 +12,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.loopj.android.http.JsonHttpResponseHandler;
+import com.android.volley.NoConnectionError;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 
-import org.apache.http.Header;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.wordcamp.android.adapters.WCDetailAdapter;
 import org.wordcamp.android.db.DBCommunicator;
+import org.wordcamp.android.networking.ResponseListener;
 import org.wordcamp.android.networking.WPAPIClient;
 import org.wordcamp.android.objects.WordCampDB;
 import org.wordcamp.android.objects.speaker.Session;
 import org.wordcamp.android.objects.speaker.SpeakerNew;
-import org.wordcamp.android.objects.speaker.Terms;
 import org.wordcamp.android.objects.wordcamp.WordCampNew;
-import org.wordcamp.android.utils.CustomGsonDeSerializer;
 import org.wordcamp.android.wcdetails.MySessionsActivity;
 import org.wordcamp.android.wcdetails.SessionsFragment;
 import org.wordcamp.android.wcdetails.SpeakerFragment;
@@ -37,17 +33,20 @@ import org.wordcamp.android.wcdetails.WordCampOverview;
  * Created by aagam on 26/1/15.
  */
 public class WordCampDetailActivity extends AppCompatActivity implements SessionsFragment.SessionFragmentListener,
-        SpeakerFragment.SpeakerFragmentListener, WordCampOverview.WordCampOverviewListener {
+        SpeakerFragment.SpeakerFragmentListener, WordCampOverview.WordCampOverviewListener, Response.ErrorListener, ResponseListener {
 
     private WCDetailAdapter adapter;
     private Toolbar toolbar;
     public WordCampDB wcdb;
     public int wcid;
     public DBCommunicator communicator;
+    private Response.ErrorListener scheduleErrorListener, wcErrorListener;
+    private ResponseListener scheduleResponseListener, wcResponseListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initListener();
         wcdb = (WordCampDB) getIntent().getSerializableExtra("wc");
         wcid = wcdb.getWc_id();
         setContentView(R.layout.activity_wordcamp_detail);
@@ -69,6 +68,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
         adapter = new WCDetailAdapter(getSupportFragmentManager(), this);
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(adapter);
+        pager.setOffscreenPageLimit(2);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setTabTextColors(getResources().getColor(R.color.tab_normal_text),
@@ -123,111 +123,17 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
     }
 
     private void updateWordCampData() {
-        String webURL = wcdb.getUrl();
-
-        fetchSpeakersAPI(webURL);
         getSessionsFragment().startRefreshSession();
-//        fetchSessionsAPI(webURL);
-//        fetchOverviewAPI();
+        getSpeakerFragment().startRefreshSpeakers();
+        getOverViewFragment().startRefreshOverview();
     }
 
     private void fetchOverviewAPI() {
-        WPAPIClient.getSingleWC(this, wcid, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                Gson g = new Gson();
-                WordCampNew wc = g.fromJson(response.toString(), WordCampNew.class);
-                WordCampDB wordCampDB = new WordCampDB(wc, "");
-                communicator.updateWC(wordCampDB);
-
-                WordCampOverview overview = getOverViewFragment();
-                if (overview != null) {
-                    overview.updateData(wordCampDB);
-                    Toast.makeText(getApplicationContext(), getString(R.string.update_overview_toast), Toast.LENGTH_SHORT).show();
-
-                }
-            }
-
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                super.onFailure(statusCode, headers, throwable, errorResponse);
-                Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.no_network_toast),
-                        Toast.LENGTH_SHORT).show();
-                WordCampOverview overview = getOverViewFragment();
-                if (overview != null) {
-                    overview.stopRefreshOverview();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-                super.onFailure(statusCode, headers, throwable, errorResponse);
-                WordCampOverview overview = getOverViewFragment();
-                if (overview != null) {
-                    overview.stopRefreshOverview();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                WordCampOverview overview = getOverViewFragment();
-                if (overview != null) {
-                    overview.stopRefreshOverview();
-                }
-            }
-        });
+        WPAPIClient.getSingleWCVolley(wcid, this, wcErrorListener, wcResponseListener);
     }
 
     private void fetchSessionsAPI(String webURL) {
-        WPAPIClient.getWordCampSchedule(this, webURL, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                super.onSuccess(statusCode, headers, response);
-                Gson gson = new GsonBuilder().registerTypeHierarchyAdapter(Terms.class,
-                        new CustomGsonDeSerializer()).create();
-
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        Session session = gson.fromJson(response.getJSONObject(i).toString(), Session.class);
-                        if (communicator != null) {
-                            communicator.addSession(session, wcid);
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                Toast.makeText(getApplicationContext(), getString(R.string.update_sessions_toast), Toast.LENGTH_SHORT).show();
-                stopRefreshSession();
-                if (response.length() > 0) {
-                    updateSessionContent();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-                super.onFailure(statusCode, headers, throwable, errorResponse);
-                stopRefreshSession();
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                super.onFailure(statusCode, headers, throwable, errorResponse);
-                Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.no_network_toast),
-                        Toast.LENGTH_SHORT).show();
-                stopRefreshSession();
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                stopRefreshSession();
-            }
-        });
+        WPAPIClient.getWordCampScheduleVolley(webURL, this, scheduleErrorListener, scheduleResponseListener);
     }
 
     private void stopRefreshSession() {
@@ -254,55 +160,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
     }
 
     private void fetchSpeakersAPI(String webURL) {
-        WPAPIClient.getWordCampSpeakers(this, webURL, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                super.onSuccess(statusCode, headers, response);
-                addUpdateSpeakers(response);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-                super.onFailure(statusCode, headers, throwable, errorResponse);
-                stopRefreshSpeaker();
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                super.onFailure(statusCode, headers, throwable, errorResponse);
-                Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.no_network_toast),
-                        Toast.LENGTH_SHORT).show();
-                stopRefreshSpeaker();
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                stopRefreshSpeaker();
-            }
-        });
-    }
-
-    private void addUpdateSpeakers(JSONArray array) {
-        Gson gson = new GsonBuilder().registerTypeHierarchyAdapter(Terms.class,
-                new CustomGsonDeSerializer()).create();
-        for (int i = 0; i < array.length(); i++) {
-            try {
-                SpeakerNew skn = gson.fromJson(array.getJSONObject(i).toString(), SpeakerNew.class);
-                communicator.addSpeaker(skn, wcid);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        if (array.length() > 0) {
-            SpeakerFragment fragment = getSpeakerFragment();
-            if (fragment != null) {
-                fragment.updateSpeakers(communicator.getAllSpeakers(wcid));
-            }
-        }
-        Toast.makeText(getApplicationContext(), getString(R.string.update_speakers_toast), Toast.LENGTH_SHORT).show();
-        stopRefreshSpeaker();
+        WPAPIClient.getWordCampSpeakersVolley(webURL, this, this, this);
     }
 
     private SpeakerFragment getSpeakerFragment() {
@@ -351,12 +209,8 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
 
     @Override
     public void startRefreshSessions() {
-        //Even we are refreshing sessions,
-        // we will fetch Speakers as we get Sessions from there
-
         String webURL = wcdb.getUrl();
         fetchSessionsAPI(webURL);
-        getSessionsFragment().startRefreshingBar();
     }
 
     @Override
@@ -368,5 +222,96 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
     @Override
     public void refreshOverview() {
         fetchOverviewAPI();
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        if (error instanceof NoConnectionError) {
+            Toast.makeText(this, getString(R.string.no_network_toast), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Error : " + error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        }
+        stopRefreshSpeaker();
+    }
+
+    @Override
+    public void onResponseReceived(Object o) {
+        SpeakerNew[] speakerNews = (SpeakerNew[]) o;
+
+        for (int i = 0; i < speakerNews.length; i++) {
+            try {
+                communicator.addSpeaker(speakerNews[i], wcid);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (speakerNews.length > 0) {
+            SpeakerFragment fragment = getSpeakerFragment();
+            if (fragment != null) {
+                fragment.updateSpeakers(communicator.getAllSpeakers(wcid));
+            }
+            updateSessionContent();
+        }
+        Toast.makeText(getApplicationContext(), getString(R.string.update_speakers_toast), Toast.LENGTH_SHORT).show();
+        stopRefreshSpeaker();
+    }
+
+    private void initListener() {
+        scheduleErrorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error instanceof NoConnectionError) {
+                    Toast.makeText(getApplicationContext(), getString(R.string.no_network_toast), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Error : " + error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                }
+                stopRefreshSession();
+            }
+        };
+
+        wcErrorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error instanceof NoConnectionError) {
+                    Toast.makeText(getApplicationContext(), getString(R.string.no_network_toast), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Error : " + error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                }
+                WordCampOverview overview = getOverViewFragment();
+                if (overview != null) {
+                    overview.stopRefreshOverview();
+                }
+            }
+        };
+
+        scheduleResponseListener = new ResponseListener() {
+            @Override
+            public void onResponseReceived(Object o) {
+                Session[] sessions = (Session[]) o;
+                for (Session session : sessions) {
+                    communicator.addSession(session, wcid);
+                }
+                Toast.makeText(getApplicationContext(), getString(R.string.update_sessions_toast), Toast.LENGTH_SHORT).show();
+                stopRefreshSession();
+                if (sessions.length > 0) {
+                    updateSessionContent();
+                }
+            }
+        };
+
+        wcResponseListener = new ResponseListener() {
+            @Override
+            public void onResponseReceived(Object o) {
+                WordCampNew wordCamp = (WordCampNew) o;
+                WordCampDB wordCampDB = new WordCampDB(wordCamp, "");
+                communicator.updateWC(wordCampDB);
+                WordCampOverview overview = getOverViewFragment();
+                if (overview != null) {
+                    overview.updateData(wordCampDB);
+                    Toast.makeText(getApplicationContext(), getString(R.string.update_overview_toast), Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
     }
 }
