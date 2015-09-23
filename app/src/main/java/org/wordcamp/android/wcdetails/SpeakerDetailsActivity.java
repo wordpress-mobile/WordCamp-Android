@@ -1,6 +1,5 @@
 package org.wordcamp.android.wcdetails;
 
-import android.animation.Animator;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -47,10 +46,8 @@ public class SpeakerDetailsActivity extends AppCompatActivity implements Palette
     private Gson gson;
     private DBCommunicator communicator;
     private HashMap<String, Integer> titleSession;
-    private TextView info, sessionTitle;
+    private TextView info;
     private RecyclerView lv;
-    private Animator mCurrentAnimator;
-    private ImageView dp;
     private ImageView backdropImageView;
     private SessionsBySpeakerListAdapter sessionsAdapter;
     private CollapsingToolbarLayout collapsingToolbar;
