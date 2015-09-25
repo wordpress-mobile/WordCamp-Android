@@ -80,7 +80,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity implements Palette
         info = (TextView) findViewById(R.id.wc_about);
         backdropImageView = (ImageView) findViewById(R.id.backdrop);
 
-        if (titleSession != null) {
+        if (titleSession.size()>0) {
             final List<String> names = new ArrayList<>(titleSession.keySet());
             sessionsAdapter = new SessionsBySpeakerListAdapter(this, names);
             sessionsAdapter.setOnSessionSelectedListener(new SessionsBySpeakerListAdapter.OnSessionSelected() {
@@ -93,7 +93,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity implements Palette
                 }
             });
 
-            int height = names.size() * getResources().getDimensionPixelSize(R.dimen.list_item_default_height);
+            int height = titleSession.size() * getResources().getDimensionPixelSize(R.dimen.list_item_default_height);
             lv = (RecyclerView) findViewById(R.id.session_list_speakers);
             LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
             lv.setLayoutManager(mLayoutManager);
@@ -190,7 +190,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity implements Palette
     @Override
     public void onGenerated(Palette palette) {
         collapsingToolbar.setCollapsedTitleTextColor(Color.WHITE);
-        collapsingToolbar.setExpandedTitleColor(palette.getVibrantColor(Color.WHITE));
+        collapsingToolbar.setExpandedTitleColor(Color.WHITE);
 
         if (lowerDpBitmap != null) {
             lowerDpBitmap.recycle();
