@@ -14,6 +14,7 @@ import org.wordcamp.android.db.DBCommunicator;
 import org.wordcamp.android.notifs.FavoriteSession;
 import org.wordcamp.android.objects.SessionDB;
 
+import java.util.HashMap;
 import java.util.List;
 
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
@@ -47,7 +48,8 @@ public class MySessionsActivity extends AppCompatActivity implements SessionsLis
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final List<SessionDB> sessionDBList = communicator.getFavoriteSessions(wcid);
-        final SessionsListAdapter sessionsListAdapter = new SessionsListAdapter(this, sessionDBList, this);
+        final HashMap<Integer, String> speakersForSession = communicator.getSpeakersforAllSessions(wcid);
+        final SessionsListAdapter sessionsListAdapter = new SessionsListAdapter(this, sessionDBList, speakersForSession, this);
         StickyListHeadersListView mySessionList = (StickyListHeadersListView) findViewById(R.id.sessionList);
         mySessionList.setEmptyView(findViewById(R.id.empty_view));
         mySessionList.setAdapter(sessionsListAdapter);
