@@ -2,7 +2,6 @@ package org.wordcamp.android.wcdetails;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,6 +18,7 @@ import org.wordcamp.android.db.DBCommunicator;
 import org.wordcamp.android.notifs.FavoriteSession;
 import org.wordcamp.android.objects.SessionDB;
 
+import java.util.HashMap;
 import java.util.List;
 
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
@@ -31,6 +31,7 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
     private StickyListHeadersListView sessionList;
     private SessionsListAdapter sessionsListAdapter;
     private List<SessionDB> sessionDBList;
+    private HashMap<Integer, String> speakersForSession;
     private DBCommunicator communicator;
     private FavoriteSession favoriteSession;
     private SessionFragmentListener listener;
@@ -49,6 +50,7 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
         wcid = ((WordCampDetailActivity) getActivity()).wcid;
         communicator = ((WordCampDetailActivity) getActivity()).communicator;
         sessionDBList = communicator.getAllSession(wcid);
+        speakersForSession = communicator.getSpeakersforAllSessions(wcid);
         favoriteSession = new FavoriteSession(getActivity());
 
         View v = getView();
@@ -66,7 +68,8 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
         if (sessionDBList.size() == 0) {
             startRefreshSession();
         }
-        sessionsListAdapter = new SessionsListAdapter(getActivity(), sessionDBList, this);
+        sessionsListAdapter = new SessionsListAdapter(getActivity(), sessionDBList,
+                speakersForSession, this);
 
         sessionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -107,7 +110,8 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
 
     public void updateData() {
         sessionDBList = ((WordCampDetailActivity) getActivity()).communicator.getAllSession(wcid);
-        sessionsListAdapter = new SessionsListAdapter(getActivity(), sessionDBList, this);
+        speakersForSession = ((WordCampDetailActivity) getActivity()).communicator.getSpeakersforAllSessions(wcid);
+        sessionsListAdapter = new SessionsListAdapter(getActivity(), sessionDBList, speakersForSession, this);
         sessionList.setAdapter(sessionsListAdapter);
         stopRefreshSession();
     }

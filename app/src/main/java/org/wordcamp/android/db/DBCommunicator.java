@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.google.gson.Gson;
 
+import org.wordcamp.android.R;
 import org.wordcamp.android.objects.MiniSpeaker;
 import org.wordcamp.android.objects.SessionDB;
 import org.wordcamp.android.objects.SpeakerDB;
@@ -20,6 +21,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by aagam on 27/1/15.
@@ -28,6 +30,8 @@ public class DBCommunicator {
 
     private WCSQLiteHelper helper;
     private SQLiteDatabase db;
+    private Context ctx;
+    private String space = " ";
 
 
     private Gson gson;
@@ -35,6 +39,7 @@ public class DBCommunicator {
     public DBCommunicator(Context ctx) {
         helper = new WCSQLiteHelper(ctx);
         gson = new Gson();
+        this.ctx = ctx;
     }
 
     public void addAllNewWC(List<WordCampDB> wcList) {
@@ -530,4 +535,59 @@ public class DBCommunicator {
         }
         return sessionDBs;
     }
+
+    public HashMap<Integer, String> getSpeakersforAllSessions(int wcid) {
+        Cursor cursor = db.rawQuery("SELECT name, sessionid FROM speakersessions JOIN speaker" +
+                " ON speaker.speaker_id = speakersessions.speakerid AND speaker.wcid=" + wcid + " " +
+                "WHERE speakersessions.wcid=" + wcid + " ORDER BY sessionid ASC", null);
+
+        HashMap<Integer, String> speakersEachSession = new HashMap<>();
+        HashMap<Integer, Integer> speakersCount = new HashMap<>();
+
+        int prevSessioID = -1;
+        int counter = 0;
+
+        if (cursor != null && cursor.getCount() > 0) {
+            if (cursor.moveToFirst()) {
+                do {
+                    String speakerName = cursor.getString(0);
+                    int sessionid = cursor.getInt(1);
+                    if (prevSessioID != sessionid) {
+                        prevSessioID = sessionid;
+                        counter = 1;
+                        speakersCount.put(sessionid, counter);
+                        speakersEachSession.put(sessionid, speakerName);
+                    } else {
+                        counter++;
+                        speakersCount.put(sessionid, counter);
+                        if (counter == 2) {
+                            speakersEachSession.put(sessionid, speakerName + space +
+                                    ctx.getString(R.string.and) + space + speakersEachSession.get(sessionid));
+                        } else {
+                            speakersEachSession.put(sessionid, speakerName);
+                        }
+                    }
+                } while (cursor.moveToNext());
+                cursor.close();
+
+                for (Map.Entry<Integer, Integer> sCounts : speakersCount.entrySet()) {
+                    int speakerscount = sCounts.getValue();
+
+                    if (speakerscount > 2) {
+                        int sessionid = sCounts.getKey();
+                        String counterString = ctx.getResources()
+                                .getString(R.string.multiple_speakers, speakerscount - 1);
+                        String multipleSpeakers = speakersEachSession.get(sessionid) + " " +
+                                counterString;
+                        speakersEachSession.put(sessionid, multipleSpeakers);
+                    }
+                }
+
+                return speakersEachSession;
+            }
+        }
+        return speakersEachSession;
+    }
+
+
 }
