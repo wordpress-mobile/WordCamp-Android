@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/list_item_subtext"
         android:textSize="@dimen/medium_text_size"
-        android:text="@string/date_separator"/>
+        android:text="@string/separator"/>
 
     <TextView
         android:id="@+id/headerListTime"
