@@ -1,5 +1,7 @@
 # WordCamp-Android
 
+[![Build Status](https://travis-ci.org/wordpress-mobile/WordCamp-Android.svg?branch=develop)](https://travis-ci.org/wordpress-mobile/WordCamp-Android)
+
 WordCamp-Android helps you to organize your WordCamp visit, consult venue
 address, schedule and speakers list.
 
