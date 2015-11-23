@@ -451,8 +451,9 @@ public class DBCommunicator {
                 " ON session.postid = speakersessions.sessionid AND session.wcid=" + wc_id + " " +
                 "WHERE speakersessions.wcid=" + wc_id + " AND speakersessions.speakerid=" + speaker_id, null);
 
+        HashMap<String, Integer> map = new HashMap<>();
+
         if (cursor != null && cursor.getCount() > 0) {
-            HashMap<String, Integer> map = new HashMap<>();
             if (cursor.moveToFirst()) {
                 do {
                     map.put(cursor.getString(0), cursor.getInt(1));
@@ -461,7 +462,7 @@ public class DBCommunicator {
                 return map;
             }
         }
-        return null;
+        return map;
     }
 
     public HashMap<String, MiniSpeaker> getSpeakersForSession(int wcid, int session_id) {
