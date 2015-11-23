@@ -31,9 +31,15 @@
                 android:scaleType="centerCrop"
                 android:fitsSystemWindows="true"
                 app:layout_collapseMode="parallax" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@drawable/scrim"
+                android:layout_gravity="bottom"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
+                android:background="@drawable/scrim_inv"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -109,6 +115,6 @@
                 android:layout_marginBottom="@dimen/card_margin" />
         </LinearLayout>
 
-        </android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>
