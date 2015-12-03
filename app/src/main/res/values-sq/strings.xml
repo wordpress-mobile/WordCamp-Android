@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="multiple_speakers">dhe %d të tjerë</string>
+	<string name="and">dhe</string>
+	<string name="action_wc_feedback">Përhtypje Mbi WordCamp-in</string>
+	<string name="feedback_url_not_available_toast">Ky WordCamp s&amp;#8217;ka botuar ende URL përshtypjesh</string>
+	<string name="about_description_fallback">Për më tepër të dhëna shihni sajtin</string>
+	<string name="add_to_calendar">Shtoje në kalendar</string>
+	<string name="visit_website">Vizitoni Sajtin</string>
+	<string name="action_navigate">Lëvizje</string>
+	<string name="wc_date">Datë</string>
+	<string name="my_wc_title">Të parapëlqyer</string>
+	<string name="no_network_toast">Pa rrjet gati</string>
+	<string name="empty_wordcamps">WordCamp-et s&amp;#8217;janë njëkohësuar ende</string>
+	<string name="title_sessions">Sesione</string>
+	<string name="title_speakers">Folës</string>
+	<string name="my_sessions_title">Sesionet e Mia</string>
+	<string name="action_send">Dërgoje</string>
+	<string name="title_schedule">Plani</string>
+	<string name="title_overview">Përmbledhje</string>
+	<string name="action_webversion">Version Web</string>
+	<string name="upcoming_wc_title">Së Afërmi</string>
+	<string name="bug">Njoftim të Metash?</string>
+	<string name="hint_description">Përshkrim</string>
+	<string name="hint_title">Titull</string>
+	<string name="action_feedback">Përshtypje</string>
+	<string name="action_search">Kërkoni në WordCamp-e</string>
+	<string name="update_speakers_toast">Folësit u përditësuan</string>
+	<string name="empty_mysessions">Pa Sesione të Parapëlqyer</string>
+	<string name="wc_about">Rreth</string>
+	<string name="wc_location">Vendndodhje</string>
+	<string name="update_overview_toast">Përmbledhja u përditësua</string>
+	<string name="search_wc_hint">Kërkoni në WordCamp-e</string>
+	<string name="empty_mywordcamps">S&amp;#8217;janë shtuar ende WordCamp-e</string>
+	<string name="speaker_to_be_announced">Folësit do të shpallen së afërmi</string>
+	<string name="schedule_to_be_announced">Plani do të shpallet së afërmi</string>
+	<string name="help_and_feedback">Përshtypje</string>
+	<string name="update_sessions_toast">Sesionet u përditësuan</string>
+	<string name="action_refresh">Rifreskoje</string>
+</resources>

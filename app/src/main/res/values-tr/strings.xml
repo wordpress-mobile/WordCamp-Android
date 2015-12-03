@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="and">ve</string>
+	<string name="multiple_speakers">ve %d diğer kişi</string>
 	<string name="feedback_url_not_available_toast">Bu WordCamp henüz bir geri besleme adresi yayınlamadı</string>
 	<string name="action_wc_feedback">WordCamp geri beslemesi</string>
 	<string name="about_description_fallback">Daha fazla bilgi için web sitesine göz atın</string>

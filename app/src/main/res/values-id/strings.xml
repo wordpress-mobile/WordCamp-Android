@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="feedback_url_not_available_toast">WordCamp ini belum menerbitkan URL umpan balik</string>
+	<string name="action_wc_feedback">Umpan balik WordCamp</string>
+	<string name="add_to_calendar">Tambahkan ke kalender</string>
+	<string name="about_description_fallback">Kunjungi situs untuk informasi lebih lanjut</string>
+	<string name="visit_website">Kunjungi Website</string>
+	<string name="action_navigate">Navigasi</string>
+	<string name="wc_date">Tanggal</string>
+	<string name="my_wc_title">Favorit</string>
+	<string name="no_network_toast">Tidak ada jaringan tersedia</string>
+	<string name="empty_wordcamps">WordCamps belum disinkronkan</string>
+	<string name="action_send">Kirim</string>
+	<string name="title_schedule">Jadwal</string>
+	<string name="title_overview">Ikhtisar</string>
+	<string name="action_webversion">Versi web</string>
+	<string name="upcoming_wc_title">Akan datang</string>
+	<string name="title_sessions">Sesi-sesi</string>
+	<string name="title_speakers">Pembicara</string>
+	<string name="my_sessions_title">Sesi-sesi saya</string>
+	<string name="hint_title">Judul</string>
+	<string name="action_feedback">Umpan balik</string>
+	<string name="hint_description">Deskripsi</string>
+	<string name="bug">Laporkan bug?</string>
+	<string name="help_and_feedback">Umpan balik</string>
+	<string name="schedule_to_be_announced">Jadwal akan diumumkan</string>
+	<string name="search_wc_hint">Cari WordCamps</string>
+	<string name="wc_about">Tentang</string>
+	<string name="wc_location">Lokasi</string>
+	<string name="empty_mysessions">Tidak ada sesi yang difavoritkan</string>
+	<string name="action_search">Cari WordCamps</string>
+	<string name="update_sessions_toast">Perbarui sesi-sesi</string>
+	<string name="empty_mywordcamps">Belum ada WordCamps yang ditambahkan</string>
+	<string name="update_overview_toast">Ikhtisar terbaru</string>
+	<string name="update_speakers_toast">Pembicara diperbarui</string>
+	<string name="speaker_to_be_announced">Pembicara belum diumumkan</string>
+	<string name="action_refresh">Segarkan</string>
+</resources>

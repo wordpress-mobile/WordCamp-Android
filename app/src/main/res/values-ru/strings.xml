@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="and">и</string>
+	<string name="multiple_speakers">и %d других</string>
 	<string name="action_wc_feedback">Обратная связь о конференции</string>
 	<string name="feedback_url_not_available_toast">Для этой конференции ещё не указан URL обратной связи</string>
 	<string name="about_description_fallback">Посетите сайт, чтобы получить больше информации</string>

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="and">und</string>
+	<string name="multiple_speakers">und %d andere</string>
 	<string name="feedback_url_not_available_toast">Dieses WordCamp hat bisher keine Feedback-URL veröffentlicht</string>
 	<string name="action_wc_feedback">WordCamp-Feedback</string>
 	<string name="about_description_fallback">Besuche die Website für weitere Informationen</string>

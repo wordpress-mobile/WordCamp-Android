@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="multiple_speakers">și alți %d</string>
+	<string name="and">și</string>
 	<string name="feedback_url_not_available_toast">Acest WordCamp încă n-a publicat un URL pentru impresii</string>
 	<string name="action_wc_feedback">Impresii despre WordCamp</string>
 	<string name="about_description_fallback">Verifică situl web pentru mai multe informații</string>

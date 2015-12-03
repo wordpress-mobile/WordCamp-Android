@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="multiple_speakers">และ %d อื่น ๆ</string>
+	<string name="and">และ</string>
 	<string name="feedback_url_not_available_toast">WordCamp นี้ยังไม่สามารถเผยแพร่ URL ผลตอบรับได้</string>
 	<string name="action_wc_feedback">ผลตอบรับ WordCamp</string>
 	<string name="about_description_fallback">ดูเว็บไซต์สำหรับข้อมูลเพิ่มเติม</string>

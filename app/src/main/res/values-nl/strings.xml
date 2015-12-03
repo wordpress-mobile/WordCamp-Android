@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="multiple_speakers">en %d anderen</string>
+	<string name="and">en</string>
+	<string name="action_wc_feedback">WordCamp Feedback</string>
+	<string name="feedback_url_not_available_toast">Deze WordCamp heeft nog geen feedback URL gepubliceerd</string>
+	<string name="about_description_fallback">Bekijk de website voor meer informatie</string>
+	<string name="add_to_calendar">Toevoegen aan kalender</string>
+	<string name="visit_website">Bezoek website</string>
+	<string name="action_navigate">Navigatie</string>
+	<string name="wc_date">Datum</string>
+	<string name="my_wc_title">Favorieten</string>
+	<string name="no_network_toast">Geen netwerk beschikbaar</string>
+	<string name="empty_wordcamps">WordCamps nog niet gesynchroniseerd</string>
+	<string name="title_sessions">Sessies</string>
+	<string name="title_speakers">Sprekers</string>
+	<string name="my_sessions_title">Mijn Sessies</string>
+	<string name="action_send">Verstuur</string>
+	<string name="title_overview">Overzicht</string>
+	<string name="action_webversion">Web versie</string>
+	<string name="upcoming_wc_title">In de toekomst</string>
+	<string name="title_schedule">Tijdschema</string>
 	<string name="bug">Rapporteer een bug</string>
 	<string name="hint_title">Titel</string>
 	<string name="action_feedback">Feedback</string>
