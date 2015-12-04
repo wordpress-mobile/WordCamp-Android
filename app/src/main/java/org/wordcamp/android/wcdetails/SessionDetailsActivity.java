@@ -72,7 +72,7 @@ public class SessionDetailsActivity extends AppCompatActivity {
             String time = WordCampUtils.getFormattedTime(sessionDB.getTime());
             String track = session.getTerms().getWcbTrack().get(0).getName();
             String sep = getString(R.string.separator);
-            subtitle.setText(date + sep + time + sep + track);
+            subtitle.setText(date + sep + time + sep + Html.fromHtml(track));
         } else {
             subtitle.setText(WordCampUtils.getFormattedDate(sessionDB.getTime()));
         }
