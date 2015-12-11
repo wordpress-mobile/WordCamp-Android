@@ -116,7 +116,6 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
             refreshAllFragmentsData();
         } else {
             communicator.start();
-            refreshAllFragmentsData();
         }
     }
 
