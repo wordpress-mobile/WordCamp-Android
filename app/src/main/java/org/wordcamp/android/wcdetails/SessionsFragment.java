@@ -3,6 +3,7 @@ package org.wordcamp.android.wcdetails;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -37,6 +38,7 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
     private SessionFragmentListener listener;
     private int wcid;
     private SwipeRefreshLayout refreshLayout;
+    private Parcelable sessionListSavedState;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,7 +62,7 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                    startRefreshSession();
+                startRefreshSession();
             }
         });
         sessionList = (StickyListHeadersListView) v.findViewById(R.id.sessionList);
@@ -141,6 +143,21 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement SessionFragmentListener");
+        }
+    }
+
+
+    @Override
+    public void onPause() {
+        sessionListSavedState = sessionList.onSaveInstanceState();
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (sessionList != null && sessionListSavedState != null) {
+            sessionList.onRestoreInstanceState(sessionListSavedState);
         }
     }
 }
