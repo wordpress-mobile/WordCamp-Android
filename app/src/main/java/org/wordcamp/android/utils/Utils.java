@@ -7,7 +7,7 @@ import android.os.Build;
  */
 public class Utils {
 
-    public static boolean isLollipop() {
+    public static boolean isLollipopOrAbove() {
         return Build.VERSION.SDK_INT >= 21;
     }
 
