@@ -4,10 +4,12 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -234,6 +236,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
                 findViewById(R.id.mainLayout).getHeight());
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void showFullScreenDP() {
         setDPCenterAndRadius();
         Animator animator =
@@ -244,6 +247,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         animator.start();
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void hideFullScreenDP() {
         Animator animator =
                 android.view.ViewAnimationUtils.createCircularReveal(zoomImageView, dpCenterX, dpCenterY, circularRevealRadius, 0);
