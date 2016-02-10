@@ -118,4 +118,8 @@ public class WordCampUtils {
 
         return map;
     }
+
+    public static String getHighResGravatar(String gravatar){
+        return gravatar.substring(0, gravatar.length() - 6) + "?s=500";
+    }
 }

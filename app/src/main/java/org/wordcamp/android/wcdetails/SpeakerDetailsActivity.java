@@ -4,10 +4,12 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -32,6 +34,8 @@ import org.wordcamp.android.db.DBCommunicator;
 import org.wordcamp.android.objects.SessionDB;
 import org.wordcamp.android.objects.SpeakerDB;
 import org.wordcamp.android.objects.speaker.SpeakerNew;
+import org.wordcamp.android.utils.Utils;
+import org.wordcamp.android.utils.WordCampUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,7 +54,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
     private Gson gson;
     private DBCommunicator communicator;
     private HashMap<String, Integer> titleSession;
-    private TextView info,sessionTitle;
+    private TextView info, sessionTitle;
     private ListView lv;
     private Animator mCurrentAnimator;
     private ImageView dp;
@@ -60,6 +64,12 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
     private View container;
     private int mShortAnimationDuration;
     private Rect startBounds;
+    private static int REVEAL_ANIMATION_TIME_DURATION = 500;
+    private int defaultPadding;
+    private int dpCenterX;
+    private int dpCenterY;
+    private int circularRevealRadius;
+    private boolean isLollipopOrAbove;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,9 +88,12 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
     }
 
     private void initGUI() {
-
+        isLollipopOrAbove = Utils.isLollipopOrAbove();
         mShortAnimationDuration = getResources().getInteger(
                 android.R.integer.config_shortAnimTime);
+
+        defaultPadding = getResources().getDimensionPixelSize(R.dimen.default_padding);
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(speakerDB.getName());
         setSupportActionBar(toolbar);
@@ -92,8 +105,6 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         zoomImageView = (ImageView) findViewById(
                 R.id.zoomProfilePic);
 
-        Picasso.with(this).load(speakerDB.getGravatar())
-                .placeholder(R.drawable.ic_account_circle_grey600).into(zoomImageView);
 
         View headerView = LayoutInflater.from(this).inflate(R.layout.item_header_speaker, null);
         info = (TextView) headerView.findViewById(R.id.speaker_detail);
@@ -107,11 +118,21 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         dp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                zoomImageFromThumb(v);
+
+                //Load high res gravatar
+                Picasso.with(SpeakerDetailsActivity.this).load(WordCampUtils.getHighResGravatar(speakerDB.getGravatar()))
+                        .noPlaceholder().into(zoomImageView);
+
+                showFullScreenDP();
             }
         });
         Picasso.with(this).load(speakerDB.getGravatar())
                 .placeholder(R.drawable.ic_account_circle_grey600).into(dp);
+
+
+        //Load smaller image initially in zoomedView
+        Picasso.with(this).load(speakerDB.getGravatar()).placeholder(R.drawable.ic_account_circle_grey600)
+                .into(zoomImageView);
 
         lv = (ListView) findViewById(R.id.session_list_speakers);
         lv.addHeaderView(headerView, null, false);
@@ -141,44 +162,9 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         zoomImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mCurrentAnimator != null) {
-                    mCurrentAnimator.cancel();
-                }
 
-                AnimatorSet set = new AnimatorSet();
+                hideFullScreenDp();
 
-                set.play(ObjectAnimator
-                        .ofFloat(container, "x", startBounds.left))
-                        .with(ObjectAnimator
-                                .ofFloat(container,
-                                        "y", startBounds.top))
-                        .with(ObjectAnimator
-                                .ofFloat(container,
-                                        "scaleX", startScale))
-                        .with(ObjectAnimator
-                                .ofFloat(container,
-                                        "scaleY", startScale));
-                set.setDuration(mShortAnimationDuration);
-                set.setInterpolator(new DecelerateInterpolator());
-                set.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        dp.setAlpha(1f);
-                        container.setVisibility(View.GONE);
-                        mCurrentAnimator = null;
-                    }
-
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-                        dp.setAlpha(1f);
-                        container.setVisibility(View.GONE);
-                        mCurrentAnimator = null;
-                    }
-                });
-                set.start();
-                mCurrentAnimator = set;
-                visible.set(false);
             }
         });
     }
@@ -193,7 +179,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                onBackPressed();
                 return true;
             case R.id.item_menu_website:
                 startWebIntent();
@@ -233,7 +219,71 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
             communicator.close();
     }
 
-    private void zoomImageFromThumb(final View thumbView) {
+    @Override
+    public void onBackPressed() {
+        if(!visible.get()){
+            super.onBackPressed();
+        } else {
+            hideFullScreenDp();
+        }
+    }
+
+    private void setDPCenterAndRadius() {
+        dpCenterX = (dp.getLeft() + dp.getRight()) / 2;
+        dpCenterY = (dp.getTop() + dp.getBottom()) / 2;
+
+        //Add padding of the parent view
+        dpCenterX += defaultPadding;
+        dpCenterY += defaultPadding;
+
+        circularRevealRadius = (int) Math.hypot(findViewById(R.id.mainLayout).getWidth(),
+                findViewById(R.id.mainLayout).getHeight());
+    }
+
+    private void showFullScreenDP(){
+        if (isLollipopOrAbove)
+            showFullScreenDPLollipopOrAbove();
+        else
+            showFullScreenDPBelowLollipop();
+    }
+
+    private void hideFullScreenDp(){
+        if (isLollipopOrAbove)
+            hideFullScreenDPLollipopOrAbove();
+        else
+            hideFullScreenDPBelowLollipop();
+    }
+
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void showFullScreenDPLollipopOrAbove() {
+        visible.set(true);
+        setDPCenterAndRadius();
+        Animator animator =
+                android.view.ViewAnimationUtils.createCircularReveal(zoomImageView, dpCenterX, dpCenterY, 0, circularRevealRadius);
+
+        findViewById(R.id.layout_zoom).setVisibility(View.VISIBLE);
+        animator.setDuration(REVEAL_ANIMATION_TIME_DURATION);
+        animator.start();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void hideFullScreenDPLollipopOrAbove() {
+        Animator animator =
+                android.view.ViewAnimationUtils.createCircularReveal(zoomImageView, dpCenterX, dpCenterY, circularRevealRadius, 0);
+        animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                findViewById(R.id.layout_zoom).setVisibility(View.GONE);
+            }
+        });
+        animator.setDuration(REVEAL_ANIMATION_TIME_DURATION);
+        animator.start();
+        visible.set(false);
+    }
+
+    private void showFullScreenDPBelowLollipop() {
 
         visible.set(true);
 
@@ -241,16 +291,12 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
             mCurrentAnimator.cancel();
         }
 
-        String largeGravatarUrl = speakerDB.getGravatar()
-                .substring(0, speakerDB.getGravatar().length() - 6) + "?s=500";
-        Picasso.with(this).load(largeGravatarUrl).noPlaceholder().into(zoomImageView);
-
         container = findViewById(R.id.layout_zoom);
         startBounds = new Rect();
         Rect finalBounds = new Rect();
         Point globalOffset = new Point();
 
-        thumbView.getGlobalVisibleRect(startBounds);
+        dp.getGlobalVisibleRect(startBounds);
         findViewById(R.id.mainLayout)
                 .getGlobalVisibleRect(finalBounds, globalOffset);
         startBounds.offset(-globalOffset.x, -globalOffset.y);
@@ -274,7 +320,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         }
 
         // Hide the thumbnail and show the zoomed-in view.
-        thumbView.setAlpha(0f);
+        dp.setAlpha(0f);
         container.setVisibility(View.VISIBLE);
 
         container.setPivotX(0f);
@@ -305,5 +351,46 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         });
         set.start();
         mCurrentAnimator = set;
+    }
+
+    private void hideFullScreenDPBelowLollipop() {
+        if (mCurrentAnimator != null) {
+            mCurrentAnimator.cancel();
+        }
+
+        AnimatorSet set = new AnimatorSet();
+
+        set.play(ObjectAnimator
+                .ofFloat(container, "x", startBounds.left))
+                .with(ObjectAnimator
+                        .ofFloat(container,
+                                "y", startBounds.top))
+                .with(ObjectAnimator
+                        .ofFloat(container,
+                                "scaleX", startScale))
+                .with(ObjectAnimator
+                        .ofFloat(container,
+                                "scaleY", startScale));
+        set.setDuration(mShortAnimationDuration);
+        set.setInterpolator(new DecelerateInterpolator());
+        set.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                dp.setAlpha(1f);
+                container.setVisibility(View.GONE);
+                mCurrentAnimator = null;
+            }
+
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                dp.setAlpha(1f);
+                container.setVisibility(View.GONE);
+                mCurrentAnimator = null;
+            }
+        });
+        set.start();
+        mCurrentAnimator = set;
+        visible.set(false);
     }
 }
