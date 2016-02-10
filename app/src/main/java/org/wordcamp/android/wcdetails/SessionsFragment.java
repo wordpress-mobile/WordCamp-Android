@@ -3,6 +3,7 @@ package org.wordcamp.android.wcdetails;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -28,6 +29,7 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
  */
 public class SessionsFragment extends Fragment implements SessionsListAdapter.OnAddToMySessionListener {
 
+    private static String sessionListSavedInstanceKey = "sessionListState";
     private StickyListHeadersListView sessionList;
     private SessionsListAdapter sessionsListAdapter;
     private List<SessionDB> sessionDBList;
@@ -37,6 +39,7 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
     private SessionFragmentListener listener;
     private int wcid;
     private SwipeRefreshLayout refreshLayout;
+    private Parcelable sessionListSavedState;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,9 +63,10 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                    startRefreshSession();
+                startRefreshSession();
             }
         });
+
         sessionList = (StickyListHeadersListView) v.findViewById(R.id.sessionList);
         sessionList.setEmptyView(v.findViewById(R.id.empty_view));
         if (sessionDBList.size() == 0) {
@@ -82,6 +86,10 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
 
         sessionList.getWrappedList().setHeaderDividersEnabled(true);
         sessionList.setAdapter(sessionsListAdapter);
+
+        if (savedInstanceState != null) {
+            sessionListSavedState = savedInstanceState.getParcelable(sessionListSavedInstanceKey);
+        }
 
     }
 
@@ -142,5 +150,26 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
             throw new ClassCastException(activity.toString()
                     + " must implement SessionFragmentListener");
         }
+    }
+
+
+    @Override
+    public void onPause() {
+        sessionListSavedState = sessionList.onSaveInstanceState();
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (sessionList != null && sessionListSavedState != null) {
+            sessionList.onRestoreInstanceState(sessionListSavedState);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(sessionListSavedInstanceKey, sessionList.onSaveInstanceState());
     }
 }
