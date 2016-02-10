@@ -29,6 +29,7 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
  */
 public class SessionsFragment extends Fragment implements SessionsListAdapter.OnAddToMySessionListener {
 
+    private static String sessionListSavedInstanceKey = "sessionListState";
     private StickyListHeadersListView sessionList;
     private SessionsListAdapter sessionsListAdapter;
     private List<SessionDB> sessionDBList;
@@ -87,7 +88,7 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
         sessionList.setAdapter(sessionsListAdapter);
 
         if (savedInstanceState != null) {
-            sessionList.onRestoreInstanceState(savedInstanceState.getParcelable("sessionListState"));
+            sessionListSavedState = savedInstanceState.getParcelable(sessionListSavedInstanceKey);
         }
 
     }
@@ -169,6 +170,6 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable("sessionListState", sessionList.onSaveInstanceState());
+        outState.putParcelable(sessionListSavedInstanceKey, sessionList.onSaveInstanceState());
     }
 }
