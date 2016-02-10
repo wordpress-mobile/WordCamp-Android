@@ -69,6 +69,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
     private int dpCenterX;
     private int dpCenterY;
     private int circularRevealRadius;
+    private boolean isLollipopOrAbove;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +88,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
     }
 
     private void initGUI() {
-
+        isLollipopOrAbove = Utils.isLollipopOrAbove();
         mShortAnimationDuration = getResources().getInteger(
                 android.R.integer.config_shortAnimTime);
 
@@ -122,10 +123,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
                 Picasso.with(SpeakerDetailsActivity.this).load(WordCampUtils.getHighResGravatar(speakerDB.getGravatar()))
                         .noPlaceholder().into(zoomImageView);
 
-                if (Utils.isLollipopOrAbove())
-                    showFullScreenDP();
-                else
-                    showFullScreenDPBelowLollipop();
+                showFullScreenDP();
             }
         });
         Picasso.with(this).load(speakerDB.getGravatar())
@@ -165,10 +163,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (Utils.isLollipopOrAbove())
-                    hideFullScreenDP();
-                else
-                    hideFullScreenDPBelowLollipop();
+                hideFullScreenDp();
 
             }
         });
@@ -184,7 +179,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                onBackPressed();
                 return true;
             case R.id.item_menu_website:
                 startWebIntent();
@@ -224,6 +219,15 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
             communicator.close();
     }
 
+    @Override
+    public void onBackPressed() {
+        if(!visible.get()){
+            super.onBackPressed();
+        } else {
+            hideFullScreenDp();
+        }
+    }
+
     private void setDPCenterAndRadius() {
         dpCenterX = (dp.getLeft() + dp.getRight()) / 2;
         dpCenterY = (dp.getTop() + dp.getBottom()) / 2;
@@ -236,8 +240,24 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
                 findViewById(R.id.mainLayout).getHeight());
     }
 
+    private void showFullScreenDP(){
+        if (isLollipopOrAbove)
+            showFullScreenDPLollipopOrAbove();
+        else
+            showFullScreenDPBelowLollipop();
+    }
+
+    private void hideFullScreenDp(){
+        if (isLollipopOrAbove)
+            hideFullScreenDPLollipopOrAbove();
+        else
+            hideFullScreenDPBelowLollipop();
+    }
+
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void showFullScreenDP() {
+    private void showFullScreenDPLollipopOrAbove() {
+        visible.set(true);
         setDPCenterAndRadius();
         Animator animator =
                 android.view.ViewAnimationUtils.createCircularReveal(zoomImageView, dpCenterX, dpCenterY, 0, circularRevealRadius);
@@ -248,7 +268,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void hideFullScreenDP() {
+    private void hideFullScreenDPLollipopOrAbove() {
         Animator animator =
                 android.view.ViewAnimationUtils.createCircularReveal(zoomImageView, dpCenterX, dpCenterY, circularRevealRadius, 0);
         animator.addListener(new AnimatorListenerAdapter() {
@@ -260,6 +280,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         });
         animator.setDuration(REVEAL_ANIMATION_TIME_DURATION);
         animator.start();
+        visible.set(false);
     }
 
     private void showFullScreenDPBelowLollipop() {
