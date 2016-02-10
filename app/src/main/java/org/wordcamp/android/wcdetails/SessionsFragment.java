@@ -65,25 +65,30 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
                 startRefreshSession();
             }
         });
-        sessionList = (StickyListHeadersListView) v.findViewById(R.id.sessionList);
-        sessionList.setEmptyView(v.findViewById(R.id.empty_view));
-        if (sessionDBList.size() == 0) {
-            startRefreshSession();
-        }
-        sessionsListAdapter = new SessionsListAdapter(getActivity(), sessionDBList,
-                speakersForSession, this);
 
-        sessionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent detail = new Intent(getActivity(), SessionDetailsActivity.class);
-                detail.putExtra("session", sessionDBList.get(position));
-                getActivity().startActivity(detail);
+        if (savedInstanceState == null) {
+            sessionList = (StickyListHeadersListView) v.findViewById(R.id.sessionList);
+            sessionList.setEmptyView(v.findViewById(R.id.empty_view));
+            if (sessionDBList.size() == 0) {
+                startRefreshSession();
             }
-        });
+            sessionsListAdapter = new SessionsListAdapter(getActivity(), sessionDBList,
+                    speakersForSession, this);
 
-        sessionList.getWrappedList().setHeaderDividersEnabled(true);
-        sessionList.setAdapter(sessionsListAdapter);
+            sessionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent detail = new Intent(getActivity(), SessionDetailsActivity.class);
+                    detail.putExtra("session", sessionDBList.get(position));
+                    getActivity().startActivity(detail);
+                }
+            });
+
+            sessionList.getWrappedList().setHeaderDividersEnabled(true);
+            sessionList.setAdapter(sessionsListAdapter);
+        } else {
+            sessionList.onRestoreInstanceState(savedInstanceState.getParcelable("sessionListState"));
+        }
 
     }
 
@@ -159,5 +164,11 @@ public class SessionsFragment extends Fragment implements SessionsListAdapter.On
         if (sessionList != null && sessionListSavedState != null) {
             sessionList.onRestoreInstanceState(sessionListSavedState);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable("sessionListState", sessionList.onSaveInstanceState());
     }
 }
