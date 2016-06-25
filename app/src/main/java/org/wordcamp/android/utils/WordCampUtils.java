@@ -19,14 +19,14 @@ import java.util.TimeZone;
 public class WordCampUtils {
 
     public static String getProperDate(WordCampDB wdb) {
+        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
+        df.setTimeZone(TimeZone.getTimeZone("GMT"));
         if (!wdb.getWc_end_date().isEmpty()) {
             Date d = new Date(Long.parseLong(wdb.getWc_start_date()) * 1000);
             Date d1 = new Date(Long.parseLong(wdb.getWc_end_date()) * 1000);
-            DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
             return df.format(d) + " – " + df.format(d1);
         } else {
             Date d = new Date(Long.parseLong(wdb.getWc_start_date()) * 1000);
-            DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
             return df.format(d);
         }
     }
