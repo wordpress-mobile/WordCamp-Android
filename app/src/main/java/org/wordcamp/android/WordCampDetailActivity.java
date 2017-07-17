@@ -8,7 +8,6 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -80,7 +79,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
     }
 
     private void setToolbar() {
-        toolbar.setTitle(Html.fromHtml(wcdb.getWc_title()));
+        toolbar.setTitle(wcdb.getFormattedWCTitle());
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }

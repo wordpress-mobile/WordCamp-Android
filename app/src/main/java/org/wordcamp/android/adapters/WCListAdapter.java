@@ -2,7 +2,6 @@ package org.wordcamp.android.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,7 +57,7 @@ public class WCListAdapter extends RecyclerView.Adapter<WCListAdapter.ViewHolder
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         final WordCampDB wc = filteredWordCamps.get(position);
-        holder.title.setText(Html.fromHtml(wc.getWc_title()));
+        holder.title.setText(wc.getFormattedWCTitle());
         holder.date.setText(WordCampUtils.getProperDate(wc));
         if (wc.isMyWC) {
             Picasso.with(ctx).load(R.drawable.ic_favorite_solid_24dp).into(holder.bookmark);

@@ -1,5 +1,8 @@
 package org.wordcamp.android.objects;
 
+import android.text.Html;
+import android.text.Spanned;
+
 import com.google.gson.Gson;
 
 import org.wordcamp.android.objects.wordcampv2.WordCamp;
@@ -90,6 +93,10 @@ public class WordCampDB implements Serializable {
 
     public String getWc_title() {
         return wc_title;
+    }
+
+    public Spanned getFormattedWCTitle() {
+        return Html.fromHtml(wc_title);
     }
 
     public void setWc_title(String wc_title) {
