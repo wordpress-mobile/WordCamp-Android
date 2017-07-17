@@ -8,6 +8,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -21,9 +22,9 @@ import org.wordcamp.android.db.DBCommunicator;
 import org.wordcamp.android.networking.ResponseListener;
 import org.wordcamp.android.networking.WPAPIClient;
 import org.wordcamp.android.objects.WordCampDB;
-import org.wordcamp.android.objects.speaker.Session;
-import org.wordcamp.android.objects.speaker.SpeakerNew;
-import org.wordcamp.android.objects.wordcamp.WordCampNew;
+import org.wordcamp.android.objects.wordcampv2.SessionV2;
+import org.wordcamp.android.objects.wordcampv2.Speaker;
+import org.wordcamp.android.objects.wordcampv2.WordCamp;
 import org.wordcamp.android.wcdetails.MySessionsActivity;
 import org.wordcamp.android.wcdetails.SessionsFragment;
 import org.wordcamp.android.wcdetails.SpeakerFragment;
@@ -48,7 +49,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
         super.onCreate(savedInstanceState);
         initListener();
         wcdb = (WordCampDB) getIntent().getSerializableExtra("wc");
-        wcid = wcdb.getWc_id();
+        wcid = (int) wcdb.getWc_id();
         setContentView(R.layout.activity_wordcamp_detail);
         communicator = new DBCommunicator(this);
         communicator.start();
@@ -79,7 +80,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
     }
 
     private void setToolbar() {
-        toolbar.setTitle(wcdb.getWc_title());
+        toolbar.setTitle(Html.fromHtml(wcdb.getWc_title()));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -236,7 +237,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
 
     @Override
     public void onResponseReceived(Object o) {
-        SpeakerNew[] speakerNews = (SpeakerNew[]) o;
+        Speaker[] speakerNews = (Speaker[]) o;
 
         for (int i = 0; i < speakerNews.length; i++) {
             try {
@@ -288,8 +289,8 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
         scheduleResponseListener = new ResponseListener() {
             @Override
             public void onResponseReceived(Object o) {
-                Session[] sessions = (Session[]) o;
-                for (Session session : sessions) {
+                SessionV2[] sessions = (SessionV2[]) o;
+                for (SessionV2 session : sessions) {
                     communicator.addSession(session, wcid);
                 }
                 Toast.makeText(getApplicationContext(), getString(R.string.update_sessions_toast), Toast.LENGTH_SHORT).show();
@@ -303,7 +304,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
         wcResponseListener = new ResponseListener() {
             @Override
             public void onResponseReceived(Object o) {
-                WordCampNew wordCamp = (WordCampNew) o;
+                WordCamp wordCamp = (WordCamp) o;
                 WordCampDB wordCampDB = new WordCampDB(wordCamp, "");
                 communicator.updateWC(wordCampDB);
                 WordCampOverview overview = getOverViewFragment();

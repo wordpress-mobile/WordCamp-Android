@@ -33,7 +33,7 @@ import org.wordcamp.android.adapters.SpeakerDetailAdapter;
 import org.wordcamp.android.db.DBCommunicator;
 import org.wordcamp.android.objects.SessionDB;
 import org.wordcamp.android.objects.SpeakerDB;
-import org.wordcamp.android.objects.speaker.SpeakerNew;
+import org.wordcamp.android.objects.wordcampv2.Speaker;
 import org.wordcamp.android.utils.Utils;
 import org.wordcamp.android.utils.WordCampUtils;
 
@@ -50,7 +50,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
     private SpeakerDB speakerDB;
-    private SpeakerNew speaker;
+    private Speaker speaker;
     private Gson gson;
     private DBCommunicator communicator;
     private HashMap<String, Integer> titleSession;
@@ -80,7 +80,7 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         gson = new Gson();
         communicator = new DBCommunicator(this);
         communicator.start();
-        speaker = gson.fromJson(speakerDB.getGson_object(), SpeakerNew.class);
+        speaker = gson.fromJson(speakerDB.getGson_object(), Speaker.class);
 
         titleSession = communicator.getSpeakerSession(speakerDB.getWc_id(), speakerDB.getSpeaker_id());
 

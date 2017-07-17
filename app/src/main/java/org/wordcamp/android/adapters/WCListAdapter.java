@@ -2,6 +2,7 @@ package org.wordcamp.android.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +58,7 @@ public class WCListAdapter extends RecyclerView.Adapter<WCListAdapter.ViewHolder
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         final WordCampDB wc = filteredWordCamps.get(position);
-        holder.title.setText(wc.getWc_title());
+        holder.title.setText(Html.fromHtml(wc.getWc_title()));
         holder.date.setText(WordCampUtils.getProperDate(wc));
         if (wc.isMyWC) {
             Picasso.with(ctx).load(R.drawable.ic_favorite_solid_24dp).into(holder.bookmark);
@@ -69,7 +70,7 @@ public class WCListAdapter extends RecyclerView.Adapter<WCListAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 if (!wc.isMyWC) {
-                    listener.addToMyWC(wc.getWc_id(), position);
+                    listener.addToMyWC((int) wc.getWc_id(), position);
                     Picasso.with(ctx).load(R.drawable.ic_favorite_solid_24dp).into(holder.bookmark);
                     wc.isMyWC = true;
                     filteredWordCamps.set(position, wc);
@@ -77,7 +78,7 @@ public class WCListAdapter extends RecyclerView.Adapter<WCListAdapter.ViewHolder
                     Picasso.with(ctx).load(R.drawable.ic_favorite_outline_24dp).into(holder.bookmark);
                     wc.isMyWC = false;
                     filteredWordCamps.set(position, wc);
-                    listener.removeMyWC(wc.getWc_id(), position);
+                    listener.removeMyWC((int) wc.getWc_id(), position);
                 }
             }
         });

@@ -12,9 +12,8 @@ import org.wordcamp.android.objects.MiniSpeaker;
 import org.wordcamp.android.objects.SessionDB;
 import org.wordcamp.android.objects.SpeakerDB;
 import org.wordcamp.android.objects.WordCampDB;
-import org.wordcamp.android.objects.speaker.Session;
-import org.wordcamp.android.objects.speaker.SpeakerNew;
-import org.wordcamp.android.utils.WordCampUtils;
+import org.wordcamp.android.objects.wordcampv2.SessionV2;
+import org.wordcamp.android.objects.wordcampv2.Speaker;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,6 +21,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static org.wordcamp.android.utils.WCConstants.GRAVATAR_DEFAULT_SIZE;
 
 /**
  * Created by aagam on 27/1/15.
@@ -126,87 +127,65 @@ public class DBCommunicator {
                 new String[]{String.valueOf(wcid)});
     }
 
-    public long addSpeaker(SpeakerNew sk, int wcid) {
+    public long addSpeaker(Speaker sk, int wcid) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("wcid", wcid);
-        contentValues.put("name", sk.getTitle());
-        contentValues.put("speaker_bio", sk.getContent());
-        contentValues.put("postid", sk.getID());
-        contentValues.put("speaker_id", sk.getID());
+        contentValues.put("name", sk.getTitle().getRendered());
+        contentValues.put("speaker_bio", sk.getContent().getRendered());
+        contentValues.put("postid", sk.getId());
+        contentValues.put("speaker_id", sk.getId());
         contentValues.put("gsonobject", gson.toJson(sk));
-        contentValues.put("gravatar", sk.getAvatar().equals("") ? "null" :
-                sk.getAvatar().substring(0, sk.getAvatar().length() - 5) + "?s=120");
+        String avatarUrl = sk.getAvatarUrls().get96();
+
+        contentValues.put("gravatar", avatarUrl.equals("") ? "null" :
+                avatarUrl.replace("s=96", "s=" + GRAVATAR_DEFAULT_SIZE));
 
         long id = db.insertWithOnConflict("speaker", null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
 
         if (id == -1) {
             id = db.update("speaker", contentValues, " wcid = ? AND postid = ?",
-                    new String[]{String.valueOf(wcid), String.valueOf(sk.getID())});
+                    new String[]{String.valueOf(wcid), String.valueOf(sk.getId())});
         }
 
-        if (sk.getSessions().size() > 0)
-            addSessionFromSpeaker(sk.getSessions(), sk.getID(), wcid);
+        if (sk.getEmbedded().getSessions().size() > 0)
+            addSessionFromSpeaker(sk.getEmbedded().getSessions(), sk.getId(), wcid);
 
         return id;
     }
 
-    private void addSessionFromSpeaker(List<Session> sessions, int spid, int wcid) {
+    private void addSessionFromSpeaker(List<SessionV2> sessions, long spid, int wcid) {
         for (int i = 0; i < sessions.size(); i++) {
-            Session ss = sessions.get(i);
-
-            /*HashMap<String, String> map = WordCampUtils.getTimeAndTypeSession(ss);
-
-            ContentValues contentValues = new ContentValues();
-            contentValues.put("wcid", wcid);
-            contentValues.put("title", ss.getTitle());
-
-            contentValues.put("time", map.get("_wcpt_session_time"));
-
-            contentValues.put("postid", ss.getID());
-            if (ss.getTerms()!=null && ss.getTerms().getWcbTrack().size() == 1)
-                contentValues.put("location", ss.getTerms().getWcbTrack().get(0).getName());
-
-            contentValues.put("category", map.get("_wcpt_session_type"));
-            contentValues.put("gsonobject", gson.toJson(ss));
-
-            long id = db.insertWithOnConflict("session", null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
-
-            if (id == -1) {
-                contentValues.remove("wcid");
-                contentValues.remove("postid");
-                id = db.update("session", contentValues, " wcid = ? AND postid = ?",
-                        new String[]{String.valueOf(wcid), String.valueOf(ss.getID())});
-            }*/
-            mapSessionToSingleSpeaker(wcid, ss.getID(), spid);
+            SessionV2 ss = sessions.get(i);
+            mapSessionToSingleSpeaker(wcid, ss.getId(), spid);
         }
     }
 
-    private void mapSessionToSingleSpeaker(int wcid, int sid, int spid) {
+    private void mapSessionToSingleSpeaker(int wcid, long sid, long spid) {
         ContentValues values = new ContentValues();
         values.put("wcid", wcid);
         values.put("sessionid", sid);
         values.put("speakerid", spid);
 
-        long id = db.insertWithOnConflict("speakersessions", null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        db.insertWithOnConflict("speakersessions", null, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
 
-    public long addSession(org.wordcamp.android.objects.speaker.Session ss, int wcid) {
+    public long addSession(SessionV2 ss, int wcid) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("wcid", wcid);
-        contentValues.put("title", ss.getTitle());
-        HashMap<String, String> map = WordCampUtils.getTimeAndTypeSession(ss);
+        contentValues.put("title", ss.getTitle().getRendered());
 
         //Currently we are adding the sessions which are not getting fetched by Speakers API
 
 
-        contentValues.put("time", map.get("_wcpt_session_time"));
+        contentValues.put("time", ss.getMeta().getWcptSessionTime());
 
-        contentValues.put("postid", ss.getID());
-        if (ss.getTerms() != null && ss.getTerms().getWcbTrack().size() == 1)
-            contentValues.put("location", ss.getTerms().getWcbTrack().get(0).getName());
+        contentValues.put("postid", ss.getId());
+        if (ss.getEmbedded().getWpTerm() != null && ss.getEmbedded().getWpTerm().size() > 0
+                && ss.getEmbedded().getWpTerm().get(ss.getEmbedded().getWpTerm().size()-1).size() > 0)
+            contentValues.put("location", ss.getEmbedded().getWpTerm().get(ss.getEmbedded().getWpTerm().size()-1).get(0).getName());
 
-        contentValues.put("category", map.get("_wcpt_session_type"));
+        contentValues.put("category", ss.getMeta().getWcptSessionType());
         contentValues.put("gsonobject", gson.toJson(ss));
 
         long id = db.insertWithOnConflict("session", null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
@@ -215,7 +194,7 @@ public class DBCommunicator {
             contentValues.remove("wcid");
             contentValues.remove("postid");
             id = db.update("session", contentValues, " wcid = ? AND postid = ?",
-                    new String[]{String.valueOf(wcid), String.valueOf(ss.getID())});
+                    new String[]{String.valueOf(wcid), String.valueOf(ss.getId())});
         }
 
         return id;

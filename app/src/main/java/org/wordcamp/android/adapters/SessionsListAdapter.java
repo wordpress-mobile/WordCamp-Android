@@ -27,7 +27,6 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
     private Context ctx;
     private LayoutInflater inflater;
     private OnAddToMySessionListener listener;
-    private int singleLineSize, doubleLineSize;
 
     public SessionsListAdapter(Context ctx, List<SessionDB> dbList, HashMap<Integer, String> speakersForSession, OnAddToMySessionListener listener) {
         this.ctx = ctx;
@@ -35,8 +34,6 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
         this.list = dbList;
         this.speakersForSession = speakersForSession;
         inflater = LayoutInflater.from(ctx);
-        singleLineSize = (int) ctx.getResources().getDimension(R.dimen.single_line_list_item);
-        doubleLineSize = (int) ctx.getResources().getDimension(R.dimen.double_line_list_item);
     }
 
     @Override
@@ -61,8 +58,8 @@ public class SessionsListAdapter extends BaseAdapter implements StickyListHeader
             holder.location.setText(Html.fromHtml(sessionDB.getLocation()));
             if (speakersForSession.containsKey(sessionDB.getPost_id())) {
                 holder.speakers.setVisibility(View.VISIBLE);
-                holder.speakers.setText(ctx.getString(R.string.separator)
-                        + speakersForSession.get(sessionDB.getPost_id()));
+                holder.speakers.setText(String.format("%s%s", ctx.getString(R.string.separator)
+                        , speakersForSession.get(sessionDB.getPost_id())));
             } else {
                 holder.speakers.setVisibility(View.GONE);
             }
