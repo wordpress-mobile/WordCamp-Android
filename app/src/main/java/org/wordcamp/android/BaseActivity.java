@@ -26,7 +26,7 @@ import org.wordcamp.android.db.DBCommunicator;
 import org.wordcamp.android.networking.ResponseListener;
 import org.wordcamp.android.networking.WPAPIClient;
 import org.wordcamp.android.objects.WordCampDB;
-import org.wordcamp.android.objects.wordcampv2.WordCamp;
+import org.wordcamp.android.objects.wordcamp.WordCamp;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

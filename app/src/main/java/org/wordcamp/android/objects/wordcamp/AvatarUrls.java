@@ -1,5 +1,5 @@
 
-package org.wordcamp.android.objects.wordcampv2;
+package org.wordcamp.android.objects.wordcamp;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

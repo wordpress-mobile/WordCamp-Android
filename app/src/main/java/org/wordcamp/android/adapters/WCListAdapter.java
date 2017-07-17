@@ -69,7 +69,7 @@ public class WCListAdapter extends RecyclerView.Adapter<WCListAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 if (!wc.isMyWC) {
-                    listener.addToMyWC((int) wc.getWc_id(), position);
+                    listener.addToMyWC(wc.getWc_id(), position);
                     Picasso.with(ctx).load(R.drawable.ic_favorite_solid_24dp).into(holder.bookmark);
                     wc.isMyWC = true;
                     filteredWordCamps.set(position, wc);
@@ -77,7 +77,7 @@ public class WCListAdapter extends RecyclerView.Adapter<WCListAdapter.ViewHolder
                     Picasso.with(ctx).load(R.drawable.ic_favorite_outline_24dp).into(holder.bookmark);
                     wc.isMyWC = false;
                     filteredWordCamps.set(position, wc);
-                    listener.removeMyWC((int) wc.getWc_id(), position);
+                    listener.removeMyWC(wc.getWc_id(), position);
                 }
             }
         });

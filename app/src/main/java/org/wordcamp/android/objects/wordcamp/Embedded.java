@@ -1,5 +1,5 @@
 
-package org.wordcamp.android.objects.wordcampv2;
+package org.wordcamp.android.objects.wordcamp;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -13,7 +13,7 @@ public class Embedded {
 
     @SerializedName("sessions")
     @Expose
-    private List<SessionV2> sessions = null;
+    private List<Session> sessions = null;
 
     public List<List<WpTerm>> getWpTerm() {
         return wpTerm;
@@ -23,11 +23,11 @@ public class Embedded {
         this.wpTerm = wpTerm;
     }
 
-    public List<SessionV2> getSessions() {
+    public List<Session> getSessions() {
         return sessions;
     }
 
-    public void setSessions(List<SessionV2> sessions) {
+    public void setSessions(List<Session> sessions) {
         this.sessions = sessions;
     }
 }

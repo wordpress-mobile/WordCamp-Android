@@ -6,9 +6,9 @@ import com.android.volley.Response;
 
 import org.wordcamp.android.BuildConfig;
 import org.wordcamp.android.WordCampApplication;
-import org.wordcamp.android.objects.wordcampv2.SessionV2;
-import org.wordcamp.android.objects.wordcampv2.Speaker;
-import org.wordcamp.android.objects.wordcampv2.WordCamp;
+import org.wordcamp.android.objects.wordcamp.Session;
+import org.wordcamp.android.objects.wordcamp.Speaker;
+import org.wordcamp.android.objects.wordcamp.WordCamp;
 
 /**
  * Created by aagam on 14/1/15.
@@ -51,7 +51,7 @@ public class WPAPIClient {
     public static void getWordCampScheduleVolley(String wordcampURL, Context context, Response.ErrorListener errorListener,
                                          ResponseListener responseListener){
         WCRequest request = new WCRequest(normalizeWordCampUrl(wordcampURL) + QUERY_PARAM_SCHEDULE_V2,
-                SessionV2[].class, errorListener, responseListener);
+                Session[].class, errorListener, responseListener);
         request.setTag(context);
         WordCampApplication.requestQueue.add(request);
     }

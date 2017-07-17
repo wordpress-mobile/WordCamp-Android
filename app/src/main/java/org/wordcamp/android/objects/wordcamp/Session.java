@@ -1,12 +1,12 @@
 
-package org.wordcamp.android.objects.wordcampv2;
+package org.wordcamp.android.objects.wordcamp;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Speaker {
+public class Session {
 
     @SerializedName("id")
     @Expose
@@ -44,24 +44,18 @@ public class Speaker {
     @SerializedName("author")
     @Expose
     private long author;
-    @SerializedName("comment_status")
+    @SerializedName("featured_media")
     @Expose
-    private String commentStatus;
-    @SerializedName("ping_status")
-    @Expose
-    private String pingStatus;
+    private long featuredMedia;
     @SerializedName("template")
     @Expose
     private String template;
     @SerializedName("meta")
     @Expose
-    private List<Object> meta = null;
-    @SerializedName("speaker_group")
+    private Meta meta;
+    @SerializedName("session_track")
     @Expose
-    private List<Object> speakerGroup = null;
-    @SerializedName("avatar_urls")
-    @Expose
-    private AvatarUrls avatarUrls;
+    private List<Long> sessionTrack = null;
     @SerializedName("_embedded")
     @Expose
     private Embedded embedded;
@@ -163,20 +157,12 @@ public class Speaker {
         this.author = author;
     }
 
-    public String getCommentStatus() {
-        return commentStatus;
+    public long getFeaturedMedia() {
+        return featuredMedia;
     }
 
-    public void setCommentStatus(String commentStatus) {
-        this.commentStatus = commentStatus;
-    }
-
-    public String getPingStatus() {
-        return pingStatus;
-    }
-
-    public void setPingStatus(String pingStatus) {
-        this.pingStatus = pingStatus;
+    public void setFeaturedMedia(long featuredMedia) {
+        this.featuredMedia = featuredMedia;
     }
 
     public String getTemplate() {
@@ -187,28 +173,20 @@ public class Speaker {
         this.template = template;
     }
 
-    public List<Object> getMeta() {
+    public Meta getMeta() {
         return meta;
     }
 
-    public void setMeta(List<Object> meta) {
+    public void setMeta(Meta meta) {
         this.meta = meta;
     }
 
-    public List<Object> getSpeakerGroup() {
-        return speakerGroup;
+    public List<Long> getSessionTrack() {
+        return sessionTrack;
     }
 
-    public void setSpeakerGroup(List<Object> speakerGroup) {
-        this.speakerGroup = speakerGroup;
-    }
-
-    public AvatarUrls getAvatarUrls() {
-        return avatarUrls;
-    }
-
-    public void setAvatarUrls(AvatarUrls avatarUrls) {
-        this.avatarUrls = avatarUrls;
+    public void setSessionTrack(List<Long> sessionTrack) {
+        this.sessionTrack = sessionTrack;
     }
 
     public Embedded getEmbedded() {

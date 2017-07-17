@@ -5,7 +5,7 @@ import android.text.Spanned;
 
 import com.google.gson.Gson;
 
-import org.wordcamp.android.objects.wordcampv2.WordCamp;
+import org.wordcamp.android.objects.wordcamp.WordCamp;
 
 import java.io.Serializable;
 
@@ -83,8 +83,8 @@ public class WordCampDB implements Serializable {
         this.url = url;
     }
 
-    public long getWc_id() {
-        return wc_id;
+    public int getWc_id() {
+        return (int) wc_id;
     }
 
     public void setWc_id(long wc_id) {

@@ -21,9 +21,9 @@ import org.wordcamp.android.db.DBCommunicator;
 import org.wordcamp.android.networking.ResponseListener;
 import org.wordcamp.android.networking.WPAPIClient;
 import org.wordcamp.android.objects.WordCampDB;
-import org.wordcamp.android.objects.wordcampv2.SessionV2;
-import org.wordcamp.android.objects.wordcampv2.Speaker;
-import org.wordcamp.android.objects.wordcampv2.WordCamp;
+import org.wordcamp.android.objects.wordcamp.Session;
+import org.wordcamp.android.objects.wordcamp.Speaker;
+import org.wordcamp.android.objects.wordcamp.WordCamp;
 import org.wordcamp.android.wcdetails.MySessionsActivity;
 import org.wordcamp.android.wcdetails.SessionsFragment;
 import org.wordcamp.android.wcdetails.SpeakerFragment;
@@ -48,7 +48,7 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
         super.onCreate(savedInstanceState);
         initListener();
         wcdb = (WordCampDB) getIntent().getSerializableExtra("wc");
-        wcid = (int) wcdb.getWc_id();
+        wcid = wcdb.getWc_id();
         setContentView(R.layout.activity_wordcamp_detail);
         communicator = new DBCommunicator(this);
         communicator.start();
@@ -288,8 +288,8 @@ public class WordCampDetailActivity extends AppCompatActivity implements Session
         scheduleResponseListener = new ResponseListener() {
             @Override
             public void onResponseReceived(Object o) {
-                SessionV2[] sessions = (SessionV2[]) o;
-                for (SessionV2 session : sessions) {
+                Session[] sessions = (Session[]) o;
+                for (Session session : sessions) {
                     communicator.addSession(session, wcid);
                 }
                 Toast.makeText(getApplicationContext(), getString(R.string.update_sessions_toast), Toast.LENGTH_SHORT).show();

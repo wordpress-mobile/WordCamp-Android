@@ -23,7 +23,7 @@ import org.wordcamp.android.notifs.FavoriteSession;
 import org.wordcamp.android.objects.MiniSpeaker;
 import org.wordcamp.android.objects.SessionDB;
 import org.wordcamp.android.objects.SpeakerDB;
-import org.wordcamp.android.objects.wordcampv2.SessionV2;
+import org.wordcamp.android.objects.wordcamp.Session;
 import org.wordcamp.android.utils.WordCampUtils;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ import java.util.HashMap;
 public class SessionDetailsActivity extends AppCompatActivity {
 
     private SessionDB sessionDB;
-    private SessionV2 session;
+    private Session session;
     private ArrayList<MiniSpeaker> speakerList;
     private DBCommunicator communicator;
     private FavoriteSession fav;
@@ -53,7 +53,7 @@ public class SessionDetailsActivity extends AppCompatActivity {
 
     private void initGUI() {
         Gson gson = new Gson();
-        session = gson.fromJson(sessionDB.getGson_object(), SessionV2.class);
+        session = gson.fromJson(sessionDB.getGson_object(), Session.class);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);

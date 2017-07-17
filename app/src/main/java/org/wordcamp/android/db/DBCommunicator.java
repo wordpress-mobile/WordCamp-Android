@@ -12,8 +12,8 @@ import org.wordcamp.android.objects.MiniSpeaker;
 import org.wordcamp.android.objects.SessionDB;
 import org.wordcamp.android.objects.SpeakerDB;
 import org.wordcamp.android.objects.WordCampDB;
-import org.wordcamp.android.objects.wordcampv2.SessionV2;
-import org.wordcamp.android.objects.wordcampv2.Speaker;
+import org.wordcamp.android.objects.wordcamp.Session;
+import org.wordcamp.android.objects.wordcamp.Speaker;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,13 +29,11 @@ import static org.wordcamp.android.utils.WCConstants.GRAVATAR_DEFAULT_SIZE;
  */
 public class DBCommunicator {
 
-    private WCSQLiteHelper helper;
+    private final WCSQLiteHelper helper;
     private SQLiteDatabase db;
-    private Context ctx;
-    private String space = " ";
-
-
-    private Gson gson;
+    private final Context ctx;
+    private final String space = " ";
+    private final Gson gson;
 
     public DBCommunicator(Context ctx) {
         helper = new WCSQLiteHelper(ctx);
@@ -153,9 +151,9 @@ public class DBCommunicator {
         return id;
     }
 
-    private void addSessionFromSpeaker(List<SessionV2> sessions, long spid, int wcid) {
+    private void addSessionFromSpeaker(List<Session> sessions, long spid, int wcid) {
         for (int i = 0; i < sessions.size(); i++) {
-            SessionV2 ss = sessions.get(i);
+            Session ss = sessions.get(i);
             mapSessionToSingleSpeaker(wcid, ss.getId(), spid);
         }
     }
@@ -170,7 +168,7 @@ public class DBCommunicator {
     }
 
 
-    public long addSession(SessionV2 ss, int wcid) {
+    public long addSession(Session ss, int wcid) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("wcid", wcid);
         contentValues.put("title", ss.getTitle().getRendered());

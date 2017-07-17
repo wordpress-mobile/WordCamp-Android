@@ -18,7 +18,7 @@ public class Session {
     @Expose
     private String type;
     @Expose
-    private Author_ author;
+    private Author author;
     @Expose
     private String content;
     @Expose
@@ -61,7 +61,7 @@ public class Session {
     @Expose
     private String modifiedGmt;
     @Expose
-    private Meta___ meta;
+    private Meta meta;
     @Expose
     private Terms terms;
     @SerializedName("post_meta")
@@ -145,7 +145,7 @@ public class Session {
      * @return
      *     The author
      */
-    public Author_ getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
@@ -154,7 +154,7 @@ public class Session {
      * @param author
      *     The author
      */
-    public void setAuthor(Author_ author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 
@@ -469,7 +469,7 @@ public class Session {
      * @return
      *     The meta
      */
-    public Meta___ getMeta() {
+    public Meta getMeta() {
         return meta;
     }
 
@@ -478,7 +478,7 @@ public class Session {
      * @param meta
      *     The meta
      */
-    public void setMeta(Meta___ meta) {
+    public void setMeta(Meta meta) {
         this.meta = meta;
     }
 

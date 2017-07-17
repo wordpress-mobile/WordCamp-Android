@@ -33,7 +33,7 @@ import org.wordcamp.android.adapters.SpeakerDetailAdapter;
 import org.wordcamp.android.db.DBCommunicator;
 import org.wordcamp.android.objects.SessionDB;
 import org.wordcamp.android.objects.SpeakerDB;
-import org.wordcamp.android.objects.wordcampv2.Speaker;
+import org.wordcamp.android.objects.wordcamp.Speaker;
 import org.wordcamp.android.utils.Utils;
 import org.wordcamp.android.utils.WordCampUtils;
 
