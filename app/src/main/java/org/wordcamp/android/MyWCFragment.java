@@ -74,12 +74,6 @@ public class MyWCFragment extends Fragment implements WCListAdapter.WCListener, 
         });
     }
 
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
     public void stopRefresh() {
         refreshLayout.setRefreshing(false);
     }

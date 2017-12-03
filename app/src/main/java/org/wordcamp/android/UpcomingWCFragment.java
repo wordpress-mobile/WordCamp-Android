@@ -120,11 +120,6 @@ public class UpcomingWCFragment extends android.support.v4.app.Fragment implemen
         });
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
     public void updateList(List<WordCampDB> wordCampsList) {
         wordCampDBs = wordCampsList;
         sortWC();

@@ -20,9 +20,9 @@ import java.util.List;
  */
 public class SessionDetailAdapter extends BaseAdapter {
 
-    private Context mContext;
-    private List<MiniSpeaker> speakers;
-    private LayoutInflater inflater;
+    private final Context mContext;
+    private final List<MiniSpeaker> speakers;
+    private final LayoutInflater inflater;
 
     public SessionDetailAdapter(Context ctx, List<MiniSpeaker> speakerList){
         mContext = ctx;

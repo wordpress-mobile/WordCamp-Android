@@ -61,7 +61,7 @@ public class SpeakerNew {
     @Expose
     private String modifiedGmt;
     @Expose
-    private Meta_ meta;
+    private Meta meta;
     @Expose
     private List<Object> terms = new ArrayList<Object>();
     @SerializedName("post_meta")
@@ -473,7 +473,7 @@ public class SpeakerNew {
      * @return
      *     The meta
      */
-    public Meta_ getMeta() {
+    public Meta getMeta() {
         return meta;
     }
 
@@ -482,7 +482,7 @@ public class SpeakerNew {
      * @param meta
      *     The meta
      */
-    public void setMeta(Meta_ meta) {
+    public void setMeta(Meta meta) {
         this.meta = meta;
     }
 

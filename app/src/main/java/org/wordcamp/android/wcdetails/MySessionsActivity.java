@@ -24,7 +24,6 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
  */
 public class MySessionsActivity extends AppCompatActivity implements SessionsListAdapter.OnAddToMySessionListener {
 
-    private Toolbar toolbar;
     private DBCommunicator communicator;
     private int wcid;
     private FavoriteSession favoriteSession;
@@ -41,10 +40,9 @@ public class MySessionsActivity extends AppCompatActivity implements SessionsLis
     }
 
     private void initGUI() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.my_sessions_title));
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final List<SessionDB> sessionDBList = communicator.getFavoriteSessions(wcid);

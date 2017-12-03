@@ -1,17 +1,16 @@
 package org.wordcamp.android.utils;
 
 import org.wordcamp.android.objects.WordCampDB;
-import org.wordcamp.android.objects.speaker.Session;
-import org.wordcamp.android.objects.wordcamp.PostMetum;
-import org.wordcamp.android.objects.wordcamp.WordCampNew;
 
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+
+import static org.wordcamp.android.utils.WCConstants.GRAVATAR_DEFAULT_SIZE;
+import static org.wordcamp.android.utils.WCConstants.GRAVATAR_HIGH_RES_SIZE;
 
 /**
  * Created by aagam on 29/1/15.
@@ -95,31 +94,7 @@ public class WordCampUtils {
         return d.hashCode();
     }
 
-    public static HashMap<String, String> getTwitterAndUrl(WordCampNew wcn) {
-        List<PostMetum> meta = wcn.getPostMeta();
-
-        HashMap<String, String> map = new HashMap<>();
-        for (int i = 0; i < meta.size(); i++) {
-            PostMetum metum = meta.get(i);
-            map.put(metum.getKey(), metum.getValue());
-        }
-
-        return map;
-    }
-
-    public static HashMap<String, String> getTimeAndTypeSession(Session ss) {
-        List<org.wordcamp.android.objects.speaker.PostMetum> meta = ss.getPostMeta();
-
-        HashMap<String, String> map = new HashMap<>();
-        for (int i = 0; i < meta.size(); i++) {
-            org.wordcamp.android.objects.speaker.PostMetum metum = meta.get(i);
-            map.put(metum.getKey(), metum.getValue());
-        }
-
-        return map;
-    }
-
     public static String getHighResGravatar(String gravatar){
-        return gravatar.substring(0, gravatar.length() - 6) + "?s=500";
+        return gravatar.replace("s=" + GRAVATAR_DEFAULT_SIZE, "s=" + GRAVATAR_HIGH_RES_SIZE);
     }
 }

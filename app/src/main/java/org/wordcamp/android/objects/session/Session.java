@@ -54,7 +54,7 @@ class Session {
     @Expose
     private String modifiedGmt;
     @Expose
-    private Meta_ meta;
+    private Meta meta;
     @Expose
     private Foo foo;
     @SerializedName("featured_image")
@@ -428,7 +428,7 @@ class Session {
      * @return
      *     The meta
      */
-    public Meta_ getMeta() {
+    public Meta getMeta() {
         return meta;
     }
 
@@ -437,7 +437,7 @@ class Session {
      * @param meta
      *     The meta
      */
-    public void setMeta(Meta_ meta) {
+    public void setMeta(Meta meta) {
         this.meta = meta;
     }
 

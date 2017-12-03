@@ -22,7 +22,7 @@ public class WcbTrack {
     @Expose
     private String link;
     @Expose
-    private Meta____ meta;
+    private Meta meta;
 
     /**
      *
@@ -173,7 +173,7 @@ public class WcbTrack {
      * @return
      *     The meta
      */
-    public Meta____ getMeta() {
+    public Meta getMeta() {
         return meta;
     }
 
@@ -182,7 +182,7 @@ public class WcbTrack {
      * @param meta
      *     The meta
      */
-    public void setMeta(Meta____ meta) {
+    public void setMeta(Meta meta) {
         this.meta = meta;
     }
 

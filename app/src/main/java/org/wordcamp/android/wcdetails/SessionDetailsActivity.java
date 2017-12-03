@@ -23,7 +23,7 @@ import org.wordcamp.android.notifs.FavoriteSession;
 import org.wordcamp.android.objects.MiniSpeaker;
 import org.wordcamp.android.objects.SessionDB;
 import org.wordcamp.android.objects.SpeakerDB;
-import org.wordcamp.android.objects.speaker.Session;
+import org.wordcamp.android.objects.wordcamp.Session;
 import org.wordcamp.android.utils.WordCampUtils;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ import java.util.HashMap;
 public class SessionDetailsActivity extends AppCompatActivity {
 
     private SessionDB sessionDB;
-    private org.wordcamp.android.objects.speaker.Session session;
+    private Session session;
     private ArrayList<MiniSpeaker> speakerList;
     private DBCommunicator communicator;
     private FavoriteSession fav;
@@ -57,7 +57,6 @@ public class SessionDetailsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         View headerView = LayoutInflater.from(this).inflate(R.layout.item_header_session, null);
@@ -65,14 +64,14 @@ public class SessionDetailsActivity extends AppCompatActivity {
         TextView title = (TextView) findViewById(R.id.wc_detail_title);
         TextView subtitle = (TextView) findViewById(R.id.wc_detail_date);
         TextView info = (TextView) headerView.findViewById(R.id.wc_detail_abstract);
-        title.setText(Html.fromHtml(session.getTitle()));
-        info.setText(Html.fromHtml(session.getContent()));
-        if (session.getTerms() != null && session.getTerms().getWcbTrack().size() == 1) {
+        title.setText(Html.fromHtml(session.getTitle().getRendered()));
+        info.setText(Html.fromHtml(session.getContent().getRendered()));
+        if (session.getEmbedded().getWpTerm() != null && !session.getEmbedded().getWpTerm().isEmpty()) {
             String date = WordCampUtils.getFormattedDate(sessionDB.getTime());
             String time = WordCampUtils.getFormattedTime(sessionDB.getTime());
-            String track = session.getTerms().getWcbTrack().get(0).getName();
+            String track = sessionDB.getLocation();
             String sep = getString(R.string.separator);
-            subtitle.setText(date + sep + time + sep + Html.fromHtml(track));
+            subtitle.setText(String.format("%s%s%s%s%s", date, sep, time, sep, Html.fromHtml(track)));
         } else {
             subtitle.setText(WordCampUtils.getFormattedDate(sessionDB.getTime()));
         }

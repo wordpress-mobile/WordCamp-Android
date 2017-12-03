@@ -38,8 +38,8 @@ public abstract class CacheFragmentStatePagerAdapter extends FragmentStatePagerA
     private static final String STATE_PAGE_INDEX_PREFIX = "pageIndex:";
     private static final String STATE_PAGE_KEY_PREFIX = "page:";
 
-    private FragmentManager mFm;
-    private SparseArray<Fragment> mPages;
+    private final FragmentManager mFm;
+    private final SparseArray<Fragment> mPages;
 
     public CacheFragmentStatePagerAdapter(FragmentManager fm) {
         super(fm);
@@ -134,7 +134,7 @@ public abstract class CacheFragmentStatePagerAdapter extends FragmentStatePagerA
      * @param index index of the item in the adapter
      * @return key string for caching Fragment pages
      */
-    protected String createCacheIndex(int index) {
+    private String createCacheIndex(int index) {
         return STATE_PAGE_INDEX_PREFIX + index;
     }
 
@@ -144,7 +144,7 @@ public abstract class CacheFragmentStatePagerAdapter extends FragmentStatePagerA
      * @param position position of the item in the adapter
      * @return key string for caching Fragment pages
      */
-    protected String createCacheKey(int position) {
+    private String createCacheKey(int position) {
         return STATE_PAGE_KEY_PREFIX + position;
     }
 }

@@ -26,9 +26,8 @@ import org.wordcamp.android.db.DBCommunicator;
 import org.wordcamp.android.networking.ResponseListener;
 import org.wordcamp.android.networking.WPAPIClient;
 import org.wordcamp.android.objects.WordCampDB;
-import org.wordcamp.android.objects.wordcamp.WordCampNew;
+import org.wordcamp.android.objects.wordcamp.WordCamp;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -197,19 +196,20 @@ public class BaseActivity extends AppCompatActivity implements UpcomingWCFragmen
     public void onResponseReceived(Object o) {
         try {
             wordCampsList = new ArrayList<>();
-            WordCampNew[] wordCampNews = (WordCampNew[]) o;
-            for (WordCampNew wordcamp : wordCampNews) {
+            WordCamp[] wordCamps = (WordCamp[]) o;
+            for (WordCamp wordCamp : wordCamps) {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
-                Date d = sdf.parse(wordcamp.getModifiedGmt());
-                WordCampDB wordCampDB = new WordCampDB(wordcamp, d.toString());
+                Date d = sdf.parse(wordCamp.getModifiedGmt());
+                WordCampDB wordCampDB = new WordCampDB(wordCamp, d.toString());
                 if (!wordCampDB.getWc_start_date().isEmpty()) {
                     wordCampsList.add(wordCampDB);
                 }
             }
+
             communicator.addAllNewWC(wordCampsList);
             refreshAllFragmentsData();
             stopRefresh();
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             stopRefresh();
         }

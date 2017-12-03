@@ -1,19 +1,20 @@
 package org.wordcamp.android.objects;
 
+import android.text.Html;
+import android.text.Spanned;
+
 import com.google.gson.Gson;
 
-import org.wordcamp.android.objects.wordcamp.WordCampNew;
-import org.wordcamp.android.utils.WordCampUtils;
+import org.wordcamp.android.objects.wordcamp.WordCamp;
 
 import java.io.Serializable;
-import java.util.HashMap;
 
 /**
  * Created by aagam on 28/1/15.
  */
 public class WordCampDB implements Serializable {
 
-    private int wc_id;
+    private long wc_id;
     private String wc_title;
     private String wc_start_date;
     private String wc_end_date;
@@ -49,22 +50,21 @@ public class WordCampDB implements Serializable {
         this.about = about;
     }
 
-    public WordCampDB(WordCampNew wcs, String lastscanned) {
+    public WordCampDB(WordCamp wcs, String lastscanned) {
         gson = new Gson();
-        this.wc_id = wcs.getID();
-        this.wc_title = wcs.getTitle();
+        this.wc_id = wcs.getId();
+        this.wc_title = wcs.getTitle().getRendered();
         this.last_scanned_gmt = lastscanned;
         this.gson_object = gson.toJson(wcs);
 
-        HashMap<String, String> urlAndTwitterAndDate = WordCampUtils.getTwitterAndUrl(wcs);
-        this.wc_start_date = urlAndTwitterAndDate.get("Start Date (YYYY-mm-dd)");
-        this.wc_end_date = urlAndTwitterAndDate.get("End Date (YYYY-mm-dd)");
-        this.url = urlAndTwitterAndDate.get("URL");
-        this.twitter = urlAndTwitterAndDate.get("WordCamp Hashtag");
-        this.address = urlAndTwitterAndDate.get("Physical Address");
-        this.venue = urlAndTwitterAndDate.get("Venue Name");
-        this.location = urlAndTwitterAndDate.get("Location");
-        this.about = wcs.getContent();
+        this.wc_start_date = wcs.getStartDateYYYYMmDd();
+        this.wc_end_date = wcs.getEndDateYYYYMmDd();
+        this.url = wcs.getURL();
+        this.twitter = wcs.getTwitter();
+        this.address = wcs.getPhysicalAddress();
+        this.venue = wcs.getVenueName();
+        this.location = wcs.getLocation();
+        this.about = wcs.getContent().getRendered();
     }
 
     public String getFeatureImageUrl() {
@@ -84,15 +84,19 @@ public class WordCampDB implements Serializable {
     }
 
     public int getWc_id() {
-        return wc_id;
+        return (int) wc_id;
     }
 
-    public void setWc_id(int wc_id) {
+    public void setWc_id(long wc_id) {
         this.wc_id = wc_id;
     }
 
     public String getWc_title() {
         return wc_title;
+    }
+
+    public Spanned getFormattedWCTitle() {
+        return Html.fromHtml(wc_title);
     }
 
     public void setWc_title(String wc_title) {

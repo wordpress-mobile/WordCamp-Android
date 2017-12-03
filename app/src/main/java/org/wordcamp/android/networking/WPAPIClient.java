@@ -6,22 +6,22 @@ import com.android.volley.Response;
 
 import org.wordcamp.android.BuildConfig;
 import org.wordcamp.android.WordCampApplication;
-import org.wordcamp.android.objects.speaker.Session;
-import org.wordcamp.android.objects.speaker.SpeakerNew;
-import org.wordcamp.android.objects.wordcamp.WordCampNew;
+import org.wordcamp.android.objects.wordcamp.Session;
+import org.wordcamp.android.objects.wordcamp.Speaker;
+import org.wordcamp.android.objects.wordcamp.WordCamp;
 
 /**
  * Created by aagam on 14/1/15.
  */
 public class WPAPIClient {
 
-    private static final String QUERY_PARAM_SPEAKERS = "wp-json/posts?type=wcb_speaker&filter[posts_per_page]=100";
+    private static final String QUERY_PARAM_SPEAKERS_V2 = "wp-json/wp/v2/speakers?per_page=100&_embed=true&status=publish";
 
-    private static final String QUERY_PARAM_WORDCAMP_LIST = "wp-json/posts?type=wordcamp&filter[order]=DESC&filter[posts_per_page]=50";
+    private static final String QUERY_PARAM_WORDCAMP_LIST_V2 = "wp-json/wp/v2/wordcamps?per_page=100&status=wcpt-scheduled";
 
-    private static final String QUERY_PARAM_SCHEDULE = "wp-json/posts?type=wcb_session&filter[order]=DESC&filter[orderby]=modified&filter[posts_per_page]=100";
+    private static final String QUERY_PARAM_SCHEDULE_V2 = "wp-json/wp/v2/sessions?per_page=100&_embed=true&status=publish";
 
-    private static final String QUERY_PARAM_SINGLEWC = "wp-json/posts/";
+    private static final String QUERY_PARAM_SINGLEWC_V2 = "wp-json/wp/v2/wordcamps/";
 
     private static String normalizeWordCampUrl(String wordcampURL) {
         if (!wordcampURL.endsWith("/")) {
@@ -32,8 +32,8 @@ public class WPAPIClient {
 
     public static void getAllWCs(Context context, Response.ErrorListener errorListener,
                                       ResponseListener responseListener){
-        WCRequest request = new WCRequest(BuildConfig.CENTRAL_WORDCAMP_URL + QUERY_PARAM_WORDCAMP_LIST,
-                WordCampNew[].class, errorListener, responseListener);
+        WCRequest request = new WCRequest(BuildConfig.CENTRAL_WORDCAMP_URL + QUERY_PARAM_WORDCAMP_LIST_V2,
+                WordCamp[].class, errorListener, responseListener);
         request.setTag(context);
         WordCampApplication.requestQueue.cancelAll(context);
         WordCampApplication.requestQueue.add(request);
@@ -42,15 +42,15 @@ public class WPAPIClient {
 
     public static void getWordCampSpeakersVolley(String wordcampURL, Context context, Response.ErrorListener errorListener,
                                                  ResponseListener responseListener){
-        WCRequest request = new WCRequest(normalizeWordCampUrl(wordcampURL) + QUERY_PARAM_SPEAKERS,
-                SpeakerNew[].class, errorListener, responseListener);
+        WCRequest request = new WCRequest(normalizeWordCampUrl(wordcampURL) + QUERY_PARAM_SPEAKERS_V2,
+                Speaker[].class, errorListener, responseListener);
         request.setTag(context);
         WordCampApplication.requestQueue.add(request);
     }
 
     public static void getWordCampScheduleVolley(String wordcampURL, Context context, Response.ErrorListener errorListener,
                                          ResponseListener responseListener){
-        WCRequest request = new WCRequest(normalizeWordCampUrl(wordcampURL) + QUERY_PARAM_SCHEDULE,
+        WCRequest request = new WCRequest(normalizeWordCampUrl(wordcampURL) + QUERY_PARAM_SCHEDULE_V2,
                 Session[].class, errorListener, responseListener);
         request.setTag(context);
         WordCampApplication.requestQueue.add(request);
@@ -58,8 +58,8 @@ public class WPAPIClient {
 
     public static void getSingleWCVolley(int wcid, Context context, Response.ErrorListener errorListener,
                                                  ResponseListener responseListener){
-        WCRequest request = new WCRequest(BuildConfig.CENTRAL_WORDCAMP_URL + QUERY_PARAM_SINGLEWC + wcid,
-                WordCampNew.class, errorListener, responseListener);
+        WCRequest request = new WCRequest(BuildConfig.CENTRAL_WORDCAMP_URL + QUERY_PARAM_SINGLEWC_V2 + wcid,
+                WordCamp.class, errorListener, responseListener);
         request.setTag(context);
         WordCampApplication.requestQueue.add(request);
     }
