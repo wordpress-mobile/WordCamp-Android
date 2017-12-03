@@ -55,7 +55,6 @@ public class WCListAdapter extends RecyclerView.Adapter<WCListAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-
         final WordCampDB wc = filteredWordCamps.get(position);
         holder.title.setText(wc.getFormattedWCTitle());
         holder.date.setText(WordCampUtils.getProperDate(wc));
@@ -68,16 +67,17 @@ public class WCListAdapter extends RecyclerView.Adapter<WCListAdapter.ViewHolder
         holder.bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int holderPosition = holder.getAdapterPosition();
                 if (!wc.isMyWC) {
-                    listener.addToMyWC(wc.getWc_id(), position);
+                    listener.addToMyWC(wc.getWc_id(), holderPosition);
                     Picasso.with(ctx).load(R.drawable.ic_favorite_solid_24dp).into(holder.bookmark);
                     wc.isMyWC = true;
-                    filteredWordCamps.set(position, wc);
+                    filteredWordCamps.set(holderPosition, wc);
                 } else {
                     Picasso.with(ctx).load(R.drawable.ic_favorite_outline_24dp).into(holder.bookmark);
                     wc.isMyWC = false;
-                    filteredWordCamps.set(position, wc);
-                    listener.removeMyWC(wc.getWc_id(), position);
+                    filteredWordCamps.set(holderPosition, wc);
+                    listener.removeMyWC(wc.getWc_id(), holderPosition);
                 }
             }
         });
@@ -85,7 +85,7 @@ public class WCListAdapter extends RecyclerView.Adapter<WCListAdapter.ViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                WordCampDB wc = getItem(position);
+                WordCampDB wc = getItem(holder.getAdapterPosition());
                 wcSelectedListener.onWCSelected(wc);
             }
         });

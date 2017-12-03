@@ -98,7 +98,6 @@ public class SpeakerDetailsActivity extends AppCompatActivity {
         toolbar.setTitle(speakerDB.getName());
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
 
 
         // Load the high-resolution "zoomed-in" image.

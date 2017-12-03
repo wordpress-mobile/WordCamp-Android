@@ -57,7 +57,6 @@ public class SessionDetailsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         View headerView = LayoutInflater.from(this).inflate(R.layout.item_header_session, null);
@@ -72,7 +71,7 @@ public class SessionDetailsActivity extends AppCompatActivity {
             String time = WordCampUtils.getFormattedTime(sessionDB.getTime());
             String track = sessionDB.getLocation();
             String sep = getString(R.string.separator);
-            subtitle.setText(date + sep + time + sep + Html.fromHtml(track));
+            subtitle.setText(String.format("%s%s%s%s%s", date, sep, time, sep, Html.fromHtml(track)));
         } else {
             subtitle.setText(WordCampUtils.getFormattedDate(sessionDB.getTime()));
         }
