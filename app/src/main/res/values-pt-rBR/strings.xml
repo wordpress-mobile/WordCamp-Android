@@ -1,3 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name" translatable="false">WordCamp</string>
+    <string name="main_action_bar_title" translatable="false">WordCamp Central</string>
+    <string name="separator" translatable="false">" – "</string>
+
+    <string name="action_refresh">Atualizar</string>
+    <string name="action_webversion">Versão web</string>
+    <string name="action_search">Pesquisar WordCamps</string>
+    <string name="search_wc_hint">Pesquisar WordCamps</string>
+    <string name="action_feedback">Comentários</string>
+    <string name="action_wc_feedback">Comentários do WordCamp</string>
+    <string name="action_send">Enviar</string>
+    <string name="action_navigate">Navegar</string>
+    <string name="speaker_to_be_announced">Palestrantes ainda não anunciados</string>
+    <string name="schedule_to_be_announced">Calendário a ser anunciado</string>
+    <string name="wc_about">Sobre</string>
+    <string name="wc_location">Localização</string>
+    <string name="empty_mywordcamps">Nenhum WordCamp adicionado ainda</string>
+    <string name="empty_wordcamps">WordCamps ainda não sincronizados</string>
+    <string name="empty_mysessions">Nenhuma sessão favoritada</string>
+    <string name="update_overview_toast">Visão geral atualizada</string>
+    <string name="update_sessions_toast">Sessões atualizadas</string>
+    <string name="update_speakers_toast">Palestrantes atualizados</string>
+    <string name="feedback_url_not_available_toast">Este WordCamp ainda não publicou uma URL de comentários</string>
+    <string name="help_and_feedback">Comentários</string>
+    <string name="bug">Informar um erro?</string>
+    <string name="hint_description">Descrição</string>
+    <string name="hint_title">Título</string>
+    <string name="my_sessions_title">Minhas sessões</string>
+    <string name="upcoming_wc_title">Próximos</string>
+    <string name="my_wc_title">Favoritos</string>
+    <string name="wc_date">Encontro</string>
+    <string name="title_overview">Visão geral</string>
+    <string name="title_schedule">Cronograma</string>
+    <string name="title_speakers">Palestrantes</string>
+    <string name="title_sessions">Sessões</string>
+    <string name="no_network_toast">Nenhuma rede disponível</string>
+    <string name="visit_website">Visite o site</string>
+    <string name="add_to_calendar">Adicionar ao calendário</string>
+    <string name="about_description_fallback">Confira o site para mais informações</string>
+    <string name="multiple_speakers">e %d outros</string>
+    <string name="and">e</string>
 </resources>
