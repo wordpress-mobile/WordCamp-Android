@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-Translation-Revision-Date: 2015-12-07 12:20:32+0000
+Translation-Revision-Date: 2015-10-21 19:29:03+0000
 Plural-Forms: nplurals=2; plural=n != 1;
 Generator: GlotPress/2.4.0-alpha
-Language: es
+Language: es_CL
 -->
 <resources>
 	<string name="and">y</string>
-	<string name="multiple_speakers">y %d más</string>
-	<string name="feedback_url_not_available_toast">Esta WordCamp aún no ha publicado una URL de respuesta</string>
-	<string name="action_wc_feedback">Respuesta a la WordCamp</string>
+	<string name="multiple_speakers">y %d otros</string>
+	<string name="feedback_url_not_available_toast">Esta WordCamp aún no ha publicado una URL de retroalimentación</string>
+	<string name="action_wc_feedback">Retroalimentación a la WordCamp</string>
 	<string name="add_to_calendar">Añadir al calendario</string>
-	<string name="about_description_fallback">Visita la web para informarte</string>
+	<string name="about_description_fallback">Visita el sitio web para informarte</string>
 	<string name="wc_date">Fecha</string>
 	<string name="action_navigate">Navegar</string>
 	<string name="visit_website">Visitar Web</string>
 	<string name="my_wc_title">Favoritos</string>
-	<string name="no_network_toast">Ninguna red disponible</string>
-	<string name="empty_wordcamps">WordCamps aún sin sincronizar</string>
+	<string name="no_network_toast">No hay redes disponibles</string>
+	<string name="empty_wordcamps">Aún no se ha sincronizado los WordCamps</string>
 	<string name="upcoming_wc_title">Próximos</string>
 	<string name="action_webversion">Versión Web</string>
 	<string name="title_overview">Resumen</string>
@@ -32,9 +32,9 @@ Language: es
 	<string name="bug">¿Reportar un error?</string>
 	<string name="update_sessions_toast">Ponencias actualizadas</string>
 	<string name="help_and_feedback">Respuesta</string>
-	<string name="schedule_to_be_announced">Programa sin publicar</string>
-	<string name="speaker_to_be_announced">Ponentes sin publicar</string>
-	<string name="empty_mywordcamps">Sin WordCamps añadidas</string>
+	<string name="schedule_to_be_announced">Aún no se anuncia el programa</string>
+	<string name="speaker_to_be_announced">Aún no se anuncian los ponentes</string>
+	<string name="empty_mywordcamps">Sin WordCamps agregadas</string>
 	<string name="search_wc_hint">Buscar WordCamps</string>
 	<string name="update_overview_toast">Vista actualizada</string>
 	<string name="wc_location">Lugar</string>

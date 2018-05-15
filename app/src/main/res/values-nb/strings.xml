@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Translation-Revision-Date: 2015-10-28 08:33:17+0000
+Plural-Forms: nplurals=2; plural=n != 1;
+Generator: GlotPress/2.4.0-alpha
+Language: nb_NO
+-->
 <resources>
-	<string name="multiple_speakers">og %d andre</string>
 	<string name="and">og</string>
+	<string name="multiple_speakers">og %d andre</string>
 	<string name="feedback_url_not_available_toast">Denne WordCampen har ikke publisert tilbakemeldingslenke enda.</string>
 	<string name="action_wc_feedback">Tilbakemelding til WordCamp</string>
 	<string name="add_to_calendar">Legg til i kalender</string>
 	<string name="about_description_fallback">Besøk nettsiden for mer informasjon</string>
-	<string name="action_navigate">Naviger</string>
 	<string name="wc_date">Dato</string>
+	<string name="action_navigate">Naviger</string>
 	<string name="visit_website">Besøk nettside</string>
 	<string name="my_wc_title">Favoritter</string>
 	<string name="no_network_toast">Ingen nettverk tilgjengelig</string>
 	<string name="empty_wordcamps">WordCamper er ennå ikke synkronisert</string>
-	<string name="title_overview">Oversikt</string>
-	<string name="title_sessions">Økter</string>
-	<string name="my_sessions_title">Mine økter</string>
-	<string name="action_send">Send</string>
-	<string name="title_speakers">Foredragsholdere</string>
-	<string name="title_schedule">Timeplan</string>
-	<string name="action_webversion">Webversjon</string>
 	<string name="upcoming_wc_title">Kommende</string>
-	<string name="bug">Rapportere en feil?</string>
+	<string name="action_webversion">Webversjon</string>
+	<string name="title_overview">Oversikt</string>
+	<string name="title_schedule">Timeplan</string>
+	<string name="action_send">Send</string>
+	<string name="my_sessions_title">Mine økter</string>
+	<string name="title_speakers">Foredragsholdere</string>
+	<string name="title_sessions">Økter</string>
 	<string name="action_feedback">Tilbakemelding</string>
-	<string name="hint_description">Beskrivelse</string>
 	<string name="hint_title">Tittel</string>
+	<string name="hint_description">Beskrivelse</string>
+	<string name="bug">Rapportere en feil?</string>
 	<string name="update_sessions_toast">Oppdatert økter</string>
 	<string name="help_and_feedback">Tilbakemelding</string>
 	<string name="schedule_to_be_announced">Tidsplanen er ikke publisert enda</string>
 	<string name="speaker_to_be_announced">Foredragsholdere er ikke publisert enda</string>
-	<string name="action_search">Søk i WordCamper</string>
 	<string name="empty_mywordcamps">Ingen WordCamper lagt til enda</string>
 	<string name="search_wc_hint">Søk i WordCamper</string>
 	<string name="update_overview_toast">Oppdatert oversikt</string>
@@ -36,5 +41,6 @@
 	<string name="wc_about">Om</string>
 	<string name="empty_mysessions">Ingen økter er favorittmerket</string>
 	<string name="update_speakers_toast">Oppdatert foredragsholdere</string>
+	<string name="action_search">Søk i WordCamper</string>
 	<string name="action_refresh">Oppdater</string>
 </resources>

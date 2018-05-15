@@ -1,40 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Translation-Revision-Date: 2018-05-09 08:07:49+0000
+Plural-Forms: nplurals=2; plural=n != 1;
+Generator: GlotPress/2.4.0-alpha
+Language: it
+-->
 <resources>
-	<string name="multiple_speakers">e %d altri</string>
 	<string name="and">e</string>
-	<string name="action_wc_feedback">WordCamp Feedback</string>
+	<string name="multiple_speakers">e %d altri</string>
 	<string name="feedback_url_not_available_toast">Questo WordCamp non ha ancora pubblicato un URL di feedback</string>
-	<string name="about_description_fallback">Controlla il sito per ulteriori informazioni</string>
+	<string name="action_wc_feedback">WordCamp Feedback</string>
 	<string name="add_to_calendar">Aggiungi al calendario</string>
+	<string name="about_description_fallback">Controlla il sito per ulteriori informazioni</string>
 	<string name="wc_date">Data</string>
 	<string name="action_navigate">Naviga</string>
 	<string name="visit_website">Visita il sito web</string>
 	<string name="my_wc_title">Preferiti</string>
 	<string name="no_network_toast">Nessun network disponibile</string>
 	<string name="empty_wordcamps">WordCamp non è ancora sincronizzato</string>
-	<string name="title_speakers">Relatori</string>
 	<string name="upcoming_wc_title">Prossimo</string>
 	<string name="action_webversion">Versione per il web</string>
 	<string name="title_overview">Panoramica</string>
 	<string name="title_schedule">Programma</string>
-	<string name="my_sessions_title">Le mie sessioni</string>
 	<string name="action_send">Invia</string>
+	<string name="my_sessions_title">Le mie sessioni</string>
+	<string name="title_speakers">Relatori</string>
 	<string name="title_sessions">Sessioni</string>
-	<string name="action_feedback">Riscontro</string>
+	<string name="action_feedback">Feedback</string>
 	<string name="hint_title">Titolo</string>
-	<string name="bug">Segnalazione di un bug?</string>
 	<string name="hint_description">Descrizione</string>
-	<string name="schedule_to_be_announced">Programmato per essere annunciato</string>
-	<string name="update_speakers_toast">Relatori aggiornati</string>
-	<string name="speaker_to_be_announced">Realatori non ancora annunciati</string>
-	<string name="action_search">Cerca WordCamp</string>
-	<string name="search_wc_hint">Cerca WordCamp</string>
-	<string name="help_and_feedback">Riscontro</string>
-	<string name="empty_mywordcamps">Nessun WordCamp aggiunto</string>
+	<string name="bug">Segnalazione di un bug?</string>
 	<string name="update_sessions_toast">Sessioni aggiornate</string>
-	<string name="wc_location">Luogo</string>
+	<string name="help_and_feedback">Feedback</string>
+	<string name="schedule_to_be_announced">Programmato per essere annunciato</string>
+	<string name="speaker_to_be_announced">Realatori non ancora annunciati</string>
+	<string name="empty_mywordcamps">Nessun WordCamp aggiunto</string>
+	<string name="search_wc_hint">Cerca WordCamp</string>
 	<string name="update_overview_toast">Panoramica aggiornata</string>
+	<string name="wc_location">Luogo</string>
 	<string name="wc_about">A proposito</string>
 	<string name="empty_mysessions">Nessuna sessione aggiunta ai preferiti</string>
+	<string name="update_speakers_toast">Relatori aggiornati</string>
+	<string name="action_search">Cerca WordCamp</string>
 	<string name="action_refresh">Sessioni aggiornate</string>
 </resources>

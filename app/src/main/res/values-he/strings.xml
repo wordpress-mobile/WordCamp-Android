@@ -1,40 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Translation-Revision-Date: 2015-10-17 19:45:27+0000
+Plural-Forms: nplurals=2; plural=n != 1;
+Generator: GlotPress/2.4.0-alpha
+Language: he_IL
+-->
 <resources>
-	<string name="multiple_speakers">ו-%d אחרים</string>
 	<string name="and">וכן </string>
-	<string name="action_wc_feedback">משוב לוורדקאמפ</string>
+	<string name="multiple_speakers">ו-%d אחרים</string>
 	<string name="feedback_url_not_available_toast">וורדקאמפ זה טרם פרסם קישור למתן משובים</string>
-	<string name="about_description_fallback">למידע נוסף בקרו באתר</string>
+	<string name="action_wc_feedback">משוב לוורדקאמפ</string>
 	<string name="add_to_calendar">הוספת תזכורת ללוח שנה</string>
-	<string name="action_navigate">ניווט</string>
+	<string name="about_description_fallback">למידע נוסף בקרו באתר</string>
 	<string name="wc_date">תאריך</string>
+	<string name="action_navigate">ניווט</string>
 	<string name="visit_website">בקר באתר</string>
 	<string name="my_wc_title">מועדפים</string>
 	<string name="no_network_toast">אין גישת לרשת</string>
 	<string name="empty_wordcamps">וורדקאמפ עדיין לא סונכרן</string>
-	<string name="action_send">שלח</string>
-	<string name="title_schedule">לוח זמנים</string>
-	<string name="title_overview">סקירה</string>
+	<string name="upcoming_wc_title">בקרוב</string>
 	<string name="action_webversion">גרסה</string>
+	<string name="title_overview">סקירה</string>
+	<string name="title_schedule">לוח זמנים</string>
+	<string name="action_send">שלח</string>
+	<string name="my_sessions_title">ההרצאות שלי</string>
 	<string name="title_speakers">דוברים</string>
 	<string name="title_sessions">הרצאות</string>
-	<string name="my_sessions_title">ההרצאות שלי</string>
-	<string name="upcoming_wc_title">בקרוב</string>
-	<string name="hint_description">תאור</string>
-	<string name="hint_title">כותרת</string>
 	<string name="action_feedback">משוב</string>
+	<string name="hint_title">כותרת</string>
+	<string name="hint_description">תאור</string>
 	<string name="bug">דיווח על תקלות</string>
-	<string name="wc_about">אודות</string>
-	<string name="wc_location">מיקום</string>
-	<string name="help_and_feedback">משוב</string>
-	<string name="action_search">חיפוש וורדקאמפ</string>
-	<string name="update_speakers_toast">דוברים מעודכנים</string>
-	<string name="update_overview_toast">סקירה מעודכנת</string>
-	<string name="search_wc_hint">חיפוש וורדקאמפ</string>
-	<string name="empty_mywordcamps">טרם התווספו וורדקאמפים</string>
-	<string name="speaker_to_be_announced">טרם הוכרזו דוברים</string>
-	<string name="schedule_to_be_announced">טרם נקבע לוח זמנים</string>
 	<string name="update_sessions_toast">הרצאות מעודכנות</string>
+	<string name="help_and_feedback">משוב</string>
+	<string name="schedule_to_be_announced">טרם נקבע לוח זמנים</string>
+	<string name="speaker_to_be_announced">טרם הוכרזו דוברים</string>
+	<string name="empty_mywordcamps">טרם התווספו וורדקאמפים</string>
+	<string name="search_wc_hint">חיפוש וורדקאמפ</string>
+	<string name="update_overview_toast">סקירה מעודכנת</string>
+	<string name="wc_location">מיקום</string>
+	<string name="wc_about">אודות</string>
 	<string name="empty_mysessions">אין הרצאות מועדפות</string>
+	<string name="update_speakers_toast">דוברים מעודכנים</string>
+	<string name="action_search">חיפוש וורדקאמפ</string>
 	<string name="action_refresh">רענון</string>
 </resources>

@@ -1,40 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Translation-Revision-Date: 2015-11-11 15:50:13+0000
+Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;
+Generator: GlotPress/2.4.0-alpha
+Language: sk
+-->
 <resources>
 	<string name="and">a</string>
 	<string name="multiple_speakers">a %d ďalších</string>
-	<string name="action_wc_feedback">WordCamp Feedback</string>
 	<string name="feedback_url_not_available_toast">Tento WordCamp ešte nezverejnil URL pre spätnú väzbu</string>
+	<string name="action_wc_feedback">WordCamp Feedback</string>
 	<string name="add_to_calendar">Pridajte do kalendára</string>
 	<string name="about_description_fallback">Pozrite si webovú stránku pre viac informácií</string>
-	<string name="action_navigate">Navigovať</string>
 	<string name="wc_date">Dátum</string>
+	<string name="action_navigate">Navigovať</string>
 	<string name="visit_website">Navštívte webovú stránku</string>
 	<string name="my_wc_title">Obľúbené</string>
 	<string name="no_network_toast">Žiadne dostupné siete</string>
 	<string name="empty_wordcamps">WordCampy ešte nie sú synchronizované</string>
-	<string name="action_send">Odoslať</string>
-	<string name="title_schedule">Naplánovať</string>
-	<string name="title_overview">Prehľad</string>
-	<string name="action_webversion">Webová verzia</string>
 	<string name="upcoming_wc_title">Nadchádzajúce</string>
+	<string name="action_webversion">Webová verzia</string>
+	<string name="title_overview">Prehľad</string>
+	<string name="title_schedule">Naplánovať</string>
+	<string name="action_send">Odoslať</string>
+	<string name="my_sessions_title">Moje prednášky</string>
 	<string name="title_speakers">Rečníci</string>
 	<string name="title_sessions">Prednášky</string>
-	<string name="my_sessions_title">Moje prednášky</string>
-	<string name="bug">Nahlásiť chybu?</string>
-	<string name="hint_description">Popis</string>
-	<string name="hint_title">Nadpis</string>
 	<string name="action_feedback">Feedback</string>
-	<string name="action_search">Hľadajte WordCampy</string>
+	<string name="hint_title">Nadpis</string>
+	<string name="hint_description">Popis</string>
+	<string name="bug">Nahlásiť chybu?</string>
+	<string name="update_sessions_toast">Aktualizované prednášky</string>
 	<string name="help_and_feedback">Feedback</string>
-	<string name="search_wc_hint">Hľadaj WordCampy</string>
-	<string name="speaker_to_be_announced">Rečníci zatiaľ neboli oznámení</string>
-	<string name="update_overview_toast">Aktualizovaný prehľad</string>
-	<string name="empty_mywordcamps">Žiadne pridané WordCampy</string>
 	<string name="schedule_to_be_announced">Program bude oznámený</string>
+	<string name="speaker_to_be_announced">Rečníci zatiaľ neboli oznámení</string>
+	<string name="empty_mywordcamps">Žiadne pridané WordCampy</string>
+	<string name="search_wc_hint">Hľadaj WordCampy</string>
+	<string name="update_overview_toast">Aktualizovaný prehľad</string>
 	<string name="wc_location">Miesto</string>
-	<string name="update_speakers_toast">Aktualizovaní rečníci</string>
 	<string name="wc_about">O WordCamp</string>
 	<string name="empty_mysessions">Žiadne obľúbené prednášky</string>
-	<string name="update_sessions_toast">Aktualizované prednášky</string>
+	<string name="update_speakers_toast">Aktualizovaní rečníci</string>
+	<string name="action_search">Hľadajte WordCampy</string>
 	<string name="action_refresh">Obnoviť</string>
 </resources>

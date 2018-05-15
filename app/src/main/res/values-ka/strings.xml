@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Translation-Revision-Date: 2016-10-04 05:51:58+0000
+Plural-Forms: nplurals=1; plural=0;
+Generator: GlotPress/2.4.0-alpha
+Language: ka_GE
+-->
+<resources>
+	<string name="and">და</string>
+	<string name="multiple_speakers">და %d სხვა</string>
+	<string name="feedback_url_not_available_toast">ამ კონფერემციისათვის არ არის უკუკავშირის URL</string>
+	<string name="action_wc_feedback">უკუკავშირი</string>
+	<string name="add_to_calendar">კალენდარში დამატება</string>
+	<string name="about_description_fallback">ეწვიეთ საიტს დამატებითი ინფორმაციის მისაღებად</string>
+	<string name="wc_date">თარიღი</string>
+	<string name="action_navigate">გადასვლა</string>
+	<string name="visit_website">საიტზე გადასვლა</string>
+	<string name="my_wc_title">რჩეულები</string>
+	<string name="no_network_toast">ქსელი მიუწვდომელია</string>
+	<string name="empty_wordcamps">კონფერენციები ჯერ არ დასინქრონებულა</string>
+	<string name="upcoming_wc_title">მალე</string>
+	<string name="action_webversion">ვებ-ვერსია</string>
+	<string name="title_overview">მიმოხილვა</string>
+	<string name="title_schedule">განრიგი</string>
+	<string name="action_send">გაგზავნა</string>
+	<string name="my_sessions_title">ჩემი სესიები</string>
+	<string name="title_speakers">მონაწილეები</string>
+	<string name="title_sessions">სესიები</string>
+	<string name="action_feedback">უკუკავშირი</string>
+	<string name="hint_title">სათაური</string>
+	<string name="hint_description">აღწერა</string>
+	<string name="bug">შეცდომის დაფიქსირება</string>
+	<string name="update_sessions_toast">სესიები განახლებულია</string>
+	<string name="help_and_feedback">უკუკავშირი</string>
+	<string name="schedule_to_be_announced">განრიგი ჯერ არ გამოცხადებულა</string>
+	<string name="speaker_to_be_announced">მონაწილეები ჯერ არ გამოცხადებულა</string>
+	<string name="empty_mywordcamps">კონფერენცია ჯერ არ დამატებულა</string>
+	<string name="search_wc_hint">კონფერენციების ძებნა</string>
+	<string name="update_overview_toast">მიმოხილვის გვერდი განახლებულია</string>
+	<string name="wc_location">მდებარეობა</string>
+	<string name="wc_about">პროგრამის შესახებ</string>
+	<string name="empty_mysessions">არ არის რჩეული</string>
+	<string name="update_speakers_toast">მონაწილეები განახლებულია</string>
+	<string name="action_search">WordCamps-ის კონფერენციების ძებნა</string>
+	<string name="action_refresh">განახლება</string>
+</resources>

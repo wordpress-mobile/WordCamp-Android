@@ -1,38 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Translation-Revision-Date: 2016-12-06 08:05:49+0000
+Plural-Forms: nplurals=2; plural=n != 1;
+Generator: GlotPress/2.4.0-alpha
+Language: sv_SE
+-->
 <resources>
-	<string name="action_wc_feedback">WordCamp-feedback</string>
+	<string name="and">och</string>
+	<string name="multiple_speakers">och %d andra</string>
 	<string name="feedback_url_not_available_toast">Denna WordCamp har inte publicerat en feedback-URL än</string>
+	<string name="action_wc_feedback">WordCamp-feedback</string>
 	<string name="add_to_calendar">Lägg till i kalender</string>
 	<string name="about_description_fallback">Besök webbplatsen för mer information</string>
-	<string name="visit_website">Besök webbplats</string>
-	<string name="action_navigate">Navigation</string>
 	<string name="wc_date">Datum</string>
+	<string name="action_navigate">Navigation</string>
+	<string name="visit_website">Besök webbplats</string>
 	<string name="my_wc_title">Favoriter</string>
 	<string name="no_network_toast">Ingen nätverksanslutning</string>
 	<string name="empty_wordcamps">WordCamps har inte hämtats än</string>
-	<string name="title_schedule">Schema</string>
-	<string name="title_overview">Överblick</string>
-	<string name="action_webversion">Webbversion</string>
 	<string name="upcoming_wc_title">Kommande</string>
-	<string name="my_sessions_title">Mina tal</string>
+	<string name="action_webversion">Webbversion</string>
+	<string name="title_overview">Överblick</string>
+	<string name="title_schedule">Schema</string>
 	<string name="action_send">Skicka</string>
+	<string name="my_sessions_title">Mina tal</string>
 	<string name="title_speakers">Talare</string>
 	<string name="title_sessions">Tal</string>
-	<string name="hint_title">Titel</string>
 	<string name="action_feedback">Feedback</string>
-	<string name="bug">Rapportera en bugg?</string>
+	<string name="hint_title">Titel</string>
 	<string name="hint_description">Beskrivning</string>
-	<string name="help_and_feedback">Feedback</string>
+	<string name="bug">Rapportera en bugg?</string>
 	<string name="update_sessions_toast">Tal uppdaterade</string>
-	<string name="speaker_to_be_announced">Talare har ännu inte tillkännagivits</string>
+	<string name="help_and_feedback">Feedback</string>
 	<string name="schedule_to_be_announced">Schema inte klart än</string>
-	<string name="search_wc_hint">Sök WordCamp</string>
+	<string name="speaker_to_be_announced">Talare har ännu inte tillkännagivits</string>
 	<string name="empty_mywordcamps">Inga WordCamps tillagda än</string>
-	<string name="wc_location">Plats</string>
+	<string name="search_wc_hint">Sök WordCamp</string>
 	<string name="update_overview_toast">Överblick uppdaterad</string>
-	<string name="update_speakers_toast">Talare uppdaterade</string>
-	<string name="empty_mysessions">Inga tal markerade som favoriter</string>
+	<string name="wc_location">Plats</string>
 	<string name="wc_about">Om</string>
+	<string name="empty_mysessions">Inga tal markerade som favoriter</string>
+	<string name="update_speakers_toast">Talare uppdaterade</string>
 	<string name="action_search">Sök WordCamp</string>
 	<string name="action_refresh">Uppdatera</string>
 </resources>

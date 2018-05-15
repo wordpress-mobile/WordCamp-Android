@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-Translation-Revision-Date: 2015-12-07 12:20:32+0000
+Translation-Revision-Date: 2015-10-29 03:37:38+0000
 Plural-Forms: nplurals=2; plural=n != 1;
 Generator: GlotPress/2.4.0-alpha
-Language: es
+Language: es_VE
 -->
 <resources>
 	<string name="and">y</string>
-	<string name="multiple_speakers">y %d más</string>
+	<string name="multiple_speakers">y %d otros</string>
 	<string name="feedback_url_not_available_toast">Esta WordCamp aún no ha publicado una URL de respuesta</string>
 	<string name="action_wc_feedback">Respuesta a la WordCamp</string>
 	<string name="add_to_calendar">Añadir al calendario</string>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Translation-Revision-Date: 2016-09-21 08:06:06+0000
+Plural-Forms: nplurals=2; plural=n != 1;
+Generator: GlotPress/2.4.0-alpha
+Language: mr
+-->
+<resources>
+	<string name="and">आणि</string>
+	<string name="multiple_speakers">व %d इतर</string>
+	<string name="feedback_url_not_available_toast">या वर्डकॅम्प करिता अद्याप अभिप्राय संकेतक्षेत्र प्रकाशित झालेले नाही</string>
+	<string name="action_wc_feedback">वर्डकॅम्प अभिप्राय</string>
+	<string name="add_to_calendar">कॅलेंडर मध्ये नोंद करा </string>
+	<string name="about_description_fallback">अधिक माहितीसाठी वेबसाइट तपासा</string>
+	<string name="wc_date">तारीख</string>
+	<string name="action_navigate">नेव्हिगेट</string>
+	<string name="visit_website">वेबसाईटला भेट द्या </string>
+	<string name="my_wc_title">आवडते</string>
+	<string name="no_network_toast">नेटवर्क उपलब्ध नाही</string>
+	<string name="empty_wordcamps">अद्याप वर्डकॅम्प समक्रमित केलेले नाही</string>
+	<string name="upcoming_wc_title">आगामी</string>
+	<string name="action_webversion">वेब आवृत्ती</string>
+	<string name="title_overview">आढावा</string>
+	<string name="title_schedule">वेळापत्रक</string>
+	<string name="action_send">पाठवा</string>
+	<string name="my_sessions_title">माझे सत्र</string>
+	<string name="title_speakers">वक्ते </string>
+	<string name="title_sessions">सत्रे </string>
+	<string name="action_feedback">अभिप्राय</string>
+	<string name="hint_title">शीर्षक</string>
+	<string name="hint_description">वर्णन</string>
+	<string name="bug">बग बद्दल माहिती देत आहात?</string>
+	<string name="update_sessions_toast">अद्यतनित सत्रे </string>
+	<string name="help_and_feedback">अभिप्राय</string>
+	<string name="schedule_to_be_announced">वेळापत्रक जाहीर केले करणे</string>
+	<string name="speaker_to_be_announced">स्पीकर्स घोषणा अजून व्हायची आहे </string>
+	<string name="empty_mywordcamps">अद्याप कोणतेही वर्डकॅम्प जोडले नाही</string>
+	<string name="search_wc_hint">वर्डकॅम्प शोधा</string>
+	<string name="update_overview_toast">अद्यतनित आढावा</string>
+	<string name="wc_location">स्थान</string>
+	<string name="wc_about">बद्दल</string>
+	<string name="empty_mysessions">कोणतीही सत्रे फेव्हरटे केले नाही </string>
+	<string name="update_speakers_toast">अद्यतनित स्पीकर्स</string>
+	<string name="action_search">वर्डकॅम्प शोध </string>
+	<string name="action_refresh">रिफ्रेश</string>
+</resources>

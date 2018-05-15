@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Translation-Revision-Date: 2016-01-22 06:06:18+0000
+Plural-Forms: nplurals=1; plural=0;
+Generator: GlotPress/2.4.0-alpha
+Language: ko_KR
+-->
 <resources>
+	<string name="and">그리고</string>
+	<string name="multiple_speakers">외 %d 명</string>
 	<string name="feedback_url_not_available_toast">이 WordCamp는 피드백 주소를 공개하지 않았습니다.</string>
 	<string name="action_wc_feedback">WordCamp 피드백</string>
 	<string name="add_to_calendar">달력에 추가하기</string>
@@ -12,14 +20,14 @@
 	<string name="empty_wordcamps">WordCamp 목록이 동기화되지 않았습니다.</string>
 	<string name="upcoming_wc_title">다가오는 WordCamp</string>
 	<string name="action_webversion">웹버전</string>
-	<string name="my_sessions_title">내 세션</string>
-	<string name="action_send">보내기</string>
-	<string name="title_schedule">일정</string>
 	<string name="title_overview">개요</string>
-	<string name="title_sessions">세션</string>
+	<string name="title_schedule">일정</string>
+	<string name="action_send">보내기</string>
+	<string name="my_sessions_title">내 세션</string>
 	<string name="title_speakers">발표자</string>
-	<string name="hint_title">제목</string>
+	<string name="title_sessions">세션</string>
 	<string name="action_feedback">피드백</string>
+	<string name="hint_title">제목</string>
 	<string name="hint_description">설명</string>
 	<string name="bug">버그를 알리시겠습니까?</string>
 	<string name="update_sessions_toast">세션이 업데이트 되었습니다.</string>
@@ -29,8 +37,8 @@
 	<string name="empty_mywordcamps">추가한 WordCamp가 없습니다.</string>
 	<string name="search_wc_hint">WordCamp 검색</string>
 	<string name="update_overview_toast">개요가 업데이트 됨</string>
-	<string name="wc_about">소개</string>
 	<string name="wc_location">위치</string>
+	<string name="wc_about">소개</string>
 	<string name="empty_mysessions">즐겨찾기에 등록한 세션이 없습니다.</string>
 	<string name="update_speakers_toast">발표자 업데이트</string>
 	<string name="action_search">WordCamp 검색</string>

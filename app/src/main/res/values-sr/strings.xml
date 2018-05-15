@@ -1,38 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Translation-Revision-Date: 2016-04-26 14:22:52+0000
+Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);
+Generator: GlotPress/2.4.0-alpha
+Language: sr_RS
+-->
 <resources>
+	<string name="and">и</string>
+	<string name="multiple_speakers">и %d oстали</string>
 	<string name="feedback_url_not_available_toast">Вордкамп још увек није објавио URL за повратне информације</string>
 	<string name="action_wc_feedback">Повратна информација Вордкампа</string>
-	<string name="about_description_fallback">Проверите веб место за још информација</string>
 	<string name="add_to_calendar">Додај у календар</string>
-	<string name="visit_website">Посети веб место</string>
+	<string name="about_description_fallback">Проверите веб место за још информација</string>
 	<string name="wc_date">Датум</string>
 	<string name="action_navigate">Крећи се</string>
+	<string name="visit_website">Посети веб место</string>
 	<string name="my_wc_title">Омиљени</string>
 	<string name="no_network_toast">Нема доступне мреже</string>
 	<string name="empty_wordcamps">Вордкампови још увек нису усклађени</string>
-	<string name="title_schedule">Распоред</string>
 	<string name="upcoming_wc_title">Предстојећи</string>
-	<string name="title_sessions">Сесије</string>
-	<string name="my_sessions_title">Моје сесије</string>
-	<string name="title_overview">Преглед</string>
-	<string name="action_send">Пошаљи</string>
-	<string name="title_speakers">Предавачи</string>
 	<string name="action_webversion">Веб издање</string>
+	<string name="title_overview">Преглед</string>
+	<string name="title_schedule">Распоред</string>
+	<string name="action_send">Пошаљи</string>
+	<string name="my_sessions_title">Моје сесије</string>
+	<string name="title_speakers">Предавачи</string>
+	<string name="title_sessions">Сесије</string>
 	<string name="action_feedback">Повратна информација</string>
 	<string name="hint_title">Наслов</string>
 	<string name="hint_description">Опис</string>
 	<string name="bug">Пријављујете грешку?</string>
+	<string name="update_sessions_toast">Ажуриране сесије</string>
 	<string name="help_and_feedback">Повратна информација</string>
 	<string name="schedule_to_be_announced">Распоред предавања ће бити објављен</string>
 	<string name="speaker_to_be_announced">Предавачи ће бити објављени</string>
 	<string name="empty_mywordcamps">Нисте додали ниједан Вордкамп</string>
 	<string name="search_wc_hint">Претражи Вордкампове</string>
 	<string name="update_overview_toast">Ажурирани преглед</string>
+	<string name="wc_location">Локација</string>
 	<string name="wc_about">О </string>
 	<string name="empty_mysessions">Немате омиљених предавања</string>
 	<string name="update_speakers_toast">Ажурирани предавачи</string>
 	<string name="action_search">Претражи Вордкампове</string>
-	<string name="wc_location">Локација</string>
-	<string name="update_sessions_toast">Ажуриране сесије</string>
 	<string name="action_refresh">Освежи</string>
 </resources>

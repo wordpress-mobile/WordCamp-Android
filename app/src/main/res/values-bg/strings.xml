@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Translation-Revision-Date: 2016-06-13 10:41:47+0000
+Plural-Forms: nplurals=2; plural=n != 1;
+Generator: GlotPress/2.4.0-alpha
+Language: bg
+-->
+<resources>
+	<string name="and">и</string>
+	<string name="multiple_speakers">и %d други</string>
+	<string name="feedback_url_not_available_toast">Този WordCamp все още не е публикувал адрес за обратна връзка</string>
+	<string name="action_wc_feedback">Обратна връзка за WordCamp</string>
+	<string name="add_to_calendar">Добавяне към календара</string>
+	<string name="about_description_fallback">Проверяване на сайта за повече информация</string>
+	<string name="wc_date">Дата</string>
+	<string name="action_navigate">Навигиране</string>
+	<string name="visit_website">Посещение на сайта</string>
+	<string name="my_wc_title">Предпочитани</string>
+	<string name="no_network_toast">Няма достъпна мрежа</string>
+	<string name="empty_wordcamps">WordCamp събития, които още не са синхронизирани</string>
+	<string name="upcoming_wc_title">Предстои</string>
+	<string name="action_webversion">Версия за интернет</string>
+	<string name="title_overview">Преглед</string>
+	<string name="title_schedule">Програма</string>
+	<string name="action_send">Изпращане</string>
+	<string name="my_sessions_title">Моите сесии</string>
+	<string name="title_speakers">Лектори</string>
+	<string name="title_sessions">Сесии</string>
+	<string name="action_feedback">Обратна връзка</string>
+	<string name="hint_title">Заглавие</string>
+	<string name="hint_description">Описание</string>
+	<string name="bug">Съобщаване за грешка?</string>
+	<string name="update_sessions_toast">Обновени сесии</string>
+	<string name="help_and_feedback">Обратна връзка</string>
+	<string name="schedule_to_be_announced">Предстои обявяване на програмата</string>
+	<string name="speaker_to_be_announced">Предстои обявяване на лекторите</string>
+	<string name="empty_mywordcamps">Все още няма добавени WordCamp събития</string>
+	<string name="search_wc_hint">Търсене на WordCamp събития</string>
+	<string name="update_overview_toast">Обновен преглед</string>
+	<string name="wc_location">Местоположение</string>
+	<string name="wc_about">Относно</string>
+	<string name="empty_mysessions">Няма предпочитани сесии</string>
+	<string name="update_speakers_toast">Обновяване на лектори</string>
+	<string name="action_search">Търсене на WordCamp събития</string>
+	<string name="action_refresh">Презареждане</string>
+</resources>

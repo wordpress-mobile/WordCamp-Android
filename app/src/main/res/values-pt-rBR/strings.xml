@@ -1,3 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Translation-Revision-Date: 2016-05-25 21:20:31+0000
+Plural-Forms: nplurals=2; plural=(n > 1);
+Generator: GlotPress/2.4.0-alpha
+Language: pt_BR
+-->
 <resources>
+	<string name="and">e</string>
+	<string name="multiple_speakers">e %d outros</string>
+	<string name="feedback_url_not_available_toast">Este WordCamp ainda não publicou a URL de feedback</string>
+	<string name="action_wc_feedback">Feedback do WordCamp</string>
+	<string name="add_to_calendar">Adicionar ao calendário</string>
+	<string name="about_description_fallback">Confira o site para mais informações</string>
+	<string name="wc_date">Data</string>
+	<string name="action_navigate">Navegue</string>
+	<string name="visit_website">Visite o site</string>
+	<string name="my_wc_title">Favoritos</string>
+	<string name="no_network_toast">Nenhuma rede disponível</string>
+	<string name="empty_wordcamps">WordCamps ainda não foram sincronizados</string>
+	<string name="upcoming_wc_title">Próximos</string>
+	<string name="action_webversion">Versão web</string>
+	<string name="title_overview">Visão geral</string>
+	<string name="title_schedule">Programação</string>
+	<string name="action_send">Enviar</string>
+	<string name="my_sessions_title">Minhas palestras</string>
+	<string name="title_speakers">Palestrantes</string>
+	<string name="title_sessions">Palestras</string>
+	<string name="action_feedback">Feedback</string>
+	<string name="hint_title">Título</string>
+	<string name="hint_description">Descrição</string>
+	<string name="bug">Relatar um erro?</string>
+	<string name="update_sessions_toast">Palestras atualizadas</string>
+	<string name="help_and_feedback">Feedback</string>
+	<string name="schedule_to_be_announced">Agenda à ser anunciada</string>
+	<string name="speaker_to_be_announced">Palestrantes que ainda serão anunciados</string>
+	<string name="empty_mywordcamps">Nenhum WordCamp adicionado ainda</string>
+	<string name="search_wc_hint">Pesquisar WordCamps</string>
+	<string name="update_overview_toast">Visão geral atualizada</string>
+	<string name="wc_location">Localização</string>
+	<string name="wc_about">Sobre</string>
+	<string name="empty_mysessions">Nenhuma palestrada foi marcada como favorita</string>
+	<string name="update_speakers_toast">Palestrantes atualizados</string>
+	<string name="action_search">Pesquisar WordCamps</string>
+	<string name="action_refresh">Atualizar</string>
 </resources>

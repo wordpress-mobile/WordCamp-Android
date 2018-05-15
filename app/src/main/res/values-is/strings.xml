@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Translation-Revision-Date: 2017-01-04 23:08:32+0000
+Plural-Forms: nplurals=2; plural=(n % 100 != 1 && n % 100 != 21 && n % 100 != 31 && n % 100 != 41 && n % 100 != 51 && n % 100 != 61 && n % 100 != 71 && n % 100 != 81 && n % 100 != 91);
+Generator: GlotPress/2.4.0-alpha
+Language: is
+-->
 <resources>
+	<string name="and">og</string>
+	<string name="multiple_speakers">og %d aðrir</string>
+	<string name="feedback_url_not_available_toast">Þetta WordCamp hefur ekki birt vefslóð fyrir endurgjöf enn</string>
+	<string name="action_wc_feedback">WordCamp endurgjöf</string>
+	<string name="add_to_calendar">Bæta við á dagatal</string>
+	<string name="about_description_fallback">Skoðaðu vefinn fyrir frekari upplýsingar</string>
+	<string name="wc_date">Dagsetning</string>
+	<string name="action_navigate">Skoða</string>
+	<string name="visit_website">Skoða vef</string>
+	<string name="my_wc_title">Uppáhöld</string>
 	<string name="no_network_toast">Engin nettenging</string>
 	<string name="empty_wordcamps">WordCamp hafa ekki verið samkeyrð</string>
 	<string name="upcoming_wc_title">Væntanlegt</string>
@@ -10,21 +26,21 @@
 	<string name="my_sessions_title">Mínir fyrirlestrar</string>
 	<string name="title_speakers">Fyrirlesarar</string>
 	<string name="title_sessions">Fyrirlestrar</string>
-	<string name="bug">Tilkynna villu?</string>
-	<string name="hint_description">Lýsing</string>
-	<string name="hint_title">Fyrirsögn</string>
 	<string name="action_feedback">Endurgjöf</string>
-	<string name="action_search">Leita í WordCamps</string>
-	<string name="update_speakers_toast">Uppfæra fyrirlesara</string>
-	<string name="empty_mysessions">Engir eftirlætis fyrirlestrar enn</string>
-	<string name="wc_about">Um</string>
-	<string name="wc_location">Staðsetning</string>
-	<string name="update_overview_toast">Uppfæra yfirlit</string>
-	<string name="search_wc_hint">Leita í WordCamps</string>
-	<string name="empty_mywordcamps">Engu WordCamp bætt við enn</string>
-	<string name="speaker_to_be_announced">Fyrirlesarar verða kynntir síðar</string>
-	<string name="schedule_to_be_announced">Dagskrá verður kynnt síðar</string>
-	<string name="help_and_feedback">Endurgjöf</string>
+	<string name="hint_title">Fyrirsögn</string>
+	<string name="hint_description">Lýsing</string>
+	<string name="bug">Tilkynna villu?</string>
 	<string name="update_sessions_toast">Uppfæra fyrirlestra</string>
+	<string name="help_and_feedback">Endurgjöf</string>
+	<string name="schedule_to_be_announced">Dagskrá verður kynnt síðar</string>
+	<string name="speaker_to_be_announced">Fyrirlesarar verða kynntir síðar</string>
+	<string name="empty_mywordcamps">Engu WordCamp bætt við enn</string>
+	<string name="search_wc_hint">Leita í WordCamps</string>
+	<string name="update_overview_toast">Uppfæra yfirlit</string>
+	<string name="wc_location">Staðsetning</string>
+	<string name="wc_about">Um</string>
+	<string name="empty_mysessions">Engir eftirlætis fyrirlestrar enn</string>
+	<string name="update_speakers_toast">Uppfæra fyrirlesara</string>
+	<string name="action_search">Leita í WordCamps</string>
 	<string name="action_refresh">Endurhlaða</string>
 </resources>
