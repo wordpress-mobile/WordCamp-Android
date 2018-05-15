@@ -1,5 +1,7 @@
 cs,cs,Czech
-en-au,en-rAU,English(Australian)
+en-au,en-rAU,English(Australia)
+en-ca,en-rCA,English(Canada)
+en-gb,en-rGB,English(UK)
 en-us,en-rUS,English(US)
 fr,fr,French
 de,de,German
@@ -15,6 +17,8 @@ ro,ro,Romanian
 ru,ru,Russian
 sr,sr,Serbian
 es,es,Spanish(Spain)
+es-cl,es-rCL,Spanish(Chile)
+es-ve,es-rVE,Spanish(Venezuela)
 sv,sv,Swedish
 th,th,Thai
 tr,tr,Turkish
@@ -24,3 +28,6 @@ sk,sk,Slovak
 sq,sq,Albanian
 he,he,Hebrew
 hi,hi,Hindi
+mr,mr,Marathi
+bg,bg,Bulgarian
+ka,ka,Georgian
